@@ -381,8 +381,12 @@ const MobileNav = ({ items }: MobileNavProps) => {
         className={cn(
           "fixed top-4 left-4 right-4 z-50 rounded-xl transition-all duration-300",
           scrolled
-            ? "bg-[#81a1d4]/20 backdrop-blur-2xl border border-[#81a1d4]/30 shadow-[0_8px_32px_rgba(129,161,212,0.2)]"
-            : "bg-[#81a1d4]/15 backdrop-blur-2xl border border-[#81a1d4]/20 shadow-[0_4px_24px_rgba(129,161,212,0.15)]",
+            ? isDarkMode 
+              ? "bg-[#0f172a]/50 backdrop-blur-2xl border border-[#0f172a]/60 shadow-[0_8px_32px_rgba(15,23,42,0.5)]"
+              : "bg-[#81a1d4]/20 backdrop-blur-2xl border border-[#81a1d4]/30 shadow-[0_8px_32px_rgba(129,161,212,0.2)]"
+            : isDarkMode
+              ? "bg-[#0f172a]/45 backdrop-blur-2xl border border-[#0f172a]/50 shadow-[0_4px_24px_rgba(15,23,42,0.45)]"
+              : "bg-[#81a1d4]/15 backdrop-blur-2xl border border-[#81a1d4]/20 shadow-[0_4px_24px_rgba(129,161,212,0.15)]",
         )}
         initial={{ y: -10, opacity: 0 }}
         animate={{
@@ -393,8 +397,8 @@ const MobileNav = ({ items }: MobileNavProps) => {
       >
         {/* Enhanced glass effect background */}
         <div className="absolute inset-0 overflow-hidden rounded-xl">
-          <div className="absolute inset-0 bg-[#81a1d4]/10 backdrop-blur-3xl"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#81a1d4]/5 via-[#81a1d4]/8 to-[#81a1d4]/5"></div>
+          <div className={`absolute inset-0 backdrop-blur-3xl ${isDarkMode ? 'bg-[#0f172a]/15' : 'bg-[#81a1d4]/10'}`}></div>
+          <div className={`absolute inset-0 bg-gradient-to-r ${isDarkMode ? 'from-[#0f172a]/8 via-[#0f172a]/12 to-[#0f172a]/8' : 'from-[#81a1d4]/5 via-[#81a1d4]/8 to-[#81a1d4]/5'}`}></div>
           <div className="absolute inset-0 bg-white/5 backdrop-blur-2xl"></div>
         </div>
         
@@ -479,7 +483,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
 
             {/* Mobile Navigation Panel with refined design */}
             <motion.div
-              className="fixed inset-0 z-[100] bg-[#81a1d4]/95 backdrop-blur-xl overflow-auto will-change-transform"
+              className={`fixed inset-0 z-[100] backdrop-blur-xl overflow-auto will-change-transform ${isDarkMode ? 'bg-[#0f172a]/98' : 'bg-[#81a1d4]/95'}`}
               initial="hidden"
               animate="visible"
               exit="exit"
@@ -658,7 +662,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                         >
                                                       <a
                               href={link.href}
-                              className="group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-[#81a1d4]/50"
+                              className={`group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
                               onClick={(e) => {
                                 if (link.href.startsWith("http")) {
                                   window.open(link.href, "_blank")
@@ -739,7 +743,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                         >
                           <a
                             href={link.href}
-                            className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl hover:shadow-[#81a1d4]/50"
+                            className={`flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
                             onClick={(e) => {
                               e.preventDefault()
                               handleNavigation(link.href)
@@ -786,7 +790,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           href="https://www.facebook.com/profile.php?id=100057649952827"
                           target="_blank"
                           rel="nofollow noopener"
-                          className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl hover:shadow-[#81a1d4]/50"
+                          className={`flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
                         >
                           <motion.div
                             className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center shadow-sm"
@@ -816,7 +820,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           href="https://www.instagram.com/alfaschools/"
                           target="_blank"
                           rel="nofollow noopener"
-                          className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl hover:shadow-[#81a1d4]/50"
+                          className={`flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
                         >
                           <motion.div
                             className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center shadow-sm"
@@ -868,9 +872,9 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.35, duration: 0.4 }}
                     >
-                      <div className="p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-[#81a1d4]/50">
+                      <div className={`p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}>
                         <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#81a1d4] to-[#6b8bc4] flex items-center justify-center">
+                          <div className={`w-8 h-8 rounded-xl bg-gradient-to-br flex items-center justify-center ${isDarkMode ? 'from-[#0f172a] to-[#1e293b]' : 'from-[#81a1d4] to-[#6b8bc4]'}`}>
                             <Phone className="h-5 w-5 text-white" />
                           </div>
                           Χαλάνδρι
@@ -909,9 +913,9 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.4, duration: 0.4 }}
                     >
-                      <div className="p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-[#81a1d4]/50">
+                      <div className={`p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}>
                         <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#81a1d4] to-[#6b8bc4] flex items-center justify-center">
+                          <div className={`w-8 h-8 rounded-xl bg-gradient-to-br flex items-center justify-center ${isDarkMode ? 'from-[#0f172a] to-[#1e293b]' : 'from-[#81a1d4] to-[#6b8bc4]'}`}>
                             <Phone className="h-5 w-5 text-white" />
                           </div>
                           Νέα Φιλαδέλφεια

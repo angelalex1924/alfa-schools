@@ -125,8 +125,12 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
               className={cn(
           "p-1 rounded-xl transition-all duration-300 fixed top-4 left-4 right-4 z-[100] mx-auto flex items-center justify-between",
           scrolled
-            ? "bg-[#81a1d4]/20 backdrop-blur-2xl border border-[#81a1d4]/30 shadow-[0_8px_32px_rgba(129,161,212,0.2)]"
-            : "bg-[#81a1d4]/15 backdrop-blur-2xl border border-[#81a1d4]/20 shadow-[0_4px_24px_rgba(129,161,212,0.15)]",
+            ? isDarkMode 
+              ? "bg-[#0f172a]/50 backdrop-blur-2xl border border-[#0f172a]/60 shadow-[0_8px_32px_rgba(15,23,42,0.5)]"
+              : "bg-[#81a1d4]/20 backdrop-blur-2xl border border-[#81a1d4]/30 shadow-[0_8px_32px_rgba(129,161,212,0.2)]"
+            : isDarkMode
+              ? "bg-[#0f172a]/45 backdrop-blur-2xl border border-[#0f172a]/50 shadow-[0_4px_24px_rgba(15,23,42,0.45)]"
+              : "bg-[#81a1d4]/15 backdrop-blur-2xl border border-[#81a1d4]/20 shadow-[0_4px_24px_rgba(129,161,212,0.15)]",
           className,
         )}
       initial={{ y: -10, opacity: 0 }}
@@ -144,8 +148,8 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="absolute inset-0 bg-[#81a1d4]/10 backdrop-blur-3xl"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#81a1d4]/5 via-[#81a1d4]/8 to-[#81a1d4]/5"></div>
+          <div className={`absolute inset-0 backdrop-blur-3xl ${isDarkMode ? 'bg-[#0f172a]/20' : 'bg-[#81a1d4]/10'}`}></div>
+          <div className={`absolute inset-0 bg-gradient-to-r ${isDarkMode ? 'from-[#0f172a]/12 via-[#0f172a]/18 to-[#0f172a]/12' : 'from-[#81a1d4]/5 via-[#81a1d4]/8 to-[#81a1d4]/5'}`}></div>
           <div className="absolute inset-0 bg-white/5 backdrop-blur-2xl"></div>
         </motion.div>
 
@@ -367,9 +371,9 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
               <div className="p-2">
                 <a
                   href="tel:+302106800708"
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-[#81a1d4]/10 hover:text-[#81a1d4] transition-colors"
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 transition-colors ${isDarkMode ? 'hover:bg-[#0f172a]/20 hover:text-[#0f172a]' : 'hover:bg-[#81a1d4]/10 hover:text-[#81a1d4]'}`}
                 >
-                  <Phone className="h-4 w-4 text-[#81a1d4]" />
+                  <Phone className={`h-4 w-4 ${isDarkMode ? 'text-[#0f172a]' : 'text-[#81a1d4]'}`} />
                   <div>
                     <div className="text-sm font-medium">Χαλάνδρι</div>
                     <div className="text-xs text-gray-500">+30 210 6800 708</div>
@@ -377,9 +381,9 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                 </a>
                 <a
                   href="tel:+302102777725"
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-[#81a1d4]/10 hover:text-[#81a1d4] transition-colors"
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 transition-colors ${isDarkMode ? 'hover:bg-[#0f172a]/20 hover:text-[#0f172a]' : 'hover:bg-[#81a1d4]/10 hover:text-[#81a1d4]'}`}
                 >
-                  <Phone className="h-4 w-4 text-[#81a1d4]" />
+                  <Phone className={`h-4 w-4 ${isDarkMode ? 'text-[#0f172a]' : 'text-[#81a1d4]'}`} />
                   <div>
                     <div className="text-sm font-medium">Νέα Φιλαδέλφεια</div>
                     <div className="text-xs text-gray-500">+30 210 2777 725</div>
@@ -408,9 +412,9 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
               <div className="p-2">
                 <a
                   href="mailto:info@alfaschoolchalandri.com"
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-[#81a1d4]/10 hover:text-[#81a1d4] transition-colors"
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 transition-colors ${isDarkMode ? 'hover:bg-[#0f172a]/20 hover:text-[#0f172a]' : 'hover:bg-[#81a1d4]/10 hover:text-[#81a1d4]'}`}
                 >
-                  <Mail className="h-4 w-4 text-[#81a1d4] flex-shrink-0" />
+                  <Mail className={`h-4 w-4 flex-shrink-0 ${isDarkMode ? 'text-[#0f172a]' : 'text-[#81a1d4]'}`} />
                   <div>
                     <div className="text-sm font-medium">Χαλάνδρι</div>
                     <div className="text-xs text-gray-500">info@alfaschoolchalandri.com</div>
