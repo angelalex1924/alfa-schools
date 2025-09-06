@@ -7,6 +7,7 @@ import {Linkedin, Twitter, Mail, Phone} from 'lucide-react';
 import Image from 'next/image';
 import { AcronWebLogo } from './acron-web-logo';
 import StarBorder from './StarBorder';
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const tape = <svg xmlns="http://www.w3.org/2000/svg" width="95" height="80" viewBox="0 0 95 80" fill="none">
 <path d="M1 45L70.282 5L88.282 36.1769L19 76.1769L1 45Z" fill="#81a1d4"/>
@@ -15,6 +16,14 @@ const tape = <svg xmlns="http://www.w3.org/2000/svg" width="95" height="80" view
 
 export const Component = () => {
   const currentYear = new Date().getFullYear();
+  const { t, language } = useLanguage();
+  
+  // Helper function to get Google Maps URLs based on language
+  const getGoogleMapsUrl = (address: string | string[]) => {
+    const addressString = Array.isArray(address) ? address.join(' ') : address;
+    const encodedAddress = encodeURIComponent(addressString);
+    return `https://maps.google.com/?q=${encodedAddress}`;
+  };
   
 
 
@@ -43,37 +52,37 @@ export const Component = () => {
               />
             </div>
           </Link>
-          <p className='text-neutral/50 font-medium text-base w-full md:w-full leading-tight'>Μαζί από το 1986, με σεβασμό, αγάπη και αφοσίωση στη μάθηση.</p>
+          <p className='text-neutral/50 font-medium text-base w-full md:w-full leading-tight'>{t('footer.slogan')}</p>
           </div>
 
           <div className='flex flex-col md:mx-4 md:flex-row gap-2 md:gap-20 items-start md:items-start'>
 
           <div className='flex flex-col gap-1 md:gap-4'>
-          <h4 className='uppercase font-display text-md text-[#81a1d4] font-semibold'>Υπηρεσίες</h4>
+          <h4 className='uppercase font-display text-md text-[#81a1d4] font-semibold'>{t('navigation.services')}</h4>
           <div className="flex flex-wrap md:flex-col gap-2 text-sm text-neutral items-start ">
-            <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors' href="/services">Υπηρεσίες</Link>
-            <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors' href="/news">Τα νέα μας</Link>
-            <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors' href="/why-us">Γιατί εμάς</Link>
-            <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors' href="/contact">Επικοινωνία</Link>
+            <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors' href="/services">{t('navigation.services')}</Link>
+            <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors' href="/news">{t('navigation.news')}</Link>
+            <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors' href="/why-us">{t('navigation.whyUs')}</Link>
+            <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors' href="/contact">{t('navigation.contact')}</Link>
           </div>
           </div>
 
           <div className='flex flex-col gap-1 md:gap-4'>
-          <h4 className='uppercase whitespace-nowrap font-display text-md text-[#81a1d4] font-semibold'>Επικοινωνία</h4>
+          <h4 className='uppercase whitespace-nowrap font-display text-md text-[#81a1d4] font-semibold'>{t('navigation.contact')}</h4>
           <div className="flex gap-2 flex-wrap md:flex-col text-sm text-neutral items-start ">
             {/* Chalandri Center */}
             <div className="flex flex-col gap-1">
-              <p className="text-neutral/70 font-semibold text-xs">Χαλάνδρι</p>
+              <p className="text-neutral/70 font-semibold text-xs">{t('phoneNumbers.chalandri.title')}</p>
               <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="tel:+302106800708">
                 <Phone className="w-4 h-4" />
-                210 6800 708
+                {t('phoneNumbers.chalandri.number')}
               </Link>
-              <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="https://maps.google.com/?q=Ρούμελης+27,+Χαλάνδρι" target="_blank" rel="noopener noreferrer">
+              <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href={getGoogleMapsUrl(t('footer.addresses.chalandri'))} target="_blank" rel="noopener noreferrer">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                Ρούμελης 27, Χαλάνδρι 152 33
+                {t('footer.addresses.chalandri')}
               </Link>
               <div className="flex items-center gap-2 mb-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-neutral/60">
@@ -87,30 +96,44 @@ export const Component = () => {
                     </clipPath>
                   </defs>
                 </svg>
-                <p className="text-neutral/60 text-xs">Δευτέρα - Παρασκευή: 16:00 - 21:00</p>
+                <p className="text-neutral/60 text-xs">{t('footer.workingHours') || 'Δευτέρα - Παρασκευή: 16:00 - 21:00'}</p>
               </div>
               
               {/* Email for Chalandri */}
               <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="mailto:info@alfaschoolchalandri.com">
                 <Mail className="w-4 h-4" />
-                info@alfaschoolchalandri.com
+                {t('emails.chalandri.email')}
               </Link>
             </div>
             
             {/* Nea Filadelfeia Center */}
             <div className="flex flex-col gap-1">
-              <p className="text-neutral/70 font-semibold text-xs">Νέα Φιλαδέλφεια</p>
+              <p className="text-neutral/70 font-semibold text-xs">{t('phoneNumbers.neaPhiladelphia.title')}</p>
               <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="tel:+302102777725">
                 <Phone className="w-4 h-4" />
-                210 2777 725
+                {t('phoneNumbers.neaPhiladelphia.number')}
               </Link>
-              <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="https://maps.google.com/?q=Αγίου+Γεωργίου+15,+Νέα+Φιλαδέλφεια" target="_blank" rel="noopener noreferrer">
+              <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href={getGoogleMapsUrl(t('footer.addresses.neaPhiladelphia'))} target="_blank" rel="noopener noreferrer">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                Αγίου Γεωργίου 15, Νέα Φιλαδέλφεια Αττικής 143 42
+                {t('footer.addresses.neaPhiladelphia')}
               </Link>
+              <div className="flex items-center gap-2 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-neutral/60">
+                  <g clipPath="url(#clip0_4418_6317)">
+                    <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path opacity="0.4" d="M15.7099 15.1798L12.6099 13.3298C12.0699 13.0098 11.6299 12.2398 11.6299 11.6098V7.50977" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_4418_6317">
+                      <rect width="24" height="24" fill="white"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+                <p className="text-neutral/60 text-xs">{t('footer.workingHours') || 'Δευτέρα - Παρασκευή: 16:00 - 21:00'}</p>
+              </div>
             </div>
             
             <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="mailto:info@acronweb.com">
@@ -121,7 +144,7 @@ export const Component = () => {
           </div>
           
           <div className='flex flex-col gap-1 gap-4'>
-          <h4 className='uppercase whitespace-nowrap font-display text-md text-[#81a1d4] font-semibold'>Κοινωνικά Δίκτυα</h4>
+          <h4 className='uppercase whitespace-nowrap font-display text-md text-[#81a1d4] font-semibold'>{t('footer.socialMedia') || 'Κοινωνικά Δίκτυα'}</h4>
           <div className="flex flex-col gap-2 text-sm text-neutral items-start ">
             <a
               href="https://www.facebook.com/profile.php?id=100057649952827"
@@ -163,11 +186,11 @@ export const Component = () => {
       <div className="my-1 px-4 md:px-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 text-sm text-neutral">
         <div className="flex flex-col sm:flex-row gap-1 sm:gap-6 items-start sm:items-center">
           <p className="whitespace-nowrap">
-            ©{currentYear} Alfa School. All rights reserved.
+            ©{currentYear} {t('footer.copyright') || 'Alfa School. All rights reserved.'}
           </p>
           <div className="flex flex-row gap-3">
-            <Link href="/legal/privacy-policy" className="hover:text-[#81a1d4] transition-colors">Privacy Policy</Link>
-            <Link href="/legal/tos" className="hover:text-[#81a1d4] transition-colors">Terms &#38; Conditions</Link>
+            <Link href="/legal/privacy-policy" className="hover:text-[#81a1d4] transition-colors">{t('navigation.privacy')}</Link>
+            <Link href="/legal/tos" className="hover:text-[#81a1d4] transition-colors">{t('navigation.terms')}</Link>
           </div>
         </div>
 
@@ -180,7 +203,7 @@ export const Component = () => {
             thickness={2}
           >
             <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Powered and Developed by</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">{t('footer.poweredBy') || 'Powered and Developed by'}</span>
               <div className="w-px h-3 bg-gray-300 dark:bg-gray-600"></div>
               <AcronWebLogo size="xs" className="opacity-80 hover:opacity-100 transition-opacity duration-200" />
             </div>

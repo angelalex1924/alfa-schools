@@ -29,6 +29,8 @@ import { ModernThemeToggle } from "./ModernThemeToggle"
 import { HamburgerMenu } from "./hamburger-menu"
 import Image from "next/image"
 import { useTheme } from "@/contexts/ThemeContext"
+import { LanguageSwitcher } from "./LanguageSwitcher"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 // AcronAI SVG Icon
 const AcronAIIcon = ({ className }: { className?: string }) => (
@@ -136,38 +138,10 @@ const MobileNav = ({ items }: MobileNavProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const [animationComplete, setAnimationComplete] = useState(false)
   const { isDarkMode, toggleTheme } = useTheme()
+  const { t } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
-  const isGreek = false
-
-  // Δημιουργούμε μια απλή συνάρτηση t για να χειριστούμε τις μεταφράσεις
-  const t = (key: string) => {
-    // Βασικές μεταφράσεις για το navbar
-    const translations: Record<string, string> = {
-      "navigation.home": "Home",
-      "navigation.portfolio": "Portfolio",
-      "navigation.whyUs": "Why Us?",
-      "navigation.services": "Services",
-      "navigation.contact": "Contact",
-      "navigation.playground": "Playground",
-      "navigation.privacy": "Privacy",
-      "navigation.terms": "Terms",
-      "navigation.digitalSolutions": "Digital Solutions",
-      "navigation.acronAI": "ACRONAI",
-      "quickLinks.title": "Quick Links",
-      "quickLinks.legal": "Legal & Contact",
-      "hero.subtitle": "Professional web development services tailored to your needs",
-      "contact.needHelp": "Need Help?",
-      "contact.teamReady": "Our team is ready to assist you with any questions.",
-      "contact.call": "Call",
-      "contact.email": "Email",
-      "playground.tryInteractive": "Try our interactive demos",
-      "acronAI.description": "Chat with our AI assistant",
-    }
-
-    return translations[key] || key
-  }
 
   // Update the toggleMenu function to handle state changes more efficiently
   const toggleMenu = () => {
@@ -274,37 +248,37 @@ const MobileNav = ({ items }: MobileNavProps) => {
   }
 
   // Main navigation links - Same as GlowMenu with proper branding colors
-  const mainNavigationLinks = [
-    {
-      label: "Home",
-      href: "/",
-      icon: Home,
+    const mainNavigationLinks = [
+      {
+        label: t('navigation.home'),
+        href: "/",
+        icon: Home,
       color: "bg-gradient-to-br from-blue-500 to-blue-600",
       hoverEffect: "hover:shadow-blue-500/20",
     },
     {
-      label: "Υπηρεσίες",
+      label: t('navigation.services'),
       href: "/services",
       icon: Settings,
       color: "bg-gradient-to-br from-[#c9b6e4] to-[#a78fd8]",
       hoverEffect: "hover:shadow-[#c9b6e4]/20",
     },
     {
-      label: "Τα νέα μας",
+      label: t('navigation.news'),
       href: "/news",
       icon: Newspaper,
       color: "bg-gradient-to-br from-[#f78da7] to-[#f06292]",
       hoverEffect: "hover:shadow-[#f78da7]/20",
     },
     {
-      label: "Γιατί εμάς",
+      label: t('navigation.whyUs'),
       href: "/why-us",
       icon: Users,
       color: "bg-gradient-to-br from-[#fabeb6] to-[#f8a5a5]",
       hoverEffect: "hover:shadow-[#fabeb6]/20",
     },
     {
-      label: "Επικοινωνία",
+      label: t('navigation.contact'),
       href: "/contact",
       icon: Phone,
       color: "bg-gradient-to-br from-[#fde7dc] to-[#fad4c4]",
@@ -424,29 +398,11 @@ const MobileNav = ({ items }: MobileNavProps) => {
 
           {/* Theme toggle button */}
           <div className="flex items-center gap-2">
-            {/* Ultra-modern Language Switcher */}
-            <a href="https://www.acronweb.gr" className="relative group">
-              <motion.div
-                className="w-8 h-8 flex items-center justify-center"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-800 rounded-full opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-                <div className="absolute inset-0 bg-white dark:bg-gray-800 rounded-full scale-[0.85] shadow-sm"></div>
-                <div className="relative z-10 flex items-center justify-center">
-                  <Languages className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                </div>
-                {/* Always visible language badge */}
-                <div className="absolute -top-1 -right-1 flex items-center justify-center">
-                  <div className="flex items-center justify-center w-4 h-4 bg-blue-600 dark:bg-blue-500 text-white text-[8px] font-bold rounded-full border border-white dark:border-gray-800">
-                    EL
-                  </div>
-                </div>
-                <div className="absolute bottom-[-18px] left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 text-xs font-medium text-blue-600 dark:text-blue-400 px-1.5 py-0.5 rounded-full border border-blue-100 dark:border-gray-700 opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap shadow-sm">
-                  Αλλαγή σε Ελληνικά
-                </div>
-              </motion.div>
-            </a>
+            {/* Language Switcher */}
+            <LanguageSwitcher 
+              className={cn(scrolled ? "bg-white/50 dark:bg-gray-800/50" : "")}
+              compact={true}
+            />
 
             <ModernThemeToggle
               isDarkMode={isDarkMode}
@@ -563,7 +519,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     >
                       <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
-                        Φροντιστήρια Ξένων Γλωσσών
+                        {t('hero.title')}
                       </span>
                     </motion.div>
                     <div className="flex items-center">
@@ -583,54 +539,20 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           <path d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM11.61 11.84C11.61 14.92 10.94 15.61 9.15 16.67C9.03 16.74 8.9 16.77 8.77 16.77C8.51 16.77 8.26 16.64 8.12 16.4C7.91 16.04 8.03 15.58 8.38 15.37C9.59 14.65 10.01 14.39 10.09 12.58H8.19C7.1 12.58 6.25 11.73 6.25 10.64V9.16C6.25 8.07 7.1 7.22 8.19 7.22H9.68C10.75 7.22 11.62 8.09 11.62 9.16V11.84H11.61ZM17.75 11.84C17.75 14.92 17.08 15.61 15.29 16.67C15.17 16.74 15.04 16.77 14.91 16.77C14.65 16.77 14.4 16.64 14.26 16.4C14.05 16.04 14.17 15.58 14.52 15.37C15.73 14.65 16.15 14.39 16.23 12.58H14.32C13.23 12.58 12.38 11.73 12.38 10.64V9.16C12.38 8.07 13.23 7.22 14.32 7.22H15.81C16.88 7.22 17.75 8.09 17.75 9.16V11.84Z"/>
                         </svg>
                         <p className="text-sm text-white/90 italic font-medium leading-relaxed pl-6 pr-2">
-                          Μαζί από το 1986, με σεβασμό, αγάπη και αφοσίωση στη μάθηση.
+                          {t('footer.slogan')}
                         </p>
                       </div>
                     </div>
                   </motion.div>
 
-                  {/* Ultra-modern Language Switcher in menu */}
+                  {/* Language Switcher in menu */}
                   <motion.div
                     className="mb-6"
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15, duration: 0.5 }}
                   >
-                    <div className="flex items-center gap-3">
-                      <a
-                        href="https://www.acronweb.gr"
-                        className="flex-1 flex items-center gap-3 p-3 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 shadow-sm hover:shadow-md transition-all duration-300 border border-blue-100/50 dark:border-blue-800/30"
-                      >
-                        <div className="relative">
-                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-800 flex items-center justify-center text-white shadow-md">
-                            <Languages className="h-6 w-6" />
-                          </div>
-                          <motion.div
-                            className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center bg-white dark:bg-gray-800 border-2 border-blue-500 dark:border-blue-400"
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                          >
-                            <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400">
-                              EL
-                            </span>
-                          </motion.div>
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                            Αλλαγή σε Ελληνικά
-                          </p>
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            Προβολή περιεχομένου στα Ελληνικά
-                          </p>
-                        </div>
-                        <motion.div
-                          whileHover={{ x: 3 }}
-                          className="bg-blue-100 dark:bg-blue-900/30 w-8 h-8 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400"
-                        >
-                          <ChevronRight className="h-5 w-5" />
-                        </motion.div>
-                      </a>
-                    </div>
+                    <LanguageSwitcher mobile={true} />
                   </motion.div>
 
                   {/* Main Navigation Links - Same as GlowMenu */}
@@ -642,7 +564,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                   >
                     <h3 className="text-sm font-medium text-white mb-4 flex items-center">
                       <Star className="h-3.5 w-3.5 mr-1.5 text-amber-500" />
-                      Main Navigation
+                      {t('navigation.main') || 'Main Navigation'}
                     </h3>
                     <div className="grid grid-cols-1 gap-3">
                       {mainNavigationLinks.map((link, index) => (
@@ -690,11 +612,11 @@ const MobileNav = ({ items }: MobileNavProps) => {
                                 {link.label}
                               </h4>
                               <p className="text-sm text-gray-600 dark:text-white/80 mt-1">
-                                {link.label === "Home" && "Αρχική σελίδα"}
-                                {link.label === "Υπηρεσίες" && "Εξειδικευμένες υπηρεσίες"}
-                                {link.label === "Τα νέα μας" && "Τελευταία νέα και ενημερώσεις"}
-                                {link.label === "Γιατί εμάς" && "Ανακαλύψτε τα πλεονεκτήματά μας"}
-                                {link.label === "Επικοινωνία" && "Επικοινωνήστε μαζί μας"}
+                                {link.label === t('navigation.home') && (t('navigation.homeDescription') || "Αρχική σελίδα")}
+                                {link.label === t('navigation.services') && (t('navigation.servicesDescription') || "Εξειδικευμένες υπηρεσίες")}
+                                {link.label === t('navigation.news') && (t('navigation.newsDescription') || "Τελευταία νέα και ενημερώσεις")}
+                                {link.label === t('navigation.whyUs') && (t('navigation.whyUsDescription') || "Ανακαλύψτε τα πλεονεκτήματά μας")}
+                                {link.label === t('navigation.contact') && (t('navigation.contactDescription') || "Επικοινωνήστε μαζί μας")}
                               </p>
                             </div>
                             
@@ -723,7 +645,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                   >
                     <h3 className="text-sm font-medium text-white mb-3 flex items-center">
                       <Star className="h-3.5 w-3.5 mr-1.5 text-amber-500" />
-                      {t("quickLinks.legal")}
+                      {t("navigation.legal") || "Legal & Contact"}
                     </h3>
                     <div className="grid grid-cols-2 gap-3">
                       {additionalLinks.map((link, index) => (
@@ -776,7 +698,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                   >
                     <h3 className="text-sm font-medium text-white mb-3 flex items-center">
                       <Globe className="h-3.5 w-3.5 mr-1.5 text-[#81a1d4]" />
-                      Κοινωνικά Δίκτυα
+                       {t('footer.socialMedia')}
                     </h3>
                     <div className="grid grid-cols-2 gap-3">
                       <motion.div
@@ -859,9 +781,9 @@ const MobileNav = ({ items }: MobileNavProps) => {
                   >
                     <h3 className="text-sm font-medium text-white mb-3 flex items-center">
                       <Mail className="h-3.5 w-3.5 mr-1.5 text-[#81a1d4]" />
-                      Χρειάζεστε βοήθεια;
+                       {t('contact.needHelp')}
                     </h3>
-                    <p className="text-sm text-white/80 mb-4">Η ομάδα μας είναι έτοιμη να σας βοηθήσει με οποιαδήποτε ερώτηση.</p>
+                    <p className="text-sm text-white/80 mb-4">{t('contact.helpDescription')}</p>
                     
                     {/* Χαλάνδρι */}
                     <motion.div
@@ -877,7 +799,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           <div className={`w-8 h-8 rounded-xl bg-gradient-to-br flex items-center justify-center ${isDarkMode ? 'from-[#0f172a] to-[#1e293b]' : 'from-[#81a1d4] to-[#6b8bc4]'}`}>
                             <Phone className="h-5 w-5 text-white" />
                           </div>
-                          Χαλάνδρι
+                           {t('phoneNumbers.chalandri.title')}
                         </h4>
                         <div className="space-y-3">
                           <a
@@ -885,20 +807,20 @@ const MobileNav = ({ items }: MobileNavProps) => {
                             className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 hover:from-green-500/30 hover:to-emerald-500/30 transition-all duration-300 border border-green-500/20"
                           >
                             <Phone className="h-5 w-5 text-green-500" />
-                            <div>
-                              <div className="text-sm font-medium text-white">Τηλέφωνο</div>
-                              <div className="text-xs text-green-300">+30 210 6800 708</div>
-                            </div>
+                              <div>
+                                <div className="text-sm font-medium text-white">{t('contact.phone')}</div>
+                                <div className="text-xs text-green-300">+30 210 6800 708</div>
+                              </div>
                           </a>
                           <a
                             href="mailto:info@alfaschoolchalandri.com"
                             className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-br from-red-500/20 to-rose-500/20 hover:from-red-500/30 hover:to-rose-500/30 transition-all duration-300 border border-red-500/20"
                           >
                             <Mail className="h-5 w-5 text-red-500" />
-                            <div>
-                              <div className="text-sm font-medium text-white">Email</div>
-                              <div className="text-xs text-red-300">info@alfaschoolchalandri.com</div>
-                            </div>
+                              <div>
+                                <div className="text-sm font-medium text-white">{t('contact.email')}</div>
+                                <div className="text-xs text-red-300">info@alfaschoolchalandri.com</div>
+                              </div>
                           </a>
                         </div>
                       </div>
@@ -918,7 +840,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           <div className={`w-8 h-8 rounded-xl bg-gradient-to-br flex items-center justify-center ${isDarkMode ? 'from-[#0f172a] to-[#1e293b]' : 'from-[#81a1d4] to-[#6b8bc4]'}`}>
                             <Phone className="h-5 w-5 text-white" />
                           </div>
-                          Νέα Φιλαδέλφεια
+                           {t('phoneNumbers.neaPhiladelphia.title')}
                         </h4>
                         <div className="space-y-3">
                           <a
@@ -926,15 +848,15 @@ const MobileNav = ({ items }: MobileNavProps) => {
                             className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-br from-green-500/20 to-emerald-500/20 hover:from-green-500/30 hover:to-emerald-500/30 transition-all duration-300 border border-green-500/20"
                           >
                             <Phone className="h-5 w-5 text-green-500" />
-                            <div>
-                              <div className="text-sm font-medium text-white">Τηλέφωνο</div>
-                              <div className="text-xs text-green-300">+30 210 2777 725</div>
-                            </div>
+                              <div>
+                                <div className="text-sm font-medium text-white">{t('contact.phone')}</div>
+                                <div className="text-xs text-green-300">+30 210 2777 725</div>
+                              </div>
                           </a>
                           <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-br from-gray-500/20 to-gray-600/20 border border-gray-500/20">
                             <Mail className="h-5 w-5 text-gray-400" />
                             <div>
-                              <div className="text-sm font-medium text-white/60">Email</div>
+                              <div className="text-sm font-medium text-white/60">{t('contact.email')}</div>
                               <div className="text-xs text-gray-400">-</div>
                             </div>
                           </div>
@@ -954,29 +876,29 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     {/* Footer links - Βελτιωμένα με animation */}
                     <div className="mt-6 flex justify-center gap-4">
                       <motion.a
-                        href={isGreek ? "/el/privacy-policy" : "/privacy-policy"}
+                        href="/privacy-policy"
                         className="text-xs text-white/80 hover:text-white flex items-center gap-1"
                         whileHover={{ scale: 1.05, x: 2 }}
                         onClick={(e) => {
                           e.preventDefault()
-                          handleNavigation(isGreek ? "/el/privacy-policy" : "/privacy-policy")
+                          handleNavigation("/privacy-policy")
                         }}
                       >
                         <Shield className="h-3 w-3" />
                         {t("navigation.privacy")}
                       </motion.a>
                       <motion.a
-                        href={isGreek ? "/el/terms-of-service" : "/terms-of-service"}
+                        href="/terms-of-service"
                         className="text-xs text-white/80 hover:text-white flex items-center gap-1"
                         whileHover={{ scale: 1.05, x: 2 }}
                         onClick={(e) => {
                           e.preventDefault()
-                          handleNavigation(isGreek ? "/el/terms-of-service" : "/terms-of-service")
+                          handleNavigation("/terms-of-service")
                         }}
                       >
                         <FileText className="h-3 w-3" />
                         <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
-                          Terms
+                           {t('navigation.terms')}
                         </span>
                       </motion.a>
                     </div>
@@ -985,7 +907,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     <div className="mt-4 text-center">
                       <p className="text-xs text-white/60">
                         © {new Date().getFullYear()} Alfa School.{" "}
-                        {isGreek ? "Με επιφύλαξη παντός δικαιώματος." : "All rights reserved."}
+                        {t('footer.copyright') || 'All rights reserved.'}
                       </p>
                     </div>
                   </motion.div>

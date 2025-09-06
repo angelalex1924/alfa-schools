@@ -4,48 +4,58 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { MapPin, Star, Users, BookOpen, Globe, Award, Heart, Lightbulb, Phone, Mail, ExternalLink } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const BrochureContent = () => {
+  const { t } = useLanguage()
+  
+  // Helper function to safely get arrays from translations
+  const getTranslationArray = (key: string, fallback: string[]): string[] => {
+    const translation = t(key)
+    return Array.isArray(translation) ? translation as unknown as string[] : fallback
+  }
+  
   const features = [
     {
       icon: Users,
-      title: "Τμήματα για όλες τις ηλικίες",
-      description: "Από την Α' Δημοτικού και πάνω",
+      title: t('services.allAges.title'),
+      description: t('services.allAges.description'),
       color: "from-blue-500/10 to-blue-600/10"
     },
     {
       icon: BookOpen,
-      title: "Ενισχυτικά & επαναληπτικά",
-      description: "Εξατομικευμένη διδασκαλία",
+      title: t('services.reinforcement.title'),
+      description: t('services.reinforcement.description'),
       color: "from-green-500/10 to-green-600/10"
     },
     {
       icon: Star,
-      title: "Προετοιμασία Πανελληνίων",
-      description: "Αγγλική & Γαλλική Φιλολογία",
+      title: t('services.universityPrep.title'),
+      description: t('services.universityPrep.description'),
       color: "from-yellow-500/10 to-yellow-600/10"
     },
     {
       icon: Globe,
-      title: "IELTS & TOEFL",
-      description: "Προετοιμασία για εξωτερικό",
+      title: t('services.ieltsToefl.title'),
+      description: t('services.ieltsToefl.description'),
       color: "from-purple-500/10 to-purple-600/10"
     },
     {
       icon: Lightbulb,
-      title: "Θερινά τμήματα",
-      description: "Εντατικά προγράμματα",
+      title: t('services.summer.title'),
+      description: t('services.summer.description'),
       color: "from-orange-500/10 to-orange-600/10"
     },
     {
       icon: Heart,
-      title: "Επαγγελματίες",
-      description: "Ταχύρρυθμα τμήματα",
+      title: t('services.professionals.title'),
+      description: t('services.professionals.description'),
       color: "from-red-500/10 to-red-600/10"
     }
   ];
 
-  const additionalFeatures = [
+  // Safe array handling with fallbacks
+  const additionalFeatures = getTranslationArray('additionalFeatures.features', [
     "Σύγχρονες αίθουσες με διαδραστικούς πίνακες",
     "Δανειστική βιβλιοθήκη",
     "Τετράδιο συνεργασίας μαθητή – γονέα – καθηγητή",
@@ -53,15 +63,20 @@ const BrochureContent = () => {
     "Πολιτιστικές & ψυχαγωγικές εκδηλώσεις",
     "Συνεργασίες με γνωστά κολλέγια του εξωτερικού",
     "Εκπαιδευτικά ταξίδια στο εξωτερικό"
-  ];
+  ]);
 
-  const usefulLinks = [
-    { name: "Ελληνοαμερικάνικη Ένωση", url: "#" },
-    { name: "British Council", url: "#" },
-    { name: "Γαλλικό Ινστιτούτο", url: "#" },
-    { name: "Europalso", url: "#" },
-    { name: "Cambridge Dictionary", url: "#" }
-  ];
+  const usefulLinksData = getTranslationArray('usefulLinks.links', [
+    "Ελληνοαμερικάνικη Ένωση",
+    "British Council", 
+    "Γαλλικό Ινστιτούτο",
+    "Europalso",
+    "Cambridge Dictionary"
+  ]);
+
+  const usefulLinks = usefulLinksData.map((name: string, index: number) => ({
+    name,
+    url: "#"
+  }));
 
   return (
     <div className="w-full max-w-7xl mx-auto px-6 py-24 space-y-24">
@@ -72,7 +87,7 @@ const BrochureContent = () => {
           borderColor: 'rgba(129, 161, 212, 0.2)'
         }}>
           <div className="w-2 h-2 rounded-full animate-pulse" style={{backgroundColor: '#f78da7'}}></div>
-          <span className="font-medium text-gray-700">Κέντρα Ξένων Γλωσσών ΑΛΦΑ</span>
+          <span className="font-medium text-gray-700">{t('hero.title')}</span>
         </div>
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
           <span className="block" style={{
@@ -81,7 +96,7 @@ const BrochureContent = () => {
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
           }}>
-            35+ Χρόνια
+            {t('hero.years')}
           </span>
           <span className="block mt-2" style={{
             background: `linear-gradient(135deg, #c9b6e4 0%, #f78da7 50%, #fabeb6 100%)`,
@@ -89,11 +104,11 @@ const BrochureContent = () => {
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text'
           }}>
-            Εμπειρίας
+            {t('hero.experience')}
           </span>
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          Μαζί από το 1986, με σεβασμό, αγάπη και αφοσίωση στη μάθηση
+          {t('hero.subtitle')}
         </p>
       </div>
 
@@ -109,20 +124,17 @@ const BrochureContent = () => {
               <Star className="w-8 h-8 text-white" />
             </div>
           </div>
-          <CardTitle className="text-4xl font-bold text-gray-800">Η ιστορία μας</CardTitle>
+          <CardTitle className="text-4xl font-bold text-gray-800">{t('history.title')}</CardTitle>
         </CardHeader>
         <CardContent className="text-center space-y-6 text-lg text-gray-600 px-8 pb-12">
           <p className="leading-relaxed">
-            Το πρώτο μας σχολείο γεννήθηκε το <span className="font-semibold text-gray-800">1986</span> στη Νέα Φιλαδέλφεια, 
-            με όραμα να δώσει νέα διάσταση στην εκμάθηση ξένων γλωσσών.
+            {t('history.paragraph1')}
           </p>
           <p className="leading-relaxed">
-            Με αφοσίωση, μεράκι και σωστή επιστημονική κατάρτιση, δημιουργήσαμε σχέσεις 
-            εμπιστοσύνης με μαθητές και γονείς, σημειώνοντας συνεχείς επιτυχίες στις εξετάσεις.
+            {t('history.paragraph2')}
           </p>
           <p className="leading-relaxed">
-            Η πορεία μας συνεχίστηκε το <span className="font-semibold text-gray-800">1996</span> στο Χαλάνδρι, πάντα με τον ίδιο στόχο: 
-            σύγχρονη, μεθοδική και αποτελεσματική εκπαίδευση.
+            {t('history.paragraph3')}
           </p>
         </CardContent>
       </Card>
@@ -139,10 +151,10 @@ const BrochureContent = () => {
                 <MapPin className="w-7 h-7 text-white" />
               </div>
             </div>
-            <CardTitle className="text-2xl font-bold text-gray-800">Νέα Φιλαδέλφεια</CardTitle>
+            <CardTitle className="text-2xl font-bold text-gray-800">{t('centers.neaPhiladelphia.title')}</CardTitle>
           </CardHeader>
           <CardContent className="text-center relative z-10">
-            <p className="text-gray-600 font-medium">Το πρώτο μας κέντρο από το 1986</p>
+            <p className="text-gray-600 font-medium">{t('centers.neaPhiladelphia.description')}</p>
           </CardContent>
         </Card>
 
@@ -156,10 +168,10 @@ const BrochureContent = () => {
                 <MapPin className="w-7 h-7 text-white" />
               </div>
             </div>
-            <CardTitle className="text-2xl font-bold text-gray-800">Χαλάνδρι</CardTitle>
+            <CardTitle className="text-2xl font-bold text-gray-800">{t('centers.chalandri.title')}</CardTitle>
           </CardHeader>
           <CardContent className="text-center relative z-10">
-            <p className="text-gray-600 font-medium">Το δεύτερο μας κέντρο από το 1996</p>
+            <p className="text-gray-600 font-medium">{t('centers.chalandri.description')}</p>
           </CardContent>
         </Card>
       </div>
@@ -167,9 +179,9 @@ const BrochureContent = () => {
       {/* Services Section */}
       <div className="space-y-12">
         <div className="text-center">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">Οι Υπηρεσίες μας</h2>
+          <h2 className="text-4xl font-bold text-gray-800 mb-4">{t('services.title')}</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Ανακαλύψτε τις εξειδικευμένες εκπαιδευτικές υπηρεσίες που προσφέρουμε
+            {t('services.subtitle')}
           </p>
         </div>
 
@@ -201,11 +213,11 @@ const BrochureContent = () => {
         background: `linear-gradient(135deg, rgba(247, 141, 167, 0.05) 0%, rgba(250, 190, 182, 0.05) 100%)`
       }}>
         <CardHeader className="text-center pb-8">
-          <CardTitle className="text-3xl font-bold text-gray-800">Επιπλέον Παροχές</CardTitle>
+          <CardTitle className="text-3xl font-bold text-gray-800">{t('additionalFeatures.title')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {additionalFeatures.map((feature, index) => (
+            {additionalFeatures.map((feature: string, index: number) => (
               <Badge 
                 key={index}
                 variant="secondary" 
@@ -229,16 +241,14 @@ const BrochureContent = () => {
           background: `linear-gradient(135deg, rgba(201, 182, 228, 0.1) 0%, rgba(247, 141, 167, 0.1) 100%)`
         }}></div>
         <CardHeader className="text-center relative z-10 pb-8">
-          <CardTitle className="text-4xl font-bold text-gray-800">Η φιλοσοφία μας</CardTitle>
+          <CardTitle className="text-4xl font-bold text-gray-800">{t('philosophy.title')}</CardTitle>
         </CardHeader>
         <CardContent className="text-center space-y-8 relative z-10 px-8 pb-12">
           <blockquote className="text-2xl italic font-medium text-gray-700 leading-relaxed">
-            "Η εκμάθηση ξένων γλωσσών δεν είναι μόνο ένα δίπλωμα.<br />
-            Είναι καλλιέργεια, προσωπική ανάπτυξη και εφόδιο για έναν κόσμο που συνεχώς αλλάζει."
+            "{t('philosophy.quote')}"
           </blockquote>
           <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Η οικογένεια του ΑΛΦΑ αγκαλιάζει με προσωπικό ενδιαφέρον κάθε μαθητή, 
-            καλλιεργώντας δεξιότητες που τον συνοδεύουν σε όλη του τη ζωή.
+            {t('philosophy.description')}
           </p>
         </CardContent>
       </Card>
@@ -248,12 +258,12 @@ const BrochureContent = () => {
         <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
           <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <CardHeader className="text-center relative z-10">
-            <CardTitle className="text-3xl font-bold text-gray-800">🇬🇧 Αγγλικά</CardTitle>
+            <CardTitle className="text-3xl font-bold text-gray-800">{t('languages.english.title')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 relative z-10">
-            <p className="text-gray-600 leading-relaxed">Είναι η διεθνής γλώσσα επικοινωνίας και πληροφορίας.</p>
-            <p className="text-gray-600 leading-relaxed">Ανοίγουν δρόμους για σπουδές, καριέρα και ταξίδια.</p>
-            <p className="text-gray-600 leading-relaxed">Το 80% του διαδικτύου είναι στα αγγλικά.</p>
+            <p className="text-gray-600 leading-relaxed">{t('languages.english.description1')}</p>
+            <p className="text-gray-600 leading-relaxed">{t('languages.english.description2')}</p>
+            <p className="text-gray-600 leading-relaxed">{t('languages.english.description3')}</p>
             <p className="text-gray-600 leading-relaxed">Σε κάθε τομέα – επιστήμη, τεχνολογία, πολιτική, επιχειρήσεις – τα αγγλικά έχουν κυρίαρχ�� ρόλο.</p>
           </CardContent>
         </Card>
@@ -302,7 +312,7 @@ const BrochureContent = () => {
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {usefulLinks.map((link, index) => (
+            {usefulLinks.map((link: {name: string, url: string}, index: number) => (
               <Button
                 key={index}
                 variant="outline"

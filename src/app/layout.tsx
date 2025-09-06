@@ -4,6 +4,7 @@ import "./globals.css";
 import ResponsiveNav from "@/components/ResponsiveNav";
 import { Component as Footer } from "@/components/footer-taped-design";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,9 +39,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
-          <ResponsiveNav />
-          {children}
-          <Footer />
+          <LanguageProvider>
+            <ResponsiveNav />
+            {children}
+            <Footer />
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

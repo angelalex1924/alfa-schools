@@ -9,39 +9,41 @@ import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
 import { ModernThemeToggle } from "./ModernThemeToggle"
 import { useTheme } from "@/contexts/ThemeContext"
+import { LanguageSwitcher } from "./LanguageSwitcher"
+import { useLanguage } from "@/contexts/LanguageContext"
 
-// Navigation items with the requested links
-const navigationItems = [
+// Navigation items with the requested links - will be updated with translations
+const getNavigationItems = (t: (key: string) => string | string[]) => [
   {
-    label: "Home",
+    label: t('navigation.home'),
     href: "/",
     icon: Home,
     color: "#3b82f6", // Μπλε παραμένει για αντίθεση
     iconColor: "text-blue-500"
   },
   {
-    label: "Υπηρεσίες",
+    label: t('navigation.services'),
     href: "/services",
     icon: Settings,
     color: "#c9b6e4", // Λιλά-λεβάντα
     iconColor: "text-[#c9b6e4]"
   },
   {
-    label: "Τα νέα μας",
+    label: t('navigation.news'),
     href: "/news",
     icon: Newspaper,
     color: "#f78da7", // Ροζ-κοραλί
     iconColor: "text-[#f78da7]"
   },
   {
-    label: "Γιατί εμάς",
+    label: t('navigation.whyUs'),
     href: "/why-us",
     icon: Users,
     color: "#fabeb6", // Ροζ
     iconColor: "text-[#fabeb6]"
   },
   {
-    label: "Επικοινωνία",
+    label: t('navigation.contact'),
     href: "/contact",
     icon: Phone,
     color: "#fde7dc", // Απαλό μπεζ-ροζ
@@ -59,6 +61,8 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
   const [hoveredItem, setHoveredItem] = React.useState<number | null>(null)
   const [scrolled, setScrolled] = React.useState(false)
   const { isDarkMode, toggleTheme } = useTheme()
+  const { t } = useLanguage()
+  const navigationItems = getNavigationItems(t)
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -187,7 +191,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
 
             return (
               <motion.li
-                key={item.label}
+                key={Array.isArray(item.label) ? item.label.join('-') : item.label}
                 className="relative"
                 onMouseEnter={() => setHoveredItem(index)}
                 onMouseLeave={() => setHoveredItem(null)}
@@ -282,7 +286,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                             : {}
                         }
                       >
-                        {item.label}
+                        {Array.isArray(item.label) ? item.label.join(' ') : item.label}
                       </motion.span>
 
                       {/* Clean bottom indicator for active item */}
@@ -317,6 +321,12 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
           )}
           variants={itemVariants}
         >
+          {/* Language Switcher */}
+          <LanguageSwitcher 
+            className="bg-white/10 hover:bg-white/20 border-white/20"
+            compact={true}
+          />
+
           {/* Theme Toggle */}
           <ModernThemeToggle
             isDarkMode={isDarkMode}
@@ -333,7 +343,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
             >
               <Shield className="h-3.5 w-3.5 text-blue-300" />
               <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
-                Privacy
+                {t('navigation.privacy')}
               </span>
             </motion.div>
           </Link>
@@ -347,7 +357,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
             >
               <ChevronRight className="h-3.5 w-3.5 text-purple-300" />
               <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
-                Terms
+                {t('navigation.terms')}
               </span>
             </motion.div>
           </Link>
@@ -361,7 +371,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
             >
               <Phone className="h-3.5 w-3.5 text-green-300" />
               <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
-                Καλέστε μας
+                {t('navigation.callUs')}
               </span>
               <ChevronDown className="h-3 w-3 text-white/60" />
             </motion.button>
@@ -375,8 +385,8 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                 >
                   <Phone className={`h-4 w-4 ${isDarkMode ? 'text-[#0f172a]' : 'text-[#81a1d4]'}`} />
                   <div>
-                    <div className="text-sm font-medium">Χαλάνδρι</div>
-                    <div className="text-xs text-gray-500">+30 210 6800 708</div>
+                    <div className="text-sm font-medium">{t('phoneNumbers.chalandri.title')}</div>
+                    <div className="text-xs text-gray-500">{t('phoneNumbers.chalandri.number')}</div>
                   </div>
                 </a>
                 <a
@@ -385,8 +395,8 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                 >
                   <Phone className={`h-4 w-4 ${isDarkMode ? 'text-[#0f172a]' : 'text-[#81a1d4]'}`} />
                   <div>
-                    <div className="text-sm font-medium">Νέα Φιλαδέλφεια</div>
-                    <div className="text-xs text-gray-500">+30 210 2777 725</div>
+                    <div className="text-sm font-medium">{t('phoneNumbers.neaPhiladelphia.title')}</div>
+                    <div className="text-xs text-gray-500">{t('phoneNumbers.neaPhiladelphia.number')}</div>
                   </div>
                 </a>
               </div>
@@ -402,7 +412,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
             >
               <Mail className="h-3.5 w-3.5 text-red-300" />
               <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
-                Email
+                {t('navigation.email')}
               </span>
               <ChevronDown className="h-3 w-3 text-white/60" />
             </motion.button>
@@ -416,15 +426,15 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                 >
                   <Mail className={`h-4 w-4 flex-shrink-0 ${isDarkMode ? 'text-[#0f172a]' : 'text-[#81a1d4]'}`} />
                   <div>
-                    <div className="text-sm font-medium">Χαλάνδρι</div>
-                    <div className="text-xs text-gray-500">info@alfaschoolchalandri.com</div>
+                    <div className="text-sm font-medium">{t('emails.chalandri.title')}</div>
+                    <div className="text-xs text-gray-500">{t('emails.chalandri.email')}</div>
                   </div>
                 </a>
                 <div className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 dark:text-gray-500">
                   <Mail className="h-4 w-4" />
                   <div>
-                    <div className="text-sm font-medium">Νέα Φιλαδέλφεια</div>
-                    <div className="text-xs">-</div>
+                    <div className="text-sm font-medium">{t('emails.neaPhiladelphia.title')}</div>
+                    <div className="text-xs">{t('emails.neaPhiladelphia.email')}</div>
                   </div>
                 </div>
               </div>

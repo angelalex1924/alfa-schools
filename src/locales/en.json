@@ -1,0 +1,210 @@
+{
+  "navigation": {
+    "home": "Home",
+    "services": "Services",
+    "news": "Our News",
+    "whyUs": "Why Us",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "callUs": "Call Us",
+    "email": "Email",
+    "language": "English",
+    "main": "Main Navigation",
+    "legal": "Legal & Contact",
+    "homeDescription": "Home page",
+    "servicesDescription": "Specialized services",
+    "newsDescription": "Latest news and updates",
+    "whyUsDescription": "Discover our advantages",
+    "contactDescription": "Contact us"
+  },
+  "hero": {
+    "title": "ALPHA Foreign Language Centers",
+    "years": "35+ Years",
+    "experience": "of Experience",
+    "subtitle": "Together since 1986, with respect, love and dedication to learning"
+  },
+  "history": {
+    "title": "Our History",
+    "paragraph1": "Our first school was born in 1986 in Nea Filadelfeia, with the vision to give a new dimension to foreign language learning.",
+    "paragraph2": "With dedication, passion and proper scientific training, we created relationships of trust with students and parents, achieving continuous success in exams.",
+    "paragraph3": "Our journey continued in 1996 in Chalandri, always with the same goal: modern, methodical and effective education."
+  },
+  "centers": {
+    "neaPhiladelphia": {
+      "title": "Nea Filadelfeia",
+      "description": "Our first center since 1986"
+    },
+    "chalandri": {
+      "title": "Chalandri",
+      "description": "Our second center since 1996"
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Discover the specialized educational services we offer",
+    "allAges": {
+      "title": "Classes for all ages",
+      "description": "From 1st grade and up"
+    },
+    "reinforcement": {
+      "title": "Reinforcement & review",
+      "description": "Personalized teaching"
+    },
+    "universityPrep": {
+      "title": "University entrance preparation",
+      "description": "English & French Philology"
+    },
+    "ieltsToefl": {
+      "title": "IELTS & TOEFL",
+      "description": "Preparation for studying abroad"
+    },
+    "summer": {
+      "title": "Summer classes",
+      "description": "Intensive programs"
+    },
+    "professionals": {
+      "title": "Professionals",
+      "description": "Fast-track classes"
+    }
+  },
+  "additionalFeatures": {
+    "title": "Additional Benefits",
+    "features": [
+      "Modern classrooms with interactive boards",
+      "Lending library",
+      "Student-parent-teacher collaboration notebook",
+      "Regular parent meetings",
+      "Cultural & entertainment events",
+      "Partnerships with renowned international colleges",
+      "Educational trips abroad"
+    ]
+  },
+  "philosophy": {
+    "title": "Our Philosophy",
+    "quote": "Learning foreign languages is not just a diploma. It's cultivation, personal development and a tool for a constantly changing world.",
+    "description": "The ALPHA family embraces every student with personal interest, cultivating skills that accompany them throughout their life."
+  },
+  "languages": {
+    "english": {
+      "title": "🇬🇧 English",
+      "description1": "It is the international language of communication and information.",
+      "description2": "It opens doors for studies, career and travel.",
+      "description3": "80% of the internet is in English.",
+      "description4": "In every field – science, technology, politics, business – English has a dominant role."
+    },
+    "french": {
+      "title": "🇫🇷 French",
+      "description1": "Spoken on 5 continents by more than 275 million people.",
+      "description2": "It is the language of the European Union, the UN and international organizations.",
+      "description3": "It provides access to top universities and culture.",
+      "description4": "Used in arts, fashion, gastronomy and international diplomacy."
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "whyLearn": {
+      "question": "Why should I learn a foreign language?",
+      "answer": "Learning foreign languages enhances memory, critical thinking, socialization and opens doors for studies and work worldwide."
+    },
+    "age": {
+      "question": "What is the appropriate age?",
+      "answer": "From 1st grade, children have the ability to learn a foreign language easily, naturally and creatively."
+    },
+    "difficulties": {
+      "question": "What about children with learning difficulties?",
+      "answer": "With the right methodology, even children with dyslexia can successfully learn a foreign language."
+    }
+  },
+  "usefulLinks": {
+    "title": "Useful Links",
+    "links": [
+      "Hellenic-American Union",
+      "British Council",
+      "French Institute",
+      "Europalso",
+      "Cambridge Dictionary"
+    ]
+  },
+  "contact": {
+    "title": "Ready to start?",
+    "subtitle": "Contact us and discover how we can help you achieve your goals",
+    "phone": "Phone",
+    "email": "Email",
+    "needHelp": "Need help?",
+    "helpDescription": "Our team is ready to help you with any question."
+  },
+  "footer": {
+    "text": "ALPHA – Together since 1986, with respect, love and dedication to learning."
+  },
+  "phoneNumbers": {
+    "chalandri": {
+      "title": "Chalandri",
+      "number": "+30 210 6800 708"
+    },
+    "neaPhiladelphia": {
+      "title": "Nea Filadelfeia",
+      "number": "+30 210 2777 725"
+    }
+  },
+  "emails": {
+    "chalandri": {
+      "title": "Chalandri",
+      "email": "info@alfaschoolchalandri.com"
+    },
+    "neaPhiladelphia": {
+      "title": "Nea Filadelfeia",
+      "email": "-"
+    }
+  },
+  "footer": {
+    "slogan": "Together since 1986, with respect, love, and dedication to learning.",
+    "workingHours": "Monday - Friday: 16:00 - 21:00",
+    "socialMedia": "Social Media",
+    "copyright": "Alfa School. All rights reserved.",
+    "poweredBy": "Powered and Developed by",
+    "addresses": {
+      "chalandri": "Roumelis 27, Chalandri 152 33",
+      "neaPhiladelphia": "Agiou Georgiou 15, Nea Filadelfeia 143 42"
+    }
+  },
+  "carousel": {
+    "slide1": {
+      "title": "FOREIGN",
+      "subtitle": "LANGUAGE CENTERS",
+      "description": "Together since 1986, with respect, love, and dedication to learning",
+      "ctaText": "Explore Courses"
+    },
+    "slide2": {
+      "title": "ENGLISH",
+      "subtitle": "FOR EVERYONE",
+      "description": "English for children, teenagers, and adults with certified instructors",
+      "ctaText": "Learn English"
+    },
+    "slide3": {
+      "title": "GERMAN",
+      "subtitle": "AND FRENCH",
+      "description": "European languages with modern teaching methods and certifications",
+      "ctaText": "European Languages"
+    },
+    "slide4": {
+      "title": "SPANISH",
+      "subtitle": "AND ITALIAN",
+      "description": "Romance languages with certified instructors and modern educational materials",
+      "ctaText": "Romance Languages"
+    },
+    "slide5": {
+      "title": "INTERNATIONAL",
+      "subtitle": "CERTIFICATIONS",
+      "description": "Preparation for IELTS, TOEFL, Cambridge, Goethe, and other international exams",
+      "ctaText": "Exam Preparation"
+    },
+    "stats": {
+      "years": "Years",
+      "students": "Students"
+    },
+    "badge": {
+      "since1986": "SINCE 1986"
+    }
+  }
+}

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Play, Pause, ArrowRight } from "lucide-react"
 import SplitText from "./SplitText"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 interface CarouselSlide {
   id: number
@@ -17,58 +18,64 @@ interface CarouselSlide {
   gradient: string
 }
 
-const carouselData: CarouselSlide[] = [
+// Helper function to safely get string from translation
+const getString = (value: string | string[]): string => {
+  return Array.isArray(value) ? value.join(' ') : value
+}
+
+// Helper function to get carousel data based on language
+const getCarouselData = (t: (key: string) => string | string[]): CarouselSlide[] => [
   {
     id: 1,
-    title: "ΚΕΝΤΡΑ",
-    subtitle: "ΞΕΝΩΝ ΓΛΩΣΣΩΝ",
-    description: "Μαζί από το 1986, με σεβασμό, αγάπη και αφοσίωση στη μάθηση",
+    title: getString(t('carousel.slide1.title')),
+    subtitle: getString(t('carousel.slide1.subtitle')),
+    description: getString(t('carousel.slide1.description')),
     image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&h=800&fit=crop&crop=center",
-    ctaText: "Εξερευνήστε Μαθήματα",
+    ctaText: getString(t('carousel.slide1.ctaText')),
     ctaLink: "/services",
     accentColor: "#4a6fa5",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
   },
   {
     id: 2,
-    title: "ΑΓΓΛΙΚΑ",
-    subtitle: "ΓΙΑ ΟΛΟΥΣ",
-    description: "Αγγλικά για παιδιά, εφήβους και ενήλικες με πιστοποιημένους εκπαιδευτές",
+    title: getString(t('carousel.slide2.title')),
+    subtitle: getString(t('carousel.slide2.subtitle')),
+    description: getString(t('carousel.slide2.description')),
     image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1200&h=800&fit=crop&crop=center",
-    ctaText: "Μάθετε Αγγλικά",
+    ctaText: getString(t('carousel.slide2.ctaText')),
     ctaLink: "/services",
     accentColor: "#81a1d4",
     gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
   },
   {
     id: 3,
-    title: "ΓΕΡΜΑΝΙΚΑ",
-    subtitle: "ΚΑΙ ΓΑΛΛΙΚΑ",
-    description: "Ευρωπαϊκές γλώσσες με σύγχρονα μεθόδους διδασκαλίας και πιστοποιήσεις",
+    title: getString(t('carousel.slide3.title')),
+    subtitle: getString(t('carousel.slide3.subtitle')),
+    description: getString(t('carousel.slide3.description')),
     image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&h=800&fit=crop&crop=center",
-    ctaText: "Ευρωπαϊκές Γλώσσες",
+    ctaText: getString(t('carousel.slide3.ctaText')),
     ctaLink: "/services",
     accentColor: "#c9b6e4",
     gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
   },
   {
     id: 4,
-    title: "ΙΣΠΑΝΙΚΑ",
-    subtitle: "ΚΑΙ ΙΤΑΛΙΚΑ",
-    description: "Ρομανικές γλώσσες με πιστοποιημένους εκπαιδευτές και σύγχρονα εκπαιδευτικά υλικά",
+    title: getString(t('carousel.slide4.title')),
+    subtitle: getString(t('carousel.slide4.subtitle')),
+    description: getString(t('carousel.slide4.description')),
     image: "https://static01.nyt.com/images/2024/07/12/books/review/1221stCentury-Day5/1221stCentury-Day5-facebookJumbo.jpg",
-    ctaText: "Ρομανικές Γλώσσες",
+    ctaText: getString(t('carousel.slide4.ctaText')),
     ctaLink: "/services",
     accentColor: "#fabeb6",
     gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
   },
   {
     id: 5,
-    title: "ΔΙΕΘΝΕΙΣ",
-    subtitle: "ΠΙΣΤΟΠΟΙΗΣΕΙΣ",
-    description: "Προετοιμασία για IELTS, TOEFL, Cambridge, Goethe και άλλες διεθνείς εξετάσεις",
+    title: getString(t('carousel.slide5.title')),
+    subtitle: getString(t('carousel.slide5.subtitle')),
+    description: getString(t('carousel.slide5.description')),
     image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1200&h=800&fit=crop&crop=center",
-    ctaText: "Προετοιμασία Εξετάσεων",
+    ctaText: getString(t('carousel.slide5.ctaText')),
     ctaLink: "/services",
     accentColor: "#f78da7",
     gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
@@ -79,6 +86,9 @@ export default function ModernHeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
   const [isHovered, setIsHovered] = useState(false)
+  const { t } = useLanguage()
+  
+  const carouselData = getCarouselData(t)
 
   // Auto-play functionality
   useEffect(() => {
@@ -181,7 +191,7 @@ export default function ModernHeroCarousel() {
               <div className="flex justify-center lg:justify-start">
                 <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full px-4 py-2 shadow-lg">
                   <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: currentData.accentColor }}></div>
-                  <span className="text-white/90 font-medium text-sm tracking-wide">ΑΠΟ ΤΟ 1986</span>
+                  <span className="text-white/90 font-medium text-sm tracking-wide">{getString(t('carousel.badge.since1986'))}</span>
                 </div>
               </div>
 
@@ -256,14 +266,14 @@ export default function ModernHeroCarousel() {
                 <div className="absolute -top-4 -right-4 bg-white/15 backdrop-blur-xl rounded-2xl p-4 border border-white/20 shadow-lg">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-white">35+</div>
-                    <div className="text-xs text-white/80">Χρόνια</div>
+                    <div className="text-xs text-white/80">{getString(t('carousel.stats.years'))}</div>
                   </div>
                 </div>
 
                 <div className="absolute -bottom-4 -left-4 bg-white/15 backdrop-blur-xl rounded-2xl p-4 border border-white/20 shadow-lg">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-white">1000+</div>
-                    <div className="text-xs text-white/80">Μαθητές</div>
+                    <div className="text-xs text-white/80">{getString(t('carousel.stats.students'))}</div>
                   </div>
                 </div>
               </div>
