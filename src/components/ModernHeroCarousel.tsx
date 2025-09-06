@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Play, Pause, ArrowRight } from "lucide-react"
+import SplitText from "./SplitText"
 
 interface CarouselSlide {
   id: number
@@ -52,8 +53,19 @@ const carouselData: CarouselSlide[] = [
   },
   {
     id: 4,
-    title: "ΠΙΣΤΟΠΟΙΗΣΕΙΣ",
-    subtitle: "ΔΙΕΘΝΕΙΣ",
+    title: "ΙΣΠΑΝΙΚΑ",
+    subtitle: "ΚΑΙ ΙΤΑΛΙΚΑ",
+    description: "Ρομανικές γλώσσες με πιστοποιημένους εκπαιδευτές και σύγχρονα εκπαιδευτικά υλικά",
+    image: "https://static01.nyt.com/images/2024/07/12/books/review/1221stCentury-Day5/1221stCentury-Day5-facebookJumbo.jpg",
+    ctaText: "Ρομανικές Γλώσσες",
+    ctaLink: "/services",
+    accentColor: "#fabeb6",
+    gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
+  },
+  {
+    id: 5,
+    title: "ΔΙΕΘΝΕΙΣ",
+    subtitle: "ΠΙΣΤΟΠΟΙΗΣΕΙΣ",
     description: "Προετοιμασία για IELTS, TOEFL, Cambridge, Goethe και άλλες διεθνείς εξετάσεις",
     image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1200&h=800&fit=crop&crop=center",
     ctaText: "Προετοιμασία Εξετάσεων",
@@ -151,12 +163,15 @@ export default function ModernHeroCarousel() {
               {/* Logo */}
               <div className="flex justify-center lg:justify-start">
                 <div className="relative group">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-white/10 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                  <div className="relative bg-white/10 backdrop-blur-xl rounded-2xl p-4 border border-white/20">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-white/30 to-white/10 rounded-xl blur-sm opacity-60 group-hover:opacity-80 transition duration-700"></div>
+                  <div className="relative bg-white/5 backdrop-blur-sm rounded-xl px-6 py-1 border border-white/10">
                     <img
                       src="/alfa-logo.png"
                       alt="Alfa School Logo"
-                      className="w-16 h-16 lg:w-20 lg:h-20 object-contain filter drop-shadow-lg"
+                      className="w-24 h-24 lg:w-32 lg:h-32 object-contain filter drop-shadow-xl transition-all duration-500 group-hover:scale-105"
+                      style={{
+                        filter: "drop-shadow(0 15px 30px rgba(0,0,0,0.2)) brightness(1.05)"
+                      }}
                     />
                   </div>
                 </div>
@@ -172,17 +187,21 @@ export default function ModernHeroCarousel() {
 
               {/* Title */}
               <div className="space-y-4">
-                <h1 className="font-black leading-tight" style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}>
+                <h1 className="font-black leading-tight" style={{ fontSize: "clamp(1.8rem, 5vw, 4.5rem)" }}>
                   <div className="mb-2">
                     <span 
-                      className="text-white drop-shadow-2xl tracking-tight"
+                      key={`title-${currentSlide}`}
+                      className="text-white drop-shadow-2xl tracking-tight animate-fade-in-up"
                       style={{ textShadow: `0 0 30px ${currentData.accentColor}40` }}
                     >
                       {currentData.title}
                     </span>
                   </div>
                   <div>
-                    <span className="text-white/95 drop-shadow-2xl tracking-tight">
+                    <span 
+                      key={`subtitle-${currentSlide}`}
+                      className="text-white/95 drop-shadow-2xl tracking-tight animate-fade-in-up"
+                    >
                       {currentData.subtitle}
                     </span>
                   </div>
@@ -190,7 +209,7 @@ export default function ModernHeroCarousel() {
               </div>
 
               {/* Description */}
-              <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-light">
+              <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-light">
                 {currentData.description}
               </p>
 
@@ -198,7 +217,7 @@ export default function ModernHeroCarousel() {
               <div className="flex justify-center lg:justify-start">
                 <Button
                   size="lg"
-                  className="group relative px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105 text-white border-0 overflow-hidden"
+                  className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-sm sm:text-base lg:text-lg transition-all duration-300 hover:scale-105 text-white border-0 overflow-hidden"
                   style={{ 
                     background: `linear-gradient(135deg, ${currentData.accentColor} 0%, ${currentData.accentColor}CC 100%)`,
                     boxShadow: `0 10px 30px ${currentData.accentColor}40`
@@ -206,7 +225,7 @@ export default function ModernHeroCarousel() {
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     {currentData.ctaText}
-                    <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
                   <div 
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -303,14 +322,6 @@ export default function ModernHeroCarousel() {
         </div>
       </div>
 
-      {/* Slide Counter */}
-      <div className="absolute top-8 right-8 z-20">
-        <div className="bg-white/10 backdrop-blur-xl rounded-full px-4 py-2 border border-white/20">
-          <span className="text-white/90 font-medium text-sm">
-            {String(currentSlide + 1).padStart(2, '0')} / {String(carouselData.length).padStart(2, '0')}
-          </span>
-        </div>
-      </div>
     </div>
   )
 }

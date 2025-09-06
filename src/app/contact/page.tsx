@@ -129,7 +129,7 @@ export default function Contact() {
                   <div>
                     <p className="text-gray-600 dark:text-gray-300 text-sm">
                       <span className="font-medium">Ωράριο:</span><br />
-                      Δευτέρα - Παρασκευή: 16:00 - 21:00
+                      Δευτέρα - Παρασκευή: 16:00 - 22:00
                     </p>
                   </div>
                 </div>
@@ -170,7 +170,7 @@ export default function Contact() {
                 </div>
 
                 {/* Address */}
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-4 mb-4">
                   <div className="w-10 h-10 bg-[#81a1d4]/20 rounded-full flex items-center justify-center flex-shrink-0">
                     <svg className="w-5 h-5 text-[#81a1d4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -181,6 +181,29 @@ export default function Contact() {
                     <a href="https://maps.google.com/?q=Αγίου+Γεωργίου+15,+Νέα+Φιλαδέλφεια" target="_blank" rel="noopener noreferrer" className="text-gray-600 dark:text-gray-300 text-sm hover:text-[#81a1d4] transition-colors">
                       Αγίου Γεωργίου 15, Νέα Φιλαδέλφεια Αττικής 143 42
                     </a>
+                  </div>
+                </div>
+
+                {/* Hours */}
+                <div className="flex items-center space-x-4">
+                  <div className="w-10 h-10 bg-[#81a1d4]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-[#81a1d4]">
+                      <g clipPath="url(#clip0_4418_6317)">
+                        <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path opacity="0.4" d="M15.7099 15.1798L12.6099 13.3298C12.0699 13.0098 11.6299 12.2398 11.6299 11.6098V7.50977" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_4418_6317">
+                          <rect width="24" height="24" fill="white"/>
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">
+                      <span className="font-medium">Ωράριο:</span><br />
+                      Δευτέρα - Παρασκευή: 16:00 - 22:00
+                    </p>
                   </div>
                 </div>
               </div>
