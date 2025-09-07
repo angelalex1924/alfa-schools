@@ -361,4 +361,217 @@ export const AcronWebLogoLarge = ({ className = "", showTagline = true, ...props
   />
 )
 
+// AcronWeb Text Component (without SVG icon) - Now clickable!
+const sizeClasses = {
+  xs: {
+    text: "text-[6px] sm:text-[8px] md:text-[10px] lg:text-xs",
+    container: "gap-0.5",
+  },
+  small: {
+    text: "text-[7px] sm:text-[9px] md:text-xs lg:text-sm",
+    container: "gap-0.5 sm:gap-1",
+  },
+  default: {
+    text: "text-[8px] sm:text-xs md:text-sm lg:text-base",
+    container: "gap-1",
+  },
+  large: {
+    text: "text-[9px] sm:text-sm md:text-base lg:text-lg",
+    container: "gap-1",
+  },
+  xl: {
+    text: "text-xs sm:text-base md:text-lg lg:text-xl",
+    container: "gap-1 sm:gap-1.5",
+  }
+}
+
+export const AcronWebText = ({ 
+  size = "default", 
+  textSize = null,
+  className = "", 
+  animated = true,
+  variant = "horizontal",
+  clickable = true,
+  ...props 
+}: {
+  size?: "xs" | "small" | "default" | "large" | "xl";
+  textSize?: "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl" | null;
+  className?: string;
+  animated?: boolean;
+  variant?: "horizontal" | "vertical";
+  clickable?: boolean;
+  [key: string]: any;
+}) => {
+  const openAcronweb = () => {
+    if (typeof window !== 'undefined') {
+      window.open('https://www.acronweb.gr', '_blank', 'noopener,noreferrer');
+    }
+  }
+
+  const textSizes = {
+    xs: "text-xs",
+    sm: "text-sm", 
+    base: "text-base",
+    lg: "text-lg",
+    xl: "text-xl",
+    "2xl": "text-2xl",
+    "3xl": "text-3xl"
+  }
+
+  const currentSize = sizeClasses[size] || sizeClasses.default
+  const currentTextSize = textSize ? textSizes[textSize] : currentSize.text
+
+  const handleClick = () => {
+    if (clickable) {
+      openAcronweb()
+    }
+  }
+
+  const logoVariants = animated ? {
+    visible: { 
+      opacity: 1, 
+      scale: 1
+    }
+  } : undefined
+
+  const textVariants = {
+    hover: {
+      scale: 1.02,
+      transition: {
+        duration: 0.2
+      }
+    }
+  }
+
+  return (
+    <motion.div
+      className={cn(
+        "flex items-center group cursor-pointer transition-all duration-300",
+        currentSize.container,
+        variant === "vertical" ? "flex-col" : "flex-row",
+        clickable && "hover:opacity-80",
+        className
+      )}
+      variants={animated ? logoVariants : {}}
+      initial="visible"
+      animate="visible"
+      whileHover="hover"
+      onClick={handleClick}
+      style={{
+        alignItems: 'center',
+        display: 'flex',
+        position: 'relative'
+      }}
+      {...props}
+    >
+      {/* Text Container */}
+      <motion.div
+        className={cn(
+          "flex items-center justify-center",
+          variant === "vertical" ? "flex-col text-center" : "flex-row"
+        )}
+        variants={animated ? textVariants : {}}
+        style={{ 
+          alignItems: 'center',
+          display: 'flex'
+        }}
+      >
+        {/* Brand Name */}
+        <motion.h1
+          className={cn(
+            "font-bold tracking-tight leading-none relative inline-flex items-center",
+            "transition-all duration-500 ease-out",
+            currentTextSize,
+            "antialiased subpixel-antialiased",
+            "filter drop-shadow-[0_1px_3px_rgba(0,0,0,0.1)] group-hover:drop-shadow-[0_3px_8px_rgba(59,130,246,0.3)]"
+          )}
+          style={{
+            fontFamily: "'Inter', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
+            fontWeight: 700,
+            letterSpacing: "-0.01em",
+            textShadow: "0 1px 2px rgba(0,0,0,0.05)",
+            lineHeight: '1',
+            height: 'auto'
+          }}
+        >
+          <div
+            className="relative inline-flex items-baseline"
+            style={{ lineHeight: '1', height: 'auto' }}
+          >
+            {/* ACRON part */}
+            <span 
+              className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500 bg-clip-text text-transparent group-hover:from-blue-700 group-hover:via-blue-600 group-hover:to-blue-800 dark:group-hover:from-blue-300 dark:group-hover:via-blue-200 dark:group-hover:to-blue-400 transition-all duration-500"
+              style={{ 
+                fontFamily: "'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif", 
+                fontWeight: 800, 
+                letterSpacing: "-0.02em", 
+                backgroundSize: "200% 200%", 
+                backgroundPosition: "0% 50%", 
+                textShadow: "0 2px 4px rgba(59, 130, 246, 0.15), 0 1px 2px rgba(59, 130, 246, 0.08)", 
+                filter: "contrast(1.1) brightness(1.02)", 
+                lineHeight: "1" 
+              }}
+            >
+              ACRON
+            </span>
+            {/* WEB part */}
+            <span 
+              className="bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-slate-50 dark:via-white dark:to-slate-100 bg-clip-text text-transparent group-hover:from-slate-950 group-hover:via-slate-800 group-hover:to-slate-900 dark:group-hover:from-white dark:group-hover:via-slate-50 dark:group-hover:to-slate-100 transition-all duration-500"
+              style={{ 
+                fontFamily: "'Geogola', 'Gegola DEMO', 'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif", 
+                fontWeight: 800, 
+                letterSpacing: "-0.02em", 
+                backgroundSize: "200% 200%", 
+                backgroundPosition: "0% 50%", 
+                textShadow: "0 2px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05)", 
+                filter: "contrast(1.1) brightness(1.02)", 
+                lineHeight: "1" 
+              }}
+            >
+              WEB
+            </span>
+          </div>
+        </motion.h1>
+      </motion.div>
+
+      {/* Simple glow effect for the entire logo */}
+      {animated && (
+        <motion.div
+          className="absolute -inset-2 rounded-xl bg-blue-100/30 dark:bg-blue-900/20 opacity-0 group-hover:opacity-100 blur-lg -z-10"
+          initial={{ scale: 0.9, opacity: 0 }}
+          whileHover={{
+            scale: 1.05,
+            opacity: 1
+          }}
+          transition={{
+            duration: 0.3,
+            ease: "easeOut"
+          }}
+        />
+      )}
+    </motion.div>
+  )
+}
+
+// Compact version for mobile/small spaces
+export const AcronWebTextCompact = ({ className = "", ...props }) => (
+  <AcronWebText 
+    size="xs"
+    className={className}
+    variant="horizontal"
+    {...props}
+  />
+)
+
+// Navbar version with smaller text
+export const AcronWebTextNavbar = ({ className = "", ...props }) => (
+  <AcronWebText 
+    size="xs"
+    textSize={null}
+    className={cn("scale-90", className)}
+    variant="horizontal"
+    {...props}
+  />
+) 
+
 export default AcronWebLogo 

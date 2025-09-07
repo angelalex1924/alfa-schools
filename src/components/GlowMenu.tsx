@@ -1,4 +1,4 @@
-"use client"
+  "use client"
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
@@ -335,7 +335,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
           />
 
           {/* Privacy Policy Link */}
-          <Link href="/privacy-policy">
+          <Link href="/legal/privacy-policy">
             <motion.div
               className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
               whileHover={{ scale: 1.05 }}
@@ -349,7 +349,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
           </Link>
 
           {/* Terms Link */}
-          <Link href="/terms-of-service">
+          <Link href="/legal/terms-of-service">
             <motion.div
               className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
               whileHover={{ scale: 1.05 }}

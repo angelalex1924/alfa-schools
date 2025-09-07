@@ -12,14 +12,163 @@
     "language": "English",
     "main": "Main Navigation",
     "legal": "Legal & Contact",
+    "tableOfContents": "Table of Contents",
     "homeDescription": "Home page",
     "servicesDescription": "Specialized services",
     "newsDescription": "Latest news and updates",
     "whyUsDescription": "Discover our advantages",
     "contactDescription": "Contact us"
   },
+  "privacy": {
+    "title": "Privacy Policy",
+    "subtitle": "Protecting your personal data is our priority. Read how we collect, use, and safeguard your information.",
+    "lastUpdated": "Last Updated: January 2025",
+    "compliance": "GDPR & Greek Law Compliance",
+    "overview": {
+      "title": "Overview",
+      "summary": "Personal Data Protection at ALFA Foreign Language Centers",
+      "content": [
+        "This Privacy Policy covers the collection and management of personal data at ALFA Foreign Language Centers, which have been operating since 1986.",
+        "We are committed to protecting the personal data of students, parents, and collaborators in accordance with Greek legislation and the General Data Protection Regulation (GDPR).",
+        "Our policy fully complies with Law 4624/2019 and GDPR provisions."
+      ]
+    },
+    "collection": {
+      "title": "Data Collection",
+      "summary": "What data we collect and why",
+      "content": [
+        "We collect personal data such as names, ages, phone numbers, email addresses and home addresses for educational purposes.",
+        "Data is collected during student registration and used for organizing classes, assessment and communication with parents.",
+        "We also collect attendance data, grades and progress notes for the educational process.",
+        "Medical information is collected only with explicit consent for allergies and special educational needs."
+      ]
+    },
+    "usage": {
+      "title": "Data Usage",
+      "summary": "How we use your data",
+      "content": [
+        "Data is used for organizing classes, assessing progress and communicating with parents.",
+        "We inform parents about their children's progress through regular meetings and progress checks.",
+        "Data is used for issuing certificates and preparing for certification exams.",
+        "We do not share data with third parties without explicit consent, except when required by law."
+      ]
+    },
+    "protection": {
+      "title": "Data Protection",
+      "summary": "How we protect your data",
+      "content": [
+        "We use modern security systems and physical protections to safeguard data.",
+        "Data is stored in secure environments with limited access only to authorized personnel.",
+        "We implement necessary technical and organizational measures for privacy protection according to GDPR requirements.",
+        "All staff have signed confidentiality agreements and attend regular data protection seminars."
+      ]
+    },
+    "rights": {
+      "title": "Your Rights",
+      "summary": "Your rights regarding personal data",
+      "content": [
+        "You have the right to request access to your data and information about its processing.",
+        "You can request correction, update or deletion of data that is inaccurate or no longer needed.",
+        "You have the right to withdraw your consent at any time and request restriction of processing.",
+        "You can request the transfer of your data to another processing entity."
+      ]
+    },
+    "retention": {
+      "title": "Data Retention",
+      "summary": "How long we keep data",
+      "content": [
+        "Educational data is retained for as long as the student attends classes and for 5 years after graduation.",
+        "Communication data is retained for 3 years from the last contact.",
+        "Data required by law is retained according to legal requirements.",
+        "After the retention period expires, data is securely deleted."
+      ]
+    },
+    "importantNotice": "Important Notice",
+    "importantText": "This privacy policy may be updated periodically to comply with legislative developments.",
+    "contact": "Contact Us",
+    "contactText": "For data protection inquiries:"
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "subtitle": "Carefully read the terms of participation and cooperation at ALFA Foreign Language Centers.",
+    "lastUpdated": "Last Updated: January 2025",
+    "compliance": "Legal Validity and Binding Nature",
+    "overview": {
+      "title": "General Terms",
+      "summary": "Basic operational rules",
+      "content": [
+        "These terms govern your participation in ALFA Foreign Language Centers programs, which have been operating since 1986.",
+        "By registering, you fully accept these terms and the school's operational regulations.",
+        "We reserve the right to modify these terms, with prior notification to parents and students."
+      ]
+    },
+    "registration": {
+      "title": "Registration and Participation",
+      "summary": "Registration conditions and process",
+      "content": [
+        "Registration begins September 1st for new students, for existing students at the end of each academic year.",
+        "Securing a place in the preferred class is only possible with payment of the registration fee.",
+        "Required registration documents: Registration form, proof of registration payment.",
+        "The registration fee secures the student's place in the class and is non-refundable."
+      ]
+    },
+    "fees": {
+      "title": "Financial Obligations",
+      "summary": "Tuition fees and payment methods",
+      "content": [
+        "Tuition fees are annual, covering the respective academic year and vary according to grade level.",
+        "Fees can be paid in full by mid-October or in equal monthly installments.",
+        "A 10% discount for the current academic year is provided for the second child of the same family.",
+        "A 35% discount for the current academic year is provided for children attending a second language."
+      ]
+    },
+    "attendance": {
+      "title": "Attendance and Absences",
+      "summary": "Class attendance rules",
+      "content": [
+        "No distinction is made between excused and unexcused absences.",
+        "Regular class attendance is a guarantee for student progress.",
+        "Anyone absent from class must notify the Administration.",
+        "In case of absences from important classes, 'Office Hours' are provided for additional help."
+      ]
+    },
+    "evaluation": {
+      "title": "Evaluation and Promotion",
+      "summary": "Tests and promotion criteria",
+      "content": [
+        "During the academic year, tests are conducted on the taught material.",
+        "Participation in tests is mandatory for all students.",
+        "Students who achieve 50% of the total score are promoted to the next level.",
+        "Tests are delivered to parents during information meetings."
+      ]
+    },
+    "parentMeetings": {
+      "title": "Parent Information",
+      "summary": "Meetings and progress checks",
+      "content": [
+        "Parents are invited at regular intervals for information about their children's performance.",
+        "Parent-teacher cooperation is valuable for students' good progress.",
+        "Information is not provided during teachers' breaks.",
+        "If attendance is not possible, request a new appointment from the Administration."
+      ]
+    },
+    "behavior": {
+      "title": "Classroom Behavior",
+      "summary": "Behavior and discipline rules",
+      "content": [
+        "Students must arrive at the school 2-3 minutes before class starts.",
+        "Students must behave respectfully towards classmates and teachers.",
+        "Disrupting the class in any way is prohibited.",
+        "The Administration reserves the right to expel without refund students who consistently behave inappropriately."
+      ]
+    },
+    "importantNotice": "Important Notice",
+    "importantText": "These terms are subject to periodic review. We recommend regular updates.",
+    "contact": "Contact Us",
+    "contactText": "For any questions about the terms:"
+  },
   "hero": {
-    "title": "ALPHA Foreign Language Centers",
+    "title": "ALFA Foreign Language Centers",
     "years": "35+ Years",
     "experience": "of Experience",
     "subtitle": "Together since 1986, with respect, love and dedication to learning"
@@ -161,7 +310,7 @@
     "slogan": "Together since 1986, with respect, love, and dedication to learning.",
     "workingHours": "Monday - Friday: 16:00 - 21:00",
     "socialMedia": "Social Media",
-    "copyright": "Alfa School. All rights reserved.",
+    "copyright": "Alfa Schools. All rights reserved.",
     "poweredBy": "Powered and Developed by",
     "addresses": {
       "chalandri": "Roumelis 27, Chalandri 152 33",

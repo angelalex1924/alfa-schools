@@ -5,9 +5,10 @@ import { useState } from "react";
 import Link from 'next/link'
 import {Linkedin, Twitter, Mail, Phone} from 'lucide-react';
 import Image from 'next/image';
-import { AcronWebLogo } from './acron-web-logo';
+import { AcronWebText } from './acron-web-logo';
 import StarBorder from './StarBorder';
 import { useLanguage } from "@/contexts/LanguageContext";
+import { CookieSettingsButton } from './cookies-settings-button';
 
 const tape = <svg xmlns="http://www.w3.org/2000/svg" width="95" height="80" viewBox="0 0 95 80" fill="none">
 <path d="M1 45L70.282 5L88.282 36.1769L19 76.1769L1 45Z" fill="#81a1d4"/>
@@ -188,9 +189,10 @@ export const Component = () => {
           <p className="whitespace-nowrap">
             ©{currentYear} {t('footer.copyright') || 'Alfa School. All rights reserved.'}
           </p>
-          <div className="flex flex-row gap-3">
+          <div className="flex flex-row gap-3 items-center">
             <Link href="/legal/privacy-policy" className="hover:text-[#81a1d4] transition-colors">{t('navigation.privacy')}</Link>
-            <Link href="/legal/tos" className="hover:text-[#81a1d4] transition-colors">{t('navigation.terms')}</Link>
+            <Link href="/legal/terms-of-service" className="hover:text-[#81a1d4] transition-colors">{t('navigation.terms')}</Link>
+            <CookieSettingsButton language={language} />
           </div>
         </div>
 
@@ -205,7 +207,36 @@ export const Component = () => {
             <div className="flex items-center gap-2">
               <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">{t('footer.poweredBy') || 'Powered and Developed by'}</span>
               <div className="w-px h-3 bg-gray-300 dark:bg-gray-600"></div>
-              <AcronWebLogo size="xs" className="opacity-80 hover:opacity-100 transition-opacity duration-200" />
+              <div className="flex items-center gap-1">
+                {/* Website Icon SVG */}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" className="h-3 w-3">
+                  <defs>
+                    <linearGradient id="blueGradientLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#0284c7" />
+                      <stop offset="50%" stopColor="#0ea5e9" />
+                      <stop offset="100%" stopColor="#38bdf8" />
+                    </linearGradient>
+                    <linearGradient id="blueGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#38bdf8" />
+                      <stop offset="50%" stopColor="#0ea5e9" />
+                      <stop offset="100%" stopColor="#0369a1" />
+                    </linearGradient>
+                  </defs>
+                  <g id="logogram" transform="translate(0, 0) rotate(0)">
+                    <path 
+                      fillRule="evenodd" 
+                      clipRule="evenodd" 
+                      d="M20.9053 40.0799C31.951 40.0799 40.9053 31.1256 40.9053 20.0799C40.9053 9.03427 31.951 0.0799561 20.9053 0.0799561C9.85956 0.0799561 0.905273 9.03427 0.905273 20.0799C0.905273 31.1256 9.85956 40.0799 20.9053 40.0799ZM27.1446 9.3968C27.4483 8.31801 26.4014 7.68008 25.4453 8.36125L12.0984 17.8695C11.0615 18.6082 11.2246 20.0799 12.3434 20.0799H15.858V20.0527H22.7078L17.1265 22.022L14.666 30.7631C14.3623 31.8419 15.4091 32.4798 16.3653 31.7986L29.7122 22.2904C30.7491 21.5517 30.5859 20.0799 29.4672 20.0799H24.1374L27.1446 9.3968Z" 
+                      className="fill-[url(#blueGradientLight)] dark:fill-[url(#blueGradientDark)]"
+                    />
+                  </g>
+                </svg>
+                <AcronWebText 
+                  size="xs" 
+                  animated={false} 
+                  className="[&_h1]:!text-[10px] opacity-80 hover:opacity-100 transition-opacity duration-200" 
+                />
+              </div>
             </div>
           </StarBorder>
         </div>

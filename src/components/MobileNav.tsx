@@ -292,14 +292,14 @@ const MobileNav = ({ items }: MobileNavProps) => {
   const additionalLinks = [
     {
       label: t("navigation.privacy"),
-      href: "/privacy-policy",
+      href: "/legal/privacy-policy",
       icon: Shield,
       color: "bg-gradient-to-br from-indigo-500/20 to-blue-500/20 text-indigo-500",
       hoverEffect: "hover:shadow-indigo-500/20",
     },
     {
       label: t("navigation.terms"),
-      href: "/terms-of-service",
+      href: "/legal/terms-of-service",
       icon: FileText,
       color: "bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-500",
       hoverEffect: "hover:shadow-purple-500/20",
@@ -876,24 +876,24 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     {/* Footer links - Βελτιωμένα με animation */}
                     <div className="mt-6 flex justify-center gap-4">
                       <motion.a
-                        href="/privacy-policy"
+                        href="/legal/privacy-policy"
                         className="text-xs text-white/80 hover:text-white flex items-center gap-1"
                         whileHover={{ scale: 1.05, x: 2 }}
                         onClick={(e) => {
                           e.preventDefault()
-                          handleNavigation("/privacy-policy")
+                          handleNavigation("/legal/privacy-policy")
                         }}
                       >
                         <Shield className="h-3 w-3" />
                         {t("navigation.privacy")}
                       </motion.a>
                       <motion.a
-                        href="/terms-of-service"
+                        href="/legal/terms-of-service"
                         className="text-xs text-white/80 hover:text-white flex items-center gap-1"
                         whileHover={{ scale: 1.05, x: 2 }}
                         onClick={(e) => {
                           e.preventDefault()
-                          handleNavigation("/terms-of-service")
+                          handleNavigation("/legal/terms-of-service")
                         }}
                       >
                         <FileText className="h-3 w-3" />
@@ -906,8 +906,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     {/* Copyright */}
                     <div className="mt-4 text-center">
                       <p className="text-xs text-white/60">
-                        © {new Date().getFullYear()} Alfa School.{" "}
-                        {t('footer.copyright') || 'All rights reserved.'}
+                        © {new Date().getFullYear()} {t('footer.copyright') || 'Alfa Schools. All rights reserved.'}
                       </p>
                     </div>
                   </motion.div>

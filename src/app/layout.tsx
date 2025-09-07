@@ -5,6 +5,7 @@ import ResponsiveNav from "@/components/ResponsiveNav";
 import { Component as Footer } from "@/components/footer-taped-design";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { CookieConsent } from "@/components/cookie-consent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default function RootLayout({
             <ResponsiveNav />
             {children}
             <Footer />
+            <CookieConsent />
           </LanguageProvider>
         </ThemeProvider>
       </body>
