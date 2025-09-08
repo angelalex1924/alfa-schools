@@ -3,12 +3,28 @@
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import Link from 'next/link'
-import {Linkedin, Twitter, Mail, Phone} from 'lucide-react';
+import {Linkedin, Twitter, Mail, Phone, Home, Settings, Newspaper, Users} from 'lucide-react';
 import Image from 'next/image';
 import { AcronWebText } from './acron-web-logo';
 import StarBorder from './StarBorder';
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CookieSettingsButton } from './cookies-settings-button';
+
+// Custom Services Icon
+const ServicesIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" className={className}>
+    <g clipPath="url(#clip0_4418_3849)">
+      <path d="M2 13.02V15C2 20 4 22 9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M18.3801 15.2693V7.57925C18.3801 6.80926 17.7601 6.24927 17.0001 6.30927H16.9601C15.6201 6.41927 13.5901 7.10928 12.4501 7.81928L12.3401 7.88928C12.1601 7.99928 11.8501 7.99928 11.6601 7.88928L11.5001 7.78928C10.3701 7.07928 8.34012 6.40926 7.00012 6.29926C6.24012 6.23926 5.62012 6.80928 5.62012 7.56928V15.2693C5.62012 15.8793 6.1201 16.4593 6.7301 16.5293L6.9101 16.5593C8.2901 16.7393 10.4301 17.4493 11.6501 18.1193L11.6801 18.1293C11.8501 18.2293 12.1301 18.2293 12.2901 18.1293C13.5101 17.4493 15.6601 16.7493 17.0501 16.5593L17.2601 16.5293C17.8801 16.4593 18.3801 15.8893 18.3801 15.2693Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M12 8.09961V17.6596" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </g>
+    <defs>
+      <clipPath id="clip0_4418_3849">
+        <rect width="24" height="24" fill="white"/>
+      </clipPath>
+    </defs>
+  </svg>
+)
 
 const tape = <svg xmlns="http://www.w3.org/2000/svg" width="95" height="80" viewBox="0 0 95 80" fill="none">
 <path d="M1 45L70.282 5L88.282 36.1769L19 76.1769L1 45Z" fill="#81a1d4"/>
@@ -30,7 +46,7 @@ export const Component = () => {
 
   return (
    <footer className="my-8 px-4 max-w-7xl text-base-content mx-auto">
-      <div className="relative bg-white rounded-3xl max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div className="relative bg-[#81a1d4]/30 dark:bg-[#0f172a] rounded-3xl max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="hidden md:block absolute -top-4 -left-8 w-[80px] h-[36px] scale-75">
           {tape}
         </div>
@@ -53,32 +69,44 @@ export const Component = () => {
               />
             </div>
           </Link>
-          <p className='text-neutral/50 font-medium text-base w-full md:w-full leading-tight'>{t('footer.slogan')}</p>
+          <p className='text-neutral/50 dark:text-white/70 font-medium text-base w-full md:w-full leading-tight'>{t('footer.slogan')}</p>
           </div>
 
           <div className='flex flex-col md:mx-4 md:flex-row gap-2 md:gap-20 items-start md:items-start'>
 
           <div className='flex flex-col gap-1 md:gap-4'>
           <h4 className='uppercase font-display text-md text-[#81a1d4] font-semibold'>{t('navigation.services')}</h4>
-          <div className="flex flex-wrap md:flex-col gap-2 text-sm text-neutral items-start ">
-            <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors' href="/services">{t('navigation.services')}</Link>
-            <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors' href="/news">{t('navigation.news')}</Link>
-            <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors' href="/why-us">{t('navigation.whyUs')}</Link>
-            <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors' href="/contact">{t('navigation.contact')}</Link>
+          <div className="flex flex-wrap md:flex-col gap-2 text-sm text-neutral dark:text-white/70 items-start ">
+            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/services">
+              <ServicesIcon className="w-4 h-4" />
+              {t('navigation.services')}
+            </Link>
+            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/news">
+              <Newspaper className="w-4 h-4" />
+              {t('navigation.news')}
+            </Link>
+            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/why-us">
+              <Users className="w-4 h-4" />
+              {t('navigation.whyUs')}
+            </Link>
+            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/contact">
+              <Phone className="w-4 h-4" />
+              {t('navigation.contact')}
+            </Link>
           </div>
           </div>
 
           <div className='flex flex-col gap-1 md:gap-4'>
           <h4 className='uppercase whitespace-nowrap font-display text-md text-[#81a1d4] font-semibold'>{t('navigation.contact')}</h4>
-          <div className="flex gap-2 flex-wrap md:flex-col text-sm text-neutral items-start ">
+          <div className="flex gap-2 flex-wrap md:flex-col text-sm text-neutral dark:text-white/70 items-start ">
             {/* Chalandri Center */}
             <div className="flex flex-col gap-1">
-              <p className="text-neutral/70 font-semibold text-xs">{t('phoneNumbers.chalandri.title')}</p>
-              <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="tel:+302106800708">
+              <p className="text-neutral/70 dark:text-white/80 font-semibold text-xs">{t('phoneNumbers.chalandri.title')}</p>
+              <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="tel:+302106800708">
                 <Phone className="w-4 h-4" />
                 {t('phoneNumbers.chalandri.number')}
               </Link>
-              <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href={getGoogleMapsUrl(t('footer.addresses.chalandri'))} target="_blank" rel="noopener noreferrer">
+              <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href={getGoogleMapsUrl(t('footer.addresses.chalandri'))} target="_blank" rel="noopener noreferrer">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -86,7 +114,7 @@ export const Component = () => {
                 {t('footer.addresses.chalandri')}
               </Link>
               <div className="flex items-center gap-2 mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-neutral/60">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-neutral/60 dark:text-white/50">
                   <g clipPath="url(#clip0_4418_6317)">
                     <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     <path opacity="0.4" d="M15.7099 15.1798L12.6099 13.3298C12.0699 13.0098 11.6299 12.2398 11.6299 11.6098V7.50977" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -97,11 +125,11 @@ export const Component = () => {
                     </clipPath>
                   </defs>
                 </svg>
-                <p className="text-neutral/60 text-xs">{t('footer.workingHours') || 'Δευτέρα - Παρασκευή: 16:00 - 21:00'}</p>
+                <p className="text-neutral/60 dark:text-white/50 text-xs">{t('footer.workingHours') || 'Δευτέρα - Παρασκευή: 16:00 - 21:00'}</p>
               </div>
               
               {/* Email for Chalandri */}
-              <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="mailto:info@alfaschoolchalandri.com">
+              <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="mailto:info@alfaschoolchalandri.com">
                 <Mail className="w-4 h-4" />
                 {t('emails.chalandri.email')}
               </Link>
@@ -109,12 +137,12 @@ export const Component = () => {
             
             {/* Nea Filadelfeia Center */}
             <div className="flex flex-col gap-1">
-              <p className="text-neutral/70 font-semibold text-xs">{t('phoneNumbers.neaPhiladelphia.title')}</p>
-              <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="tel:+302102777725">
+              <p className="text-neutral/70 dark:text-white/80 font-semibold text-xs">{t('phoneNumbers.neaPhiladelphia.title')}</p>
+              <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="tel:+302102777725">
                 <Phone className="w-4 h-4" />
                 {t('phoneNumbers.neaPhiladelphia.number')}
               </Link>
-              <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href={getGoogleMapsUrl(t('footer.addresses.neaPhiladelphia'))} target="_blank" rel="noopener noreferrer">
+              <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href={getGoogleMapsUrl(t('footer.addresses.neaPhiladelphia'))} target="_blank" rel="noopener noreferrer">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -122,7 +150,7 @@ export const Component = () => {
                 {t('footer.addresses.neaPhiladelphia')}
               </Link>
               <div className="flex items-center gap-2 mb-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-neutral/60">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-neutral/60 dark:text-white/50">
                   <g clipPath="url(#clip0_4418_6317)">
                     <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     <path opacity="0.4" d="M15.7099 15.1798L12.6099 13.3298C12.0699 13.0098 11.6299 12.2398 11.6299 11.6098V7.50977" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -133,11 +161,11 @@ export const Component = () => {
                     </clipPath>
                   </defs>
                 </svg>
-                <p className="text-neutral/60 text-xs">{t('footer.workingHours') || 'Δευτέρα - Παρασκευή: 16:00 - 21:00'}</p>
+                <p className="text-neutral/60 dark:text-white/50 text-xs">{t('footer.workingHours') || 'Δευτέρα - Παρασκευή: 16:00 - 21:00'}</p>
               </div>
             </div>
             
-            <Link className='text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="mailto:info@acronweb.com">
+            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="mailto:info@acronweb.com">
               <Mail className="w-4 h-4" />
               info@acronweb.com
             </Link>
@@ -146,12 +174,12 @@ export const Component = () => {
           
           <div className='flex flex-col gap-1 gap-4'>
           <h4 className='uppercase whitespace-nowrap font-display text-md text-[#81a1d4] font-semibold'>{t('footer.socialMedia') || 'Κοινωνικά Δίκτυα'}</h4>
-          <div className="flex flex-col gap-2 text-sm text-neutral items-start ">
+          <div className="flex flex-col gap-2 text-sm text-neutral dark:text-white/70 items-start ">
             <a
               href="https://www.facebook.com/profile.php?id=100057649952827"
               target="_blank"
               rel="nofollow noopener"
-              className="text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2"
+              className="text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -162,7 +190,7 @@ export const Component = () => {
               href="https://www.instagram.com/alfaschools/"
               target="_blank"
               rel="nofollow noopener"
-              className="text-neutral/50 whitespace-nowrap font-medium hover:text-[#81a1d4] transition-colors flex items-center gap-2"
+              className="text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <g clipPath="url(#clip0_4418_7411)">
@@ -184,14 +212,14 @@ export const Component = () => {
 
         </div>
       </div>
-      <div className="my-1 px-4 md:px-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 text-sm text-neutral">
+      <div className="my-1 px-4 md:px-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 text-sm text-neutral dark:text-white/70">
         <div className="flex flex-col sm:flex-row gap-1 sm:gap-6 items-start sm:items-center">
           <p className="whitespace-nowrap">
             ©{currentYear} {t('footer.copyright') || 'Alfa School. All rights reserved.'}
           </p>
           <div className="flex flex-row gap-3 items-center">
-            <Link href="/legal/privacy-policy" className="hover:text-[#81a1d4] transition-colors">{t('navigation.privacy')}</Link>
-            <Link href="/legal/terms-of-service" className="hover:text-[#81a1d4] transition-colors">{t('navigation.terms')}</Link>
+            <Link href="/legal/privacy-policy" className="hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors">{t('navigation.privacy')}</Link>
+            <Link href="/legal/terms-of-service" className="hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors">{t('navigation.terms')}</Link>
             <CookieSettingsButton language={language} />
           </div>
         </div>
@@ -205,8 +233,8 @@ export const Component = () => {
             thickness={2}
           >
             <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">{t('footer.poweredBy') || 'Powered and Developed by'}</span>
-              <div className="w-px h-3 bg-gray-300 dark:bg-gray-600"></div>
+              <span className="text-xs text-gray-500 dark:text-white/60 font-medium">{t('footer.poweredBy') || 'Powered and Developed by'}</span>
+              <div className="w-px h-3 bg-gray-300 dark:bg-white/40"></div>
               <div className="flex items-center gap-1">
                 {/* Website Icon SVG */}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" className="h-3 w-3">

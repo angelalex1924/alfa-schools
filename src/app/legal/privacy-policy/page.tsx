@@ -110,6 +110,37 @@ export default function PrivacyPolicyPage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [sections])
 
+  // Handle mobile TOC visibility to hide when footer is visible
+  useEffect(() => {
+    const handleMobileTocVisibility = () => {
+      const tocButton = document.querySelector('.mobile-toc-button') as HTMLElement
+      const footer = document.querySelector('footer') as HTMLElement
+      
+      if (tocButton && footer) {
+        const footerRect = footer.getBoundingClientRect()
+        const viewportHeight = window.innerHeight
+        
+        // If footer is visible in viewport, hide the TOC button
+        if (footerRect.top < viewportHeight) {
+          tocButton.style.opacity = '0'
+          tocButton.style.pointerEvents = 'none'
+        } else {
+          tocButton.style.opacity = '1'
+          tocButton.style.pointerEvents = 'auto'
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleMobileTocVisibility)
+    window.addEventListener('resize', handleMobileTocVisibility)
+    handleMobileTocVisibility() // Initial call
+    
+    return () => {
+      window.removeEventListener('scroll', handleMobileTocVisibility)
+      window.removeEventListener('resize', handleMobileTocVisibility)
+    }
+  }, [])
+
   // Smooth scroll to section
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -219,7 +250,8 @@ export default function PrivacyPolicyPage() {
       {/* Enhanced Mobile TOC Button */}
       <button
         onClick={() => setIsTocOpen(!isTocOpen)}
-        className="fixed bottom-6 left-6 z-50 xl:hidden bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 border-2 border-white/20"
+        className="mobile-toc-button fixed bottom-6 left-6 z-50 xl:hidden bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition-all duration-500 hover:scale-105 active:scale-95 border-2 border-white/20"
+        style={{ transition: 'all 0.5s ease-in-out' }}
       >
         <div className="relative">
           {isTocOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -451,10 +483,10 @@ export default function PrivacyPolicyPage() {
                     {getString(t('privacy.contactText'))}
                   </p>
                   <Link 
-                    href="mailto:privacy@languageschool.gr"
+                    href="mailto:info@alfaschoolchalandri.com"
                     className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors duration-200"
                   >
-                    privacy@languageschool.gr
+                    info@alfaschoolchalandri.com
                   </Link>
                 </div>
               </div>
@@ -463,7 +495,6 @@ export default function PrivacyPolicyPage() {
         </div>
       </section>
 
-      <Footer />
     </div>
   )
 }

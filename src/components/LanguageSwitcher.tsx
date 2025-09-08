@@ -145,7 +145,7 @@ export function LanguageSwitcher({ className, compact = false, mobile = false }:
         </h3>
         
         {/* Modern Toggle Design */}
-        <div className="relative bg-white/10 backdrop-blur-xl rounded-2xl p-1 border border-white/20">
+        <div className="relative bg-white/5 backdrop-blur-xl rounded-2xl p-1 border border-white/10">
           {/* Background Slider */}
           <motion.div
             className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-gradient-to-r from-[#81a1d4] to-[#6b8bc4] rounded-xl shadow-lg"
