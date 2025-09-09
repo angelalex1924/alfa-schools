@@ -4,6 +4,7 @@
     "services": "Services",
     "news": "Our News",
     "whyUs": "Why Us",
+    "games": "Games",
     "contact": "Contact",
     "privacy": "Privacy",
     "terms": "Terms",
@@ -17,7 +18,37 @@
     "servicesDescription": "Specialized services",
     "newsDescription": "Latest news and updates",
     "whyUsDescription": "Discover our advantages",
+    "gamesDescription": "Interactive games for learning",
     "contactDescription": "Contact us"
+  },
+  "notebook": {
+    "schoolName": "Alfa School",
+    "subject": "Lesson",
+    "date": "Date",
+    "star": "Star",
+    "checkmark": "Checkpoint",
+    "handwritten": "Handwritten",
+    "notebook": "Notebook",
+    "lesson": "Lesson",
+    "subject_games": "Educational Games",
+    "subject_services": "Educational Services",
+    "subject_why_us": "Advantages",
+    "subject_news": "Updates",
+    "subject_contact": "Contact",
+    "titles": {
+      "games": "Games",
+      "services": "Services",
+      "why_us": "Why Alfa School",
+      "news": "News",
+      "contact": "Contact"
+    },
+    "subtitles": {
+      "games": "Learn while having fun with our interactive games",
+      "services": "Discover our specialized services designed to meet your educational needs",
+      "why_us": "Discover the reasons that make Alfa School the best choice for your education",
+      "news": "Stay updated with the latest news, developments and events from Alfa School",
+      "contact": "Have questions? Contact us for more information and we will respond immediately"
+    }
   },
   "privacy": {
     "title": "Privacy Policy",
@@ -236,14 +267,14 @@
   },
   "languages": {
     "english": {
-      "title": "🇬🇧 English",
+      "title": "English",
       "description1": "It is the international language of communication and information.",
       "description2": "It opens doors for studies, career and travel.",
       "description3": "80% of the internet is in English.",
       "description4": "In every field – science, technology, politics, business – English has a dominant role."
     },
     "french": {
-      "title": "🇫🇷 French",
+      "title": "French",
       "description1": "Spoken on 5 continents by more than 275 million people.",
       "description2": "It is the language of the European Union, the UN and international organizations.",
       "description3": "It provides access to top universities and culture.",
@@ -282,9 +313,6 @@
     "email": "Email",
     "needHelp": "Need help?",
     "helpDescription": "Our team is ready to help you with any question."
-  },
-  "footer": {
-    "text": "ALPHA – Together since 1986, with respect, love and dedication to learning."
   },
   "phoneNumbers": {
     "chalandri": {
@@ -354,6 +382,97 @@
     },
     "badge": {
       "since1986": "SINCE 1986"
+    }
+  },
+  "games": {
+    "title": "Learning Games",
+    "subtitle": "Learn English and French through interactive games that make learning fun!",
+    "features": {
+      "interactive": "Interactive",
+      "educational": "Educational",
+      "fun": "Fun"
+    },
+    "categories": {
+      "title": "Game Categories",
+      "subtitle": "Choose the language you want to learn and start playing!"
+    },
+    "english": {
+      "title": "English Games",
+      "description": "Learn English with fun games",
+      "vocabulary": {
+        "title": "Vocabulary",
+        "description": "Enrich your vocabulary",
+        "question": "What is this?",
+        "instructions": {
+          "title": "Instructions:",
+          "step1": "You see an icon",
+          "step2": "Choose the correct English word",
+          "step3": "You have 45 seconds to complete the game",
+          "step4": "You earn 1 point for each correct answer"
+        },
+        "professionQuestion": "What profession is this?"
+      },
+      "grammar": {
+        "title": "Grammar",
+        "description": "Improve your grammar"
+      },
+      "conversation": {
+        "title": "Conversation",
+        "description": "Practice conversation"
+      }
+    },
+    "french": {
+      "title": "French Games",
+      "description": "Learn French with fun games",
+      "vocabulary": {
+        "title": "Vocabulaire",
+        "description": "Enrichissez votre vocabulaire",
+        "question": "Qu'est-ce que c'est ?",
+        "instructions": {
+          "title": "Instructions:",
+          "step1": "You see an icon",
+          "step2": "Choose the correct French word",
+          "step3": "You have 45 seconds to complete the game",
+          "step4": "You earn 1 point for each correct answer"
+        },
+        "professionQuestion": "Quel métier est-ce ?"
+      },
+      "grammar": {
+        "title": "Grammaire",
+        "description": "Améliorez votre grammaire"
+      },
+      "conversation": {
+        "title": "Conversation",
+        "description": "Pratiquez la conversation"
+      }
+    },
+    "comingSoon": "Coming Soon",
+    "levels": {
+      "basic": "Basic",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "level2": {
+      "title": "Level 2 - Intermediate",
+      "description": "More difficult words for advanced learners",
+      "time": "60 seconds",
+      "words": "30 words",
+      "professions": "Professions and sciences"
+    },
+    "level3": {
+      "title": "Level 3 - Advanced",
+      "description": "Very difficult words for advanced learners",
+      "time": "90 seconds",
+      "words": "30 words",
+      "advanced": "Advanced words from various topics"
+    },
+    "words": "words",
+    "topics": "topics",
+    "scenarios": "scenarios",
+    "cta": {
+      "title": "Start your magical learning journey!",
+      "description": "Our games are designed to make learning easy, fun, and effective.",
+      "button": "Start Now"
     }
   }
 }

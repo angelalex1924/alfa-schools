@@ -1,3 +1,5 @@
+import NotebookHero from "@/components/NotebookHero"
+
 export default function Contact() {
   return (
     <div className="min-h-screen relative overflow-hidden" style={{
@@ -32,32 +34,12 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* Main content area */}
-      <main className="relative z-10 pt-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          {/* Hero section */}
-          <div className="text-center py-20">
-            {/* Animated Badge */}
-            <div className="inline-flex items-center gap-2 backdrop-blur-md border rounded-full px-6 py-2 mb-8 animate-pulse" style={{
-              backgroundColor: 'rgba(129, 161, 212, 0.2)',
-              borderColor: 'rgba(129, 161, 212, 0.3)'
-            }}>
-              <div className="w-2 h-2 rounded-full animate-pulse" style={{backgroundColor: '#f78da7'}}></div>
-              <span className="font-medium text-gray-700">Επικοινωνήστε μαζί μας</span>
-            </div>
+      {/* Notebook Hero Section */}
+      <NotebookHero />
 
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black mb-6 leading-tight" style={{
-              background: `linear-gradient(135deg, #81a1d4 0%, #c9b6e4 50%, #f78da7 100%)`,
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
-              Επικοινωνήστε μαζί μας
-            </h1>
-            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto font-light leading-relaxed">
-              Έχουμε ερωτήσεις; Επικοινωνήστε μαζί μας για περισσότερες πληροφορίες και θα σας απαντήσουμε άμεσα.
-            </p>
-          </div>
+      {/* Main content area */}
+      <main className="relative z-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
 
           {/* Contact Information and Form */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 py-16 relative">

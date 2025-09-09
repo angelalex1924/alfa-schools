@@ -1,18 +1,14 @@
+import NotebookHero from "@/components/NotebookHero"
+
 export default function News() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      {/* Notebook Hero Section */}
+      <NotebookHero />
+
       {/* Main content area */}
-      <main className="pt-24 px-4 sm:px-6 lg:px-8">
+      <main className="px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          {/* Hero section */}
-          <div className="text-center py-20">
-            <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-              Τα <span className="text-[#81a1d4]">Νέα</span> μας
-            </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Μείνετε ενημερωμένοι με τα τελευταία νέα, τις εξελίξεις και τα εκδηλώσεις της Alfa School.
-            </p>
-          </div>
 
           {/* Featured News */}
           <div className="mb-16">

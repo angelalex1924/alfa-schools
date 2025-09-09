@@ -4,6 +4,7 @@
     "services": "Υπηρεσίες",
     "news": "Τα νέα μας",
     "whyUs": "Γιατί εμάς",
+    "games": "Παιχνίδια",
     "contact": "Επικοινωνία",
     "privacy": "Απόρρητο",
     "terms": "Όροι",
@@ -17,7 +18,37 @@
     "servicesDescription": "Εξειδικευμένες υπηρεσίες",
     "newsDescription": "Τελευταία νέα και ενημερώσεις",
     "whyUsDescription": "Ανακαλύψτε τα πλεονεκτήματά μας",
+    "gamesDescription": "Διαδραστικά παιχνίδια για μάθηση",
     "contactDescription": "Επικοινωνήστε μαζί μας"
+  },
+  "notebook": {
+    "schoolName": "Alfa School",
+    "subject": "Μάθημα",
+    "date": "Ημερομηνία",
+    "star": "Αστέρι",
+    "checkmark": "Σημείο ελέγχου",
+    "handwritten": "Χειρόγραφο",
+    "notebook": "Τετράδιο",
+    "lesson": "Μάθημα",
+    "subject_games": "Εκπαιδευτικά Παιχνίδια",
+    "subject_services": "Εκπαιδευτικές Υπηρεσίες",
+    "subject_why_us": "Πλεονεκτήματα",
+    "subject_news": "Ενημερώσεις",
+    "subject_contact": "Επικοινωνία",
+    "titles": {
+      "games": "Παιχνίδια",
+      "services": "Υπηρεσίες",
+      "why_us": "Γιατί Alfa School",
+      "news": "Νέα",
+      "contact": "Επικοινωνία"
+    },
+    "subtitles": {
+      "games": "Μάθετε διασκεδάζοντας με τα interactive παιχνίδια μας",
+      "services": "Ανακαλύψτε τις εξειδικευμένες υπηρεσίες μας που σχεδιάστηκαν για να καλύψουν τις εκπαιδευτικές ανάγκες σας",
+      "why_us": "Ανακαλύψτε τους λόγους που κάνουν την Alfa School την καλύτερη επιλογή για την εκπαίδευσή σας",
+      "news": "Μείνετε ενημερωμένοι με τα τελευταία νέα, τις εξελίξεις και τα εκδηλώσεις της Alfa School",
+      "contact": "Έχουμε ερωτήσεις; Επικοινωνήστε μαζί μας για περισσότερες πληροφορίες και θα σας απαντήσουμε άμεσα"
+    }
   },
   "privacy": {
     "title": "Πολιτική Απορρήτου",
@@ -236,14 +267,14 @@
   },
   "languages": {
     "english": {
-      "title": "🇬🇧 Αγγλικά",
+      "title": "Αγγλικά",
       "description1": "Είναι η διεθνής γλώσσα επικοινωνίας και πληροφορίας.",
       "description2": "Ανοίγουν δρόμους για σπουδές, καριέρα και ταξίδια.",
       "description3": "Το 80% του διαδικτύου είναι στα αγγλικά.",
       "description4": "Σε κάθε τομέα – επιστήμη, τεχνολογία, πολιτική, επιχειρήσεις – τα αγγλικά έχουν κυρίαρχο ρόλο."
     },
     "french": {
-      "title": "🇫🇷 Γαλλικά",
+      "title": "Γαλλικά",
       "description1": "Μιλιούνται σε 5 ηπείρους από πάνω από 275 εκατομμύρια ανθρώπους.",
       "description2": "Είναι γλώσσα της Ευρωπαϊκής Ένωσης, του ΟΗΕ και διεθνών οργανισμών.",
       "description3": "Προσφέρουν πρόσβαση σε κορυφαία πανεπιστήμια και πολιτισμό.",
@@ -282,9 +313,6 @@
     "email": "Email",
     "needHelp": "Χρειάζεστε βοήθεια;",
     "helpDescription": "Η ομάδα μας είναι έτοιμη να σας βοηθήσει με οποιαδήποτε ερώτηση."
-  },
-  "footer": {
-    "text": "ΑΛΦΑ – Μαζί από το 1986, με σεβασμό, αγάπη και αφοσίωση στη μάθηση."
   },
   "phoneNumbers": {
     "chalandri": {
@@ -354,6 +382,97 @@
     },
     "badge": {
       "since1986": "ΑΠΟ ΤΟ 1986"
+    }
+  },
+  "games": {
+    "title": "Παιχνίδια Μάθησης",
+    "subtitle": "Μάθετε αγγλικά και γαλλικά μέσω διαδραστικών παιχνιδιών που κάνουν τη μάθηση διασκεδαστική!",
+    "features": {
+      "interactive": "Διαδραστικά",
+      "educational": "Εκπαιδευτικά",
+      "fun": "Διασκεδαστικά"
+    },
+    "categories": {
+      "title": "Κατηγορίες Παιχνιδιών",
+      "subtitle": "Επιλέξτε τη γλώσσα που θέλετε να μάθετε και ξεκινήστε να παίζετε!"
+    },
+    "english": {
+      "title": "Αγγλικά Παιχνίδια",
+      "description": "Μάθετε αγγλικά με διασκεδαστικά παιχνίδια",
+      "vocabulary": {
+        "title": "Λεξιλόγιο",
+        "description": "Εμπλουτίστε το λεξιλόγιό σας",
+        "question": "What is this?",
+        "instructions": {
+          "title": "Instructions:",
+          "step1": "You see an icon",
+          "step2": "Choose the correct English word",
+          "step3": "You have 45 seconds to complete the game",
+          "step4": "You earn 1 point for each correct answer"
+        },
+        "professionQuestion": "What profession is this?"
+      },
+      "grammar": {
+        "title": "Γραμματική",
+        "description": "Βελτιώστε τη γραμματική σας"
+      },
+      "conversation": {
+        "title": "Συνομιλία",
+        "description": "Εξασκηθείτε στη συνομιλία"
+      }
+    },
+    "french": {
+      "title": "Γαλλικά Παιχνίδια",
+      "description": "Μάθετε γαλλικά με διασκεδαστικά παιχνίδια",
+      "vocabulary": {
+        "title": "Vocabulaire",
+        "description": "Enrichissez votre vocabulaire",
+        "question": "Qu'est-ce que c'est ?",
+        "instructions": {
+          "title": "Instructions:",
+          "step1": "You see an icon",
+          "step2": "Choose the correct French word",
+          "step3": "You have 45 seconds to complete the game",
+          "step4": "You earn 1 point for each correct answer"
+        },
+        "professionQuestion": "Quel métier est-ce ?"
+      },
+      "grammar": {
+        "title": "Grammaire",
+        "description": "Améliorez votre grammaire"
+      },
+      "conversation": {
+        "title": "Conversation",
+        "description": "Pratiquez la conversation"
+      }
+    },
+    "comingSoon": "Σύντομα διαθέσιμα",
+    "levels": {
+      "basic": "Βασικό",
+      "intermediate": "Μεσαίο",
+      "advanced": "Προχωρημένο"
+    },
+    "level2": {
+      "title": "Επίπεδο 2 - Μεσαίο",
+      "description": "Πιο δύσκολες λέξεις για προχωρημένους μαθητές",
+      "time": "60 δευτερόλεπτα",
+      "words": "30 λέξεις",
+      "professions": "Επαγγέλματα και επιστήμες"
+    },
+    "level3": {
+      "title": "Επίπεδο 3 - Προχωρημένο",
+      "description": "Πολύ δύσκολες λέξεις για προχωρημένους μαθητές",
+      "time": "90 δευτερόλεπτα",
+      "words": "30 λέξεις",
+      "advanced": "Προχωρημένες λέξεις από διάφορα θέματα"
+    },
+    "words": "λέξεις",
+    "topics": "θέματα",
+    "scenarios": "σενάρια",
+    "cta": {
+      "title": "Ξεκινήστε τη μαγική σας διαδρομή μάθησης!",
+      "description": "Τα παιχνίδια μας είναι σχεδιασμένα να κάνουν τη μάθηση εύκολη, διασκεδαστική και αποτελεσματική.",
+      "button": "Ξεκινήστε τώρα"
     }
   }
 }

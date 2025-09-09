@@ -47,6 +47,7 @@ import Image from "next/image"
 import { useTheme } from "@/contexts/ThemeContext"
 import { LanguageSwitcher } from "./LanguageSwitcher"
 import { useLanguage } from "@/contexts/LanguageContext"
+import { GamesIcon } from "./custom-icons"
 
 // AcronAI SVG Icon
 const AcronAIIcon = ({ className }: { className?: string }) => (
@@ -292,6 +293,13 @@ const MobileNav = ({ items }: MobileNavProps) => {
       icon: Users,
       color: "bg-gradient-to-br from-[#fabeb6] to-[#f8a5a5]",
       hoverEffect: "hover:shadow-[#fabeb6]/20",
+    },
+    {
+      label: t('navigation.games'),
+      href: "/games",
+      icon: GamesIcon,
+      color: "bg-gradient-to-br from-[#a8e6cf] to-[#88d8a3]",
+      hoverEffect: "hover:shadow-[#a8e6cf]/20",
     },
     {
       label: t('navigation.contact'),
@@ -632,6 +640,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                                 {link.label === t('navigation.services') && (t('navigation.servicesDescription') || "Εξειδικευμένες υπηρεσίες")}
                                 {link.label === t('navigation.news') && (t('navigation.newsDescription') || "Τελευταία νέα και ενημερώσεις")}
                                 {link.label === t('navigation.whyUs') && (t('navigation.whyUsDescription') || "Ανακαλύψτε τα πλεονεκτήματά μας")}
+                                {link.label === t('navigation.games') && (t('navigation.gamesDescription') || "Διαδραστικά παιχνίδια για μάθηση")}
                                 {link.label === t('navigation.contact') && (t('navigation.contactDescription') || "Επικοινωνήστε μαζί μας")}
                               </p>
                             </div>

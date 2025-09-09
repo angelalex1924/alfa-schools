@@ -5,6 +5,7 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { MapPin, Star, Users, BookOpen, Globe, Award, Heart, Lightbulb, Phone, Mail, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { FranceFlagIcon } from "./flag-icons";
 
 const BrochureContent = () => {
   const { t } = useLanguage()
@@ -271,7 +272,10 @@ const BrochureContent = () => {
         <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <CardHeader className="text-center relative z-10">
-            <CardTitle className="text-3xl font-bold text-gray-800">🇫🇷 Γαλλικά</CardTitle>
+            <CardTitle className="text-3xl font-bold text-gray-800 flex items-center justify-center gap-2">
+              <FranceFlagIcon className="w-5 h-4" />
+              Γαλλικά
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 relative z-10">
             <p className="text-gray-600 leading-relaxed">Μιλιούνται σε 5 ηπείρους από πάνω από 275 εκατομμύρια ανθρώπους.</p>

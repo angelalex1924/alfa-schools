@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import Link from 'next/link'
 import {Linkedin, Twitter, Mail, Phone, Home, Settings, Newspaper, Users} from 'lucide-react';
+import { GamesIcon } from './custom-icons';
 import Image from 'next/image';
 import { AcronWebText } from './acron-web-logo';
 import StarBorder from './StarBorder';
@@ -88,6 +89,10 @@ export const Component = () => {
             <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/why-us">
               <Users className="w-4 h-4" />
               {t('navigation.whyUs')}
+            </Link>
+            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/games">
+              <GamesIcon className="w-4 h-4" />
+              {t('navigation.games')}
             </Link>
             <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/contact">
               <Phone className="w-4 h-4" />

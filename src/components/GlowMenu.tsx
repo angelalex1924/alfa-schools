@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Home, Settings, Newspaper, Users, Phone, Mail, Shield, ChevronRight, ChevronDown } from "lucide-react"
+import { GamesIcon } from "./custom-icons"
 
 // Custom Services Icon
 const ServicesIcon = ({ className }: { className?: string }) => (
@@ -57,6 +58,13 @@ const getNavigationItems = (t: (key: string) => string | string[]) => [
     icon: Users,
     color: "#fabeb6", // Ροζ
     iconColor: "text-[#fabeb6]"
+  },
+  {
+    label: t('navigation.games'),
+    href: "/games",
+    icon: GamesIcon,
+    color: "#a8e6cf", // Απαλό πράσινο
+    iconColor: "text-[#a8e6cf]"
   },
   {
     label: t('navigation.contact'),
@@ -173,22 +181,51 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
           <div className="absolute inset-0 bg-white/5 backdrop-blur-2xl"></div>
         </motion.div>
 
-      {/* Logo with alfa-logo.png */}
+      {/* Enhanced Logo with alfa-logo.png */}
       <motion.div
         variants={logoVariants}
         initial="hidden"
         animate="visible"
       >
         <Link href="/" className="relative group" prefetch={false}>
-          <div className="relative w-32 h-12 hover:scale-105 transition-transform duration-300">
+          <motion.div 
+            className="relative w-32 h-12"
+            whileHover={{ 
+              scale: 1.05,
+              rotate: [0, 1, -1, 0],
+              transition: { duration: 0.3 }
+            }}
+            whileTap={{ scale: 0.95 }}
+            animate={{
+              boxShadow: [
+                "0 0 0 rgba(59, 130, 246, 0)",
+                "0 0 20px rgba(59, 130, 246, 0.1)",
+                "0 0 0 rgba(59, 130, 246, 0)"
+              ]
+            }}
+            transition={{
+              boxShadow: { duration: 3, repeat: Infinity, ease: "easeInOut" }
+            }}
+          >
             <Image
               src="/alfa-logo.png"
               alt="Alfa Logo"
               fill
-              className="object-contain"
+              className="object-contain transition-all duration-300 group-hover:brightness-110"
               priority
             />
-          </div>
+            
+            {/* Subtle glow effect on hover */}
+            <motion.div
+              className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{
+                background: `linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent)`,
+                filter: 'blur(8px)'
+              }}
+              initial={{ opacity: 0 }}
+              whileHover={{ opacity: 1 }}
+            />
+          </motion.div>
         </Link>
       </motion.div>
 
@@ -237,14 +274,14 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                     {/* Item content */}
                     <div
                       className={cn(
-                        "flex items-center gap-2 px-3 py-1.5 rounded-xl transition-all duration-300 relative",
+                        "flex items-center gap-2 px-3 py-1.5 rounded-xl transition-all duration-300 relative group/item",
                         isActive ? "text-white" : "text-white/80 hover:text-white",
                       )}
                     >
-                      {/* Icon with animations */}
+                      {/* Icon with enhanced animations */}
                       <motion.div
                         className={cn(
-                          "relative flex items-center justify-center w-7 h-7 rounded-lg transition-colors",
+                          "relative flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-300",
                           isActive || isHovered
                             ? `${item.iconColor} bg-white/20 backdrop-blur-sm`
                             : "text-white/70",
@@ -254,6 +291,12 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                             ? {
                                 scale: 1.05,
                                 boxShadow: `0 2px 8px ${item.color}40`,
+                                rotate: [0, 2, -2, 0],
+                              }
+                            : isHovered
+                            ? {
+                                scale: 1.02,
+                                rotate: [0, 1, -1, 0],
                               }
                             : {}
                         }
@@ -262,13 +305,22 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                             ? {
                                 duration: 0.3,
                                 ease: "easeOut",
+                                rotate: { duration: 0.6, repeat: Infinity, repeatDelay: 3 }
+                              }
+                            : isHovered
+                            ? {
+                                duration: 0.2,
+                                ease: "easeOut",
+                                rotate: { duration: 0.4, repeat: Infinity, repeatDelay: 1 }
                               }
                             : {}
                         }
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                       >
                         <Icon className="h-4 w-4" />
 
-                        {/* Subtle active indicator */}
+                        {/* Enhanced active indicator with glow */}
                         <AnimatePresence>
                           {isActive && (
                             <motion.div
@@ -283,12 +335,25 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                             />
                           )}
                         </AnimatePresence>
+
+                        {/* Subtle hover glow effect */}
+                        <AnimatePresence>
+                          {isHovered && !isActive && (
+                            <motion.div
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0, scale: 0.8 }}
+                              transition={{ duration: 0.2 }}
+                              className="absolute inset-0 rounded-lg bg-white/10 backdrop-blur-sm"
+                            />
+                          )}
+                        </AnimatePresence>
                       </motion.div>
 
-                      {/* Label with subtle animation */}
+                      {/* Label with enhanced animation */}
                       <motion.span
                         className={cn(
-                          "text-sm font-medium",
+                          "text-sm font-medium relative",
                           isActive
                             ? "font-semibold text-shadow-sm shadow-black/40"
                             : "font-medium text-shadow-sm shadow-black/30",
@@ -299,18 +364,47 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                                 scale: 1.02,
                                 transition: { duration: 0.2 },
                               }
+                            : isHovered
+                            ? {
+                                scale: 1.01,
+                                transition: { duration: 0.15 },
+                              }
                             : {}
                         }
+                        whileHover={{ scale: 1.01 }}
                       >
                         {Array.isArray(item.label) ? item.label.join(' ') : item.label}
+                        
+                        {/* Subtle text glow for active items */}
+                        <AnimatePresence>
+                          {isActive && (
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="absolute inset-0 text-shadow-lg"
+                              style={{
+                                textShadow: `0 0 8px ${item.color}60`,
+                                filter: 'blur(0.5px)'
+                              }}
+                            >
+                              {Array.isArray(item.label) ? item.label.join(' ') : item.label}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </motion.span>
 
-                      {/* Clean bottom indicator for active item */}
+                      {/* Enhanced bottom indicator for active item */}
                       <AnimatePresence>
                         {isActive && (
                           <motion.div
                             initial={{ scaleX: 0, opacity: 0 }}
-                            animate={{ scaleX: 1, opacity: 1 }}
+                            animate={{ 
+                              scaleX: 1, 
+                              opacity: 1,
+                              boxShadow: `0 0 8px ${item.color}80`
+                            }}
                             exit={{ scaleX: 0, opacity: 0 }}
                             transition={{ duration: 0.3, ease: "easeOut" }}
                             className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full"
@@ -318,6 +412,19 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                               backgroundColor: item.color,
                               transformOrigin: "center",
                             }}
+                          />
+                        )}
+                      </AnimatePresence>
+
+                      {/* Subtle hover indicator */}
+                      <AnimatePresence>
+                        {isHovered && !isActive && (
+                          <motion.div
+                            initial={{ scaleX: 0, opacity: 0 }}
+                            animate={{ scaleX: 1, opacity: 0.6 }}
+                            exit={{ scaleX: 0, opacity: 0 }}
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full bg-white/40"
                           />
                         )}
                       </AnimatePresence>
@@ -350,46 +457,123 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
             className="bg-white/10 hover:bg-white/20"
           />
 
-          {/* Privacy Policy Link */}
+          {/* Enhanced Privacy Policy Link */}
           <Link href="/legal/privacy-policy">
             <motion.div
-              className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-              whileHover={{ scale: 1.05 }}
+              className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 relative group"
+              whileHover={{ 
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
               whileTap={{ scale: 0.95 }}
             >
-              <Shield className="h-3.5 w-3.5 text-blue-300" />
+              <motion.div
+                animate={{
+                  rotate: [0, 5, -5, 0]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatDelay: 4,
+                  ease: "easeInOut"
+                }}
+              >
+                <Shield className="h-3.5 w-3.5 text-blue-300" />
+              </motion.div>
               <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
                 {t('navigation.privacy')}
               </span>
+              
+              {/* Subtle glow effect */}
+              <motion.div
+                className="absolute inset-0 rounded-lg bg-blue-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+              />
             </motion.div>
           </Link>
 
-          {/* Terms Link */}
+          {/* Enhanced Terms Link */}
           <Link href="/legal/terms-of-service">
             <motion.div
-              className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-              whileHover={{ scale: 1.05 }}
+              className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 relative group"
+              whileHover={{ 
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
               whileTap={{ scale: 0.95 }}
             >
-              <ChevronRight className="h-3.5 w-3.5 text-purple-300" />
+              <motion.div
+                animate={{
+                  x: [0, 2, 0]
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  repeatDelay: 3,
+                  ease: "easeInOut"
+                }}
+              >
+                <ChevronRight className="h-3.5 w-3.5 text-purple-300" />
+              </motion.div>
               <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
                 {t('navigation.terms')}
               </span>
+              
+              {/* Subtle glow effect */}
+              <motion.div
+                className="absolute inset-0 rounded-lg bg-purple-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+              />
             </motion.div>
           </Link>
 
-          {/* Call Us dropdown */}
+          {/* Enhanced Call Us dropdown */}
           <div className="relative group">
             <motion.button
-              className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-              whileHover={{ scale: 1.05 }}
+              className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 relative"
+              whileHover={{ 
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
               whileTap={{ scale: 0.95 }}
             >
-              <Phone className="h-3.5 w-3.5 text-green-300" />
+              <motion.div
+                animate={{
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatDelay: 5,
+                  ease: "easeInOut"
+                }}
+              >
+                <Phone className="h-3.5 w-3.5 text-green-300" />
+              </motion.div>
               <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
                 {t('navigation.callUs')}
               </span>
-              <ChevronDown className="h-3 w-3 text-white/60" />
+              <motion.div
+                animate={{
+                  rotate: [0, 180, 0]
+                }}
+                transition={{
+                  duration: 0.3,
+                  ease: "easeInOut"
+                }}
+                className="group-hover:rotate-180 transition-transform duration-300"
+              >
+                <ChevronDown className="h-3 w-3 text-white/60" />
+              </motion.div>
+              
+              {/* Subtle glow effect */}
+              <motion.div
+                className="absolute inset-0 rounded-lg bg-green-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+              />
             </motion.button>
             
             {/* Dropdown menu */}
@@ -419,18 +603,51 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
             </div>
           </div>
 
-          {/* Email dropdown */}
+          {/* Enhanced Email dropdown */}
           <div className="relative group">
             <motion.button
-              className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-              whileHover={{ scale: 1.05 }}
+              className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 relative"
+              whileHover={{ 
+                scale: 1.05,
+                transition: { duration: 0.2 }
+              }}
               whileTap={{ scale: 0.95 }}
             >
-              <Mail className="h-3.5 w-3.5 text-red-300" />
+              <motion.div
+                animate={{
+                  y: [0, -1, 0]
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  repeatDelay: 4,
+                  ease: "easeInOut"
+                }}
+              >
+                <Mail className="h-3.5 w-3.5 text-red-300" />
+              </motion.div>
               <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
                 {t('navigation.email')}
               </span>
-              <ChevronDown className="h-3 w-3 text-white/60" />
+              <motion.div
+                animate={{
+                  rotate: [0, 180, 0]
+                }}
+                transition={{
+                  duration: 0.3,
+                  ease: "easeInOut"
+                }}
+                className="group-hover:rotate-180 transition-transform duration-300"
+              >
+                <ChevronDown className="h-3 w-3 text-white/60" />
+              </motion.div>
+              
+              {/* Subtle glow effect */}
+              <motion.div
+                className="absolute inset-0 rounded-lg bg-red-300/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+              />
             </motion.button>
             
             {/* Dropdown menu */}
