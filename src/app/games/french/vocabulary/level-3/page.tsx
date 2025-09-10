@@ -188,51 +188,106 @@ export default function FrenchVocabularyLevel3Page() {
             </div>
 
             {/* Game Info */}
-            <div className="grid md:grid-cols-3 gap-4 mb-8">
-              <div className="p-4 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800">
-                <div className="flex items-center gap-2 mb-2">
-                  <Clock className="w-5 h-5 text-indigo-600" />
-                  <span className="font-semibold text-indigo-800 dark:text-indigo-200">Temps</span>
+            <div className="grid md:grid-cols-3 gap-4 mb-6 sm:mb-8">
+              <motion.div 
+                className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-white/20 dark:border-white/10"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                  <div className="p-2 rounded-lg bg-red-500/20">
+                    <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
+                  </div>
+                  <span className={cn(
+                    "font-semibold text-sm sm:text-base",
+                    isDarkMode ? 'text-white' : 'text-gray-800'
+                  )}>Temps</span>
                 </div>
-                <p className="text-indigo-600 dark:text-indigo-300">90 secondes</p>
-              </div>
-              <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
-                <div className="flex items-center gap-2 mb-2">
-                  <Star className="w-5 h-5 text-blue-600" />
-                  <span className="font-semibold text-blue-800 dark:text-blue-200">Mots</span>
+                <p className={cn(
+                  "text-sm sm:text-base",
+                  isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                )}>90 secondes</p>
+              </motion.div>
+              <motion.div 
+                className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-white/20 dark:border-white/10"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                  <div className="p-2 rounded-lg bg-purple-500/20">
+                    <Star className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
+                  </div>
+                  <span className={cn(
+                    "font-semibold text-sm sm:text-base",
+                    isDarkMode ? 'text-white' : 'text-gray-800'
+                  )}>Mots</span>
                 </div>
-                <p className="text-blue-600 dark:text-blue-300">{vocabularyWords.length} mots</p>
-              </div>
-              <div className="p-4 rounded-xl bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800">
-                <div className="flex items-center gap-2 mb-2">
-                  <Trophy className="w-5 h-5 text-purple-600" />
-                  <span className="font-semibold text-purple-800 dark:text-purple-200">Score</span>
+                <p className={cn(
+                  "text-sm sm:text-base",
+                  isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                )}>{vocabularyWords.length} mots</p>
+              </motion.div>
+              <motion.div 
+                className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-white/20 dark:border-white/10"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                  <div className="p-2 rounded-lg bg-orange-500/20">
+                    <Trophy className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500" />
+                  </div>
+                  <span className={cn(
+                    "font-semibold text-sm sm:text-base",
+                    isDarkMode ? 'text-white' : 'text-gray-800'
+                  )}>Score</span>
                 </div>
-                <p className="text-purple-600 dark:text-purple-300">Jusqu'à {vocabularyWords.length} points</p>
-              </div>
+                <p className={cn(
+                  "text-sm sm:text-base",
+                  isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                )}>Jusqu'à {vocabularyWords.length} points</p>
+              </motion.div>
             </div>
 
             {/* Instructions */}
-            <div className="mb-4">
-              <h3 className="text-sm font-semibold text-gray-800 dark:text-white mb-2">
+            <div className="mb-6 sm:mb-8">
+              <h3 className={cn(
+                "text-base sm:text-lg font-semibold mb-3 sm:mb-4",
+                isDarkMode ? 'text-white' : 'text-gray-800'
+              )}>
                 {t('games.french.vocabulary.instructions.title')}
               </h3>
-              <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-2 space-y-1">
-                <div className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300">
-                  <span className="w-1 h-1 bg-blue-500 rounded-full flex-shrink-0"></span>
-                  {t('games.french.vocabulary.instructions.step1')}
+              <div className="bg-white/5 dark:bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-5 space-y-3 border border-white/10 dark:border-white/10">
+                <div className="flex items-center gap-3 text-sm sm:text-base">
+                  <span className="w-2 h-2 bg-red-500 rounded-full flex-shrink-0"></span>
+                  <span className={cn(
+                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                  )}>
+                    {t('games.french.vocabulary.instructions.step1')}
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300">
-                  <span className="w-1 h-1 bg-green-500 rounded-full flex-shrink-0"></span>
-                  {t('games.french.vocabulary.instructions.step2')}
+                <div className="flex items-center gap-3 text-sm sm:text-base">
+                  <span className="w-2 h-2 bg-purple-500 rounded-full flex-shrink-0"></span>
+                  <span className={cn(
+                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                  )}>
+                    {t('games.french.vocabulary.instructions.step2')}
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300">
-                  <span className="w-1 h-1 bg-yellow-500 rounded-full flex-shrink-0"></span>
-                  Vous avez 90 secondes pour terminer le jeu
+                <div className="flex items-center gap-3 text-sm sm:text-base">
+                  <span className="w-2 h-2 bg-orange-500 rounded-full flex-shrink-0"></span>
+                  <span className={cn(
+                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                  )}>
+                    Vous avez 90 secondes pour terminer le jeu
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300">
-                  <span className="w-1 h-1 bg-purple-500 rounded-full flex-shrink-0"></span>
-                  {t('games.french.vocabulary.instructions.step4')}
+                <div className="flex items-center gap-3 text-sm sm:text-base">
+                  <span className="w-2 h-2 bg-red-500 rounded-full flex-shrink-0"></span>
+                  <span className={cn(
+                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                  )}>
+                    {t('games.french.vocabulary.instructions.step4')}
+                  </span>
                 </div>
               </div>
             </div>
@@ -240,7 +295,7 @@ export default function FrenchVocabularyLevel3Page() {
             {/* Start Button */}
             <motion.button
               onClick={startGame}
-              className="w-full py-4 px-8 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="w-full py-3 sm:py-4 px-6 sm:px-8 bg-gradient-to-r from-red-500 to-pink-500 text-white font-semibold rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 text-base sm:text-lg flex items-center justify-center gap-2 sm:gap-3"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

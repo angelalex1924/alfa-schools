@@ -5,7 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext"
 import { useTheme } from "@/contexts/ThemeContext"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
-import { BookOpen, Globe, Star, Users, Trophy, Brain, Sparkles, Gamepad2, Target, Zap, Play, ArrowUp } from "lucide-react"
+import { BookOpen, Globe, Star, Users, Trophy, Brain, Sparkles, Gamepad2, Target, Zap, Play, ArrowUp, Shuffle } from "lucide-react"
 import { GamesIcon } from "@/components/custom-icons"
 import NotebookHero from "@/components/NotebookHero"
 import Link from "next/link"
@@ -44,6 +44,13 @@ export default function GamesPage() {
           icon: Users,
           difficulty: "Hard",
           color: "#ef4444"
+        },
+        {
+          title: t('games.english.anagrams.title'),
+          description: t('games.english.anagrams.description'),
+          icon: Shuffle,
+          difficulty: "Medium",
+          color: "#a855f7"
         }
       ]
     },
@@ -76,6 +83,13 @@ export default function GamesPage() {
           icon: Users,
           difficulty: "Difficile",
           color: "#ef4444"
+        },
+        {
+          title: t('games.french.anagrams.title'),
+          description: t('games.french.anagrams.description'),
+          icon: Shuffle,
+          difficulty: "Moyen",
+          color: "#a855f7"
         }
       ]
     }

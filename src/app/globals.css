@@ -10,6 +10,15 @@
   font-display: swap;
 }
 
+/* StampatelloFaceto Font */
+@font-face {
+  font-family: 'StampatelloFaceto';
+  src: url('/fonts/StampatelloFaceto.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -312,6 +321,15 @@ body.mobile-menu-open {
 
 .animate-star-movement-top {
   animation: star-movement-top linear infinite alternate;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes fade-in-up {

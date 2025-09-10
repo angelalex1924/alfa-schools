@@ -424,14 +424,14 @@ const MobileNav = ({ items }: MobileNavProps) => {
           <div className="flex items-center gap-2">
             {/* Language Switcher */}
             <LanguageSwitcher 
-              className={cn(scrolled ? "bg-white/50 dark:bg-gray-800/50" : "")}
+              className={cn(scrolled ? "bg-white/20 dark:bg-gray-800/50" : "")}
               compact={true}
             />
 
             <ModernThemeToggle
               isDarkMode={isDarkMode}
               onToggle={toggleTheme}
-              className={cn(scrolled ? "bg-white/50 dark:bg-gray-800/50" : "")}
+              className={cn(scrolled ? "bg-white/20 dark:bg-gray-800/50" : "")}
             />
 
             <div className="hamburger">
@@ -461,9 +461,9 @@ const MobileNav = ({ items }: MobileNavProps) => {
               }}
             />
 
-            {/* Mobile Navigation Panel with refined design */}
+            {/* Mobile Navigation Panel with school-themed design */}
             <motion.div
-              className={`fixed inset-0 z-[100] backdrop-blur-xl overflow-auto will-change-transform ${isDarkMode ? 'bg-[#0f172a]/98' : 'bg-[#81a1d4]/95'}`}
+              className={`fixed inset-0 z-[100] backdrop-blur-xl overflow-auto will-change-transform ${isDarkMode ? 'bg-gradient-to-br from-slate-900/98 via-blue-900/95 to-slate-900/98' : 'bg-gradient-to-br from-blue-50/98 via-white/95 to-blue-50/98'}`}
               initial="hidden"
               animate="visible"
               exit="exit"
@@ -484,12 +484,54 @@ const MobileNav = ({ items }: MobileNavProps) => {
                 <HamburgerMenu isOpen={isOpen} toggleMenu={toggleMenu} />
               </motion.div>
 
-              {/* Content container with subtle gradient background */}
+              {/* Content container with school-themed background */}
               <div className="relative h-full overflow-hidden">
+                {/* Notebook paper background */}
+                <div className="absolute inset-0 pointer-events-none">
+                  {/* Main paper background */}
+                  <div className={`absolute inset-0 ${isDarkMode ? 'bg-slate-800/20' : 'bg-white/30'}`}></div>
+                  
+                  {/* Notebook lines */}
+                  {[...Array(25)].map((_, i) => (
+                    <div
+                      key={`line-${i}`}
+                      className={`absolute w-full h-px ${
+                        isDarkMode ? 'bg-blue-300/20' : 'bg-blue-200/40'
+                      }`}
+                      style={{
+                        top: `${8 + i * 3.5}%`,
+                        left: '5%',
+                        right: '5%'
+                      }}
+                    />
+                  ))}
+                  
+                  {/* Red margin line */}
+                  <div className={`absolute left-6 top-0 bottom-0 w-px ${
+                    isDarkMode ? 'bg-red-400/40' : 'bg-red-300/60'
+                  }`}></div>
+                  
+                  {/* Holes for binder */}
+                  {[...Array(4)].map((_, i) => (
+                    <div
+                      key={`hole-${i}`}
+                      className={`absolute w-2 h-2 rounded-full border ${
+                        isDarkMode 
+                          ? 'bg-slate-600/40 border-slate-500/60' 
+                          : 'bg-blue-200/60 border-blue-300/80'
+                      }`}
+                      style={{
+                        left: '4px',
+                        top: `${15 + i * 22}%`
+                      }}
+                    />
+                  ))}
+                </div>
+                
                 {/* Βελτιωμένο gradient background με περισσότερα χρώματα */}
                 <div className="absolute inset-0 pointer-events-none">
                   <motion.div
-                    className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"
+                    className="absolute top-0 right-0 w-80 h-80 bg-blue-400/8 rounded-full blur-3xl"
                     animate={{
                       x: [0, 20, 0],
                       y: [0, -20, 0],
@@ -501,7 +543,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     }}
                   />
                   <motion.div
-                    className="absolute bottom-0 left-0 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl"
+                    className="absolute bottom-0 left-0 w-80 h-80 bg-green-400/8 rounded-full blur-3xl"
                     animate={{
                       x: [0, -20, 0],
                       y: [0, 20, 0],
@@ -514,7 +556,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     }}
                   />
                   <motion.div
-                    className="absolute top-1/3 left-1/4 w-60 h-60 bg-purple-500/10 rounded-full blur-3xl"
+                    className="absolute top-1/3 left-1/4 w-60 h-60 bg-yellow-400/8 rounded-full blur-3xl"
                     animate={{
                       x: [0, 15, 0],
                       y: [0, 15, 0],
@@ -530,7 +572,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
 
                 {/* Content with refined styling */}
                 <div className="relative z-10 pt-20 pb-8 px-6 h-full flex flex-col overflow-y-auto overflow-x-hidden hide-scrollbar max-w-md mx-auto">
-                  {/* Company badge - βελτιωμένο με animation */}
+                  {/* Company badge - school-themed */}
                   <motion.div
                     className="mb-6"
                     initial={{ opacity: 0, y: -10 }}
@@ -538,13 +580,15 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     transition={{ delay: 0.1, duration: 0.5 }}
                   >
                     <motion.div
-                      className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-500/20 mb-3"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500/15 to-green-500/15 border border-blue-400/30 mb-3 shadow-lg"
                       whileHover={{ scale: 1.05, x: 3 }}
                       transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     >
-                      <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
+                      <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                      <span className="text-sm font-semibold text-blue-700 dark:text-blue-300">
                         {t('hero.title')}
                       </span>
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
                     </motion.div>
                     <div className="flex items-center">
                       <div className="relative w-32 h-12">
@@ -559,10 +603,12 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     </div>
                     <div className="mt-3">
                       <div className="relative">
-                        <svg className="absolute -left-1 -top-1 w-6 h-6 text-amber-100" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <svg className={`absolute -left-1 -top-1 w-6 h-6 ${isDarkMode ? 'text-amber-100' : 'text-amber-600'}`} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                           <path d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM11.61 11.84C11.61 14.92 10.94 15.61 9.15 16.67C9.03 16.74 8.9 16.77 8.77 16.77C8.51 16.77 8.26 16.64 8.12 16.4C7.91 16.04 8.03 15.58 8.38 15.37C9.59 14.65 10.01 14.39 10.09 12.58H8.19C7.1 12.58 6.25 11.73 6.25 10.64V9.16C6.25 8.07 7.1 7.22 8.19 7.22H9.68C10.75 7.22 11.62 8.09 11.62 9.16V11.84H11.61ZM17.75 11.84C17.75 14.92 17.08 15.61 15.29 16.67C15.17 16.74 15.04 16.77 14.91 16.77C14.65 16.77 14.4 16.64 14.26 16.4C14.05 16.04 14.17 15.58 14.52 15.37C15.73 14.65 16.15 14.39 16.23 12.58H14.32C13.23 12.58 12.38 11.73 12.38 10.64V9.16C12.38 8.07 13.23 7.22 14.32 7.22H15.81C16.88 7.22 17.75 8.09 17.75 9.16V11.84Z"/>
                         </svg>
-                        <p className="text-sm text-white/90 italic font-medium leading-relaxed pl-6 pr-2">
+                        <p className={`text-sm italic font-medium leading-relaxed pl-6 pr-2 ${
+                          isDarkMode ? 'text-white/90' : 'text-gray-700'
+                        }`}>
                           {t('footer.slogan')}
                         </p>
                       </div>
@@ -586,8 +632,12 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.5 }}
                   >
-                    <h3 className="text-sm font-medium text-white mb-4 flex items-center">
-                      <Star className="h-3.5 w-3.5 mr-1.5 text-amber-500" />
+                    <h3 className={`text-sm font-medium mb-4 flex items-center ${
+                      isDarkMode ? 'text-white' : 'text-gray-800'
+                    }`}>
+                      <div className="w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mr-2 shadow-lg">
+                        <Star className="h-3 w-3 text-white" />
+                      </div>
                       {t('navigation.main') || 'Main Navigation'}
                     </h3>
                     <div className="grid grid-cols-1 gap-3">
@@ -606,36 +656,96 @@ const MobileNav = ({ items }: MobileNavProps) => {
                             duration: 0.4 
                           }}
                         >
-                                                      <a
-                              href={link.href}
-                              className={`group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
-                              onClick={(e) => {
-                                if (link.href.startsWith("http")) {
-                                  window.open(link.href, "_blank")
-                                } else {
-                                  e.preventDefault()
-                                  handleNavigation(link.href)
-                                }
-                              }}
-                            >
+                          <a
+                            href={link.href}
+                            className={`group flex items-center gap-4 p-4 rounded-2xl backdrop-blur-2xl border transition-all duration-300 shadow-lg hover:shadow-2xl relative overflow-hidden ${
+                              pathname === link.href
+                                ? 'bg-gradient-to-br from-blue-500/25 via-blue-400/15 to-blue-600/25 border-blue-400/50 shadow-blue-500/15'
+                                : 'bg-gradient-to-br from-white/15 via-white/8 to-white/3 border-white/25 hover:bg-gradient-to-br hover:from-white/30 hover:via-white/20 hover:to-white/10 hover:border-white/50 hover:scale-[1.02]'
+                            } ${isDarkMode ? 'hover:shadow-slate-900/30' : 'hover:shadow-blue-200/30'}`}
+                            onClick={(e) => {
+                              if (link.href.startsWith("http")) {
+                                window.open(link.href, "_blank")
+                              } else {
+                                e.preventDefault()
+                                handleNavigation(link.href)
+                              }
+                            }}
+                          >
+                            {/* Active indicator - animated glow effect */}
+                            {pathname === link.href && (
+                              <motion.div
+                                className="absolute inset-0 bg-gradient-to-r from-blue-400/20 via-blue-500/30 to-blue-400/20 rounded-2xl"
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ 
+                                  opacity: 1, 
+                                  scale: 1,
+                                  boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)"
+                                }}
+                                transition={{ duration: 0.3 }}
+                              />
+                            )}
+                            
+                            {/* Active indicator - left border */}
+                            {pathname === link.href && (
+                              <motion.div
+                                className="absolute left-0 top-2 bottom-2 w-1 bg-gradient-to-b from-blue-400 to-blue-600 rounded-r-full shadow-lg"
+                                initial={{ scaleY: 0 }}
+                                animate={{ scaleY: 1 }}
+                                transition={{ duration: 0.3, delay: 0.1 }}
+                              />
+                            )}
                             {/* Icon with enhanced styling */}
                             <motion.div
-                              className={`w-14 h-14 rounded-2xl ${link.color} flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300`}
+                              className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 relative ${
+                                pathname === link.href 
+                                  ? 'bg-gradient-to-br from-blue-500 to-blue-600 shadow-blue-500/30' 
+                                  : link.color
+                              }`}
                               whileHover={{
                                 scale: 1.1,
                                 rotate: 5,
                               }}
                               transition={{ duration: 0.3, ease: "easeInOut" }}
                             >
-                              <link.icon className="h-7 w-7 text-white" />
+                              <link.icon className={`h-7 w-7 transition-colors duration-300 ${
+                                pathname === link.href ? 'text-white' : 'text-white'
+                              }`} />
+                              
+                              {/* Active icon glow effect */}
+                              {pathname === link.href && (
+                                <motion.div
+                                  className="absolute inset-0 rounded-2xl bg-blue-400/20 blur-sm"
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  transition={{ duration: 0.3 }}
+                                />
+                              )}
                             </motion.div>
                             
                             {/* Content */}
-                            <div className="flex-1">
-                              <h4 className="text-lg font-semibold text-gray-800 dark:text-white group-hover:text-[#81a1d4] transition-colors duration-300">
+                            <div className="flex-1 relative z-10">
+                              <h4 className={`text-lg font-semibold transition-colors duration-300 ${
+                                pathname === link.href 
+                                  ? 'text-white' 
+                                  : 'text-gray-800 dark:text-white group-hover:text-[#81a1d4]'
+                              }`}>
                                 {link.label}
+                                {/* Active indicator dot */}
+                                {pathname === link.href && (
+                                  <motion.span
+                                    className="inline-block w-2 h-2 bg-blue-400 rounded-full ml-2"
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ duration: 0.3, delay: 0.2 }}
+                                  />
+                                )}
                               </h4>
-                              <p className="text-sm text-gray-600 dark:text-white/80 mt-1">
+                              <p className={`text-sm mt-1 transition-colors duration-300 ${
+                                pathname === link.href 
+                                  ? 'text-blue-100' 
+                                  : 'text-gray-600 dark:text-white/80'
+                              }`}>
                                 {link.label === t('navigation.home') && (t('navigation.homeDescription') || "Αρχική σελίδα")}
                                 {link.label === t('navigation.services') && (t('navigation.servicesDescription') || "Εξειδικευμένες υπηρεσίες")}
                                 {link.label === t('navigation.news') && (t('navigation.newsDescription') || "Τελευταία νέα και ενημερώσεις")}
@@ -647,7 +757,11 @@ const MobileNav = ({ items }: MobileNavProps) => {
                             
                             {/* Arrow indicator */}
                             <motion.div
-                              className="text-gray-400 group-hover:text-[#81a1d4] transition-colors duration-300"
+                              className={`transition-colors duration-300 ${
+                                pathname === link.href 
+                                  ? 'text-blue-300' 
+                                  : 'text-gray-400 group-hover:text-[#81a1d4]'
+                              }`}
                               whileHover={{ x: 3 }}
                               transition={{ duration: 0.2 }}
                             >
@@ -668,8 +782,12 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.25, duration: 0.5 }}
                   >
-                    <h3 className="text-sm font-medium text-white mb-3 flex items-center">
-                      <Star className="h-3.5 w-3.5 mr-1.5 text-amber-500" />
+                    <h3 className={`text-sm font-medium mb-3 flex items-center ${
+                      isDarkMode ? 'text-white' : 'text-gray-800'
+                    }`}>
+                      <div className="w-6 h-6 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center mr-2 shadow-lg">
+                        <Shield className="h-3 w-3 text-white" />
+                      </div>
                       {t("navigation.legal") || "Legal & Contact"}
                     </h3>
                     <div className="grid grid-cols-2 gap-3">
@@ -721,8 +839,12 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.45, duration: 0.5 }}
                   >
-                    <h3 className="text-sm font-medium text-white mb-3 flex items-center">
-                      <Globe className="h-3.5 w-3.5 mr-1.5 text-[#81a1d4]" />
+                    <h3 className={`text-sm font-medium mb-3 flex items-center ${
+                      isDarkMode ? 'text-white' : 'text-gray-800'
+                    }`}>
+                      <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mr-2 shadow-lg">
+                        <Globe className="h-3 w-3 text-white" />
+                      </div>
                        {t('footer.socialMedia')}
                     </h3>
                     <div className="grid grid-cols-2 gap-3">
@@ -804,11 +926,17 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.5 }}
                   >
-                    <h3 className="text-sm font-medium text-white mb-3 flex items-center">
-                      <Mail className="h-3.5 w-3.5 mr-1.5 text-[#81a1d4]" />
+                    <h3 className={`text-sm font-medium mb-3 flex items-center ${
+                      isDarkMode ? 'text-white' : 'text-gray-800'
+                    }`}>
+                      <div className="w-6 h-6 bg-gradient-to-br from-red-400 to-orange-500 rounded-full flex items-center justify-center mr-2 shadow-lg">
+                        <Mail className="h-3 w-3 text-white" />
+                      </div>
                        {t('contact.needHelp')}
                     </h3>
-                    <p className="text-sm text-white/80 mb-4">{t('contact.helpDescription')}</p>
+                    <p className={`text-sm mb-4 ${
+                      isDarkMode ? 'text-white/80' : 'text-gray-600'
+                    }`}>{t('contact.helpDescription')}</p>
                     
                     {/* Χαλάνδρι */}
                     <motion.div
@@ -820,7 +948,9 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       transition={{ delay: 0.35, duration: 0.4 }}
                     >
                       <div className={`p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}>
-                        <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                        <h4 className={`text-lg font-semibold mb-3 flex items-center gap-2 ${
+                          isDarkMode ? 'text-white' : 'text-gray-800'
+                        }`}>
                           <div className={`w-8 h-8 rounded-xl bg-gradient-to-br flex items-center justify-center ${isDarkMode ? 'from-[#0f172a] to-[#1e293b]' : 'from-[#81a1d4] to-[#6b8bc4]'}`}>
                             <Phone className="h-5 w-5 text-white" />
                           </div>
@@ -833,8 +963,8 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           >
                             <Phone className="h-5 w-5 text-green-500" />
                               <div>
-                                <div className="text-sm font-medium text-white">{t('contact.phone')}</div>
-                                <div className="text-xs text-green-300">+30 210 6800 708</div>
+                                <div className={`text-sm font-medium ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>{t('contact.phone')}</div>
+                                <div className="text-xs text-green-600 dark:text-green-300">+30 210 6800 708</div>
                               </div>
                           </a>
                           <a
@@ -843,8 +973,8 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           >
                             <Mail className="h-5 w-5 text-red-500" />
                               <div>
-                                <div className="text-sm font-medium text-white">{t('contact.email')}</div>
-                                <div className="text-xs text-red-300">info@alfaschoolchalandri.com</div>
+                                <div className={`text-sm font-medium ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>{t('contact.email')}</div>
+                                <div className="text-xs text-red-600 dark:text-red-300">info@alfaschoolchalandri.com</div>
                               </div>
                           </a>
                         </div>
@@ -861,7 +991,9 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       transition={{ delay: 0.4, duration: 0.4 }}
                     >
                       <div className={`p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}>
-                        <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                        <h4 className={`text-lg font-semibold mb-3 flex items-center gap-2 ${
+                          isDarkMode ? 'text-white' : 'text-gray-800'
+                        }`}>
                           <div className={`w-8 h-8 rounded-xl bg-gradient-to-br flex items-center justify-center ${isDarkMode ? 'from-[#0f172a] to-[#1e293b]' : 'from-[#81a1d4] to-[#6b8bc4]'}`}>
                             <Phone className="h-5 w-5 text-white" />
                           </div>
@@ -874,14 +1006,14 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           >
                             <Phone className="h-5 w-5 text-green-500" />
                               <div>
-                                <div className="text-sm font-medium text-white">{t('contact.phone')}</div>
-                                <div className="text-xs text-green-300">+30 210 2777 725</div>
+                                <div className={`text-sm font-medium ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>{t('contact.phone')}</div>
+                                <div className="text-xs text-green-600 dark:text-green-300">+30 210 2777 725</div>
                               </div>
                           </a>
                           <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-br from-gray-500/20 to-gray-600/20 border border-gray-500/20">
                             <Mail className="h-5 w-5 text-gray-400" />
                             <div>
-                              <div className="text-sm font-medium text-white/60">{t('contact.email')}</div>
+                              <div className={`text-sm font-medium ${isDarkMode ? 'text-white/60' : 'text-gray-500'}`}>{t('contact.email')}</div>
                               <div className="text-xs text-gray-400">-</div>
                             </div>
                           </div>
@@ -902,7 +1034,9 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     <div className="mt-6 flex justify-center gap-4">
                       <motion.a
                         href="/legal/privacy-policy"
-                        className="text-xs text-white/80 hover:text-white flex items-center gap-1"
+                        className={`text-xs flex items-center gap-1 ${
+                          isDarkMode ? 'text-white/80 hover:text-white' : 'text-gray-600 hover:text-gray-800'
+                        }`}
                         whileHover={{ scale: 1.05, x: 2 }}
                         onClick={(e) => {
                           e.preventDefault()
@@ -914,7 +1048,9 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       </motion.a>
                       <motion.a
                         href="/legal/terms-of-service"
-                        className="text-xs text-white/80 hover:text-white flex items-center gap-1"
+                        className={`text-xs flex items-center gap-1 ${
+                          isDarkMode ? 'text-white/80 hover:text-white' : 'text-gray-600 hover:text-gray-800'
+                        }`}
                         whileHover={{ scale: 1.05, x: 2 }}
                         onClick={(e) => {
                           e.preventDefault()
@@ -922,7 +1058,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                         }}
                       >
                         <FileText className="h-3 w-3" />
-                        <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
+                        <span className="text-xs font-semibold">
                            {t('navigation.terms')}
                         </span>
                       </motion.a>
@@ -930,7 +1066,9 @@ const MobileNav = ({ items }: MobileNavProps) => {
 
                     {/* Copyright */}
                     <div className="mt-4 text-center">
-                      <p className="text-xs text-white/60">
+                      <p className={`text-xs ${
+                        isDarkMode ? 'text-white/60' : 'text-gray-500'
+                      }`}>
                         © {new Date().getFullYear()} {t('footer.copyright') || 'Alfa Schools. All rights reserved.'}
                       </p>
                     </div>

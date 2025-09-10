@@ -1,7 +1,7 @@
 "use client"
 import Silk from "@/components/Silk"
 import BrochureContent from "@/components/BrochureContent"
-import ModernHeroCarousel from "@/components/ModernHeroCarousel"
+import ResponsiveCarousel from "@/components/ResponsiveCarousel"
 import { Button } from "@/components/ui/button"
 import CountUp from "@/components/CountUp"
 import { useTheme } from "@/contexts/ThemeContext"
@@ -46,8 +46,8 @@ export default function Home() {
         ></div>
       </div>
 
-      {/* MODERN HERO CAROUSEL */}
-      <ModernHeroCarousel />
+      {/* RESPONSIVE CAROUSEL - Desktop: Modern, Mobile: Notebook Style */}
+      <ResponsiveCarousel />
 
       {/* Statistics Section */}
       <section

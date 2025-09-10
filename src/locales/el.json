@@ -1,6 +1,6 @@
 {
   "navigation": {
-    "home": "Home",
+    "home": "Αρχική",
     "services": "Υπηρεσίες",
     "news": "Τα νέα μας",
     "whyUs": "Γιατί εμάς",
@@ -22,7 +22,7 @@
     "contactDescription": "Επικοινωνήστε μαζί μας"
   },
   "notebook": {
-    "schoolName": "Alfa School",
+    "schoolName": "Alfa Schools",
     "subject": "Μάθημα",
     "date": "Ημερομηνία",
     "star": "Αστέρι",
@@ -38,15 +38,15 @@
     "titles": {
       "games": "Παιχνίδια",
       "services": "Υπηρεσίες",
-      "why_us": "Γιατί Alfa School",
-      "news": "Νέα",
+      "why_us": "Γιατί Εμάς  ;",
+      "news": "Τα Νέα μας",
       "contact": "Επικοινωνία"
     },
     "subtitles": {
       "games": "Μάθετε διασκεδάζοντας με τα interactive παιχνίδια μας",
       "services": "Ανακαλύψτε τις εξειδικευμένες υπηρεσίες μας που σχεδιάστηκαν για να καλύψουν τις εκπαιδευτικές ανάγκες σας",
-      "why_us": "Ανακαλύψτε τους λόγους που κάνουν την Alfa School την καλύτερη επιλογή για την εκπαίδευσή σας",
-      "news": "Μείνετε ενημερωμένοι με τα τελευταία νέα, τις εξελίξεις και τα εκδηλώσεις της Alfa School",
+      "why_us": "Ανακαλύψτε τους λόγους που κάνουν την Alfa Schools την καλύτερη επιλογή για την εκπαίδευσή σας",
+      "news": "Μείνετε ενημερωμένοι με τα τελευταία νέα, τις εξελίξεις και τα εκδηλώσεις των Alfa Schools",
       "contact": "Έχουμε ερωτήσεις; Επικοινωνήστε μαζί μας για περισσότερες πληροφορίες και θα σας απαντήσουμε άμεσα"
     }
   },
@@ -338,7 +338,7 @@
     "slogan": "Μαζί από το 1986, με σεβασμό, αγάπη και αφοσίωση στη μάθηση.",
     "workingHours": "Δευτέρα - Παρασκευή: 16:00 - 21:00",
     "socialMedia": "Κοινωνικά Δίκτυα",
-    "copyright": "Alfa Schools. Με επιφύλαξη παντώς δικαιώματος.",
+    "copyright": "Alfa Schools. Με επιφύλαξη παντός δικαιώματος.",
     "poweredBy": "Powered and Developed by",
     "addresses": {
       "chalandri": "Ρούμελης 27, Χαλάνδρι 152 33",
@@ -353,27 +353,27 @@
       "ctaText": "Εξερευνήστε Μαθήματα"
     },
     "slide2": {
-      "title": "ΑΓΓΛΙΚΑ",
+      "title": "ΑΓΓΛΙΚΑ ΚΑΙ ΓΑΛΛΙΚΑ",
       "subtitle": "ΓΙΑ ΟΛΟΥΣ",
-      "description": "Αγγλικά για παιδιά, εφήβους και ενήλικες με πιστοποιημένους εκπαιδευτές",
-      "ctaText": "Μάθετε Αγγλικά"
+      "description": "Αγγλικά και Γαλλικά για παιδιά, εφήβους και ενήλικες με πιστοποιημένους εκπαιδευτές",
+      "ctaText": "Μάθετε Γλώσσες"
     },
     "slide3": {
-      "title": "ΓΕΡΜΑΝΙΚΑ",
-      "subtitle": "ΚΑΙ ΓΑΛΛΙΚΑ",
-      "description": "Ευρωπαϊκές γλώσσες με σύγχρονα μεθόδους διδασκαλίας και πιστοποιήσεις",
-      "ctaText": "Ευρωπαϊκές Γλώσσες"
-    },
-    "slide4": {
       "title": "ΙΣΠΑΝΙΚΑ",
       "subtitle": "ΚΑΙ ΙΤΑΛΙΚΑ",
       "description": "Ρομανικές γλώσσες με πιστοποιημένους εκπαιδευτές και σύγχρονα εκπαιδευτικά υλικά",
       "ctaText": "Ρομανικές Γλώσσες"
     },
+    "slide4": {
+      "title": "ΓΕΡΜΑΝΙΚΑ",
+      "subtitle": "ΓΙΑ ΟΛΕΣ ΤΙΣ ΗΛΙΚΙΕΣ",
+      "description": "Γερμανικά για όλες τις ηλικίες με πιστοποιημένους εκπαιδευτές",
+      "ctaText": "Μάθετε Γερμανικά"
+    },
     "slide5": {
       "title": "ΔΙΕΘΝΕΙΣ",
       "subtitle": "ΠΙΣΤΟΠΟΙΗΣΕΙΣ",
-      "description": "Προετοιμασία για IELTS, TOEFL, Cambridge, Goethe και άλλες διεθνείς εξετάσεις",
+      "description": "Προετοιμασία για IELTS, TOEFL, Cambridge, DELF, DALF, Sorbonne, Goethe και άλλες διεθνείς εξετάσεις",
       "ctaText": "Προετοιμασία Εξετάσεων"
     },
     "stats": {
@@ -381,7 +381,7 @@
       "students": "Μαθητές"
     },
     "badge": {
-      "since1986": "ΑΠΟ ΤΟ 1986"
+      "since1986": "Από το 1986"
     }
   },
   "games": {
@@ -419,6 +419,18 @@
       "conversation": {
         "title": "Συνομιλία",
         "description": "Εξασκηθείτε στη συνομιλία"
+      },
+      "anagrams": {
+        "title": "Αναγραμματισμός",
+        "description": "Μετακινήστε τα γράμματα για να σχηματίσετε λέξεις",
+        "question": "Μετακινήστε αυτή τη λέξη:",
+        "instructions": {
+          "title": "Οδηγίες:",
+          "step1": "Μετακινήστε τα γράμματα για να σχηματίσετε μια λέξη",
+          "step2": "Χρησιμοποιήστε το στοιχείο αν χρειάζεστε βοήθεια",
+          "step3": "Έχετε 60 δευτερόλεπτα για να ολοκληρώσετε το παιχνίδι",
+          "step4": "Κερδίζετε 1 βαθμό για κάθε σωστή απάντηση"
+        }
       }
     },
     "french": {
@@ -444,6 +456,18 @@
       "conversation": {
         "title": "Conversation",
         "description": "Pratiquez la conversation"
+      },
+      "anagrams": {
+        "title": "Anagrammes",
+        "description": "Mélangez les lettres pour former des mots",
+        "question": "Mélangez ce mot:",
+        "instructions": {
+          "title": "Instructions:",
+          "step1": "Mélangez les lettres pour former un mot",
+          "step2": "Utilisez l'indice si vous avez besoin d'aide",
+          "step3": "Vous avez 60 secondes pour terminer le jeu",
+          "step4": "Vous gagnez 1 point pour chaque bonne réponse"
+        }
       }
     },
     "comingSoon": "Σύντομα διαθέσιμα",

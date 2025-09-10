@@ -331,26 +331,45 @@ export default function FrenchGrammarLevel2Page() {
             </div>
 
             {/* Instructions */}
-            <div className="mb-4">
-              <h3 className="text-sm font-semibold text-gray-800 dark:text-white mb-2">
+            <div className="mb-6 sm:mb-8">
+              <h3 className={cn(
+                "text-base sm:text-lg font-semibold mb-3 sm:mb-4",
+                isDarkMode ? 'text-white' : 'text-gray-800'
+              )}>
                 Instructions:
               </h3>
-              <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-2 space-y-1">
-                <div className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300">
-                  <span className="w-1 h-1 bg-blue-500 rounded-full flex-shrink-0"></span>
-                  Lisez la question attentivement
+              <div className="bg-white/5 dark:bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-5 space-y-3 border border-white/10 dark:border-white/10">
+                <div className="flex items-center gap-3 text-sm sm:text-base">
+                  <span className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></span>
+                  <span className={cn(
+                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                  )}>
+                    Lisez la question attentivement
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300">
-                  <span className="w-1 h-1 bg-green-500 rounded-full flex-shrink-0"></span>
-                  Choisissez la bonne réponse
+                <div className="flex items-center gap-3 text-sm sm:text-base">
+                  <span className="w-2 h-2 bg-emerald-500 rounded-full flex-shrink-0"></span>
+                  <span className={cn(
+                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                  )}>
+                    Choisissez la bonne réponse
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300">
-                  <span className="w-1 h-1 bg-yellow-500 rounded-full flex-shrink-0"></span>
-                  Vous avez 2 minutes pour terminer le jeu
+                <div className="flex items-center gap-3 text-sm sm:text-base">
+                  <span className="w-2 h-2 bg-teal-500 rounded-full flex-shrink-0"></span>
+                  <span className={cn(
+                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                  )}>
+                    Vous avez 2 minutes pour terminer le jeu
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300">
-                  <span className="w-1 h-1 bg-purple-500 rounded-full flex-shrink-0"></span>
-                  Vous gagnez 1 point pour chaque bonne réponse
+                <div className="flex items-center gap-3 text-sm sm:text-base">
+                  <span className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></span>
+                  <span className={cn(
+                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                  )}>
+                    Vous gagnez 1 point pour chaque bonne réponse
+                  </span>
                 </div>
               </div>
             </div>
@@ -358,7 +377,7 @@ export default function FrenchGrammarLevel2Page() {
             {/* Start Button */}
             <motion.button
               onClick={startGame}
-              className="w-full py-4 px-8 bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="w-full py-3 sm:py-4 px-6 sm:px-8 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 text-base sm:text-lg flex items-center justify-center gap-2 sm:gap-3"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

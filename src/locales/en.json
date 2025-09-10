@@ -22,7 +22,7 @@
     "contactDescription": "Contact us"
   },
   "notebook": {
-    "schoolName": "Alfa School",
+    "schoolName": "Alfa Schools",
     "subject": "Lesson",
     "date": "Date",
     "star": "Star",
@@ -38,14 +38,14 @@
     "titles": {
       "games": "Games",
       "services": "Services",
-      "why_us": "Why Alfa School",
-      "news": "News",
+      "why_us": "Why Us?",
+      "news": " Our News",
       "contact": "Contact"
     },
     "subtitles": {
       "games": "Learn while having fun with our interactive games",
       "services": "Discover our specialized services designed to meet your educational needs",
-      "why_us": "Discover the reasons that make Alfa School the best choice for your education",
+      "why_us": "Discover the reasons that make Alfa Schools the best choice for your education",
       "news": "Stay updated with the latest news, developments and events from Alfa School",
       "contact": "Have questions? Contact us for more information and we will respond immediately"
     }
@@ -353,27 +353,27 @@
       "ctaText": "Explore Courses"
     },
     "slide2": {
-      "title": "ENGLISH",
+      "title": "ENGLISH AND FRENCH",
       "subtitle": "FOR EVERYONE",
-      "description": "English for children, teenagers, and adults with certified instructors",
-      "ctaText": "Learn English"
+      "description": "English and French for children, teenagers, and adults with certified instructors",
+      "ctaText": "Learn Languages"
     },
     "slide3": {
-      "title": "GERMAN",
-      "subtitle": "AND FRENCH",
-      "description": "European languages with modern teaching methods and certifications",
-      "ctaText": "European Languages"
-    },
-    "slide4": {
       "title": "SPANISH",
       "subtitle": "AND ITALIAN",
       "description": "Romance languages with certified instructors and modern educational materials",
       "ctaText": "Romance Languages"
     },
+    "slide4": {
+      "title": "GERMAN",
+      "subtitle": "FOR ALL AGES",
+      "description": "German for all ages with certified instructors",
+      "ctaText": "Learn German"
+    },
     "slide5": {
       "title": "INTERNATIONAL",
       "subtitle": "CERTIFICATIONS",
-      "description": "Preparation for IELTS, TOEFL, Cambridge, Goethe, and other international exams",
+      "description": "Preparation for IELTS, TOEFL, Cambridge, DELF, DALF, Sorbonne, Goethe, and other international exams",
       "ctaText": "Exam Preparation"
     },
     "stats": {
@@ -381,7 +381,7 @@
       "students": "Students"
     },
     "badge": {
-      "since1986": "SINCE 1986"
+      "since1986": "Since 1986"
     }
   },
   "games": {

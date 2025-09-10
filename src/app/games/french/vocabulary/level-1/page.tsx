@@ -280,7 +280,7 @@ export default function FrenchVocabularyLevel1() {
                 "text-base sm:text-lg font-semibold mb-3 sm:mb-4",
                 isDarkMode ? 'text-white' : 'text-gray-800'
               )}>
-                Instructions:
+                {t('games.french.vocabulary.instructions.title')}
               </h3>
               <div className="bg-white/5 dark:bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-5 space-y-3 border border-white/10 dark:border-white/10">
                 <div className="flex items-center gap-3 text-sm sm:text-base">
@@ -288,7 +288,7 @@ export default function FrenchVocabularyLevel1() {
                   <span className={cn(
                     isDarkMode ? 'text-gray-300' : 'text-gray-600'
                   )}>
-                    You see an icon
+                    {t('games.french.vocabulary.instructions.step1')}
                   </span>
                 </div>
                 <div className="flex items-center gap-3 text-sm sm:text-base">
@@ -296,15 +296,15 @@ export default function FrenchVocabularyLevel1() {
                   <span className={cn(
                     isDarkMode ? 'text-gray-300' : 'text-gray-600'
                   )}>
-                    Choose the correct French word
+                    {t('games.french.vocabulary.instructions.step2')}
                   </span>
                 </div>
                 <div className="flex items-center gap-3 text-sm sm:text-base">
-                  <span className="w-2 h-2 bg-teal-500 rounded-full flex-shrink-0"></span>
+                  <span className="w-2 h-2 bg-cyan-500 rounded-full flex-shrink-0"></span>
                   <span className={cn(
                     isDarkMode ? 'text-gray-300' : 'text-gray-600'
                   )}>
-                    You have 45 seconds to complete the game
+                    {t('games.french.vocabulary.instructions.step3')}
                   </span>
                 </div>
                 <div className="flex items-center gap-3 text-sm sm:text-base">
@@ -312,7 +312,7 @@ export default function FrenchVocabularyLevel1() {
                   <span className={cn(
                     isDarkMode ? 'text-gray-300' : 'text-gray-600'
                   )}>
-                    You earn 1 point for each correct answer
+                    {t('games.french.vocabulary.instructions.step4')}
                   </span>
                 </div>
               </div>

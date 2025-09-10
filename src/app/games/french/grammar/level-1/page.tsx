@@ -385,7 +385,7 @@ export default function FrenchGrammarLevel1Page() {
                   <span className={cn(
                     isDarkMode ? 'text-gray-300' : 'text-gray-600'
                   )}>
-                    Read the question carefully
+                    Lisez la question attentivement
                   </span>
                 </div>
                 <div className="flex items-center gap-3 text-sm sm:text-base">
@@ -393,7 +393,7 @@ export default function FrenchGrammarLevel1Page() {
                   <span className={cn(
                     isDarkMode ? 'text-gray-300' : 'text-gray-600'
                   )}>
-                    Choose the correct answer
+                    Choisissez la bonne réponse
                   </span>
                 </div>
                 <div className="flex items-center gap-3 text-sm sm:text-base">
@@ -401,7 +401,7 @@ export default function FrenchGrammarLevel1Page() {
                   <span className={cn(
                     isDarkMode ? 'text-gray-300' : 'text-gray-600'
                   )}>
-                    You have 1.5 minutes to complete the game
+                    Vous avez 1.5 minutes pour terminer le jeu
                   </span>
                 </div>
                 <div className="flex items-center gap-3 text-sm sm:text-base">
@@ -409,7 +409,7 @@ export default function FrenchGrammarLevel1Page() {
                   <span className={cn(
                     isDarkMode ? 'text-gray-300' : 'text-gray-600'
                   )}>
-                    You earn 1 point for each correct answer
+                    Vous gagnez 1 point pour chaque bonne réponse
                   </span>
                 </div>
               </div>

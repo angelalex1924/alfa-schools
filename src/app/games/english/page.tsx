@@ -5,7 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext"
 import { useTheme } from "@/contexts/ThemeContext"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-import { BookOpen, Brain, Users, ArrowLeft, Star, Trophy, Clock, Sparkles, Zap } from "lucide-react"
+import { BookOpen, Brain, Users, ArrowLeft, Star, Trophy, Clock, Sparkles, Zap, Shuffle } from "lucide-react"
 import { GamesIcon } from "@/components/custom-icons"
 import { UKFlagIcon } from "@/components/flag-icons"
 
@@ -58,6 +58,21 @@ export default function EnglishGamesPage() {
         { level: 3, title: t('games.levels.advanced'), difficulty: "Hard", scenarios: 16, color: "#ef4444" }
       ],
       gameType: "conversation"
+    },
+    {
+      id: "anagrams",
+      title: "Anagrams",
+      description: "Unscramble letters to form words with hints",
+      icon: Shuffle,
+      color: "from-purple-500 to-pink-500",
+      hoverColor: "hover:from-purple-600 hover:to-pink-600",
+      bgGradient: "from-purple-500/20 to-pink-500/20",
+      levels: [
+        { level: 1, title: t('games.levels.basic'), difficulty: "Easy", words: 20, color: "#10b981" },
+        { level: 2, title: t('games.levels.intermediate'), difficulty: "Medium", words: 20, color: "#f59e0b" },
+        { level: 3, title: t('games.levels.advanced'), difficulty: "Hard", words: 20, color: "#ef4444" }
+      ],
+      gameType: "anagrams"
     }
   ]
 
@@ -273,6 +288,7 @@ export default function EnglishGamesPage() {
                                     {game.gameType === "vocabulary" && `${(level as any).words} ${t('games.words')}`}
                                     {game.gameType === "grammar" && `${(level as any).topics} ${t('games.topics')}`}
                                     {game.gameType === "conversation" && `${(level as any).scenarios} ${t('games.scenarios')}`}
+                                    {game.gameType === "anagrams" && `${(level as any).words} ${t('games.words')}`}
                                   </p>
                                 </div>
                               </div>

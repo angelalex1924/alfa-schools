@@ -70,7 +70,7 @@ export function LanguageSwitcher({ className, compact = false, mobile = false }:
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <Languages className="h-3.5 w-3.5 text-blue-300" />
+          <Languages className="h-3.5 w-3.5 text-blue-400 dark:text-blue-300" />
           <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
             {t('navigation.language')}
           </span>
@@ -139,16 +139,18 @@ export function LanguageSwitcher({ className, compact = false, mobile = false }:
   if (mobile) {
     return (
       <div className={cn("mb-6", className)}>
-        <h3 className="text-sm font-medium text-white/90 mb-4 flex items-center">
-          <Languages className="h-4 w-4 mr-2 text-[#81a1d4]" />
+        <h3 className="text-sm font-medium mb-4 flex items-center text-gray-800 dark:text-white/90">
+          <div className="w-6 h-6 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center mr-2 shadow-lg">
+            <Languages className="h-3 w-3 text-white" />
+          </div>
           {t('navigation.language')}
         </h3>
         
         {/* Modern Toggle Design */}
-        <div className="relative bg-white/5 backdrop-blur-xl rounded-2xl p-1 border border-white/10">
+        <div className="relative bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-1 border border-gray-200/30 dark:border-white/10">
           {/* Background Slider */}
           <motion.div
-            className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-gradient-to-r from-[#81a1d4] to-[#6b8bc4] rounded-xl shadow-lg"
+            className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-lg"
             animate={{
               x: language === 'en' ? '4px' : 'calc(100% + 4px)',
             }}
@@ -166,7 +168,7 @@ export function LanguageSwitcher({ className, compact = false, mobile = false }:
               <UKFlag className="w-5 h-3.5 rounded-sm shadow-sm" />
               <span className={cn(
                 "text-sm font-medium transition-colors duration-200",
-                language === 'en' ? "text-white" : "text-white/70"
+                language === 'en' ? "text-white" : "text-gray-600 dark:text-white/70"
               )}>
                 English
               </span>
@@ -182,7 +184,7 @@ export function LanguageSwitcher({ className, compact = false, mobile = false }:
               <GreekFlag className="w-5 h-3.5 rounded-sm shadow-sm" />
               <span className={cn(
                 "text-sm font-medium transition-colors duration-200",
-                language === 'el' ? "text-white" : "text-white/70"
+                language === 'el' ? "text-white" : "text-gray-600 dark:text-white/70"
               )}>
                 Ελληνικά
               </span>
