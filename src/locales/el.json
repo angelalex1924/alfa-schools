@@ -498,5 +498,38 @@
       "description": "Τα παιχνίδια μας είναι σχεδιασμένα να κάνουν τη μάθηση εύκολη, διασκεδαστική και αποτελεσματική.",
       "button": "Ξεκινήστε τώρα"
     }
+  },
+  "admin": {
+    "login": {
+      "title": "Διαχείριση Συστήματος",
+      "subtitle": "Συνδεθείτε για να αποκτήσετε πρόσβαση στο admin panel",
+      "welcomeTitle": "Καλώς ήρθατε",
+      "welcomeDescription": "Συνδεθείτε με τα διαπιστευτήριά σας για να αποκτήσετε πρόσβαση στο σύστημα διαχείρισης",
+      "emailAddress": "Διεύθυνση Email",
+      "enterEmail": "Εισάγετε το email σας",
+      "password": "Κωδικός Πρόσβασης",
+      "enterPassword": "Εισάγετε τον κωδικό σας",
+      "forgotPassword": "Ξεχάσατε τον κωδικό;",
+      "signIn": "Σύνδεση",
+      "signingIn": "Συνδέομαι...",
+      "failedSignIn": "Η σύνδεση απέτυχε. Ελέγξτε τα διαπιστευτήριά σας.",
+      "completeVerification": "Ολοκληρώστε την επαλήθευση",
+      "verificationCompleted": "Επαλήθευση ολοκληρώθηκε",
+      "verificationFailed": "Η επαλήθευση απέτυχε",
+      "verificationExpired": "Η επαλήθευση έληξε",
+      "developmentMode": "Λειτουργία ανάπτυξης - Επαλήθευση απενεργοποιημένη",
+      "poweredBy": "Powered by"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "welcome": "Καλώς ήρθατε",
+      "logout": "Έξοδος",
+      "overview": "Επισκόπηση",
+      "students": "Μαθητές",
+      "teachers": "Καθηγητές",
+      "courses": "Μαθήματα",
+      "reports": "Αναφορές",
+      "settings": "Ρυθμίσεις"
+    }
   }
 }

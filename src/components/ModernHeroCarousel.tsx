@@ -138,7 +138,7 @@ export default function ModernHeroCarousel() {
       className={`relative min-h-screen overflow-hidden ${
         isDarkMode 
           ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' 
-          : 'bg-gradient-to-br from-blue-50/20 via-white/20 to-blue-50/20 backdrop-blur-sm'
+          : 'bg-gradient-to-br from-blue-50/40 via-blue-100/30 to-indigo-50/40'
       }`}
       style={{ fontFamily: 'StampatelloFaceto, cursive' }}
       onMouseEnter={() => setIsHovered(true)}
@@ -147,7 +147,7 @@ export default function ModernHeroCarousel() {
       {/* Notebook Paper Background with Photo Overlay */}
       <div className="absolute inset-0">
         {/* Main paper background */}
-        <div className={`absolute inset-0 ${isDarkMode ? 'bg-gray-800' : 'bg-white/10'}`}></div>
+        <div className={`absolute inset-0 ${isDarkMode ? 'bg-gray-800' : 'bg-blue-50/30'}`}></div>
         
         {/* Photo background overlay */}
           <div
@@ -164,7 +164,7 @@ export default function ModernHeroCarousel() {
           <div
             key={`line-${i}`}
             className={`absolute w-full h-px ${
-              isDarkMode ? 'bg-gray-600/40' : 'bg-blue-200/50'
+              isDarkMode ? 'bg-gray-600/40' : 'bg-blue-200/30'
             }`}
             style={{
               top: `${8 + i * 4.5}%`,
@@ -176,7 +176,7 @@ export default function ModernHeroCarousel() {
         
         {/* Red margin line */}
         <div className={`absolute left-8 top-0 bottom-0 w-px ${
-          isDarkMode ? 'bg-red-400' : 'bg-red-300'
+          isDarkMode ? 'bg-red-400' : 'bg-red-300/70'
         }`}></div>
         
         {/* Holes for binder */}
@@ -362,28 +362,28 @@ export default function ModernHeroCarousel() {
                 <div className="absolute top-2 left-2 w-8 h-8 border-l-2 border-t-2 border-blue-400 opacity-60"></div>
                 <div className="absolute bottom-2 right-2 w-8 h-8 border-r-2 border-b-2 border-green-400 opacity-60"></div>
                 
-                {/* Enhanced Stats Badges */}
-                <div className="absolute -top-8 -right-8 sm:-top-10 sm:-right-10 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-3xl p-6 border border-gray-200/60 dark:border-gray-600/60 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
+                {/* Enhanced Stats Badges with Glass Effect */}
+                <div className="absolute -top-8 -right-8 sm:-top-10 sm:-right-10 bg-white/20 dark:bg-gray-800/20 backdrop-blur-xl rounded-3xl p-6 border border-white/30 dark:border-gray-600/30 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
                   <div className="text-center">
                     <div className="flex items-center justify-center gap-3 mb-2">
                       <div className="p-2 bg-yellow-400/20 rounded-xl">
                         <GraduationCap className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
                       </div>
-                      <div className="text-3xl font-bold text-gray-800 dark:text-white">35+</div>
+                      <div className="text-3xl font-bold text-white dark:text-white drop-shadow-lg">35+</div>
                     </div>
-                    <div className="text-sm font-bold text-gray-600 dark:text-gray-300">Years</div>
+                    <div className="text-sm font-bold text-white/90 dark:text-gray-300 drop-shadow-md">{t('carousel.stats.years')}</div>
                   </div>
                 </div>
 
-                <div className="absolute -bottom-8 -left-8 sm:-bottom-10 sm:-left-10 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-3xl p-6 border border-gray-200/60 dark:border-gray-600/60 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
+                <div className="absolute -bottom-8 -left-8 sm:-bottom-10 sm:-left-10 bg-white/20 dark:bg-gray-800/20 backdrop-blur-xl rounded-3xl p-6 border border-white/30 dark:border-gray-600/30 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
                   <div className="text-center">
                     <div className="flex items-center justify-center gap-3 mb-2">
                       <div className="p-2 bg-blue-400/20 rounded-xl">
                         <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                       </div>
-                      <div className="text-3xl font-bold text-gray-800 dark:text-white">1000+</div>
+                      <div className="text-3xl font-bold text-white dark:text-white drop-shadow-lg">1000+</div>
                     </div>
-                    <div className="text-sm font-bold text-gray-600 dark:text-gray-300">Students</div>
+                    <div className="text-sm font-bold text-white/90 dark:text-gray-300 drop-shadow-md">{t('carousel.stats.students')}</div>
                   </div>
                 </div>
               </div>
@@ -435,18 +435,18 @@ export default function ModernHeroCarousel() {
       </div>
 
       {/* Simple Slide Indicators */}
-      <div className="absolute bottom-4 sm:bottom-10 right-4 sm:right-10 z-20">
-        <div className="flex gap-2">
+      <div className="absolute bottom-4 sm:bottom-10 right-4 sm:right-10 z-30">
+        <div className="flex gap-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full px-3 py-2 border border-gray-200/50 dark:border-gray-600/50">
           {carouselData.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+              className={`w-2 h-2 rounded-full transition-all duration-200 ${
                 index === currentSlide
-                  ? "bg-blue-600"
+                  ? "bg-blue-600 scale-125"
                   : isDarkMode 
-                    ? "bg-gray-600 hover:bg-gray-500"
-                    : "bg-gray-300 hover:bg-gray-400"
+                    ? "bg-gray-600 hover:bg-gray-500 hover:scale-110"
+                    : "bg-gray-400 hover:bg-gray-500 hover:scale-110"
               }`}
             />
           ))}

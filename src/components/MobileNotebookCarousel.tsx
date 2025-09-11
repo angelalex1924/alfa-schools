@@ -285,7 +285,7 @@ export default function MobileNotebookCarousel() {
                 <div className="text-2xl font-bold text-blue-600">35+</div>
                 <div className="absolute -top-1 -right-1 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
               </div>
-              <div className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Years</div>
+              <div className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{t('carousel.stats.years')}</div>
             </div>
             <div className={`rounded-lg p-3 shadow-md border flex-1 text-center transition-all duration-300 hover:scale-105 hover:shadow-lg ${
               isDarkMode 
@@ -296,7 +296,7 @@ export default function MobileNotebookCarousel() {
                 <div className="text-2xl font-bold text-green-600">1000+</div>
                 <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
               </div>
-              <div className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Students</div>
+              <div className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{t('carousel.stats.students')}</div>
             </div>
           </div>
         </div>

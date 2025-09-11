@@ -282,7 +282,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
     },
     {
       label: t('navigation.news'),
-      href: "/news",
+      href: "/articles",
       icon: Newspaper,
       color: "bg-gradient-to-br from-[#f78da7] to-[#f06292]",
       hoverEffect: "hover:shadow-[#f78da7]/20",

@@ -34,6 +34,7 @@ export default function NotebookHero({
     if (pathname.includes('/services')) return t('notebook.titles.services')
     if (pathname.includes('/why-us')) return t('notebook.titles.why_us')
     if (pathname.includes('/news')) return t('notebook.titles.news')
+    if (pathname.includes('/articles')) return t('notebook.titles.news')
     if (pathname.includes('/contact')) return t('notebook.titles.contact')
     
     return title || 'Page'
@@ -48,6 +49,7 @@ export default function NotebookHero({
     if (pathname.includes('/services')) return t('notebook.subtitles.services')
     if (pathname.includes('/why-us')) return t('notebook.subtitles.why_us')
     if (pathname.includes('/news')) return t('notebook.subtitles.news')
+    if (pathname.includes('/articles')) return t('notebook.subtitles.news')
     if (pathname.includes('/contact')) return t('notebook.subtitles.contact')
     
     return subtitle || ''

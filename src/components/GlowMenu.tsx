@@ -47,7 +47,7 @@ const getNavigationItems = (t: (key: string) => string | string[]) => [
   },
   {
     label: t('navigation.news'),
-    href: "/news",
+    href: "/articles",
     icon: Newspaper,
     color: "#f78da7", // Ροζ-κοραλί
     iconColor: "text-[#f78da7]"

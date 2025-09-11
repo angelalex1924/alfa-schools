@@ -6,10 +6,11 @@ import { AIChatbot } from "./chatbot";
 export function ConditionalChatbot() {
   const pathname = usePathname();
   
-  // Don't show chatbot on privacy policy and terms of service pages
+  // Don't show chatbot on privacy policy, terms of service, and admin pages
   const hiddenPaths = [
     "/legal/privacy-policy",
-    "/legal/terms-of-service"
+    "/legal/terms-of-service",
+    "/admin"
   ];
   
   const shouldHideChatbot = hiddenPaths.some(path => pathname.startsWith(path));

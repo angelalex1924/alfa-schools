@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ResponsiveNav from "@/components/ResponsiveNav";
-import { Component as Footer } from "@/components/footer-taped-design";
+import { ConditionalResponsiveNav } from "@/components/ConditionalResponsiveNav";
+import { ConditionalFooter } from "@/components/ConditionalFooter";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { CookieConsent } from "@/components/cookie-consent";
@@ -42,9 +42,9 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <LanguageProvider>
-            <ResponsiveNav />
+            <ConditionalResponsiveNav />
             {children}
-            <Footer />
+            <ConditionalFooter />
             <CookieConsent />
             <ConditionalChatbot />
           </LanguageProvider>
