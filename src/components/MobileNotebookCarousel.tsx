@@ -174,18 +174,53 @@ export default function MobileNotebookCarousel() {
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex flex-col px-4 py-8 pt-20">
         
-         {/* Header - School Logo */}
+         {/* Header - School Logo with Grade Badge */}
          <div className="flex justify-center mb-6 mt-2">
            <div className="flex items-center gap-3">
-             <img
-               src="/alfa-logo.png"
-               alt="Alfa School Logo"
-               className="w-20 h-20 object-contain"
-             />
-             <div className="flex items-center">
-               <p className={`text-xs mt-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                 {t('carousel.badge.since1986') || 'Since 1986'}
-               </p>
+             <div className="relative group">
+               <img
+                 src="/alfa-logo.png"
+                 alt="Alfa School Logo"
+                 className="w-20 h-20 object-contain transition-transform duration-300 group-hover:scale-110"
+               />
+               
+               {/* Grade Badge on Logo */}
+               <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg border border-white/50">
+                 <span className="text-white text-lg font-bold">⭐</span>
+               </div>
+               
+               {/* Decorative sparkles */}
+               <div className="absolute -top-1 -left-1 w-2 h-2 bg-yellow-400 rounded-full animate-ping opacity-75"></div>
+               <div className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
+             </div>
+             
+               {/* Since 1986 Badge - School Style */}
+               <div className="relative group transform rotate-2 hover:rotate-4 transition-transform duration-300">
+                 <div className="bg-white/20 dark:bg-gray-800/30 backdrop-blur-xl rounded-lg px-3 py-2 border-2 border-blue-200/50 dark:border-blue-600/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                 {/* Paper texture */}
+                 <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none">
+                   <div className="w-full h-full" style={{
+                     backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0)`,
+                     backgroundSize: '10px 10px'
+                   }}></div>
+                 </div>
+                 
+                 <div className="text-center relative z-10">
+                   <p className={`text-xs font-bold ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                     {t('carousel.badge.since1986') || 'Since 1986'}
+                   </p>
+                 </div>
+                 
+                 {/* Corner decoration */}
+                 <div className="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-blue-300/60 dark:border-blue-600/60 rounded-tl"></div>
+               </div>
+               
+               {/* Grade Badge - OUTSIDE the badge */}
+               <div className="absolute -top-2 -right-2 w-5 h-5 bg-gradient-to-br from-lime-300 to-lime-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white/50">
+                 <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                   A+
+                 </span>
+               </div>
              </div>
            </div>
          </div>
@@ -232,71 +267,184 @@ export default function MobileNotebookCarousel() {
             <div className="absolute bottom-2 right-2 w-8 h-8 border-r-2 border-b-2 border-green-400 opacity-60"></div>
           </div>
 
-          {/* Description */}
+          {/* Description - School Notebook Style */}
           <div className="max-w-sm text-center">
-            <div className={`rounded-lg p-4 shadow-md border transition-all duration-300 hover:shadow-lg hover:scale-105 ${
+            <div className={`relative rounded-xl p-5 shadow-xl border-2 transition-all duration-300 hover:shadow-2xl hover:scale-105 overflow-hidden ${
               isDarkMode 
-                ? 'bg-gray-700 border-gray-600' 
-                : 'bg-white border-gray-200'
+                ? 'bg-white/20 border-white/40 text-white backdrop-blur-xl' 
+                : 'bg-white/98 border-blue-200/50 text-gray-800 backdrop-blur-xl'
             }`}>
-              <div className="relative">
-                {/* Decorative bullet point */}
-                <div className="absolute -left-2 top-1 w-2 h-2 bg-blue-500 rounded-full"></div>
-                <p className={`text-sm leading-relaxed pl-4 ${
+              
+              {/* Paper Texture Overlay */}
+              <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none">
+                <div className="w-full h-full" style={{
+                  backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0)`,
+                  backgroundSize: '15px 15px'
+                }}></div>
+              </div>
+              
+              {/* Notebook Lines Background */}
+              <div className="absolute inset-0 pointer-events-none">
+                {/* Horizontal lines */}
+                {[...Array(4)].map((_, i) => (
+                  <div
+                    key={`line-${i}`}
+                    className={`absolute w-full h-px ${
+                      isDarkMode ? 'bg-blue-300/20' : 'bg-blue-200/40'
+                    }`}
+                    style={{
+                      top: `${20 + i * 15}%`,
+                      left: '15%',
+                      right: '10%'
+                    }}
+                  />
+                ))}
+                
+                {/* Red margin line */}
+                <div className={`absolute left-4 top-0 bottom-0 w-0.5 ${
+                  isDarkMode ? 'bg-red-400/40' : 'bg-red-300/60'
+                }`}></div>
+                
+                {/* Spiral binding holes */}
+                {[...Array(2)].map((_, i) => (
+                  <div
+                    key={`hole-${i}`}
+                    className={`absolute w-1.5 h-1.5 rounded-full border ${
+                      isDarkMode 
+                        ? 'bg-gray-600/40 border-gray-500/60' 
+                        : 'bg-white/80 border-blue-300/80'
+                    }`}
+                    style={{
+                      left: '6px',
+                      top: `${25 + i * 30}%`
+                    }}
+                  />
+                ))}
+              </div>
+
+               {/* Grade Badge - Varied */}
+               <div className="absolute top-2 right-2 z-10">
+                 <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg border border-white/50 relative">
+                   <span className="text-white text-lg font-bold drop-shadow-sm">🏆</span>
+                   {/* Subtle glow effect */}
+                   <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-full blur-sm"></div>
+                 </div>
+               </div>
+
+              <div className="relative z-10">
+                {/* Enhanced decorative bullet point */}
+                <div className="absolute -left-2 top-1 w-3 h-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full shadow-sm flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                </div>
+                <p className={`text-sm leading-relaxed pl-6 ${
                   isDarkMode ? 'text-gray-200' : 'text-gray-700'
-                }`}>
+                }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                   {currentData.description}
                 </p>
               </div>
               
-              {/* Decorative underline */}
-              <div className="mt-3 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-50"></div>
+              {/* Enhanced decorative underline */}
+              <div className="mt-4 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-60 rounded-full"></div>
+              
+              {/* School corner decorations */}
+              <div className="absolute top-1 left-1 w-2 h-2 border-t border-l border-blue-300/60 dark:border-blue-600/60 rounded-tl"></div>
+              <div className="absolute bottom-1 right-1 w-2 h-2 border-b border-r border-green-300/60 dark:border-green-600/60 rounded-br"></div>
             </div>
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button - School Style */}
           <div className="flex justify-center">
             <div className="relative group">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-3 rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-4 rounded-xl shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl font-bold border-2 border-blue-500/30 relative overflow-hidden"
               >
-                <span className="flex items-center gap-2">
+                {/* Subtle background pattern */}
+                <div className="absolute inset-0 opacity-10">
+                  <div className="w-full h-full" style={{
+                    backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+                    backgroundSize: '6px 6px'
+                  }}></div>
+                </div>
+                
+                <span className="flex items-center gap-2 relative z-10">
                   <GraduationCap className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12" />
                   {currentData.ctaText}
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </span>
               </Button>
               
+               {/* Grade Badge on Button */}
+               <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg border border-white/50 relative">
+                 <span className="text-white text-lg font-bold drop-shadow-sm">🎯</span>
+                 {/* Subtle glow effect */}
+                 <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-cyan-500/20 rounded-full blur-sm"></div>
+               </div>
+              
               {/* Decorative sparkles */}
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-ping opacity-75"></div>
-              <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <div className="absolute -top-1 -left-1 w-2 h-2 bg-yellow-400 rounded-full animate-ping opacity-75"></div>
+              <div className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
             </div>
           </div>
 
-          {/* Stats */}
+          {/* Stats - School Notebook Style */}
           <div className="flex gap-4 max-w-sm">
-            <div className={`rounded-lg p-3 shadow-md border flex-1 text-center transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+            <div className={`relative rounded-xl p-4 shadow-xl border-2 flex-1 text-center transition-all duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden ${
               isDarkMode 
-                ? 'bg-gray-700 border-gray-600' 
-                : 'bg-white border-gray-200'
+                ? 'bg-white/20 border-white/40 backdrop-blur-xl' 
+                : 'bg-white/98 border-blue-200/50 backdrop-blur-xl'
             }`}>
-              <div className="relative">
-                <div className="text-2xl font-bold text-blue-600">35+</div>
-                <div className="absolute -top-1 -right-1 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+              {/* Paper texture */}
+              <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none">
+                <div className="w-full h-full" style={{
+                  backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0)`,
+                  backgroundSize: '12px 12px'
+                }}></div>
               </div>
-              <div className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{t('carousel.stats.years')}</div>
+              
+              {/* Grade Badge */}
+              <div className="absolute top-2 right-2 w-5 h-5 bg-gradient-to-br from-lime-400 to-green-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white/50">
+                <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                  100%
+                </span>
+              </div>
+              
+              <div className="relative z-10">
+                <div className="text-2xl font-bold text-blue-600" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>35+</div>
+                <div className={`text-xs font-bold ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('carousel.stats.years')}</div>
+              </div>
+              
+              {/* Corner decoration */}
+              <div className="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-blue-300/60 dark:border-blue-600/60 rounded-tl"></div>
             </div>
-            <div className={`rounded-lg p-3 shadow-md border flex-1 text-center transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+            
+            <div className={`relative rounded-xl p-4 shadow-xl border-2 flex-1 text-center transition-all duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden ${
               isDarkMode 
-                ? 'bg-gray-700 border-gray-600' 
-                : 'bg-white border-gray-200'
+                ? 'bg-white/20 border-white/40 backdrop-blur-xl' 
+                : 'bg-white/98 border-blue-200/50 backdrop-blur-xl'
             }`}>
-              <div className="relative">
-                <div className="text-2xl font-bold text-green-600">1000+</div>
-                <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              {/* Paper texture */}
+              <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none">
+                <div className="w-full h-full" style={{
+                  backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0)`,
+                  backgroundSize: '12px 12px'
+                }}></div>
               </div>
-              <div className={`text-xs ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>{t('carousel.stats.students')}</div>
+              
+              {/* Grade Badge */}
+              <div className="absolute top-1 right-1 w-5 h-5 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-sm border border-white/50">
+                <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                  A+
+                </span>
+              </div>
+              
+              <div className="relative z-10">
+                <div className="text-2xl font-bold text-green-600" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>1000+</div>
+                <div className={`text-xs font-bold ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('carousel.stats.students')}</div>
+              </div>
+              
+              {/* Corner decoration */}
+              <div className="absolute bottom-1 right-1 w-1.5 h-1.5 border-b border-r border-green-300/60 dark:border-green-600/60 rounded-br"></div>
             </div>
           </div>
         </div>
