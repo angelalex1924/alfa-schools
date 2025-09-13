@@ -1,0 +1,272 @@
+/* Rich Text Editor Styles - FIXED SIZES */
+.rich-text-editor {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.rich-text-editor h1 {
+  font-size: 1.875rem; /* 30px - μικρότερο */
+  font-weight: 700;
+  margin: 1rem 0 0.5rem 0; /* μικρότερα margins */
+  color: #1f2937;
+  line-height: 1.2;
+}
+
+.rich-text-editor h2 {
+  font-size: 1.5rem; /* 24px - μικρότερο */
+  font-weight: 600;
+  margin: 0.75rem 0 0.5rem 0; /* μικρότερα margins */
+  color: #374151;
+  line-height: 1.3;
+}
+
+.rich-text-editor h3 {
+  font-size: 1.25rem; /* 20px - μικρότερο */
+  font-weight: 600;
+  margin: 0.5rem 0 0.25rem 0; /* μικρότερα margins */
+  color: #4b5563;
+  line-height: 1.4;
+}
+
+.rich-text-editor p {
+  margin: 0.5rem 0; /* μικρότερα margins */
+  line-height: 1.6; /* κανονικό line-height */
+  color: #374151;
+  font-size: 16px; /* κανονικό μέγεθος */
+}
+
+.rich-text-editor strong {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.rich-text-editor em {
+  font-style: italic;
+  color: #4b5563;
+}
+
+.rich-text-editor u {
+  text-decoration: underline;
+  text-decoration-color: #3b82f6;
+  text-decoration-thickness: 2px;
+}
+
+.rich-text-editor s {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+
+.rich-text-editor ul {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.rich-text-editor ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.rich-text-editor li {
+  margin: 0.25rem 0;
+  line-height: 1.6;
+}
+
+.rich-text-editor blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid #3b82f6;
+  background: #f8fafc;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.rich-text-editor a {
+  color: #3b82f6;
+  text-decoration: underline;
+  text-decoration-color: #93c5fd;
+  text-decoration-thickness: 1px;
+  transition: all 0.2s ease;
+}
+
+.rich-text-editor a:hover {
+  color: #1d4ed8;
+  text-decoration-color: #3b82f6;
+  text-decoration-thickness: 2px;
+}
+
+.rich-text-editor img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.rich-text-editor pre {
+  background: #f4f4f4;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1rem 0;
+  border-left: 4px solid #3b82f6;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.rich-text-editor code {
+  background: #f4f4f4;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  color: #e11d48;
+}
+
+.rich-text-editor table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rich-text-editor th {
+  background: #f8fafc;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+  color: #374151;
+}
+
+.rich-text-editor td {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  color: #4b5563;
+}
+
+.rich-text-editor tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+.rich-text-editor tr:hover {
+  background: #f3f4f6;
+}
+
+/* Video embeds */
+.rich-text-editor iframe {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 1rem 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode styles */
+.dark .rich-text-editor h1,
+.dark .rich-text-editor h2,
+.dark .rich-text-editor h3 {
+  color: #f9fafb;
+}
+
+.dark .rich-text-editor p {
+  color: #d1d5db;
+}
+
+.dark .rich-text-editor strong {
+  color: #f9fafb;
+}
+
+.dark .rich-text-editor em {
+  color: #9ca3af;
+}
+
+.dark .rich-text-editor blockquote {
+  background: #1f2937;
+  color: #9ca3af;
+  border-left-color: #60a5fa;
+}
+
+.dark .rich-text-editor a {
+  color: #60a5fa;
+  text-decoration-color: #3b82f6;
+}
+
+.dark .rich-text-editor a:hover {
+  color: #93c5fd;
+  text-decoration-color: #60a5fa;
+}
+
+.dark .rich-text-editor pre {
+  background: #1f2937;
+  color: #e5e7eb;
+  border-left-color: #60a5fa;
+}
+
+.dark .rich-text-editor code {
+  background: #1f2937;
+  color: #f87171;
+}
+
+.dark .rich-text-editor th {
+  background: #374151;
+  color: #f9fafb;
+  border-color: #4b5563;
+}
+
+.dark .rich-text-editor td {
+  color: #d1d5db;
+  border-color: #4b5563;
+}
+
+.dark .rich-text-editor tr:nth-child(even) {
+  background: #1f2937;
+}
+
+.dark .rich-text-editor tr:hover {
+  background: #374151;
+}
+
+/* Responsive video containers */
+.rich-text-editor .video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  margin: 1rem 0;
+  border-radius: 8px;
+}
+
+.rich-text-editor .video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Focus styles for editor */
+.rich-text-editor:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+/* Placeholder styles */
+.rich-text-editor[data-placeholder]:empty:before {
+  content: attr(data-placeholder);
+  color: #9ca3af;
+  pointer-events: none;
+  position: absolute;
+}
+
+/* Selection styles */
+.rich-text-editor ::selection {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.rich-text-editor ::-moz-selection {
+  background: rgba(59, 130, 246, 0.2);
+}

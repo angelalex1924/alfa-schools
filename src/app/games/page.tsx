@@ -8,11 +8,25 @@ import Image from "next/image"
 import { BookOpen, Globe, Star, Users, Trophy, Brain, Sparkles, Gamepad2, Target, Zap, Play, ArrowUp, Shuffle } from "lucide-react"
 import { GamesIcon } from "@/components/custom-icons"
 import NotebookHero from "@/components/NotebookHero"
+import SchoolBreadcrumb from "@/components/SchoolBreadcrumb"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
 export default function GamesPage() {
   const { t } = useLanguage()
   const { isDarkMode } = useTheme()
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Detect mobile device to reduce animations
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const gameCategories = [
     {
@@ -104,110 +118,158 @@ export default function GamesPage() {
           : `linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 50%, #d1e7ff 100%)`,
       }}
     >
-      {/* Enhanced Background Elements */}
+      {/* Optimized Background Elements for Mobile */}
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute top-20 left-10 w-32 h-32 sm:w-40 sm:h-40 rounded-full blur-3xl"
-          style={{ 
-            backgroundColor: isDarkMode 
-              ? "rgba(74, 111, 165, 0.2)" 
-              : "rgba(74, 111, 165, 0.4)" 
-          }}
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.2, 0.4, 0.2],
-            x: [0, 20, 0],
-            y: [0, -10, 0]
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute top-40 right-20 w-40 h-40 sm:w-56 sm:h-56 rounded-full blur-3xl"
-          style={{ 
-            backgroundColor: isDarkMode 
-              ? "rgba(129, 161, 212, 0.15)" 
-              : "rgba(129, 161, 212, 0.5)" 
-          }}
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.15, 0.3, 0.15],
-            x: [0, -15, 0],
-            y: [0, 15, 0]
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1
-          }}
-        />
-        <motion.div
-          className="absolute bottom-40 left-1/3 w-24 h-24 sm:w-32 sm:h-32 rounded-full blur-2xl"
-          style={{ 
-            backgroundColor: isDarkMode 
-              ? "rgba(201, 182, 228, 0.1)" 
-              : "rgba(201, 182, 228, 0.3)" 
-          }}
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.1, 0.25, 0.1],
-            x: [0, 10, 0],
-            y: [0, -20, 0]
-          }}
-          transition={{
-            duration: 3.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 right-1/4 w-20 h-20 sm:w-24 sm:h-24 rounded-full blur-xl"
-          style={{ 
-            backgroundColor: isDarkMode 
-              ? "rgba(247, 141, 167, 0.1)" 
-              : "rgba(247, 141, 167, 0.4)" 
-          }}
-          animate={{
-            scale: [1.3, 1, 1.3],
-            opacity: [0.1, 0.3, 0.1],
-            x: [0, -20, 0],
-            y: [0, 10, 0]
-          }}
-          transition={{
-            duration: 4.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 0.5
-          }}
-        />
-        
-        {/* Additional floating particles */}
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-white/20 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0, 0.6, 0],
-              scale: [0, 1, 0]
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 3,
-              ease: "easeInOut"
-            }}
+        {isMobile ? (
+          // Static background elements for mobile
+          <>
+            <div
+              className="absolute top-20 left-10 w-32 h-32 sm:w-40 sm:h-40 rounded-full"
+              style={{ 
+                backgroundColor: isDarkMode 
+                  ? "rgba(74, 111, 165, 0.15)" 
+                  : "rgba(74, 111, 165, 0.3)",
+                filter: 'blur(20px)'
+              }}
+            />
+            <div
+              className="absolute top-40 right-20 w-40 h-40 sm:w-56 sm:h-56 rounded-full"
+              style={{ 
+                backgroundColor: isDarkMode 
+                  ? "rgba(129, 161, 212, 0.1)" 
+                  : "rgba(129, 161, 212, 0.4)",
+                filter: 'blur(20px)'
+              }}
+            />
+            <div
+              className="absolute bottom-40 left-1/3 w-24 h-24 sm:w-32 sm:h-32 rounded-full"
+              style={{ 
+                backgroundColor: isDarkMode 
+                  ? "rgba(201, 182, 228, 0.08)" 
+                  : "rgba(201, 182, 228, 0.25)",
+                filter: 'blur(15px)'
+              }}
+            />
+            <div
+              className="absolute top-1/2 right-1/4 w-20 h-20 sm:w-24 sm:h-24 rounded-full"
+              style={{ 
+                backgroundColor: isDarkMode 
+                  ? "rgba(247, 141, 167, 0.08)" 
+                  : "rgba(247, 141, 167, 0.3)",
+                filter: 'blur(15px)'
+              }}
+            />
+          </>
+        ) : (
+          // Full animations for desktop
+          <>
+            <motion.div
+              className="absolute top-20 left-10 w-32 h-32 sm:w-40 sm:h-40 rounded-full blur-3xl"
+              style={{ 
+                backgroundColor: isDarkMode 
+                  ? "rgba(74, 111, 165, 0.2)" 
+                  : "rgba(74, 111, 165, 0.4)" 
+              }}
+              animate={{
+                scale: [1, 1.1, 1],
+                opacity: [0.2, 0.3, 0.2]
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <motion.div
+              className="absolute top-40 right-20 w-40 h-40 sm:w-56 sm:h-56 rounded-full blur-3xl"
+              style={{ 
+                backgroundColor: isDarkMode 
+                  ? "rgba(129, 161, 212, 0.15)" 
+                  : "rgba(129, 161, 212, 0.5)" 
+              }}
+              animate={{
+                scale: [1.1, 1, 1.1],
+                opacity: [0.15, 0.25, 0.15]
+              }}
+              transition={{
+                duration: 7,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1
+              }}
+            />
+            <motion.div
+              className="absolute bottom-40 left-1/3 w-24 h-24 sm:w-32 sm:h-32 rounded-full blur-2xl"
+              style={{ 
+                backgroundColor: isDarkMode 
+                  ? "rgba(201, 182, 228, 0.1)" 
+                  : "rgba(201, 182, 228, 0.3)" 
+              }}
+              animate={{
+                scale: [1, 1.15, 1],
+                opacity: [0.1, 0.2, 0.1]
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 2
+              }}
+            />
+            <motion.div
+              className="absolute top-1/2 right-1/4 w-20 h-20 sm:w-24 sm:h-24 rounded-full blur-xl"
+              style={{ 
+                backgroundColor: isDarkMode 
+                  ? "rgba(247, 141, 167, 0.1)" 
+                  : "rgba(247, 141, 167, 0.4)" 
+              }}
+              animate={{
+                scale: [1.1, 1, 1.1],
+                opacity: [0.1, 0.2, 0.1]
+              }}
+              transition={{
+                duration: 9,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.5
+              }}
+            />
+            
+            {/* Floating particles for desktop */}
+            {[...Array(3)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-white/10 rounded-full"
+                style={{
+                  left: `${20 + i * 30}%`,
+                  top: `${30 + i * 20}%`,
+                }}
+                animate={{
+                  y: [0, -20, 0],
+                  opacity: [0, 0.3, 0]
+                }}
+                transition={{
+                  duration: 8 + i * 2,
+                  repeat: Infinity,
+                  delay: i * 2,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </>
+        )}
+      </div>
+
+      {/* Breadcrumb Navigation */}
+      <div className="pt-20 pb-4 px-4 sm:px-6 relative z-10">
+        <div className="max-w-6xl mx-auto">
+          <SchoolBreadcrumb 
+            items={[
+              { label: 'Αρχική', href: '/' },
+              { label: 'Παιχνίδια' }
+            ]}
           />
-        ))}
+        </div>
       </div>
 
       {/* Notebook Hero Section */}
@@ -261,27 +323,50 @@ export default function GamesPage() {
                         `bg-gradient-to-br ${category.bgGradient}`
                       )} />
                       
-                      {/* Floating Particles */}
+                      {/* Optimized floating particles for mobile */}
                       <div className="absolute inset-0 overflow-hidden">
-                        {[...Array(4)].map((_, i) => (
-                          <motion.div
-                            key={i}
-                            className="absolute w-1.5 h-1.5 bg-white/20 rounded-full"
-                            style={{
-                              left: `${25 + i * 20}%`,
-                              top: `${35 + i * 15}%`,
-                            }}
-                            animate={{
-                              y: [0, -15, 0],
-                              opacity: [0.2, 0.6, 0.2],
-                            }}
-                            transition={{
-                              duration: 2.5 + i * 0.3,
-                              repeat: Infinity,
-                              delay: i * 0.2,
-                            }}
-                          />
-                        ))}
+                        {isMobile ? (
+                          // Static particles for mobile
+                          <>
+                            <div
+                              className="absolute w-1 h-1 bg-white/10 rounded-full"
+                              style={{
+                                left: '30%',
+                                top: '40%',
+                              }}
+                            />
+                            <div
+                              className="absolute w-1 h-1 bg-white/10 rounded-full"
+                              style={{
+                                left: '70%',
+                                top: '60%',
+                              }}
+                            />
+                          </>
+                        ) : (
+                          // Animated particles for desktop
+                          <>
+                            {[...Array(2)].map((_, i) => (
+                              <motion.div
+                                key={i}
+                                className="absolute w-1 h-1 bg-white/10 rounded-full"
+                                style={{
+                                  left: `${30 + i * 40}%`,
+                                  top: `${40 + i * 20}%`,
+                                }}
+                                animate={{
+                                  y: [0, -10, 0],
+                                  opacity: [0.1, 0.3, 0.1],
+                                }}
+                                transition={{
+                                  duration: 6 + i * 2,
+                                  repeat: Infinity,
+                                  delay: i * 1,
+                                }}
+                              />
+                            ))}
+                          </>
+                        )}
                       </div>
 
                       {/* Category Header */}
@@ -326,11 +411,10 @@ export default function GamesPage() {
                                 "hover:bg-white/10 dark:hover:bg-white/10",
                                 "transition-all duration-300 cursor-pointer group/game"
                               )}
-                              whileHover={{ scale: 1.02, x: 3 }}
-                              whileTap={{ scale: 0.98 }}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.4 + index * 0.1 + gameIndex * 0.05 }}
+                              whileHover={{ scale: 1.01 }}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.2 + gameIndex * 0.1 }}
                             >
                               <div className="flex items-center gap-2 sm:gap-3">
                                 <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
@@ -393,27 +477,64 @@ export default function GamesPage() {
           transition={{ duration: 0.6, delay: 0.6 }}
         >
           <div className="text-center px-4 sm:px-6 py-6 sm:py-8 lg:py-10 text-white relative overflow-hidden">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
-              {[...Array(12)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-1.5 h-1.5 bg-white rounded-full"
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                  }}
-                  animate={{
-                    scale: [0, 1, 0],
-                    opacity: [0, 0.8, 0],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    delay: Math.random() * 1.5,
-                  }}
-                />
-              ))}
+            {/* Optimized background pattern for mobile */}
+            <div className="absolute inset-0 opacity-5">
+              {isMobile ? (
+                // Static particles for mobile
+                <>
+                  <div
+                    className="absolute w-1 h-1 bg-white rounded-full"
+                    style={{
+                      left: '20%',
+                      top: '30%',
+                    }}
+                  />
+                  <div
+                    className="absolute w-1 h-1 bg-white rounded-full"
+                    style={{
+                      left: '40%',
+                      top: '45%',
+                    }}
+                  />
+                  <div
+                    className="absolute w-1 h-1 bg-white rounded-full"
+                    style={{
+                      left: '60%',
+                      top: '60%',
+                    }}
+                  />
+                  <div
+                    className="absolute w-1 h-1 bg-white rounded-full"
+                    style={{
+                      left: '80%',
+                      top: '75%',
+                    }}
+                  />
+                </>
+              ) : (
+                // Animated particles for desktop
+                <>
+                  {[...Array(4)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1 h-1 bg-white rounded-full"
+                      style={{
+                        left: `${20 + i * 20}%`,
+                        top: `${30 + i * 15}%`,
+                      }}
+                      animate={{
+                        scale: [0, 1, 0],
+                        opacity: [0, 0.4, 0],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        delay: i * 1,
+                      }}
+                    />
+                  ))}
+                </>
+              )}
             </div>
 
             <motion.h2 
@@ -458,43 +579,31 @@ export default function GamesPage() {
         </motion.div>
       </section>
 
-      {/* Floating Scroll to Top Button */}
+      {/* Simplified Scroll to Top Button */}
       <motion.button
         className="fixed bottom-6 right-6 z-50 p-3 rounded-full shadow-2xl border-0 backdrop-blur-xl"
         style={{ 
           background: `linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)` 
         }}
-        whileHover={{ scale: 1.1, y: -2 }}
-        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 1.05 }}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 2, type: "spring", stiffness: 200 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
       >
         <ArrowUp className="w-5 h-5 text-white" />
       </motion.button>
 
-      {/* Floating Play Button */}
+      {/* Simplified Play Button */}
       <motion.div
         className="fixed bottom-6 left-6 z-50"
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 2.2, type: "spring", stiffness: 200 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
       >
         <motion.button
           className="p-3 rounded-full shadow-2xl border-0 backdrop-blur-xl bg-white/10 dark:bg-white/5 border-white/20 dark:border-white/10"
-          whileHover={{ scale: 1.1, y: -2 }}
-          whileTap={{ scale: 0.9 }}
-          animate={{ 
-            boxShadow: [
-              "0 0 0 0 rgba(59, 130, 246, 0.4)",
-              "0 0 0 10px rgba(59, 130, 246, 0)",
-              "0 0 0 0 rgba(59, 130, 246, 0)"
-            ]
-          }}
-          transition={{ 
-            boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-          }}
+          whileHover={{ scale: 1.05 }}
         >
           <Play className="w-5 h-5 text-blue-600 dark:text-blue-400" />
         </motion.button>

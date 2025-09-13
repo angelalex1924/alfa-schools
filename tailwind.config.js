@@ -9,6 +9,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'stampatello': ['StampatelloFaceto', 'cursive'],
+        'geogola': ['Geogola', 'cursive'],
+        'sans': ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+        'mono': ['var(--font-geist-mono)', 'monospace'],
+      },
       animation: {
         'star-movement-bottom': 'star-movement-bottom linear infinite alternate',
         'star-movement-top': 'star-movement-top linear infinite alternate',
@@ -34,6 +40,13 @@ module.exports = {
         '500': '500ms',
         '700': '700ms',
         '1000': '1000ms',
+      },
+      scrollbarHide: {
+        '&::-webkit-scrollbar': {
+          display: 'none',
+        },
+        '-ms-overflow-style': 'none',
+        'scrollbar-width': 'none',
       },
     },
   },

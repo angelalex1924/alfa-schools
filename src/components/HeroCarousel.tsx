@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react"
+import { motion } from "framer-motion"
 
 interface CarouselSlide {
   id: number
@@ -114,12 +115,47 @@ export default function HeroCarousel() {
           
           {/* Logo Section */}
           <div className="mb-6 lg:mb-8">
-            <div className="inline-block bg-white/15 backdrop-blur-md rounded-2xl p-4 lg:p-5 shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300 hover:scale-105">
-              <img
-                src="/alfa-logo.png"
-                alt="Alfa School Logo - Κέντρα Ξένων Γλωσσών"
-                className="w-20 h-20 lg:w-24 lg:h-24 object-contain filter drop-shadow-lg"
-              />
+            <div className="inline-block bg-white/15 backdrop-blur-md rounded-2xl p-4 lg:p-5 shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden">
+              <motion.div
+                className="relative w-20 h-20 lg:w-24 lg:h-24"
+                initial={{ 
+                  clipPath: "inset(0 100% 0 0)",
+                  opacity: 0,
+                  scale: 0.5,
+                  rotate: -20
+                }}
+                animate={{ 
+                  clipPath: "inset(0 0% 0 0)",
+                  opacity: 1,
+                  scale: 1,
+                  rotate: 0
+                }}
+                transition={{ 
+                  duration: 2.0,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                  delay: 0.8
+                }}
+              >
+                <motion.div
+                  className="relative w-full h-full"
+                  animate={{
+                    y: [0, -5, 0],
+                    rotate: [0, 2, -2, 0],
+                    scale: [1, 1.02, 1]
+                  }}
+                  transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <img
+                    src="/alfa-logo.png"
+                    alt="Alfa School Logo - Κέντρα Ξένων Γλωσσών"
+                    className="w-full h-full object-contain filter drop-shadow-lg"
+                  />
+                </motion.div>
+              </motion.div>
             </div>
           </div>
           

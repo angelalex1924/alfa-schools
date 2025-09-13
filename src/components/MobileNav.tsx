@@ -48,6 +48,8 @@ import { useTheme } from "@/contexts/ThemeContext"
 import { LanguageSwitcher } from "./LanguageSwitcher"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { GamesIcon } from "./custom-icons"
+import { AnniversaryText } from "./AnniversaryText"
+import LanguageIcon from "./LanguageIcon"
 
 // AcronAI SVG Icon
 const AcronAIIcon = ({ className }: { className?: string }) => (
@@ -155,39 +157,51 @@ const MobileNav = ({ items }: MobileNavProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const [animationComplete, setAnimationComplete] = useState(false)
   const { isDarkMode, toggleTheme } = useTheme()
-  const { t } = useLanguage()
+  const { t, language, setLanguage } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
+  const [isToggling, setIsToggling] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
 
   // Update the toggleMenu function to handle state changes more efficiently
   const toggleMenu = () => {
-    // When closing, first set a flag to prevent flickering during animation
+    // Prevent multiple rapid toggles that can cause flickering
+    if (isToggling) return
+    
+    setIsToggling(true)
+    
     if (isOpen) {
       setIsOpen(false)
+      setActiveIndex(null)
     } else {
-      // When opening, set state immediately
       setIsOpen(true)
       setAnimationComplete(false)
       setActiveIndex(null)
     }
+    
+    // Reset toggling flag after animation
+    setTimeout(() => setIsToggling(false), 300)
   }
 
-  // Add scroll event listener
+  // Add scroll event listener with throttling to prevent flickering
   useEffect(() => {
+    let ticking = false
+    
     const handleScroll = () => {
-      const scrollPosition = window.scrollY
-      if (scrollPosition > 10) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY
+          setScrolled(scrollPosition > 10)
+          ticking = false
+        })
+        ticking = true
       }
     }
 
     // Initial check
     handleScroll()
 
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => {
       window.removeEventListener("scroll", handleScroll)
     }
@@ -380,11 +394,11 @@ const MobileNav = ({ items }: MobileNavProps) => {
           "fixed top-4 left-4 right-4 z-50 rounded-xl transition-all duration-300",
           scrolled
             ? isDarkMode 
-              ? "bg-[#0f172a]/50 backdrop-blur-2xl border border-[#0f172a]/60 shadow-[0_8px_32px_rgba(15,23,42,0.5)]"
-              : "bg-[#81a1d4]/20 backdrop-blur-2xl border border-[#81a1d4]/30 shadow-[0_8px_32px_rgba(129,161,212,0.2)]"
+              ? "bg-[#0f172a]/50 backdrop-blur-2xl border border-[#0f172a]/60"
+              : "bg-[#81a1d4]/20 backdrop-blur-2xl border border-[#81a1d4]/30"
             : isDarkMode
-              ? "bg-[#0f172a]/45 backdrop-blur-2xl border border-[#0f172a]/50 shadow-[0_4px_24px_rgba(15,23,42,0.45)]"
-              : "bg-[#81a1d4]/15 backdrop-blur-2xl border border-[#81a1d4]/20 shadow-[0_4px_24px_rgba(129,161,212,0.15)]",
+              ? "bg-[#0f172a]/45 backdrop-blur-2xl border border-[#0f172a]/50"
+              : "bg-[#81a1d4]/15 backdrop-blur-2xl border border-[#81a1d4]/20",
         )}
         initial={{ y: -10, opacity: 0 }}
         animate={{
@@ -401,32 +415,103 @@ const MobileNav = ({ items }: MobileNavProps) => {
         </div>
         
         <div className="flex items-center justify-between p-1 px-3 mx-auto relative z-10">
-          <Link href={homeHref} className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
+            <Link href={homeHref} className="flex items-center gap-2">
+              <motion.div
+                initial={{ rotate: -5, scale: 0.9 }}
+                animate={{ rotate: 0, scale: 1 }}
+                transition={{ duration: 0.5, type: "spring" }}
+                className="relative overflow-hidden"
+              >
+                <div className="relative w-24 h-10">
+                  {/* Reveal Animation Container */}
+                  <motion.div
+                    className="absolute inset-0"
+                    initial={{ 
+                      clipPath: "inset(0 100% 0 0)",
+                      opacity: 0,
+                      scale: 0.7,
+                      rotate: -15
+                    }}
+                    animate={{ 
+                      clipPath: "inset(0 0% 0 0)",
+                      opacity: 1,
+                      scale: 1,
+                      rotate: 0
+                    }}
+                    transition={{ 
+                      duration: 1.2,
+                      ease: [0.68, -0.55, 0.265, 1.55], // Bouncy
+                      delay: 0.3
+                    }}
+                  >
+                    <motion.div
+                      className="relative w-full h-full"
+                      animate={{
+                        y: [0, -2, 0],
+                        rotate: [0, 0.5, -0.5, 0]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <Image
+                        src="/alfa-logo.png"
+                        alt="Alfa Logo"
+                        fill
+                        className="object-contain"
+                        priority
+                      />
+                    </motion.div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </Link>
+            
+            {/* 40 Years Anniversary Text for Mobile */}
             <motion.div
-              initial={{ rotate: -5, scale: 0.9 }}
-              animate={{ rotate: 0, scale: 1 }}
-              transition={{ duration: 0.5, type: "spring" }}
-              className="relative"
+              initial={{ opacity: 0, x: -15 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ 
+                duration: 0.5, 
+                delay: 1.0,
+                ease: "easeOut"
+              }}
             >
-              <div className="relative w-24 h-10">
-                <Image
-                  src="/alfa-logo.png"
-                  alt="Alfa Logo"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
+              {/* <AnniversaryText 
+                variant="mobile" 
+                size="sm"
+                className="relative group"
+              /> */}
             </motion.div>
-          </Link>
+          </div>
 
           {/* Theme toggle button */}
           <div className="flex items-center gap-2">
-            {/* Language Switcher */}
-            <LanguageSwitcher 
-              className={cn(scrolled ? "bg-white/20 dark:bg-gray-800/50" : "")}
-              compact={true}
-            />
+            {/* Custom Language Icon for Mobile */}
+            <motion.button
+              className={cn(
+                "p-2 rounded-lg transition-all duration-300",
+                scrolled ? "bg-white/20 dark:bg-gray-800/50" : "bg-white/10 dark:bg-gray-800/30",
+                "hover:bg-white/30 dark:hover:bg-gray-800/60"
+              )}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                // Toggle language functionality
+                setLanguage(language === 'el' ? 'en' : 'el')
+              }}
+            >
+                <div className="relative">
+                  <LanguageIcon className="w-6 h-5" />
+                  {/* Language Badge */}
+                  <div className="absolute -top-2 -right-2 bg-gradient-to-br from-blue-500 to-blue-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg border border-blue-400/30" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                    {language === 'el' ? 'EN' : 'EL'}
+                  </div>
+                </div>
+            </motion.button>
 
             <ModernThemeToggle
               isDarkMode={isDarkMode}
@@ -608,7 +693,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                         </svg>
                         <p className={`text-sm italic font-medium leading-relaxed pl-6 pr-2 ${
                           isDarkMode ? 'text-white/90' : 'text-gray-700'
-                        }`}>
+                        }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                           {t('footer.slogan')}
                         </p>
                       </div>
@@ -634,7 +719,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                   >
                     <h3 className={`text-sm font-medium mb-4 flex items-center ${
                       isDarkMode ? 'text-white' : 'text-gray-800'
-                    }`}>
+                    }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                       <div className="w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mr-2 shadow-lg">
                         <Star className="h-3 w-3 text-white" />
                       </div>
@@ -729,7 +814,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                                 pathname === link.href 
                                   ? 'text-white' 
                                   : 'text-gray-800 dark:text-white group-hover:text-[#81a1d4]'
-                              }`}>
+                              }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                                 {link.label}
                                 {/* Active indicator dot */}
                                 {pathname === link.href && (
@@ -784,7 +869,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                   >
                     <h3 className={`text-sm font-medium mb-3 flex items-center ${
                       isDarkMode ? 'text-white' : 'text-gray-800'
-                    }`}>
+                    }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                       <div className="w-6 h-6 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center mr-2 shadow-lg">
                         <Shield className="h-3 w-3 text-white" />
                       </div>
@@ -825,7 +910,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                             >
                               <link.icon className="h-5 w-5" />
                             </motion.div>
-                            <span className="text-sm font-medium text-gray-700 dark:text-white">{link.label}</span>
+                            <span className="text-sm font-medium text-gray-700 dark:text-white" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{link.label}</span>
                           </a>
                         </motion.div>
                       ))}
@@ -841,7 +926,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                   >
                     <h3 className={`text-sm font-medium mb-3 flex items-center ${
                       isDarkMode ? 'text-white' : 'text-gray-800'
-                    }`}>
+                    }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                       <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mr-2 shadow-lg">
                         <Globe className="h-3 w-3 text-white" />
                       </div>
@@ -874,7 +959,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                             </svg>
                           </motion.div>
-                          <span className="text-sm font-medium text-gray-700 dark:text-white">Facebook</span>
+                          <span className="text-sm font-medium text-gray-700 dark:text-white" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>Facebook</span>
                         </a>
                       </motion.div>
                       
@@ -913,7 +998,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                               </defs>
                             </svg>
                           </motion.div>
-                          <span className="text-sm font-medium text-gray-700 dark:text-white">Instagram</span>
+                          <span className="text-sm font-medium text-gray-700 dark:text-white" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>Instagram</span>
                         </a>
                       </motion.div>
                     </div>
@@ -928,7 +1013,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                   >
                     <h3 className={`text-sm font-medium mb-3 flex items-center ${
                       isDarkMode ? 'text-white' : 'text-gray-800'
-                    }`}>
+                    }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                       <div className="w-6 h-6 bg-gradient-to-br from-red-400 to-orange-500 rounded-full flex items-center justify-center mr-2 shadow-lg">
                         <Mail className="h-3 w-3 text-white" />
                       </div>
@@ -950,7 +1035,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       <div className={`p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}>
                         <h4 className={`text-lg font-semibold mb-3 flex items-center gap-2 ${
                           isDarkMode ? 'text-white' : 'text-gray-800'
-                        }`}>
+                        }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                           <div className={`w-8 h-8 rounded-xl bg-gradient-to-br flex items-center justify-center ${isDarkMode ? 'from-[#0f172a] to-[#1e293b]' : 'from-[#81a1d4] to-[#6b8bc4]'}`}>
                             <Phone className="h-5 w-5 text-white" />
                           </div>
@@ -993,7 +1078,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       <div className={`p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}>
                         <h4 className={`text-lg font-semibold mb-3 flex items-center gap-2 ${
                           isDarkMode ? 'text-white' : 'text-gray-800'
-                        }`}>
+                        }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                           <div className={`w-8 h-8 rounded-xl bg-gradient-to-br flex items-center justify-center ${isDarkMode ? 'from-[#0f172a] to-[#1e293b]' : 'from-[#81a1d4] to-[#6b8bc4]'}`}>
                             <Phone className="h-5 w-5 text-white" />
                           </div>
@@ -1010,13 +1095,16 @@ const MobileNav = ({ items }: MobileNavProps) => {
                                 <div className="text-xs text-green-600 dark:text-green-300">+30 210 2777 725</div>
                               </div>
                           </a>
-                          <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-br from-gray-500/20 to-gray-600/20 border border-gray-500/20">
-                            <Mail className="h-5 w-5 text-gray-400" />
+                          <a
+                            href="mailto:alfaschoolfiladelfeia@gmail.com"
+                            className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-br from-red-500/20 to-rose-500/20 hover:from-red-500/30 hover:to-rose-500/30 transition-all duration-300 border border-red-500/20"
+                          >
+                            <Mail className="h-5 w-5 text-red-500" />
                             <div>
-                              <div className={`text-sm font-medium ${isDarkMode ? 'text-white/60' : 'text-gray-500'}`}>{t('contact.email')}</div>
-                              <div className="text-xs text-gray-400">-</div>
+                              <div className={`text-sm font-medium ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>{t('contact.email')}</div>
+                              <div className="text-xs text-red-600 dark:text-red-300">alfaschoolfiladelfeia@gmail.com</div>
                             </div>
-                          </div>
+                          </a>
                         </div>
                       </div>
                     </motion.div>
@@ -1044,7 +1132,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                         }}
                       >
                         <Shield className="h-3 w-3" />
-                        {t("navigation.privacy")}
+                        <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t("navigation.privacy")}</span>
                       </motion.a>
                       <motion.a
                         href="/legal/terms-of-service"
@@ -1058,7 +1146,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                         }}
                       >
                         <FileText className="h-3 w-3" />
-                        <span className="text-xs font-semibold">
+                        <span className="text-xs font-semibold" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                            {t('navigation.terms')}
                         </span>
                       </motion.a>

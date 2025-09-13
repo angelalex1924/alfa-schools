@@ -289,7 +289,7 @@ export function CookieConsent() {
     }
   }
 
-  const currentContent = content[currentLanguage]
+  const currentContent = content[currentLanguage as keyof typeof content] || content.en
 
   // Cookie categories with icons
   const cookieCategories = [
@@ -358,7 +358,7 @@ export function CookieConsent() {
                   overflow: 'hidden'
                 }
               : {
-                  bottom: '24px',
+                  bottom: isMobile ? '80px' : '24px',
                   left: '24px',
                   maxWidth: '420px',
                   width: '100%'

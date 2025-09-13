@@ -8,8 +8,10 @@ import { GamesIcon } from './custom-icons';
 import Image from 'next/image';
 import { AcronWebText } from './acron-web-logo';
 import StarBorder from './StarBorder';
+import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { CookieSettingsButton } from './cookies-settings-button';
+import { AnniversaryText } from './AnniversaryText';
 
 // Custom Services Icon
 const ServicesIcon = ({ className }: { className?: string }) => (
@@ -46,7 +48,7 @@ export const Component = () => {
 
 
   return (
-   <footer className="my-8 px-4 max-w-7xl text-base-content mx-auto">
+   <footer className="my-8 px-4 max-w-7xl text-base-content mx-auto pb-20 md:pb-8">
       <div className="relative bg-[#81a1d4]/30 dark:bg-[#0f172a] rounded-3xl max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="hidden md:block absolute -top-4 -left-8 w-[80px] h-[36px] scale-75">
           {tape}
@@ -56,45 +58,81 @@ export const Component = () => {
         </div>
         <div className="flex flex-col md:flex-row items-start justify-between  gap-4 md:gap-10 px-2 md:px-8 flex-1">
           <div className='flex flex-col items-start gap-2'>
-          <Link
-            href="/"
-            className="flex flex-row gap-1 items-center justify-start text-2xl font-display font-extrabold text-[#81a1d4]"
-          >
-            <div className="relative w-32 h-12">
-              <Image
-                src="/alfa-logo.png"
-                alt="Alfa School Logo"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </Link>
-          <p className='text-neutral/50 dark:text-white/70 font-medium text-base w-full md:w-full leading-tight'>{t('footer.slogan')}</p>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="flex flex-row gap-1 items-center justify-start text-2xl font-display font-extrabold text-[#81a1d4]"
+            >
+              <div className="relative w-32 h-12 overflow-hidden">
+                <motion.div
+                  className="absolute inset-0"
+                  initial={{ 
+                    clipPath: "inset(0 100% 0 0)",
+                    opacity: 0
+                  }}
+                  animate={{ 
+                    clipPath: "inset(0 0% 0 0)",
+                    opacity: 1
+                  }}
+                  transition={{ 
+                    duration: 1.2,
+                    ease: "easeInOut",
+                    delay: 0.2
+                  }}
+                >
+                  <Image
+                    src="/alfa-logo.png"
+                    alt="Alfa School Logo"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </motion.div>
+              </div>
+            </Link>
+            
+            {/* 40 Years Anniversary Text for Footer */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: 1.0,
+                ease: "easeOut"
+              }}
+            >
+              {/* <AnniversaryText 
+                variant="footer" 
+                size="sm"
+                className="relative group"
+              /> */}
+            </motion.div>
+          </div>
+          <p className='text-neutral/50 dark:text-white/70 font-medium text-base w-full md:w-full leading-tight' style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('footer.slogan')}</p>
           </div>
 
           <div className='flex flex-col md:mx-4 md:flex-row gap-2 md:gap-20 items-start md:items-start'>
 
           <div className='flex flex-col gap-1 md:gap-4'>
-          <h4 className='uppercase font-display text-md text-[#81a1d4] font-semibold'>{t('navigation.services')}</h4>
+          <h4 className='uppercase font-display text-md text-[#81a1d4] font-semibold' style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('navigation.services')}</h4>
           <div className="flex flex-wrap md:flex-col gap-2 text-sm text-neutral dark:text-white/70 items-start ">
-            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/services">
+            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/services" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
               <ServicesIcon className="w-4 h-4" />
               {t('navigation.services')}
             </Link>
-            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/news">
+            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/news" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
               <Newspaper className="w-4 h-4" />
               {t('navigation.news')}
             </Link>
-            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/why-us">
+            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/why-us" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
               <Users className="w-4 h-4" />
               {t('navigation.whyUs')}
             </Link>
-            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/games">
+            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/games" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
               <GamesIcon className="w-4 h-4" />
               {t('navigation.games')}
             </Link>
-            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/contact">
+            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="/contact" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
               <Phone className="w-4 h-4" />
               {t('navigation.contact')}
             </Link>
@@ -102,11 +140,11 @@ export const Component = () => {
           </div>
 
           <div className='flex flex-col gap-1 md:gap-4'>
-          <h4 className='uppercase whitespace-nowrap font-display text-md text-[#81a1d4] font-semibold'>{t('navigation.contact')}</h4>
+          <h4 className='uppercase whitespace-nowrap font-display text-md text-[#81a1d4] font-semibold' style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('navigation.contact')}</h4>
           <div className="flex gap-2 flex-wrap md:flex-col text-sm text-neutral dark:text-white/70 items-start ">
             {/* Chalandri Center */}
             <div className="flex flex-col gap-1">
-              <p className="text-neutral/70 dark:text-white/80 font-semibold text-xs">{t('phoneNumbers.chalandri.title')}</p>
+              <p className="text-neutral/70 dark:text-white/80 font-semibold text-xs" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('phoneNumbers.chalandri.title')}</p>
               <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="tel:+302106800708">
                 <Phone className="w-4 h-4" />
                 {t('phoneNumbers.chalandri.number')}
@@ -142,7 +180,7 @@ export const Component = () => {
             
             {/* Nea Filadelfeia Center */}
             <div className="flex flex-col gap-1">
-              <p className="text-neutral/70 dark:text-white/80 font-semibold text-xs">{t('phoneNumbers.neaPhiladelphia.title')}</p>
+              <p className="text-neutral/70 dark:text-white/80 font-semibold text-xs" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('phoneNumbers.neaPhiladelphia.title')}</p>
               <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="tel:+302102777725">
                 <Phone className="w-4 h-4" />
                 {t('phoneNumbers.neaPhiladelphia.number')}
@@ -170,15 +208,16 @@ export const Component = () => {
               </div>
             </div>
             
-            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="mailto:info@acronweb.com">
+            {/* Email for Nea Filadelfeia */}
+            <Link className='text-neutral/50 dark:text-white/60 whitespace-nowrap font-medium hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors flex items-center gap-2' href="mailto:alfaschoolfiladelfeia@gmail.com">
               <Mail className="w-4 h-4" />
-              info@acronweb.com
+              alfaschoolfiladelfeia@gmail.com
             </Link>
           </div>
           </div>
           
           <div className='flex flex-col gap-1 gap-4'>
-          <h4 className='uppercase whitespace-nowrap font-display text-md text-[#81a1d4] font-semibold'>{t('footer.socialMedia') || 'Κοινωνικά Δίκτυα'}</h4>
+          <h4 className='uppercase whitespace-nowrap font-display text-md text-[#81a1d4] font-semibold' style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('footer.socialMedia') || 'Κοινωνικά Δίκτυα'}</h4>
           <div className="flex flex-col gap-2 text-sm text-neutral dark:text-white/70 items-start ">
             <a
               href="https://www.facebook.com/profile.php?id=100057649952827"
@@ -189,7 +228,7 @@ export const Component = () => {
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
               </svg>
-              Facebook
+              <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>Facebook</span>
             </a>
             <a
               href="https://www.instagram.com/alfaschools/"
@@ -209,7 +248,7 @@ export const Component = () => {
                   </clipPath>
                 </defs>
               </svg>
-              Instagram
+              <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>Instagram</span>
             </a>
           </div>
           </div>
@@ -217,19 +256,19 @@ export const Component = () => {
 
         </div>
       </div>
-      <div className="my-1 px-4 md:px-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 text-sm text-neutral dark:text-white/70">
-        <div className="flex flex-col sm:flex-row gap-1 sm:gap-6 items-start sm:items-center">
-          <p className="whitespace-nowrap">
+      <div className="my-1 px-4 md:px-8 pb-16 md:pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 text-sm text-neutral dark:text-white/70">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 items-start sm:items-center w-full">
+          <p className="whitespace-nowrap text-xs sm:text-sm">
             ©{currentYear} {t('footer.copyright') || 'Alfa School. All rights reserved.'}
           </p>
-          <div className="flex flex-row gap-3 items-center">
-            <Link href="/legal/privacy-policy" className="hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors">{t('navigation.privacy')}</Link>
-            <Link href="/legal/terms-of-service" className="hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors">{t('navigation.terms')}</Link>
+          <div className="flex flex-row gap-2 sm:gap-3 items-center flex-wrap">
+            <Link href="/legal/privacy-policy" className="hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors text-xs sm:text-sm" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('navigation.privacy')}</Link>
+            <Link href="/legal/terms-of-service" className="hover:text-[#81a1d4] dark:hover:text-[#81a1d4] transition-colors text-xs sm:text-sm" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('navigation.terms')}</Link>
             <CookieSettingsButton language={language} />
           </div>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center mt-2 md:mt-0">
           <StarBorder
             as="div"
             className="footer-logo-group"
@@ -237,8 +276,8 @@ export const Component = () => {
             speed="5s"
             thickness={2}
           >
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-500 dark:text-white/60 font-medium">{t('footer.poweredBy') || 'Powered and Developed by'}</span>
+            <div className="flex items-center gap-1 sm:gap-2">
+              <span className="text-xs text-gray-500 dark:text-white/60 font-medium whitespace-nowrap">{t('footer.poweredBy') || 'Powered and Developed by'}</span>
               <div className="w-px h-3 bg-gray-300 dark:bg-white/40"></div>
               <div className="flex items-center gap-1">
                 {/* Website Icon SVG */}

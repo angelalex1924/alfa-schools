@@ -21,6 +21,15 @@
     "gamesDescription": "Interactive games for learning",
     "contactDescription": "Contact us"
   },
+  "breadcrumbs": {
+    "home": "Home",
+    "services": "Services",
+    "articles": "Our News",
+    "games": "Games",
+    "contact": "Contact",
+    "whyUs": "Why Us",
+    "tags": "Tags"
+  },
   "notebook": {
     "schoolName": "Alfa Schools",
     "subject": "Lesson",
@@ -39,14 +48,15 @@
       "games": "Games",
       "services": "Services",
       "why_us": "Why Us?",
-      "news": " Our News",
-      "contact": "Contact"
+      "news": "Our News",
+      "contact": "Contact",
+      "tags": "#Tags"
     },
     "subtitles": {
       "games": "Learn while having fun with our interactive games",
       "services": "Discover our specialized services designed to meet your educational needs",
       "why_us": "Discover the reasons that make Alfa Schools the best choice for your education",
-      "news": "Stay updated with the latest news, developments and events from Alfa School",
+      "news": "Stay updated with the latest news, developments and events from Alfa Schools",
       "contact": "Have questions? Contact us for more information and we will respond immediately"
     }
   },
@@ -202,7 +212,31 @@
     "title": "ALFA Foreign Language Centers",
     "years": "35+ Years",
     "experience": "of Experience",
-    "subtitle": "Together since 1986, with respect, love and dedication to learning"
+    "subtitle": "Since 1986"
+  },
+  "whyUs": {
+    "title": "Why Choose ALFA?",
+    "teachers": "Certified Teachers",
+    "teachersDesc": "Specialized",
+    "materials": "Modern Materials",
+    "materialsDesc": "Interactive",
+    "fun": "Fun Learning",
+    "funDesc": "Games & Activities"
+  },
+  "testimonials": {
+    "title": "What Our Students Say",
+    "student1": {
+      "name": "Maria K.",
+      "text": "The best lessons! I learned English quickly and had fun! 🎉"
+    },
+    "student2": {
+      "name": "John P.",
+      "text": "The teachers are fantastic! They helped me pass IELTS! 🌟"
+    },
+    "student3": {
+      "name": "Anna D.",
+      "text": "ALFA is the best choice! I highly recommend it! ⭐"
+    }
   },
   "history": {
     "title": "Our History",
@@ -223,16 +257,26 @@
   "services": {
     "title": "Our Services",
     "subtitle": "Discover the specialized educational services we offer",
+    "english": {
+      "title": "ENGLISH",
+      "description": "The international language of communication and information",
+      "items": ["English for all ages", "IELTS & TOEFL Preparation", "Cambridge Exams", "Business English", "Academic English"]
+    },
+    "french": {
+      "title": "FRENCH",
+      "description": "The language of the European Union and culture",
+      "items": ["French for all ages", "DELF & DALF Preparation", "Sorbonne Exams", "Professional French", "Culture and literature"]
+    },
     "allAges": {
-      "title": "Classes for all ages",
+      "title": "Classes for All Ages",
       "description": "From 1st grade and up"
     },
     "reinforcement": {
-      "title": "Reinforcement & review",
+      "title": "Reinforcement & Review",
       "description": "Personalized teaching"
     },
     "universityPrep": {
-      "title": "University entrance preparation",
+      "title": "University Entrance Preparation",
       "description": "English & French Philology"
     },
     "ieltsToefl": {
@@ -240,11 +284,11 @@
       "description": "Preparation for studying abroad"
     },
     "summer": {
-      "title": "Summer classes",
+      "title": "Summer Courses",
       "description": "Intensive programs"
     },
     "professionals": {
-      "title": "Professionals",
+      "title": "Professional Courses",
       "description": "Fast-track classes"
     }
   },
@@ -263,7 +307,7 @@
   "philosophy": {
     "title": "Our Philosophy",
     "quote": "Learning foreign languages is not just a diploma. It's cultivation, personal development and a tool for a constantly changing world.",
-    "description": "The ALPHA family embraces every student with personal interest, cultivating skills that accompany them throughout their life."
+    "description": "The ALFA family embraces every student with personal interest, cultivating skills that accompany them throughout their life."
   },
   "languages": {
     "english": {
@@ -312,7 +356,42 @@
     "phone": "Phone",
     "email": "Email",
     "needHelp": "Need help?",
-    "helpDescription": "Our team is ready to help you with any question."
+    "helpDescription": "Our team is ready to help you with any question.",
+    "pageTitle": "Contact Us",
+    "pageSubtitle": "Get in touch with us and start your learning journey",
+    "centersTitle": "Our Centers",
+    "centersSubtitle": "Visit us at one of our two locations",
+    "formTitle": "Send us a Message",
+    "formSubtitle": "Fill out the form below and we'll get back to you as soon as possible",
+    "centerSelection": "Center Selection",
+    "selectCenter": "Select Center",
+    "chalandri": "Chalandri",
+    "neaFiladelfeia": "Nea Filadelfeia",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "emailAddress": "Email Address",
+    "phoneNumber": "Phone Number",
+    "subject": "Subject",
+    "selectSubject": "Select Subject",
+    "generalInquiry": "General Inquiry",
+    "courseInformation": "Course Information",
+    "registration": "Registration",
+    "support": "Support",
+    "other": "Other",
+    "message": "Message",
+    "enterMessage": "Enter your message here...",
+    "sendMessage": "Send Message",
+    "sending": "Sending...",
+    "messageSent": "Message sent successfully!",
+    "messageError": "Failed to send message. Please try again.",
+    "address": "Address",
+    "workingHours": "Working Hours",
+    "mondayFriday": "Monday - Friday: 16:00 - 22:00",
+    "mapTitle": "Find Us on the Map",
+    "mapSubtitle": "Click on the map to get directions",
+    "getDirections": "Get Directions",
+    "socialMedia": "Follow Us",
+    "socialSubtitle": "Stay connected with us on social media"
   },
   "phoneNumbers": {
     "chalandri": {
@@ -331,7 +410,7 @@
     },
     "neaPhiladelphia": {
       "title": "Nea Filadelfeia",
-      "email": "-"
+      "email": "alfaschoolfiladelfeia@gmail.com"
     }
   },
   "footer": {
@@ -474,5 +553,60 @@
       "description": "Our games are designed to make learning easy, fun, and effective.",
       "button": "Start Now"
     }
+  },
+  "articles": {
+    "title": "Our News",
+    "subtitle": "Stay updated with the latest news and developments",
+    "categories": {
+      "title": "Categories",
+      "all": "All",
+      "education": "Education",
+      "news": "News",
+      "actions": "Actions",
+      "english": "English",
+      "french": "French",
+      "languages": "Languages"
+    },
+    "filters": {
+      "title": "Filters",
+      "category": "Category",
+      "tags": "Tags"
+    },
+    "loading": "Loading articles...",
+    "noArticles": "No articles found",
+    "noArticlesDescription": "There are no articles for this category",
+    "readMore": "Read more",
+    "backToArticles": "Back to Articles",
+    "articlesFound": "Found {count} articles",
+    "articleWithTag": "Articles with Tag: #{tag}",
+    "noArticlesWithTag": "No articles found with this tag",
+    "noArticlesWithTagDescription": "There are no articles with the tag #{tag}"
+  },
+  "tags": {
+    "title": "Tags",
+    "subtitle": "Discover articles with specific tags",
+    "loading": "Loading tags...",
+    "noTags": "No tags found",
+    "backToArticles": "Back to Articles"
+  },
+  "notFound": {
+    "title": "Oops! Page Not Found!",
+    "subtitle": "Looks like you got lost in the school network! 😅",
+    "description": "The page you're looking for doesn't exist, but don't worry - you won't get an F in this class!",
+    "suggestions": [
+      "Maybe you typed the address wrong?",
+      "The page might have moved?",
+      "Or it simply... doesn't exist! 😅"
+    ],
+    "actions": {
+      "goHome": "🏠 Back to Home",
+      "goBack": "⬅️ Go Back",
+      "contact": "📞 Contact Us"
+    },
+    "funFacts": [
+      "404 comes from the room number where the first web server was located!",
+      "In English it's called 'Not Found' - meaning 'Not Found'!",
+      "Most users get lost on the internet every day! 😄"
+    ]
   }
 }

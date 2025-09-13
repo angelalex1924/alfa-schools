@@ -1,0 +1,44 @@
+{
+  "navigation": {
+    "home": "Startseite",
+    "services": "Dienstleistungen",
+    "news": "Unsere Nachrichten",
+    "whyUs": "Warum Wir",
+    "games": "Spiele",
+    "contact": "Kontakt",
+    "privacy": "Datenschutz",
+    "terms": "Bedingungen",
+    "callUs": "Rufen Sie uns an",
+    "email": "E-Mail",
+    "language": "Deutsch",
+    "main": "Hauptnavigation",
+    "legal": "Rechtliches & Kontakt",
+    "tableOfContents": "Inhaltsverzeichnis",
+    "homeDescription": "Startseite",
+    "servicesDescription": "Spezialisierte Dienstleistungen",
+    "newsDescription": "Neueste Nachrichten und Updates",
+    "whyUsDescription": "Entdecken Sie unsere Vorteile",
+    "gamesDescription": "Interaktive Lernspiele",
+    "contactDescription": "Kontaktieren Sie uns"
+  },
+  "notFound": {
+    "title": "Ups! Seite Nicht Gefunden!",
+    "subtitle": "Es scheint, als wären Sie im Schulnetzwerk verloren gegangen! 😅",
+    "description": "Die Seite, die Sie suchen, existiert nicht, aber keine Sorge - Sie werden kein F in dieser Klasse bekommen!",
+    "suggestions": [
+      "Vielleicht haben Sie die Adresse falsch eingegeben?",
+      "Die Seite könnte verschoben worden sein?",
+      "Oder sie existiert einfach... nicht! 😅"
+    ],
+    "actions": {
+      "goHome": "🏠 Zurück zur Startseite",
+      "goBack": "⬅️ Zurück",
+      "contact": "📞 Kontakt"
+    },
+    "funFacts": [
+      "404 kommt von der Raumnummer, wo sich der erste Webserver befand!",
+      "Auf Deutsch heißt es 'Nicht Gefunden' - das bedeutet 'Nicht Gefunden'!",
+      "Die meisten Benutzer verlieren sich jeden Tag im Internet! 😄"
+    ]
+  }
+}

@@ -11,7 +11,7 @@ export interface Article {
   breaking: boolean;
   showInTicker: boolean;
   tags: string[];
-  author: string;
+  author?: string;
   date: Date | string;
   publishDate: string;
   viewCount: number;
@@ -39,7 +39,7 @@ export interface ArticleFormData {
   breaking: boolean;
   showInTicker: boolean;
   tags: string[];
-  author: string;
+  author?: string;
   publishDate: string;
   viewCount: number;
   readingTime: number;

@@ -269,6 +269,56 @@ export async function getArticlesByCategory(
   }
 }
 
+// Get articles by tag
+export async function getArticlesByTag(
+  tag: string,
+  pageSize: number = 10,
+  lastDoc?: any
+): Promise<{ articles: Article[]; lastDoc: any }> {
+  try {
+    // Since Firestore doesn't support array-contains with orderBy efficiently,
+    // we'll get all articles and filter client-side for now
+    // For better performance with many articles, consider using a separate tags collection
+    
+    const q = query(
+      collection(db, ARTICLES_COLLECTION),
+      orderBy('date', 'desc'),
+      limit(50) // Get more articles to filter from
+    );
+
+    const querySnapshot = await getDocs(q);
+    const articles: Article[] = [];
+    
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const article = {
+        id: doc.id,
+        ...data,
+        date: data.date?.toDate() || new Date(),
+        createdAt: data.createdAt?.toDate() || new Date(),
+        updatedAt: data.updatedAt?.toDate() || new Date(),
+      } as Article;
+
+      // Filter articles that contain the specified tag
+      if (article.tags && article.tags.some(t => t.toLowerCase() === tag.toLowerCase())) {
+        articles.push(article);
+      }
+    });
+
+    // Apply pagination
+    const paginatedArticles = articles.slice(0, pageSize);
+    const lastDocument = querySnapshot.docs[querySnapshot.docs.length - 1];
+    
+    return {
+      articles: paginatedArticles,
+      lastDoc: lastDocument
+    };
+  } catch (error) {
+    console.error('Error getting articles by tag:', error);
+    throw new Error('Failed to get articles by tag');
+  }
+}
+
 // Search articles
 export async function searchArticles(searchTerm: string): Promise<Article[]> {
   try {

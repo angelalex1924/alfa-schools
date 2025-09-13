@@ -28,6 +28,7 @@ import { ModernThemeToggle } from "./ModernThemeToggle"
 import { useTheme } from "@/contexts/ThemeContext"
 import { LanguageSwitcher } from "./LanguageSwitcher"
 import { useLanguage } from "@/contexts/LanguageContext"
+import { AnniversaryText } from "./AnniversaryText"
 
 // Navigation items with the requested links - will be updated with translations
 const getNavigationItems = (t: (key: string) => string | string[]) => [
@@ -181,15 +182,16 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
           <div className="absolute inset-0 bg-white/5 backdrop-blur-2xl"></div>
         </motion.div>
 
-      {/* Enhanced Logo with alfa-logo.png */}
+      {/* Enhanced Logo with alfa-logo.png - REVEAL ANIMATION */}
       <motion.div
         variants={logoVariants}
         initial="hidden"
         animate="visible"
+        className="flex items-center gap-1"
       >
         <Link href="/" className="relative group" prefetch={false}>
           <motion.div 
-            className="relative w-32 h-12"
+            className="relative w-32 h-12 overflow-hidden"
             whileHover={{ 
               scale: 1.05,
               rotate: [0, 1, -1, 0],
@@ -207,13 +209,48 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
               boxShadow: { duration: 3, repeat: Infinity, ease: "easeInOut" }
             }}
           >
-            <Image
-              src="/alfa-logo.png"
-              alt="Alfa Logo"
-              fill
-              className="object-contain transition-all duration-300 group-hover:brightness-110"
-              priority
-            />
+            {/* Reveal Animation Container */}
+            <motion.div
+              className="absolute inset-0"
+              initial={{ 
+                clipPath: "inset(0 100% 0 0)",
+                opacity: 0,
+                scale: 0.8,
+                rotate: -10
+              }}
+              animate={{ 
+                clipPath: "inset(0 0% 0 0)",
+                opacity: 1,
+                scale: 1,
+                rotate: 0
+              }}
+              transition={{ 
+                duration: 1.5,
+                ease: [0.25, 0.46, 0.45, 0.94], // Custom bounce
+                delay: 0.5
+              }}
+            >
+              <motion.div
+                className="relative w-full h-full"
+                animate={{
+                  y: [0, -3, 0],
+                  rotate: [0, 1, -1, 0]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <Image
+                  src="/alfa-logo.png"
+                  alt="Alfa Logo"
+                  fill
+                  className="object-contain transition-all duration-300 group-hover:brightness-110"
+                  priority
+                />
+              </motion.div>
+            </motion.div>
             
             {/* Subtle glow effect on hover */}
             <motion.div
@@ -227,6 +264,23 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
             />
           </motion.div>
         </Link>
+        
+        {/* 40 Years Anniversary Text */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ 
+            duration: 0.6, 
+            delay: 1.2,
+            ease: "easeOut"
+          }}
+        >
+          {/* <AnniversaryText 
+            variant="desktop" 
+            size="sm"
+            className="relative group"
+          /> */}
+        </motion.div>
       </motion.div>
 
       {/* Navigation items */}
@@ -358,6 +412,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                             ? "font-semibold text-shadow-sm shadow-black/40"
                             : "font-medium text-shadow-sm shadow-black/30",
                         )}
+                        style={{ fontFamily: 'StampatelloFaceto, cursive' }}
                         animate={
                           isActive
                             ? {
@@ -480,7 +535,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
               >
                 <Shield className="h-3.5 w-3.5 text-blue-300" />
               </motion.div>
-              <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
+              <span className="text-xs font-semibold text-shadow-sm shadow-black/40" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                 {t('navigation.privacy')}
               </span>
               
@@ -516,7 +571,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
               >
                 <ChevronRight className="h-3.5 w-3.5 text-purple-300" />
               </motion.div>
-              <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
+              <span className="text-xs font-semibold text-shadow-sm shadow-black/40" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                 {t('navigation.terms')}
               </span>
               
@@ -552,7 +607,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
               >
                 <Phone className="h-3.5 w-3.5 text-green-300" />
               </motion.div>
-              <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
+              <span className="text-xs font-semibold text-shadow-sm shadow-black/40" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                 {t('navigation.callUs')}
               </span>
               <motion.div
@@ -626,7 +681,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
               >
                 <Mail className="h-3.5 w-3.5 text-red-300" />
               </motion.div>
-              <span className="text-xs font-semibold text-shadow-sm shadow-black/40">
+              <span className="text-xs font-semibold text-shadow-sm shadow-black/40" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                 {t('navigation.email')}
               </span>
               <motion.div
@@ -663,13 +718,16 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                     <div className="text-xs text-gray-500">{t('emails.chalandri.email')}</div>
                   </div>
                 </a>
-                <div className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-400 dark:text-gray-500">
-                  <Mail className="h-4 w-4" />
+                <a
+                  href="mailto:alfaschoolfiladelfeia@gmail.com"
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 transition-colors ${isDarkMode ? 'hover:bg-[#0f172a]/20 hover:text-[#0f172a]' : 'hover:bg-[#81a1d4]/10 hover:text-[#81a1d4]'}`}
+                >
+                  <Mail className={`h-4 w-4 flex-shrink-0 ${isDarkMode ? 'text-[#0f172a]' : 'text-[#81a1d4]'}`} />
                   <div>
                     <div className="text-sm font-medium">{t('emails.neaPhiladelphia.title')}</div>
-                    <div className="text-xs">{t('emails.neaPhiladelphia.email')}</div>
+                    <div className="text-xs text-gray-500">alfaschoolfiladelfeia@gmail.com</div>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
           </div>

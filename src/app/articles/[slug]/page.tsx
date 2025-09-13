@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useEffect, useState, useCallback } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Calendar, 
@@ -36,23 +36,374 @@ import {
 import { getArticleBySlug, incrementViewCount } from '@/lib/firebase-articles';
 import type { Article } from '@/lib/types';
 import { useTheme } from '@/contexts/ThemeContext';
+import SchoolBreadcrumb from '@/components/SchoolBreadcrumb';
 import Link from 'next/link';
 import Image from 'next/image';
+import '@/styles/rich-text-editor.css';
+
+// Declare global types for social media APIs
+declare global {
+  interface Window {
+    instgrm?: {
+      Embeds: {
+        process: () => void
+      }
+    }
+    FB?: {
+      XFBML: {
+        parse: (element?: HTMLElement) => void
+      }
+    }
+    tiktok?: {
+      loadEmbedScript: () => void
+    }
+  }
+}
+
 
 export default function ArticlePage() {
   const params = useParams();
+  const router = useRouter();
   const slug = params.slug as string;
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const { isDarkMode } = useTheme();
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device to reduce animations
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, []);
 
   useEffect(() => {
     if (slug) {
       loadArticle();
     }
   }, [slug]);
+
+  // Function to process social media embeds
+  const processSocialEmbeds = useCallback(() => {
+    // Process Instagram embeds
+    if (document.querySelector(".instagram-media")) {
+      console.log("Processing Instagram embeds")
+      
+      // Remove existing Instagram scripts to force reload
+      const existingScripts = document.querySelectorAll('script[src*="instagram.com/embed.js"]')
+      existingScripts.forEach(script => script.remove())
+      
+      // Load Instagram SDK
+      const script = document.createElement("script")
+      script.id = "instagram-embed-script"
+      script.async = true
+      script.src = "//www.instagram.com/embed.js"
+      script.onload = () => {
+        console.log("Instagram script loaded")
+        // Multiple processing attempts
+        setTimeout(() => {
+          if (window.instgrm) {
+            window.instgrm.Embeds.process()
+            console.log("Instagram embeds processed")
+          }
+        }, 100)
+        setTimeout(() => {
+          if (window.instgrm) {
+            window.instgrm.Embeds.process()
+            console.log("Instagram embeds processed again")
+          }
+        }, 1000)
+      }
+      document.body.appendChild(script)
+    }
+
+    // Process Facebook embeds with fallback for mobile
+    if (document.querySelector(".fb-post, .fb-video, .fb-page")) {
+      console.log("Processing Facebook embeds")
+      const isMobile = window.innerWidth <= 768
+      
+      if (isMobile) {
+        // For mobile, show a link instead of iframe
+        const fbEmbeds = document.querySelectorAll('.fb-post, .fb-video, .fb-page')
+        fbEmbeds.forEach(embed => {
+          const iframe = embed.querySelector('iframe')
+          if (iframe) {
+            const src = iframe.src
+            if (src && src.includes('facebook.com')) {
+              // Create a mobile-friendly link
+              const linkContainer = document.createElement('div')
+              linkContainer.style.cssText = `
+                width: 100%;
+                padding: 20px;
+                background: #f0f0f0;
+                border-radius: 8px;
+                text-align: center;
+                margin: 10px 0;
+              `
+              linkContainer.innerHTML = `
+                <p style="margin: 0 0 10px 0; color: #666;">Facebook Post</p>
+                <a href="${src}" target="_blank" style="
+                  display: inline-block;
+                  padding: 10px 20px;
+                  background: #1877f2;
+                  color: white;
+                  text-decoration: none;
+                  border-radius: 5px;
+                  font-weight: bold;
+                ">View on Facebook</a>
+              `
+              embed.parentNode?.replaceChild(linkContainer, embed)
+            }
+          }
+        })
+      } else {
+        // For desktop, use normal Facebook SDK
+        if (window.FB) {
+          window.FB.XFBML.parse()
+        } else {
+          // Load Facebook SDK if not already loaded
+          if (!document.getElementById("facebook-jssdk")) {
+            const script = document.createElement("script")
+            script.id = "facebook-jssdk"
+            script.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v16.0"
+            script.async = true
+            script.defer = true
+            script.crossOrigin = "anonymous"
+            script.onload = () => {
+              if (window.FB) window.FB.XFBML.parse()
+            }
+            document.body.appendChild(script)
+          }
+        }
+      }
+    }
+
+    // Process TikTok embeds
+    if (document.querySelector('blockquote[cite*="tiktok.com"]')) {
+      console.log("Processing TikTok embeds")
+
+      // Αφαιρούμε τυχόν υπάρχοντα TikTok scripts για να αναγκάσουμε επαναφόρτωση
+      const oldScript = document.getElementById("tiktok-embed-script")
+      if (oldScript) {
+        oldScript.remove()
+      }
+
+      // Προσθέτουμε το TikTok embed script με βελτιωμένο χειρισμό
+      const script = document.createElement("script")
+      script.id = "tiktok-embed-script"
+      script.src = "https://www.tiktok.com/embed.js"
+      script.async = true
+
+      // Προσθέτουμε event listener για να επιβεβαιώσουμε τη φόρτωση
+      script.onload = () => {
+        console.log("TikTok script loaded successfully")
+
+        // Προσθέτουμε μια επιπλέον προσπάθεια επεξεργασίας μετά τη φόρτωση
+        setTimeout(() => {
+          // Προσθέτουμε ξανά το script για να ενεργοποιήσουμε την επεξεργασία των embeds
+          const refreshScript = document.createElement("script")
+          refreshScript.async = true
+          refreshScript.src = "https://www.tiktok.com/embed.js"
+          document.body.appendChild(refreshScript)
+        }, 1000)
+      }
+
+      // Χειρισμός σφαλμάτων φόρτωσης
+      script.onerror = () => {
+        console.error("Failed to load TikTok embed script")
+        // Προσπαθούμε ξανά με εναλλακτικό URL
+        const retryScript = document.createElement("script")
+        retryScript.id = "tiktok-embed-script-retry"
+        retryScript.async = true
+        retryScript.src = "https://sf16-scmcdn-va.ibytedtos.com/goofy/tiktok/web/embed/embed_lib.js"
+        document.body.appendChild(retryScript)
+      }
+
+      document.body.appendChild(script)
+    }
+  }, []);
+
+  // Process embeds when article content changes
+  useEffect(() => {
+    if (article && article.content) {
+      // Check if content has social media embeds or raw HTML containers
+      if (
+        article.content.includes("instagram-media") ||
+        article.content.includes("fb-post") ||
+        article.content.includes("fb-video") ||
+        article.content.includes("fb-page") ||
+        article.content.includes("tiktok.com") ||
+        article.content.includes("raw-html-container")
+      ) {
+        // Αρχική επεξεργασία με μεγαλύτερες καθυστερήσεις
+        setTimeout(() => {
+          processSocialEmbeds()
+        }, 500)
+        
+        // Πολλαπλές προσπάθειες με αυξανόμενες καθυστερήσεις
+        setTimeout(processSocialEmbeds, 1500)
+        setTimeout(processSocialEmbeds, 3000)
+        setTimeout(processSocialEmbeds, 5000)
+        setTimeout(processSocialEmbeds, 8000)
+      }
+    }
+  }, [article, processSocialEmbeds]);
+
+  // Add mobile viewport meta tag for better mobile rendering
+  useEffect(() => {
+    const viewportMeta = document.querySelector('meta[name="viewport"]')
+    if (!viewportMeta) {
+      const meta = document.createElement('meta')
+      meta.name = 'viewport'
+      meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+      document.head.appendChild(meta)
+    }
+  }, [])
+
+  // Add CSS for embeds and lists
+  useEffect(() => {
+    const style = document.createElement("style")
+    style.innerHTML = `
+      .raw-html-container {
+        display: block;
+        width: 100%;
+        margin: 1em 0;
+        padding: 0.5em;
+        text-align: center;
+        position: relative;
+        min-height: 100px;
+        overflow: visible;
+      }
+      .raw-html-content {
+        min-height: 24px;
+        width: 100%;
+        overflow: visible;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .raw-html-content iframe {
+        max-width: 100%;
+        min-width: 250px;
+        width: 100%;
+        height: auto;
+        min-height: 400px;
+      }
+      .raw-html-content iframe[src*="facebook.com"] {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+      /* Mobile-specific fixes for Facebook embeds */
+      @media (max-width: 768px) {
+        .raw-html-content iframe {
+          min-width: 100%;
+          width: 100%;
+          min-height: 300px;
+          max-height: 600px;
+        }
+        .raw-html-container {
+          padding: 0.25em;
+          margin: 0.5em 0;
+        }
+      }
+      .raw-html-container::before {
+        content: 'HTML';
+        position: absolute;
+        top: -10px;
+        left: 10px;
+        background: #f0f0f0;
+        padding: 0 5px;
+        font-size: 10px;
+        color: #666;
+        border-radius: 3px;
+        z-index: 1;
+      }
+      /* Fix for lists in article content */
+      .prose ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0.5em 0;
+      }
+      .prose ol {
+        list-style: none;
+        padding-left: 0;
+        margin: 0.5em 0;
+        counter-reset: list-counter;
+      }
+      .prose li {
+        margin: 0.25em 0;
+        padding-left: 1.5em;
+        position: relative;
+        min-height: 1.5em;
+      }
+      .prose ul li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1.5em;
+        text-align: center;
+        color: #000;
+        font-weight: bold;
+      }
+      .prose ol li::before {
+        content: counter(list-counter) ".";
+        counter-increment: list-counter;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1.5em;
+        text-align: center;
+        color: #000;
+        font-weight: bold;
+      }
+      .prose li p {
+        margin: 0;
+        padding: 0;
+        display: block;
+        line-height: 1.5;
+      }
+    `
+    document.head.appendChild(style)
+    
+    return () => {
+      document.head.removeChild(style)
+    }
+  }, []);
+
+  // Function to process raw HTML content for display
+  const processContentForDisplay = useCallback((content: string) => {
+    // Find all raw HTML containers and extract their content
+    const processedContent = content.replace(
+      /<div[^>]*data-type="raw-html"[^>]*data-html-content="([^"]*)"[^>]*>[\s\S]*?<\/div>/g,
+      (match, htmlContent) => {
+        // Decode HTML entities
+        const decodedContent = htmlContent
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
+          .replace(/&quot;/g, '"')
+          .replace(/&#x27;/g, "'")
+          .replace(/&amp;/g, '&');
+        
+        return decodedContent;
+      }
+    );
+    
+    return processedContent;
+  }, []);
+
+  // Function to restore content for editing (reverse process)
+  const restoreContentForEditing = useCallback((content: string) => {
+    // This function restores the original raw HTML structure for editing
+    // It's used when we need to pass content back to the editor
+    return content;
+  }, []);
 
   const loadArticle = async () => {
     try {
@@ -125,28 +476,13 @@ export default function ArticlePage() {
             transition={{ duration: 0.6 }}
           >
             <div className="relative mb-8">
-              <motion.div
-                className="w-24 h-24 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center shadow-2xl"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              >
+              <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center shadow-2xl">
                 <BookOpen className="w-12 h-12 text-white" />
-              </motion.div>
-              <motion.div
-                className="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg"
-                animate={{ scale: [1, 1.3, 1], rotate: [0, 180, 360] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <Sparkles className="w-4 h-4 text-white" />
-              </motion.div>
+              </div>
             </div>
-            <motion.p 
-              className="text-slate-600 dark:text-slate-300 text-xl font-medium"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
+            <p className="text-slate-600 dark:text-slate-300 text-xl font-medium">
               Φόρτωση άρθρου...
-            </motion.p>
+            </p>
           </motion.div>
         </div>
       </div>
@@ -164,20 +500,9 @@ export default function ArticlePage() {
             transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
           >
             <div className="relative mb-8">
-              <motion.div
-                className="w-32 h-32 bg-gradient-to-br from-red-100 to-pink-200 dark:from-red-900/30 dark:to-pink-900/30 rounded-full flex items-center justify-center mx-auto shadow-2xl"
-                animate={{ rotate: [0, -5, 5, 0] }}
-                transition={{ duration: 4, repeat: Infinity }}
-              >
+              <div className="w-32 h-32 bg-gradient-to-br from-red-100 to-pink-200 dark:from-red-900/30 dark:to-pink-900/30 rounded-full flex items-center justify-center mx-auto shadow-2xl">
                 <BookOpen className="w-16 h-16 text-red-600 dark:text-red-400" />
-              </motion.div>
-              <motion.div
-                className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <Sparkles className="w-4 h-4 text-white" />
-              </motion.div>
+              </div>
             </div>
             <motion.h1 
               className="text-3xl font-bold text-slate-800 dark:text-white mb-4"
@@ -202,24 +527,20 @@ export default function ArticlePage() {
               transition={{ delay: 0.7 }}
             >
               <Link href="/articles">
-                <motion.button 
-                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl font-medium"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                <button 
+                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-colors duration-200 shadow-lg font-medium"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   Επιστροφή στα Άρθρα
-                </motion.button>
+                </button>
               </Link>
-              <motion.button 
+              <button 
                 onClick={() => window.history.back()}
-                className="flex items-center gap-2 px-6 py-3 bg-white/80 dark:bg-gray-800/80 text-slate-700 dark:text-slate-300 rounded-xl hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 shadow-lg hover:shadow-xl border border-slate-200 dark:border-gray-700 font-medium"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="flex items-center gap-2 px-6 py-3 bg-white/80 dark:bg-gray-800/80 text-slate-700 dark:text-slate-300 rounded-xl hover:bg-white dark:hover:bg-gray-800 transition-colors duration-200 shadow-lg border border-slate-200 dark:border-gray-700 font-medium"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Πίσω
-              </motion.button>
+              </button>
             </motion.div>
           </motion.div>
         </div>
@@ -242,49 +563,85 @@ export default function ArticlePage() {
         <div className={`absolute inset-0 ${isDarkMode ? 'bg-gray-900' : 'bg-white'}`}></div>
       </div>
 
-      {/* Decorative Background Elements */}
+      {/* Optimized Background Elements for Mobile */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-40 left-10 w-40 h-40 rounded-full blur-3xl"
-          style={{ 
-            backgroundColor: isDarkMode ? '#3b82f6' : '#60a5fa',
-            opacity: isDarkMode ? 0.08 : 0.12
-          }}
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: isDarkMode ? [0.05, 0.08, 0.05] : [0.08, 0.12, 0.08],
-            x: [0, 30, 0],
-            y: [0, -20, 0]
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-        <motion.div
-          className="absolute top-80 right-20 w-32 h-32 rounded-full blur-3xl"
-          style={{ 
-            backgroundColor: isDarkMode ? '#06b6d4' : '#22d3ee',
-            opacity: isDarkMode ? 0.06 : 0.1
-          }}
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: isDarkMode ? [0.03, 0.06, 0.03] : [0.05, 0.1, 0.05],
-            x: [0, -25, 0],
-            y: [0, 25, 0]
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 3
-          }}
-        />
+        {isMobile ? (
+          // Static background elements for mobile
+          <>
+            <div
+              className="absolute top-40 left-10 w-40 h-40 rounded-full"
+              style={{ 
+                backgroundColor: isDarkMode ? '#3b82f6' : '#60a5fa',
+                opacity: isDarkMode ? 0.06 : 0.1,
+                filter: 'blur(20px)'
+              }}
+            />
+            <div
+              className="absolute top-80 right-20 w-32 h-32 rounded-full"
+              style={{ 
+                backgroundColor: isDarkMode ? '#06b6d4' : '#22d3ee',
+                opacity: isDarkMode ? 0.04 : 0.08,
+                filter: 'blur(20px)'
+              }}
+            />
+          </>
+        ) : (
+          // Full animations for desktop
+          <>
+            <motion.div
+              className="absolute top-40 left-10 w-40 h-40 rounded-full blur-3xl"
+              style={{ 
+                backgroundColor: isDarkMode ? '#3b82f6' : '#60a5fa',
+                opacity: isDarkMode ? 0.08 : 0.12
+              }}
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: isDarkMode ? [0.05, 0.08, 0.05] : [0.08, 0.12, 0.08],
+                x: [0, 30, 0],
+                y: [0, -20, 0]
+              }}
+              transition={{
+                duration: 12,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <motion.div
+              className="absolute top-80 right-20 w-32 h-32 rounded-full blur-3xl"
+              style={{ 
+                backgroundColor: isDarkMode ? '#06b6d4' : '#22d3ee',
+                opacity: isDarkMode ? 0.06 : 0.1
+              }}
+              animate={{
+                scale: [1.2, 1, 1.2],
+                opacity: isDarkMode ? [0.03, 0.06, 0.03] : [0.05, 0.1, 0.05],
+                x: [0, -25, 0],
+                y: [0, 25, 0]
+              }}
+              transition={{
+                duration: 15,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 3
+              }}
+            />
+          </>
+        )}
       </div>
 
       {/* Main Content Container - SAME AS ADMIN */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumb Navigation */}
+        <div className="mb-6">
+          <SchoolBreadcrumb 
+            items={[
+              { label: 'Αρχική', href: '/' },
+              { label: 'Άρθρα', href: '/articles' },
+              { label: article?.title || 'Φόρτωση...' }
+            ]}
+          />
+        </div>
+
         {/* Back Button */}
         <motion.div
           className="mb-8"
@@ -436,17 +793,36 @@ export default function ArticlePage() {
                   {article.title}
                 </h1>
                 
-                {/* Decorative Elements */}
-                <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-sm animate-pulse"></div>
-                <div className="absolute bottom-4 left-4 w-6 h-6 bg-gradient-to-br from-indigo-400/20 to-blue-400/20 rounded-full blur-sm animate-bounce"></div>
-                
-                {/* School decorations */}
-                <div className="absolute top-2 right-2 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center shadow-md animate-pulse">
-                  <Star className="w-2 h-2 text-white" />
-                </div>
-                <div className="absolute bottom-2 left-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center shadow-md">
-                  <GraduationCap className="w-3 h-3 text-white" />
-                </div>
+                {/* Optimized Decorative Elements for Mobile */}
+                {isMobile ? (
+                  // Static decorative elements for mobile
+                  <>
+                    <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-sm"></div>
+                    <div className="absolute bottom-4 left-4 w-6 h-6 bg-gradient-to-br from-indigo-400/20 to-blue-400/20 rounded-full blur-sm"></div>
+                    
+                    {/* School decorations */}
+                    <div className="absolute top-2 right-2 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center shadow-md">
+                      <Star className="w-2 h-2 text-white" />
+                    </div>
+                    <div className="absolute bottom-2 left-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center shadow-md">
+                      <GraduationCap className="w-3 h-3 text-white" />
+                    </div>
+                  </>
+                ) : (
+                  // Animated decorative elements for desktop
+                  <>
+                    <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-sm animate-pulse"></div>
+                    <div className="absolute bottom-4 left-4 w-6 h-6 bg-gradient-to-br from-indigo-400/20 to-blue-400/20 rounded-full blur-sm animate-bounce"></div>
+                    
+                    {/* School decorations */}
+                    <div className="absolute top-2 right-2 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center shadow-md animate-pulse">
+                      <Star className="w-2 h-2 text-white" />
+                    </div>
+                    <div className="absolute bottom-2 left-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center shadow-md">
+                      <GraduationCap className="w-3 h-3 text-white" />
+                    </div>
+                  </>
+                )}
                 
                 {/* Decorative corner lines */}
                 <div className="absolute top-2 left-2 w-8 h-8 border-l-2 border-t-2 border-blue-400 opacity-60"></div>
@@ -494,17 +870,21 @@ export default function ArticlePage() {
               </div>
             </motion.div>
 
-            {/* Article Content - PROPER FORMATTING */}
+            {/* Article Content - NORMAL SIZES */}
             <motion.div 
-              className="prose prose-xl max-w-none prose-headings:text-slate-800 dark:prose-headings:text-white prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-strong:text-slate-800 dark:prose-strong:text-white prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-blockquote:border-blue-500 prose-blockquote:bg-blue-50 dark:prose-blockquote:bg-blue-900/20 prose-img:rounded-2xl prose-img:shadow-xl prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:mb-4 prose-p:leading-relaxed"
+              className="prose prose-lg max-w-none prose-headings:text-slate-800 dark:prose-headings:text-white prose-p:text-slate-700 dark:prose-p:text-slate-300 prose-strong:text-slate-800 dark:prose-strong:text-white prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-blockquote:border-blue-500 prose-blockquote:bg-blue-50 dark:prose-blockquote:bg-blue-900/20 prose-img:rounded-2xl prose-img:shadow-xl prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-p:mb-3 prose-p:leading-relaxed prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 prose-pre:border-l-4 prose-pre:border-blue-500 prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-table:border-collapse prose-table:border prose-table:border-gray-300 dark:prose-table:border-gray-600 prose-th:bg-gray-100 dark:prose-th:bg-gray-700 prose-th:border prose-th:border-gray-300 dark:prose-th:border-gray-600 prose-th:p-3 prose-td:border prose-td:border-gray-300 dark:prose-td:border-gray-600 prose-td:p-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
             >
               <div 
-                dangerouslySetInnerHTML={{ __html: article.content }}
-                className="prose prose-lg max-w-none whitespace-pre-wrap"
-                style={{ whiteSpace: 'pre-wrap' }}
+                dangerouslySetInnerHTML={{ __html: processContentForDisplay(article.content) }}
+                className="rich-text-editor prose prose-base max-w-none"
+                style={{ 
+                  lineHeight: '1.6',
+                  fontSize: '16px',
+                  fontFamily: 'StampatelloFaceto, cursive'
+                }}
               />
             </motion.div>
 
@@ -536,9 +916,20 @@ export default function ArticlePage() {
                         {/* Animated gradient background */}
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/40 via-cyan-500/40 to-indigo-500/40 opacity-60 group-hover:opacity-70 transition-opacity duration-500"></div>
                         
-                        {/* Animated particle effects */}
-                        <div className="absolute top-1 right-1 w-1 h-1 bg-white rounded-full animate-ping opacity-70" style={{animationDuration: '2s', animationDelay: '0s'}}></div>
-                        <div className="absolute bottom-2 left-2 w-1 h-1 bg-white rounded-full animate-ping opacity-70" style={{animationDuration: '2.5s', animationDelay: '0.5s'}}></div>
+                        {/* Optimized particle effects for mobile */}
+                        {isMobile ? (
+                          // Static particles for mobile
+                          <>
+                            <div className="absolute top-1 right-1 w-1 h-1 bg-white rounded-full opacity-70"></div>
+                            <div className="absolute bottom-2 left-2 w-1 h-1 bg-white rounded-full opacity-70"></div>
+                          </>
+                        ) : (
+                          // Animated particles for desktop
+                          <>
+                            <div className="absolute top-1 right-1 w-1 h-1 bg-white rounded-full animate-ping opacity-70" style={{animationDuration: '2s', animationDelay: '0s'}}></div>
+                            <div className="absolute bottom-2 left-2 w-1 h-1 bg-white rounded-full animate-ping opacity-70" style={{animationDuration: '2.5s', animationDelay: '0.5s'}}></div>
+                          </>
+                        )}
                         
                         {/* Hashtag symbol */}
                         <span className="relative text-2xl font-bold text-white transition-all duration-500">
@@ -559,14 +950,22 @@ export default function ArticlePage() {
                   
                   <div className="flex flex-wrap gap-4">
                     {article.tags.map((tag, index) => (
-                      <motion.span
+                      <motion.div
                         key={index}
-                        className="px-6 py-3 bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900/30 dark:to-cyan-900/30 text-blue-700 dark:text-blue-300 text-base font-medium rounded-full border border-blue-200/50 dark:border-blue-700/50 hover:from-blue-200 hover:to-cyan-200 dark:hover:from-blue-800/40 dark:hover:to-cyan-800/40 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 cursor-pointer"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
+                        className="inline-block relative z-50"
                       >
-                        {tag}
-                      </motion.span>
+                        <span 
+                          className="px-6 py-3 bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900/30 dark:to-cyan-900/30 text-blue-700 dark:text-blue-300 text-base font-medium rounded-full border border-blue-200/50 dark:border-blue-700/50 hover:from-blue-200 hover:to-cyan-200 dark:hover:from-blue-800/40 dark:hover:to-cyan-800/40 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 cursor-pointer inline-block relative z-50"
+                          onClick={() => {
+                            console.log('Tag clicked:', tag);
+                            router.push(`/tags/${encodeURIComponent(tag)}`);
+                          }}
+                        >
+                          #{tag}
+                        </span>
+                      </motion.div>
                     ))}
                   </div>
                   

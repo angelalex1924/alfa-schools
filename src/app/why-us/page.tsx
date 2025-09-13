@@ -1,8 +1,21 @@
 import NotebookHero from "@/components/NotebookHero"
+import SchoolBreadcrumb from "@/components/SchoolBreadcrumb"
 
 export default function WhyUs() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      {/* Breadcrumb */}
+      <div className="px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 lg:pt-28">
+        <div className="max-w-7xl mx-auto">
+          <SchoolBreadcrumb 
+            items={[
+              { label: 'Αρχική', href: '/' },
+              { label: 'Γιατί εμάς' }
+            ]}
+          />
+        </div>
+      </div>
+
       {/* Notebook Hero Section */}
       <NotebookHero />
 

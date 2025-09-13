@@ -1,0 +1,439 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "services": "Services",
+    "news": "Nos Actualités",
+    "whyUs": "Pourquoi Nous",
+    "games": "Jeux",
+    "contact": "Contact",
+    "privacy": "Confidentialité",
+    "terms": "Conditions",
+    "callUs": "Appelez-nous",
+    "email": "Email",
+    "language": "Français",
+    "main": "Navigation Principale",
+    "legal": "Légal & Contact",
+    "tableOfContents": "Table des Matières",
+    "homeDescription": "Page d'accueil",
+    "servicesDescription": "Services spécialisés",
+    "newsDescription": "Dernières actualités et mises à jour",
+    "whyUsDescription": "Découvrez nos avantages",
+    "gamesDescription": "Jeux interactifs pour l'apprentissage",
+    "contactDescription": "Contactez-nous"
+  },
+  "breadcrumbs": {
+    "home": "Accueil",
+    "services": "Services",
+    "articles": "Nos Actualités",
+    "games": "Jeux",
+    "contact": "Contact",
+    "whyUs": "Pourquoi Nous",
+    "tags": "Étiquettes"
+  },
+  "notebook": {
+    "schoolName": "Écoles Alfa",
+    "subject": "Leçon",
+    "date": "Date",
+    "star": "Étoile",
+    "checkmark": "Point de Contrôle",
+    "handwritten": "Manuscrit",
+    "notebook": "Carnet",
+    "lesson": "Leçon",
+    "subject_games": "Jeux Éducatifs",
+    "subject_services": "Services Éducatifs",
+    "subject_why_us": "Avantages",
+    "subject_news": "Actualités",
+    "subject_contact": "Contact",
+    "titles": {
+      "games": "Jeux",
+      "services": "Services",
+      "why_us": "Pourquoi Nous?",
+      "news": "Nos Actualités",
+      "contact": "Contact",
+      "tags": "#Étiquettes"
+    },
+    "subtitles": {
+      "games": "Apprenez en vous amusant avec nos jeux interactifs",
+      "services": "Découvrez nos services spécialisés conçus pour répondre à vos besoins éducatifs",
+      "why_us": "Découvrez les raisons qui font des Écoles Alfa le meilleur choix pour votre éducation",
+      "news": "Restez informé des dernières actualités, développements et événements de l'École Alfa",
+      "contact": "Vous avez des questions? Contactez-nous pour plus d'informations et nous répondrons immédiatement"
+    }
+  },
+  "hero": {
+    "title": "Centres de Langues Étrangères ALFA",
+    "years": "35+ Ans",
+    "experience": "d'Expérience",
+    "subtitle": "Depuis 1986"
+  },
+  "whyUs": {
+    "title": "Pourquoi Choisir ALFA?",
+    "teachers": "Enseignants Certifiés",
+    "teachersDesc": "Spécialisés",
+    "materials": "Matériaux Modernes",
+    "materialsDesc": "Interactifs",
+    "fun": "Apprentissage Amusant",
+    "funDesc": "Jeux & Activités"
+  },
+  "testimonials": {
+    "title": "Ce que Disent nos Étudiants",
+    "student1": {
+      "name": "Marie K.",
+      "text": "Les meilleurs cours! J'ai appris l'anglais rapidement et en m'amusant! 🎉"
+    },
+    "student2": {
+      "name": "Jean P.",
+      "text": "Les enseignants sont fantastiques! Ils m'ont aidé à réussir l'IELTS! 🌟"
+    },
+    "student3": {
+      "name": "Anne D.",
+      "text": "ALFA est le meilleur choix! Je le recommande vivement! ⭐"
+    }
+  },
+  "history": {
+    "title": "Notre Histoire",
+    "paragraph1": "Notre première école est née en 1986 à Nea Filadelfeia, avec la vision de donner une nouvelle dimension à l'apprentissage des langues étrangères.",
+    "paragraph2": "Avec dévouement, passion et formation scientifique appropriée, nous avons créé des relations de confiance avec les étudiants et les parents, obtenant un succès continu aux examens.",
+    "paragraph3": "Notre voyage s'est poursuivi en 1996 à Chalandri, toujours avec le même objectif: une éducation moderne, méthodique et efficace."
+  },
+  "centers": {
+    "neaPhiladelphia": {
+      "title": "Nea Filadelfeia",
+      "description": "Notre premier centre depuis 1986"
+    },
+    "chalandri": {
+      "title": "Chalandri",
+      "description": "Notre deuxième centre depuis 1996"
+    }
+  },
+  "services": {
+    "title": "Nos Services",
+    "subtitle": "Découvrez les services éducatifs spécialisés que nous offrons",
+    "english": {
+      "title": "ANGLAIS",
+      "description": "La langue internationale de communication et d'information",
+      "items": ["Anglais pour tous âges", "Préparation IELTS & TOEFL", "Examens Cambridge", "Anglais des affaires", "Anglais académique"]
+    },
+    "french": {
+      "title": "FRANÇAIS",
+      "description": "La langue de l'Union Européenne et de la culture",
+      "items": ["Français pour tous âges", "Préparation DELF & DALF", "Examens Sorbonne", "Français professionnel", "Culture et littérature"]
+    },
+    "allAges": {
+      "title": "Cours pour tous âges",
+      "description": "À partir de la 1ère année et plus"
+    },
+    "reinforcement": {
+      "title": "Renforcement et révision",
+      "description": "Enseignement personnalisé"
+    },
+    "universityPrep": {
+      "title": "Préparation à l'entrée à l'université",
+      "description": "Philologie Anglaise et Française"
+    },
+    "ieltsToefl": {
+      "title": "IELTS & TOEFL",
+      "description": "Préparation pour étudier à l'étranger"
+    },
+    "summer": {
+      "title": "Cours d'été",
+      "description": "Programmes intensifs"
+    },
+    "professionals": {
+      "title": "Professionnels",
+      "description": "Cours accélérés"
+    }
+  },
+  "additionalFeatures": {
+    "title": "Avantages Supplémentaires",
+    "features": [
+      "Salles de classe modernes avec tableaux interactifs",
+      "Bibliothèque de prêt",
+      "Carnet de collaboration étudiant-parent-enseignant",
+      "Réunions régulières avec les parents",
+      "Événements culturels et de divertissement",
+      "Partenariats avec des collèges internationaux renommés",
+      "Voyages éducatifs à l'étranger"
+    ]
+  },
+  "philosophy": {
+    "title": "Notre Philosophie",
+    "quote": "Apprendre les langues étrangères n'est pas seulement un diplôme. C'est la culture, le développement personnel et un outil pour un monde en constante évolution.",
+    "description": "La famille ALFA accueille chaque étudiant avec un intérêt personnel, cultivant des compétences qui les accompagnent tout au long de leur vie."
+  },
+  "languages": {
+    "english": {
+      "title": "Anglais",
+      "description1": "C'est la langue internationale de communication et d'information.",
+      "description2": "Elle ouvre des portes pour les études, la carrière et les voyages.",
+      "description3": "80% d'internet est en anglais.",
+      "description4": "Dans tous les domaines – science, technologie, politique, affaires – l'anglais a un rôle dominant."
+    },
+    "french": {
+      "title": "Français",
+      "description1": "Parlé sur 5 continents par plus de 275 millions de personnes.",
+      "description2": "C'est la langue de l'Union Européenne, de l'ONU et des organisations internationales.",
+      "description3": "Il donne accès aux meilleures universités et à la culture.",
+      "description4": "Utilisé dans les arts, la mode, la gastronomie et la diplomatie internationale."
+    }
+  },
+  "contact": {
+    "title": "Prêt à commencer?",
+    "subtitle": "Contactez-nous et découvrez comment nous pouvons vous aider à atteindre vos objectifs",
+    "phone": "Téléphone",
+    "email": "Email",
+    "needHelp": "Besoin d'aide?",
+    "helpDescription": "Notre équipe est prête à vous aider avec toute question.",
+    "pageTitle": "Contactez-nous",
+    "pageSubtitle": "Entrez en contact avec nous et commencez votre parcours d'apprentissage",
+    "centersTitle": "Nos Centres",
+    "centersSubtitle": "Visitez-nous dans l'un de nos deux emplacements",
+    "formTitle": "Envoyez-nous un Message",
+    "formSubtitle": "Remplissez le formulaire ci-dessous et nous vous répondrons dès que possible",
+    "centerSelection": "Sélection du Centre",
+    "selectCenter": "Sélectionner le Centre",
+    "chalandri": "Chalandri",
+    "neaFiladelfeia": "Nea Filadelfeia",
+    "firstName": "Prénom",
+    "lastName": "Nom de Famille",
+    "emailAddress": "Adresse Email",
+    "phoneNumber": "Numéro de Téléphone",
+    "subject": "Sujet",
+    "selectSubject": "Sélectionner le Sujet",
+    "generalInquiry": "Demande Générale",
+    "courseInformation": "Informations sur les Cours",
+    "registration": "Inscription",
+    "support": "Support",
+    "other": "Autre",
+    "message": "Message",
+    "enterMessage": "Entrez votre message ici...",
+    "sendMessage": "Envoyer le Message",
+    "sending": "Envoi en cours...",
+    "messageSent": "Message envoyé avec succès!",
+    "messageError": "Échec de l'envoi du message. Veuillez réessayer.",
+    "address": "Adresse",
+    "workingHours": "Heures de Travail",
+    "mondayFriday": "Lundi - Vendredi: 16:00 - 22:00",
+    "mapTitle": "Trouvez-nous sur la Carte",
+    "mapSubtitle": "Cliquez sur la carte pour obtenir des directions",
+    "getDirections": "Obtenir des Directions",
+    "socialMedia": "Suivez-nous",
+    "socialSubtitle": "Restez connecté avec nous sur les réseaux sociaux"
+  },
+  "phoneNumbers": {
+    "chalandri": {
+      "title": "Chalandri",
+      "number": "+30 210 6800 708"
+    },
+    "neaPhiladelphia": {
+      "title": "Nea Filadelfeia",
+      "number": "+30 210 2777 725"
+    }
+  },
+  "emails": {
+    "chalandri": {
+      "title": "Chalandri",
+      "email": "info@alfaschoolchalandri.com"
+    },
+    "neaPhiladelphia": {
+      "title": "Nea Filadelfeia",
+      "email": "alfaschoolfiladelfeia@gmail.com"
+    }
+  },
+  "footer": {
+    "slogan": "Ensemble depuis 1986, avec respect, amour et dévouement à l'apprentissage.",
+    "workingHours": "Lundi - Vendredi: 16:00 - 21:00",
+    "socialMedia": "Réseaux Sociaux",
+    "copyright": "Écoles Alfa. Tous droits réservés.",
+    "poweredBy": "Alimenté et Développé par",
+    "addresses": {
+      "chalandri": "Roumelis 27, Chalandri 152 33",
+      "neaPhiladelphia": "Agiou Georgiou 15, Nea Filadelfeia 143 42"
+    }
+  },
+  "carousel": {
+    "slide1": {
+      "title": "CENTRES",
+      "subtitle": "DE LANGUES ÉTRANGÈRES",
+      "description": "Ensemble depuis 1986, avec respect, amour et dévouement à l'apprentissage",
+      "ctaText": "Explorer les Cours"
+    },
+    "slide2": {
+      "title": "ANGLAIS ET FRANÇAIS",
+      "subtitle": "POUR TOUS",
+      "description": "Anglais et français pour enfants, adolescents et adultes avec des instructeurs certifiés",
+      "ctaText": "Apprendre les Langues"
+    },
+    "slide3": {
+      "title": "ESPAGNOL",
+      "subtitle": "ET ITALIEN",
+      "description": "Langues romanes avec des instructeurs certifiés et du matériel éducatif moderne",
+      "ctaText": "Langues Romanes"
+    },
+    "slide4": {
+      "title": "ALLEMAND",
+      "subtitle": "POUR TOUS ÂGES",
+      "description": "Allemand pour tous âges avec des instructeurs certifiés",
+      "ctaText": "Apprendre l'Allemand"
+    },
+    "slide5": {
+      "title": "CERTIFICATIONS",
+      "subtitle": "INTERNATIONALES",
+      "description": "Préparation pour IELTS, TOEFL, Cambridge, DELF, DALF, Sorbonne, Goethe et autres examens internationaux",
+      "ctaText": "Préparation aux Examens"
+    },
+    "stats": {
+      "years": "Ans",
+      "students": "Étudiants"
+    },
+    "badge": {
+      "since1986": "Depuis 1986"
+    }
+  },
+  "games": {
+    "title": "Jeux d'Apprentissage",
+    "subtitle": "Apprenez l'anglais et le français grâce à des jeux interactifs qui rendent l'apprentissage amusant!",
+    "features": {
+      "interactive": "Interactif",
+      "educational": "Éducatif",
+      "fun": "Amusant"
+    },
+    "categories": {
+      "title": "Catégories de Jeux",
+      "subtitle": "Choisissez la langue que vous voulez apprendre et commencez à jouer!"
+    },
+    "english": {
+      "title": "Jeux d'Anglais",
+      "description": "Apprenez l'anglais avec des jeux amusants",
+      "vocabulary": {
+        "title": "Vocabulaire",
+        "description": "Enrichissez votre vocabulaire",
+        "question": "Qu'est-ce que c'est?",
+        "instructions": {
+          "title": "Instructions:",
+          "step1": "Vous voyez une icône",
+          "step2": "Choisissez le mot anglais correct",
+          "step3": "Vous avez 45 secondes pour terminer le jeu",
+          "step4": "Vous gagnez 1 point pour chaque bonne réponse"
+        },
+        "professionQuestion": "Quelle profession est-ce?"
+      },
+      "grammar": {
+        "title": "Grammaire",
+        "description": "Améliorez votre grammaire"
+      },
+      "conversation": {
+        "title": "Conversation",
+        "description": "Pratiquez la conversation"
+      }
+    },
+    "french": {
+      "title": "Jeux de Français",
+      "description": "Apprenez le français avec des jeux amusants",
+      "vocabulary": {
+        "title": "Vocabulaire",
+        "description": "Enrichissez votre vocabulaire",
+        "question": "Qu'est-ce que c'est ?",
+        "instructions": {
+          "title": "Instructions:",
+          "step1": "Vous voyez une icône",
+          "step2": "Choisissez le mot français correct",
+          "step3": "Vous avez 45 secondes pour terminer le jeu",
+          "step4": "Vous gagnez 1 point pour chaque bonne réponse"
+        },
+        "professionQuestion": "Quel métier est-ce ?"
+      },
+      "grammar": {
+        "title": "Grammaire",
+        "description": "Améliorez votre grammaire"
+      },
+      "conversation": {
+        "title": "Conversation",
+        "description": "Pratiquez la conversation"
+      }
+    },
+    "comingSoon": "Bientôt Disponible",
+    "levels": {
+      "basic": "Basique",
+      "intermediate": "Intermédiaire",
+      "advanced": "Avancé"
+    },
+    "level2": {
+      "title": "Niveau 2 - Intermédiaire",
+      "description": "Mots plus difficiles pour les apprenants avancés",
+      "time": "60 secondes",
+      "words": "30 mots",
+      "professions": "Professions et sciences"
+    },
+    "level3": {
+      "title": "Niveau 3 - Avancé",
+      "description": "Mots très difficiles pour les apprenants avancés",
+      "time": "90 secondes",
+      "words": "30 mots",
+      "advanced": "Mots avancés de divers sujets"
+    },
+    "words": "mots",
+    "topics": "sujets",
+    "scenarios": "scénarios",
+    "cta": {
+      "title": "Commencez votre parcours d'apprentissage magique!",
+      "description": "Nos jeux sont conçus pour rendre l'apprentissage facile, amusant et efficace.",
+      "button": "Commencer Maintenant"
+    }
+  },
+  "articles": {
+    "title": "Nos Actualités",
+    "subtitle": "Restez informé des dernières actualités et développements",
+    "categories": {
+      "title": "Catégories",
+      "all": "Tout",
+      "education": "Éducation",
+      "news": "Actualités",
+      "actions": "Actions",
+      "english": "Anglais",
+      "french": "Français",
+      "languages": "Langues"
+    },
+    "filters": {
+      "title": "Filtres",
+      "category": "Catégorie",
+      "tags": "Étiquettes"
+    },
+    "loading": "Chargement des articles...",
+    "noArticles": "Aucun article trouvé",
+    "noArticlesDescription": "Il n'y a pas d'articles pour cette catégorie",
+    "readMore": "Lire plus",
+    "backToArticles": "Retour aux Articles",
+    "articlesFound": "Trouvé {count} articles",
+    "articleWithTag": "Articles avec l'Étiquette: #{tag}",
+    "noArticlesWithTag": "Aucun article trouvé avec cette étiquette",
+    "noArticlesWithTagDescription": "Il n'y a pas d'articles avec l'étiquette #{tag}"
+  },
+  "tags": {
+    "title": "Étiquettes",
+    "subtitle": "Découvrez des articles avec des étiquettes spécifiques",
+    "loading": "Chargement des étiquettes...",
+    "noTags": "Aucune étiquette trouvée",
+    "backToArticles": "Retour aux Articles"
+  },
+  "notFound": {
+    "title": "Oups! Page Non Trouvée!",
+    "subtitle": "Il semble que vous vous soyez perdu dans le réseau scolaire! 😅",
+    "description": "La page que vous cherchez n'existe pas, mais ne vous inquiétez pas - vous n'aurez pas un F dans cette classe!",
+    "suggestions": [
+      "Peut-être avez-vous mal tapé l'adresse?",
+      "La page a peut-être été déplacée?",
+      "Ou elle n'existe tout simplement... pas! 😅"
+    ],
+    "actions": {
+      "goHome": "🏠 Retour à l'Accueil",
+      "goBack": "⬅️ Retour",
+      "contact": "📞 Contactez-nous"
+    },
+    "funFacts": [
+      "404 vient du numéro de la salle où se trouvait le premier serveur web!",
+      "En français, on dit 'Non Trouvé' - c'est-à-dire 'Non Trouvé'!",
+      "La plupart des utilisateurs se perdent sur internet chaque jour! 😄"
+    ]
+  }
+}

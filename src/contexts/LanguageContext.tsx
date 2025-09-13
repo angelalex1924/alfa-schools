@@ -2,12 +2,13 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
-type Language = 'el' | 'en'
+type Language = 'el' | 'en' | 'fr' | 'it' | 'de' | 'es'
 
 interface LanguageContextType {
   language: Language
   setLanguage: (lang: Language) => void
   t: (key: string) => string | string[]
+  translations: Record<string, any>
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
@@ -24,14 +25,22 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
   useEffect(() => {
     const loadTranslations = async () => {
       try {
-        const [elTranslations, enTranslations] = await Promise.all([
+        const [elTranslations, enTranslations, frTranslations, itTranslations, deTranslations, esTranslations] = await Promise.all([
           import('../locales/el.json'),
-          import('../locales/en.json')
+          import('../locales/en.json'),
+          import('../locales/fr.json'),
+          import('../locales/it.json'),
+          import('../locales/de.json'),
+          import('../locales/es.json')
         ])
         
         setTranslations({
           el: elTranslations.default,
-          en: enTranslations.default
+          en: enTranslations.default,
+          fr: frTranslations.default,
+          it: itTranslations.default,
+          de: deTranslations.default,
+          es: esTranslations.default
         })
       } catch (error) {
         console.error('Error loading translations:', error)
@@ -44,7 +53,7 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
   // Load language from localStorage on mount
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language') as Language
-    if (savedLanguage && (savedLanguage === 'el' || savedLanguage === 'en')) {
+    if (savedLanguage && ['el', 'en', 'fr', 'it', 'de', 'es'].includes(savedLanguage)) {
       setLanguageState(savedLanguage)
     }
   }, [])
@@ -79,7 +88,7 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
   }
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, translations: translations || {} }}>
       {children}
     </LanguageContext.Provider>
   )

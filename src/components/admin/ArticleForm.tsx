@@ -7,6 +7,7 @@ import { createArticle, updateArticle, convertImageToBase64 } from "@/lib/fireba
 import { slugify } from "@/lib/utils"
 import type { Article, ArticleFormData } from "@/lib/types"
 import { motion, AnimatePresence } from "framer-motion"
+import RichTextEditor from "@/components/RichTextEditor"
 import {
   Save,
   X,
@@ -236,25 +237,46 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
       textColor: "text-blue-700 dark:text-blue-300",
     },
     {
-      value: "Γλώσσες",
-      label: "Γλώσσες",
-      bgColor: "bg-indigo-50 dark:bg-indigo-900/20",
-      borderColor: "border-indigo-200 dark:border-indigo-800",
-      textColor: "text-indigo-700 dark:text-indigo-300",
-    },
-    {
       value: "Νέα",
       label: "Νέα",
       bgColor: "bg-green-50 dark:bg-green-900/20",
       borderColor: "border-green-200 dark:border-green-800",
       textColor: "text-green-700 dark:text-green-300",
     },
+    {
+      value: "Δράσεις",
+      label: "Δράσεις",
+      bgColor: "bg-purple-50 dark:bg-purple-900/20",
+      borderColor: "border-purple-200 dark:border-purple-800",
+      textColor: "text-purple-700 dark:text-purple-300",
+    },
+    {
+      value: "Αγγλικά",
+      label: "Αγγλικά",
+      bgColor: "bg-red-50 dark:bg-red-900/20",
+      borderColor: "border-red-200 dark:border-red-800",
+      textColor: "text-red-700 dark:text-red-300",
+    },
+    {
+      value: "Γαλλικά",
+      label: "Γαλλικά",
+      bgColor: "bg-indigo-50 dark:bg-indigo-900/20",
+      borderColor: "border-indigo-200 dark:border-indigo-800",
+      textColor: "text-indigo-700 dark:text-indigo-300",
+    },
+    {
+      value: "Γλώσσες",
+      label: "Γλώσσες",
+      bgColor: "bg-teal-50 dark:bg-teal-900/20",
+      borderColor: "border-teal-200 dark:border-teal-800",
+      textColor: "text-teal-700 dark:text-teal-300",
+    },
   ]
 
   const selectedCategory = categoryOptions.find((option) => option.value === formData.category) || categoryOptions[0]
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden w-full max-w-none">
       {/* Modern Header with Tabs */}
       <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 dark:from-blue-500/20 dark:to-indigo-500/20 p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -337,7 +359,7 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
       </div>
 
       {/* Form Content */}
-      <div className="p-6">
+      <div className="p-6 w-full">
         {/* Basic Info Section */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -449,7 +471,7 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
                 <label htmlFor="author" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   <div className="flex items-center gap-1.5">
                     <User className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                    <span>Συγγραφέας *</span>
+                    <span>Συγγραφέας</span>
                   </div>
                 </label>
                 <input
@@ -459,9 +481,11 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
                   value={formData.author}
                   onChange={handleChange}
                   className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all"
-                  required
-                  placeholder="Όνομα συγγραφέα"
+                  placeholder="Όνομα συγγραφέα (προαιρετικό)"
                 />
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Το πεδίο συγγραφέα είναι προαιρετικό. Αν αφεθεί κενό, δεν θα εμφανίζεται.
+                </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -529,29 +553,24 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: activeSection === "content" ? 1 : 0, y: activeSection === "content" ? 0 : 10 }}
           transition={{ duration: 0.2 }}
-          className={`space-y-6 ${activeSection !== "content" ? "hidden" : ""}`}
+          className={`space-y-6 w-full ${activeSection !== "content" ? "hidden" : ""}`}
         >
-          <div>
+          <div className="w-full">
             <label htmlFor="content" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
               <div className="flex items-center gap-1.5">
                 <Layers className="h-4 w-4 text-gray-500 dark:text-gray-400" />
                 <span>Περιεχόμενο Άρθρου *</span>
               </div>
             </label>
-            <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
-              <textarea
-                id="content"
-                name="content"
+            <div className="w-full">
+              <RichTextEditor
                 value={formData.content}
-                onChange={handleChange}
-                rows={15}
-                className="w-full px-4 py-3 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all resize-none"
-                required
+                onChange={handleContentChange}
                 placeholder="Γράψτε το περιεχόμενο του άρθρου εδώ..."
               />
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-              Χρησιμοποιήστε HTML tags για μορφοποίηση κειμένου, συνδέσμους και εικόνες.
+              Χρησιμοποιήστε το toolbar για μορφοποίηση κειμένου, εισαγωγή συνδέσμων, εικόνων, videos και πινάκων.
             </p>
           </div>
         </motion.div>
