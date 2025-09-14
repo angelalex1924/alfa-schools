@@ -286,6 +286,37 @@ export function CookieConsent() {
         saveSettings: 'Save Settings',
         backToMain: 'Back'
       }
+    },
+    fr: {
+      title: 'Consentement aux Cookies',
+      description: 'Ce site web utilise des cookies pour vous assurer la meilleure expérience sur notre site web.',
+      acceptAll: 'Accepter Tout',
+      declineAll: 'Refuser Tout',
+      customizeSettings: 'Personnaliser',
+      learnMore: 'En savoir plus',
+      settings: {
+        title: 'Paramètres des Cookies',
+        description: 'Gérez vos préférences de cookies. Vous pouvez activer ou désactiver différentes catégories de cookies ci-dessous.',
+        essential: {
+          title: 'Cookies Essentiels',
+          description: 'Ces cookies sont nécessaires au fonctionnement du site web et ne peuvent pas être désactivés.',
+          always: 'Toujours Actifs'
+        },
+        performance: {
+          title: 'Cookies de Performance',
+          description: 'Ces cookies nous aident à comprendre comment les visiteurs utilisent notre site web pour améliorer les performances.'
+        },
+        preferences: {
+          title: 'Cookies de Préférences',
+          description: 'Ces cookies se souviennent de vos préférences et fournissent des expériences personnalisées.'
+        },
+        marketing: {
+          title: 'Cookies Marketing',
+          description: 'Ces cookies sont utilisés pour vous montrer des publicités pertinentes basées sur vos intérêts.'
+        },
+        saveSettings: 'Sauvegarder les Paramètres',
+        backToMain: 'Retour'
+      }
     }
   }
 

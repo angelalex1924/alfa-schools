@@ -11,6 +11,7 @@ import NotebookHero from '@/components/NotebookHero';
 import SchoolBreadcrumb from '@/components/SchoolBreadcrumb';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Metadata } from 'next';
 
 export default function ArticlesPage() {
   const [articles, setArticles] = useState<Article[]>([]);

@@ -16,6 +16,9 @@ export function CookieSettingsButton({ language }: CookieSettingsButtonProps) {
     },
     en: {
       buttonText: 'Cookie Settings',
+    },
+    fr: {
+      buttonText: 'Paramètres Cookies',
     }
   }
   const currentContent = content[currentLanguage as keyof typeof content]

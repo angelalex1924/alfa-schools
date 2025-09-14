@@ -3,8 +3,10 @@
 import { motion } from "framer-motion"
 import { useTheme } from "@/contexts/ThemeContext"
 import { useLanguage } from "@/contexts/LanguageContext"
+import { useChristmasTheme } from "@/contexts/ChristmasThemeContext"
 import elTranslations from "@/locales/el.json"
 import enTranslations from "@/locales/en.json"
+import frTranslations from "@/locales/fr.json"
 import { cn } from "@/lib/utils"
 import { ChevronRight, Home, BookOpen, Gamepad2, Mail, Users, FileText } from "lucide-react"
 import Link from "next/link"
@@ -24,31 +26,32 @@ interface SchoolBreadcrumbProps {
 export default function SchoolBreadcrumb({ items, className }: SchoolBreadcrumbProps) {
   const { isDarkMode } = useTheme()
   const { language } = useLanguage()
+  const { isChristmasMode } = useChristmasTheme()
   const [isMobile, setIsMobile] = useState(false)
   
-  const translations = language === 'en' ? enTranslations : elTranslations
+  const translations = language === 'en' ? enTranslations : language === 'fr' ? frTranslations : elTranslations
 
   // Function to get translated label
   const getTranslatedLabel = (label: string) => {
     const labelLower = label.toLowerCase()
     
     // Check if it's a breadcrumb key
-    if (labelLower.includes('αρχική') || labelLower.includes('home')) {
+    if (labelLower.includes('αρχική') || labelLower.includes('home') || labelLower.includes('accueil')) {
       return translations.breadcrumbs.home
     }
     if (labelLower.includes('υπηρεσίες') || labelLower.includes('services')) {
       return translations.breadcrumbs.services
     }
-    if (labelLower.includes('άρθρα') || labelLower.includes('articles')) {
+    if (labelLower.includes('άρθρα') || labelLower.includes('articles') || labelLower.includes('actualités')) {
       return translations.breadcrumbs.articles
     }
-    if (labelLower.includes('παιχνίδια') || labelLower.includes('games')) {
+    if (labelLower.includes('παιχνίδια') || labelLower.includes('games') || labelLower.includes('jeux')) {
       return translations.breadcrumbs.games
     }
     if (labelLower.includes('επικοινωνία') || labelLower.includes('contact')) {
       return translations.breadcrumbs.contact
     }
-    if (labelLower.includes('γιατί εμάς') || labelLower.includes('why us')) {
+    if (labelLower.includes('γιατί εμάς') || labelLower.includes('why us') || labelLower.includes('pourquoi nous')) {
       return translations.breadcrumbs.whyUs
     }
     
@@ -79,11 +82,12 @@ export default function SchoolBreadcrumb({ items, className }: SchoolBreadcrumbP
   }
 
   return (
-    <div className={cn("relative z-20", className)}>
+    <div key={`breadcrumb-${isChristmasMode}`} className={cn("relative z-20", className)}>
       {/* Enhanced Notebook Paper Background */}
       <div className="relative">
         {/* Main notebook paper */}
         <div 
+          key={`notebook-paper-${isChristmasMode}`}
           className="relative px-3 sm:px-4 py-2 sm:py-2.5 overflow-hidden"
           style={{
             backgroundImage: isDarkMode 
@@ -96,7 +100,10 @@ export default function SchoolBreadcrumb({ items, className }: SchoolBreadcrumbP
           <div className="absolute left-0 top-0 bottom-0 w-2 sm:w-3 flex flex-col">
             <div
               className="w-full h-px mt-1.5 sm:mt-2"
-              style={{ backgroundColor: '#dc2626', opacity: 0.9 }}
+              style={{ 
+                backgroundColor: isChristmasMode ? '#16a34a' : '#dc2626', 
+                opacity: 0.9 
+              }}
             />
           </div>
 
@@ -118,7 +125,11 @@ export default function SchoolBreadcrumb({ items, className }: SchoolBreadcrumbP
                       >
                         <ChevronRight 
                           className="w-3 h-3 sm:w-4 sm:h-4" 
-                          style={{ color: isDarkMode ? '#fabeb6' : '#4a6fa5' }}
+                          style={{ 
+                            color: isChristmasMode 
+                              ? (isDarkMode ? '#dc2626' : '#dc2626')
+                              : (isDarkMode ? '#fabeb6' : '#4a6fa5')
+                          }}
                         />
                       </motion.div>
                     )}
@@ -128,7 +139,7 @@ export default function SchoolBreadcrumb({ items, className }: SchoolBreadcrumbP
                       <motion.div
                         className="flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-1 sm:py-1.5 relative"
                         style={{
-                          color: '#fabeb6'
+                          color: isChristmasMode ? '#fbbf24' : '#fabeb6'
                         }}
                         initial={{ opacity: 0, x: -10, scale: 0.9 }}
                         animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -167,7 +178,7 @@ export default function SchoolBreadcrumb({ items, className }: SchoolBreadcrumbP
                              >
                                <path 
                                  d="m0,2 q25,-2 50,0 t50,0" 
-                                 stroke="#fabeb6" 
+                                 stroke={isChristmasMode ? '#fbbf24' : '#fabeb6'} 
                                  strokeWidth="2" 
                                  fill="none"
                                  vectorEffect="non-scaling-stroke"
@@ -182,7 +193,9 @@ export default function SchoolBreadcrumb({ items, className }: SchoolBreadcrumbP
                         <motion.div
                           className="flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-1 sm:py-1.5 transition-all duration-300 hover:scale-105"
                           style={{
-                            color: isDarkMode ? '#81a1d4' : '#4a6fa5'
+                            color: isChristmasMode 
+                              ? (isDarkMode ? '#dc2626' : '#dc2626')
+                              : (isDarkMode ? '#81a1d4' : '#4a6fa5')
                           }}
                           whileHover={{ 
                             scale: 1.05,
@@ -219,7 +232,9 @@ export default function SchoolBreadcrumb({ items, className }: SchoolBreadcrumbP
                 key={i}
                 className="absolute w-full h-px"
                 style={{ 
-                  backgroundColor: isDarkMode ? '#fabeb6' : '#d1d5db',
+                  backgroundColor: isChristmasMode 
+                    ? (isDarkMode ? '#16a34a' : '#16a34a')
+                    : (isDarkMode ? '#fabeb6' : '#d1d5db'),
                   top: `${30 + i * 6}px`,
                   opacity: i === 0 ? 0.4 : 0.2,
                   width: '90%',
@@ -233,7 +248,9 @@ export default function SchoolBreadcrumb({ items, className }: SchoolBreadcrumbP
           <div 
             className="absolute bottom-0 left-0 right-0 h-px"
             style={{ 
-              backgroundColor: isDarkMode ? '#fabeb6' : '#d1d5db',
+              backgroundColor: isChristmasMode 
+                ? (isDarkMode ? '#16a34a' : '#16a34a')
+                : (isDarkMode ? '#fabeb6' : '#d1d5db'),
               opacity: 0.3
             }}
           />

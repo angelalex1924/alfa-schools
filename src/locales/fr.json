@@ -10,7 +10,7 @@
     "terms": "Conditions",
     "callUs": "Appelez-nous",
     "email": "Email",
-    "language": "Français",
+    "language": "Langue",
     "main": "Navigation Principale",
     "legal": "Légal & Contact",
     "tableOfContents": "Table des Matières",
@@ -245,7 +245,7 @@
     "workingHours": "Lundi - Vendredi: 16:00 - 21:00",
     "socialMedia": "Réseaux Sociaux",
     "copyright": "Écoles Alfa. Tous droits réservés.",
-    "poweredBy": "Alimenté et Développé par",
+    "poweredBy": "Powered and Developed by",
     "addresses": {
       "chalandri": "Roumelis 27, Chalandri 152 33",
       "neaPhiladelphia": "Agiou Georgiou 15, Nea Filadelfeia 143 42"
@@ -435,5 +435,8 @@
       "En français, on dit 'Non Trouvé' - c'est-à-dire 'Non Trouvé'!",
       "La plupart des utilisateurs se perdent sur internet chaque jour! 😄"
     ]
+  },
+  "share": {
+    "clickToShare": "Cliquez sur n'importe quel bouton pour partager l'article"
   }
 }

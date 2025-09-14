@@ -18,6 +18,7 @@ import {
   MessageSquare,
   FileText
 } from 'lucide-react';
+import { AdminThemeSwitcher } from '@/components/admin/ThemeSwitcher';
 
 export default function AdminDashboard() {
   const { user, loading, logout } = useAuth();
@@ -112,6 +113,9 @@ export default function AdminDashboard() {
             
             {/* Right Section - User Info & Actions */}
             <div className="flex items-center gap-2 lg:gap-4">
+              {/* Theme Switcher */}
+              <AdminThemeSwitcher />
+              
               {/* User Info - Hidden on mobile */}
               <div className="hidden md:block text-right">
                 <p className="text-sm font-semibold text-slate-800 truncate max-w-32 lg:max-w-none">

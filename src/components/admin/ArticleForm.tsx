@@ -68,6 +68,7 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
     viewCount: article?.viewCount || 0,
     readingTime: article?.readingTime || 5,
     expert: article?.expert || "",
+    articleImage: article?.articleImage || "",
     titleEn: article?.titleEn || "",
     excerptEn: article?.excerptEn || "",
     contentEn: article?.contentEn || "",
@@ -117,6 +118,7 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
         viewCount: article.viewCount || 0,
         readingTime: article.readingTime || 5,
         expert: article.expert || "",
+        articleImage: article.articleImage || "",
         titleEn: article.titleEn || "",
         excerptEn: article.excerptEn || "",
         contentEn: article.contentEn || "",
@@ -485,6 +487,27 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                   Το πεδίο συγγραφέα είναι προαιρετικό. Αν αφεθεί κενό, δεν θα εμφανίζεται.
+                </p>
+              </div>
+
+              <div>
+                <label htmlFor="articleImage" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <div className="flex items-center gap-1.5">
+                    <ImageIcon className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                    <span>Εικόνα Άρθρου</span>
+                  </div>
+                </label>
+                <input
+                  id="articleImage"
+                  name="articleImage"
+                  type="url"
+                  value={formData.articleImage}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all"
+                  placeholder="URL εικόνας άρθρου (προαιρετικό)"
+                />
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  Εικόνα που εμφανίζεται στο πάνω μέρος του άρθρου. Αν αφεθεί κενό, δεν θα εμφανίζεται.
                 </p>
               </div>
 

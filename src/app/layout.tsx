@@ -5,8 +5,10 @@ import { ConditionalResponsiveNav } from "@/components/ConditionalResponsiveNav"
 import { ConditionalFooter } from "@/components/ConditionalFooter";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { ChristmasThemeProvider } from "@/contexts/ChristmasThemeContext";
 import { CookieConsent } from "@/components/cookie-consent";
 import { ConditionalChatbot } from "@/components/ConditionalChatbot";
+import { ChristmasWrapper } from "@/components/ChristmasWrapper";
 
 // Pacifico font for anniversary text
 const pacifico = {
@@ -53,11 +55,15 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <LanguageProvider>
-            <ConditionalResponsiveNav />
-            {children}
-            <ConditionalFooter />
-            <CookieConsent />
-            <ConditionalChatbot />
+            <ChristmasThemeProvider>
+              <ChristmasWrapper>
+                <ConditionalResponsiveNav />
+                {children}
+                <ConditionalFooter />
+                <CookieConsent />
+                <ConditionalChatbot />
+              </ChristmasWrapper>
+            </ChristmasThemeProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

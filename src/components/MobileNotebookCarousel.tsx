@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, Play, Pause, ArrowRight, GraduationCap, BookOpen, Award, Users, Star, Globe, Pencil, Ruler, Calculator, PenTool, BookMarked, School } from "lucide-react"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { useTheme } from "@/contexts/ThemeContext"
+import { useChristmasTheme } from "@/contexts/ChristmasThemeContext"
+import { SantaIcon, ChristmasTreeIcon, ReindeerIcon, GiftBoxIcon, BellIcon } from "./ChristmasIcons"
 
 interface CarouselSlide {
   id: number
@@ -87,6 +89,7 @@ export default function MobileNotebookCarousel() {
   const [isPlaying, setIsPlaying] = useState(true)
   const { t } = useLanguage()
   const { isDarkMode } = useTheme()
+  const { isChristmasMode } = useChristmasTheme()
   
   const carouselData = getCarouselData(t)
 

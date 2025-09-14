@@ -31,12 +31,14 @@ import {
   Ruler,
   Calculator,
   BookMarked,
-  School
+  School,
+  ImageIcon
 } from 'lucide-react';
 import { getArticleBySlug, incrementViewCount } from '@/lib/firebase-articles';
 import type { Article } from '@/lib/types';
 import { useTheme } from '@/contexts/ThemeContext';
 import SchoolBreadcrumb from '@/components/SchoolBreadcrumb';
+import ShareButtons from '@/components/ShareButtons';
 import Link from 'next/link';
 import Image from 'next/image';
 import '@/styles/rich-text-editor.css';
@@ -61,6 +63,7 @@ declare global {
 }
 
 
+
 export default function ArticlePage() {
   const params = useParams();
   const router = useRouter();
@@ -68,7 +71,6 @@ export default function ArticlePage() {
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isBookmarked, setIsBookmarked] = useState(false);
   const { isDarkMode } = useTheme();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -369,6 +371,109 @@ export default function ArticlePage() {
         display: block;
         line-height: 1.5;
       }
+      
+      /* Tape Frame Effect Styles */
+      .img-tape {
+        position: relative;
+        text-align: center;
+        display: inline-block;
+        margin: 20px auto 10px;
+        z-index: 10;
+      }
+      
+      .img-tape:before,
+      .img-tape:after {
+        background: rgba(255,255,235,.8);
+        box-shadow: 0 2px 6px rgba(0,0,0,.3);
+        content: "";
+        display: block;
+        height: 30px;
+        position: absolute;
+        margin: auto;
+        width: 100px;
+        z-index: 20;
+        border-radius: 2px;
+      }
+      
+      .img-tape img {
+        background: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 8px rgba(0,0,0,.3);
+        display: inline-block;
+        height: auto;
+        margin: 0 20px;
+        max-width: 100%;
+        padding: 8px;
+        text-align: center;
+        vertical-align: top;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        width: 100%;
+        border-radius: 4px;
+        position: relative;
+        z-index: 1;
+      }
+      
+      .img-tape--1:before {
+        left: 50%;
+        margin-left: -50px;
+        top: -10px;
+      }
+      
+      .img-tape--1:after {
+        display: none;
+      }
+      
+      .img-tape--2:before {
+        left: 0;
+        top: 10px;
+        transform: rotate(-35deg);
+      }
+      
+      .img-tape--2:after {
+        right: 0;
+        top: 15px;
+        transform: rotate(45deg);
+      }
+      
+      .img-tape--3:before {
+        left: 0;
+        top: 10px;
+        transform: rotate(-45deg);
+      }
+      
+      .img-tape--3:after {
+        bottom: 10px;
+        right: 0;
+        transform: rotate(-35deg);
+      }
+      
+      .img-tape--4:before {
+        left: -30px;
+        margin-top: -15px;
+        top: 50%;
+        transform: rotate(93deg);
+      }
+      
+      .img-tape--4:after {
+        margin-top: -30px;
+        right: -30px;
+        top: 50%;
+        transform: rotate(89deg);
+      }
+      
+      /* Dark mode tape adjustments */
+      .dark .img-tape:before,
+      .dark .img-tape:after {
+        background: rgba(255,255,235,.6);
+        box-shadow: 0 2px 6px rgba(0,0,0,.5);
+      }
+      
+      .dark .img-tape img {
+        background: #1f2937;
+        border: 1px solid #374151;
+        box-shadow: 0 2px 8px rgba(0,0,0,.5);
+      }
     `
     document.head.appendChild(style)
     
@@ -548,15 +653,69 @@ export default function ArticlePage() {
     );
   }
 
+  // Generate structured data for SEO
+  const generateStructuredData = () => {
+    if (!article) return null;
+
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alfaschool.gr';
+    const articleUrl = `${baseUrl}/articles/${article.slug}`;
+    const imageUrl = article.image || `${baseUrl}/alfa-logo.png`;
+
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": article.title,
+      "description": article.excerpt,
+      "image": imageUrl,
+      "url": articleUrl,
+      "datePublished": article.date instanceof Date ? article.date.toISOString() : new Date(article.date).toISOString(),
+      "dateModified": article.updatedAt instanceof Date ? article.updatedAt.toISOString() : new Date(article.updatedAt || article.date).toISOString(),
+      "author": {
+        "@type": "Person",
+        "name": article.author || "Alfa School"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Alfa School",
+        "logo": {
+          "@type": "ImageObject",
+          "url": `${baseUrl}/alfa-logo.png`
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": articleUrl
+      },
+      "articleSection": article.category,
+      "keywords": article.tags?.join(', ') || article.category,
+      "wordCount": article.content.replace(/<[^>]*>/g, '').split(' ').length,
+      "timeRequired": `PT${article.readingTime}M`,
+      "inLanguage": "el-GR"
+    };
+
+    return structuredData;
+  };
+
   return (
-    <div 
-      className={`min-h-screen pt-20 ${
-        isDarkMode 
-          ? 'bg-gray-900' 
-          : 'bg-gradient-to-br from-blue-50 via-white to-blue-50'
-      }`}
-      style={{ fontFamily: 'StampatelloFaceto, cursive' }}
-    >
+    <>
+      {/* Structured Data for SEO */}
+      {article && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(generateStructuredData())
+          }}
+        />
+      )}
+      
+      <div 
+        className={`min-h-screen pt-20 ${
+          isDarkMode 
+            ? 'bg-gray-900' 
+            : 'bg-gradient-to-br from-blue-50 via-white to-blue-50'
+        }`}
+        style={{ fontFamily: 'StampatelloFaceto, cursive' }}
+      >
       {/* Notebook Paper Background - FULL HEIGHT LINES */}
       <div className="absolute inset-0">
         {/* Main paper background - UNIFORM COLOR */}
@@ -642,7 +801,7 @@ export default function ArticlePage() {
           />
         </div>
 
-        {/* Back Button */}
+        {/* Back Button - School Style */}
         <motion.div
           className="mb-8"
           initial={{ opacity: 0, x: -20 }}
@@ -651,89 +810,102 @@ export default function ArticlePage() {
         >
           <Link href="/articles">
             <motion.button
-              className="group flex items-center gap-3 px-6 py-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl border border-white/30 dark:border-gray-700/30 shadow-lg hover:shadow-xl transition-all duration-300 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
+              className="group relative flex items-center gap-3 px-4 py-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl border-2 border-blue-200/50 dark:border-blue-700/50 shadow-lg hover:shadow-xl transition-all duration-300 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 overflow-hidden"
               whileHover={{ scale: 1.02, x: -5 }}
               whileTap={{ scale: 0.98 }}
             >
-              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-              <span className="font-semibold">Επιστροφή στα Άρθρα</span>
+              {/* Notebook Lines Background */}
+              <div className="absolute inset-0 pointer-events-none">
+                {/* Horizontal lines */}
+                {[...Array(4)].map((_, i) => (
+                  <div
+                    key={`line-${i}`}
+                    className={`absolute w-full h-px ${
+                      isDarkMode ? 'bg-blue-300/10' : 'bg-blue-200/20'
+                    }`}
+                    style={{
+                      top: `${20 + i * 15}%`,
+                      left: '8%',
+                      right: '4%'
+                    }}
+                  />
+                ))}
+                
+                {/* Red margin line */}
+                <div className={`absolute left-6 top-0 bottom-0 w-px ${
+                  isDarkMode ? 'bg-red-400/20' : 'bg-red-300/30'
+                }`}></div>
+                
+                {/* Holes for binder */}
+                {[...Array(2)].map((_, i) => (
+                  <div
+                    key={`hole-${i}`}
+                    className={`absolute w-1 h-1 rounded-full border ${
+                      isDarkMode 
+                        ? 'bg-gray-600/30 border-gray-500/50' 
+                        : 'bg-blue-200/50 border-blue-300/70'
+                    }`}
+                    style={{
+                      left: '3px',
+                      top: `${25 + i * 30}%`
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* Content */}
+              <div className="relative z-10 flex items-center gap-3">
+                {/* School Badge */}
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+                  <ArrowLeft className="w-4 h-4 text-white group-hover:-translate-x-1 transition-transform" />
+                </div>
+                
+                <div>
+                  <span className="font-bold text-sm" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                    Επιστροφή στα Άρθρα
+                  </span>
+                </div>
+              </div>
+              
+              {/* School Corner Decorations */}
+              <div className="absolute top-2 right-2 w-3 h-3 border-r-2 border-b-2 border-blue-300/50 dark:border-blue-600/50 rounded-br-lg"></div>
             </motion.button>
           </Link>
         </motion.div>
 
-        {/* Featured Image */}
-        {article.image && (
+        {/* Status Badges - Moved to top */}
+        {(article.featured || article.breaking) && (
           <motion.div 
-            className="relative w-full h-[50vh] min-h-[400px] overflow-hidden rounded-3xl shadow-2xl mb-12"
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
+            className="mb-6 flex gap-3 justify-center md:justify-start"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
           >
-            <Image
-              src={article.image}
-              alt={article.title}
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-            
-            {/* Status Badges */}
-            <div className="absolute bottom-6 left-6 flex gap-3">
-              {article.featured && (
-                <motion.div
-                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full shadow-lg"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.8 }}
-                >
-                  <Star className="w-4 h-4 text-white" />
-                  <span className="text-white text-sm font-semibold">Προτεινόμενο</span>
-                </motion.div>
-              )}
-              {article.breaking && (
-                <motion.div
-                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 rounded-full shadow-lg"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.9 }}
-                >
-                  <Zap className="w-4 h-4 text-white" />
-                  <span className="text-white text-sm font-semibold">Σπουδαία Νέα</span>
-                </motion.div>
-              )}
-            </div>
-
-            {/* Action Buttons */}
-            <div className="absolute top-6 right-6 flex gap-3">
-              <motion.button
-                className="w-12 h-12 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 group"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
+            {article.featured && (
+              <motion.div
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full shadow-lg"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.8 }}
               >
-                <Share2 className="w-5 h-5 text-slate-600 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
-              </motion.button>
-              <motion.button
-                onClick={() => setIsBookmarked(!isBookmarked)}
-                className="w-12 h-12 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 group"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
+                <Star className="w-4 h-4 text-white" />
+                <span className="text-white text-sm font-semibold">Προτεινόμενο</span>
+              </motion.div>
+            )}
+            {article.breaking && (
+              <motion.div
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 rounded-full shadow-lg"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.9 }}
               >
-                <Heart className={`w-5 h-5 transition-colors ${
-                  isBookmarked 
-                    ? 'text-red-500 fill-red-500' 
-                    : 'text-slate-600 dark:text-slate-300 group-hover:text-red-500'
-                }`} />
-              </motion.button>
-            </div>
+                <Zap className="w-4 h-4 text-white" />
+                <span className="text-white text-sm font-semibold">Σπουδαία Νέα</span>
+              </motion.div>
+            )}
           </motion.div>
         )}
+
 
         {/* Article Content - WIDER */}
         <div className="max-w-6xl mx-auto">
@@ -742,108 +914,377 @@ export default function ArticlePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            {/* Category Badge */}
+            {/* Category Badge - School Style */}
             <motion.div 
               className="mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              <span className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900/30 dark:to-cyan-900/30 text-blue-700 dark:text-blue-300 text-sm font-semibold rounded-full border border-blue-200/50 dark:border-blue-700/50">
-                <GraduationCap className="w-5 h-5" />
-                {article.category}
-              </span>
+              <div className="relative inline-block">
+                <div className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl border-2 border-blue-200/50 dark:border-blue-700/50 shadow-lg overflow-hidden">
+                  {/* Notebook Lines Background */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    {/* Horizontal lines */}
+                    {[...Array(3)].map((_, i) => (
+                      <div
+                        key={`line-${i}`}
+                        className={`absolute w-full h-px ${
+                          isDarkMode ? 'bg-blue-300/10' : 'bg-blue-200/20'
+                        }`}
+                        style={{
+                          top: `${25 + i * 20}%`,
+                          left: '10%',
+                          right: '5%'
+                        }}
+                      />
+                    ))}
+                    
+                    {/* Red margin line */}
+                    <div className={`absolute left-6 top-0 bottom-0 w-px ${
+                      isDarkMode ? 'bg-red-400/20' : 'bg-red-300/30'
+                    }`}></div>
+                    
+                    {/* Holes for binder */}
+                    {[...Array(2)].map((_, i) => (
+                      <div
+                        key={`hole-${i}`}
+                        className={`absolute w-1 h-1 rounded-full border ${
+                          isDarkMode 
+                            ? 'bg-gray-600/30 border-gray-500/50' 
+                            : 'bg-blue-200/50 border-blue-300/70'
+                        }`}
+                        style={{
+                          left: '3px',
+                          top: `${30 + i * 25}%`
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Content */}
+                  <div className="relative z-10 flex items-center gap-2 px-3 py-2">
+                    {/* School Badge */}
+                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-md">
+                      <GraduationCap className="w-4 h-4 text-white" />
+                    </div>
+                    
+                    <div>
+                      <span className="text-sm font-bold text-slate-700 dark:text-slate-300" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                        {article.category}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* School Corner Decorations */}
+                  <div className="absolute top-2 right-2 w-3 h-3 border-r-2 border-b-2 border-blue-300/50 dark:border-blue-600/50 rounded-br-lg"></div>
+                </div>
+              </div>
             </motion.div>
 
-            {/* CRAZY NOTEBOOK STYLE TITLE */}
+            {/* SCHOOL STYLE TITLE WITH TAPE FRAME IMAGE */}
             <motion.div
               className="relative mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
             >
-              {/* Notebook Paper Background for Title */}
-              <div className={`relative rounded-2xl p-8 shadow-lg border transition-all duration-300 hover:shadow-xl hover:scale-[1.02] ${
-                isDarkMode 
-                  ? 'bg-gray-700 border-gray-600' 
-                  : 'bg-white border-gray-200'
-              }`}>
-                {/* Notebook Lines */}
-                <div className="absolute inset-0 rounded-2xl" style={{
-                  backgroundImage: `
-                    linear-gradient(to right, ${isDarkMode ? '#4a5568' : '#e5e7eb'} 1px, transparent 1px),
-                    linear-gradient(to bottom, ${isDarkMode ? '#4a5568' : '#e5e7eb'} 1px, transparent 1px)
-                  `,
-                  backgroundSize: '20px 20px',
-                  opacity: 0.3
-                }}></div>
-                
-                {/* Red Margin Line */}
-                <div className={`absolute left-8 top-0 bottom-0 w-0.5 ${
-                  isDarkMode ? 'bg-red-400' : 'bg-red-300'
-                } opacity-60`}></div>
-                
-                {/* Title */}
-                <h1 className={`relative z-10 text-4xl lg:text-6xl font-bold leading-tight ${
-                  isDarkMode ? 'text-white' : 'text-gray-800'
-                }`} style={{
-                  fontFamily: 'StampatelloFaceto, cursive',
-                  textShadow: '1px 1px 2px rgba(0,0,0,0.1)'
-                }}>
-                  {article.title}
-                </h1>
-                
-                {/* Optimized Decorative Elements for Mobile */}
-                {isMobile ? (
-                  // Static decorative elements for mobile
-                  <>
-                    <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-sm"></div>
-                    <div className="absolute bottom-4 left-4 w-6 h-6 bg-gradient-to-br from-indigo-400/20 to-blue-400/20 rounded-full blur-sm"></div>
+              {/* School Notebook Paper Background */}
+              <div className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-xl border-2 border-blue-200/30 dark:border-blue-700/30 overflow-hidden">
+                {/* Notebook Lines Background */}
+                <div className="absolute inset-0 pointer-events-none">
+                  {/* Horizontal lines */}
+                  {[...Array(12)].map((_, i) => (
+                    <div
+                      key={`line-${i}`}
+                      className={`absolute w-full h-px ${
+                        isDarkMode ? 'bg-blue-300/15' : 'bg-blue-200/30'
+                      }`}
+                      style={{
+                        top: `${15 + i * 6}%`,
+                        left: '8%',
+                        right: '4%'
+                      }}
+                    />
+                  ))}
+                  
+                  {/* Red margin line */}
+                  <div className={`absolute left-8 top-0 bottom-0 w-px ${
+                    isDarkMode ? 'bg-red-400/30' : 'bg-red-300/50'
+                  }`}></div>
+                  
+                  {/* Holes for binder */}
+                  {[...Array(6)].map((_, i) => (
+                    <div
+                      key={`hole-${i}`}
+                      className={`absolute w-1.5 h-1.5 rounded-full border ${
+                        isDarkMode 
+                          ? 'bg-gray-600/30 border-gray-500/50' 
+                          : 'bg-blue-200/50 border-blue-300/70'
+                      }`}
+                      style={{
+                        left: '4px',
+                        top: `${20 + i * 12}%`
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Content with Image Layout */}
+                <div className="relative z-10 p-8">
+                  {/* Desktop Layout: Title on left, Image on right */}
+                  <div className="hidden md:flex items-start gap-8">
+                    {/* Title Section */}
+                    <div className="flex-1">
+                      {/* School Header with Grade */}
+                      <div className="flex items-center justify-center mb-6">
+                        {/* School Badge */}
+                        <div className="relative">
+                          <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg border-2 border-blue-300 dark:border-blue-600">
+                            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                              <BookOpen className="w-6 h-6 text-white" />
+                            </div>
+                          </div>
+                          {/* Grade A+ Badge */}
+                          <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center border-2 border-white shadow-md">
+                            <span className="text-white text-sm font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                              A+
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Main Title */}
+                      <div className="text-center">
+                        <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 ${
+                          isDarkMode ? 'text-white' : 'text-gray-800'
+                        }`} style={{
+                          fontFamily: 'StampatelloFaceto, cursive',
+                          textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
+                        }}>
+                          {article.title}
+                        </h1>
+                        
+                        {/* Title Underline */}
+                        <div className="flex items-center justify-center gap-4 mb-4">
+                          <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-blue-500"></div>
+                          <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                          <div className="w-8 h-0.5 bg-gradient-to-l from-transparent to-blue-500"></div>
+                        </div>
+                        
+                        {/* School Info */}
+                        {article.author && (
+                          <div className="flex items-center justify-center gap-6 text-sm text-slate-600 dark:text-slate-400">
+                            <div className="flex items-center gap-2">
+                              <User className="w-4 h-4" />
+                              <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{article.author}</span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Image Section with Tape Frame - Desktop */}
+                    {(article.image || article.articleImage || article.profilePhoto) && (
+                      <div className="flex-shrink-0 w-80">
+                        <div className="img-tape img-tape--2">
+                          <Image
+                            src={article.image || article.articleImage || article.profilePhoto || '/alfa-logo.png'}
+                            alt={article.title}
+                            width={320}
+                            height={180}
+                            className="w-full h-auto"
+                            priority
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Mobile Layout: Title on top, Image below */}
+                  <div className="md:hidden">
+                    {/* School Header with Grade */}
+                    <div className="flex items-center justify-center mb-6">
+                      {/* School Badge */}
+                      <div className="relative">
+                        <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg border-2 border-blue-300 dark:border-blue-600">
+                          <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                            <BookOpen className="w-6 h-6 text-white" />
+                          </div>
+                        </div>
+                        {/* Grade A+ Badge */}
+                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center border-2 border-white shadow-md">
+                          <span className="text-white text-sm font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                            A+
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                     
-                    {/* School decorations */}
-                    <div className="absolute top-2 right-2 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center shadow-md">
-                      <Star className="w-2 h-2 text-white" />
+                    {/* Main Title */}
+                    <div className="text-center mb-6">
+                      <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 ${
+                        isDarkMode ? 'text-white' : 'text-gray-800'
+                      }`} style={{
+                        fontFamily: 'StampatelloFaceto, cursive',
+                        textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
+                      }}>
+                        {article.title}
+                      </h1>
+                      
+                      {/* Title Underline */}
+                      <div className="flex items-center justify-center gap-4 mb-4">
+                        <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-blue-500"></div>
+                        <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                        <div className="w-8 h-0.5 bg-gradient-to-l from-transparent to-blue-500"></div>
+                      </div>
+                      
+                      {/* School Info */}
+                      {article.author && (
+                        <div className="flex items-center justify-center gap-6 text-sm text-slate-600 dark:text-slate-400">
+                          <div className="flex items-center gap-2">
+                            <User className="w-4 h-4" />
+                            <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{article.author}</span>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                    <div className="absolute bottom-2 left-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center shadow-md">
-                      <GraduationCap className="w-3 h-3 text-white" />
-                    </div>
-                  </>
-                ) : (
-                  // Animated decorative elements for desktop
-                  <>
-                    <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-sm animate-pulse"></div>
-                    <div className="absolute bottom-4 left-4 w-6 h-6 bg-gradient-to-br from-indigo-400/20 to-blue-400/20 rounded-full blur-sm animate-bounce"></div>
-                    
-                    {/* School decorations */}
-                    <div className="absolute top-2 right-2 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center shadow-md animate-pulse">
-                      <Star className="w-2 h-2 text-white" />
-                    </div>
-                    <div className="absolute bottom-2 left-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center shadow-md">
-                      <GraduationCap className="w-3 h-3 text-white" />
-                    </div>
-                  </>
-                )}
+
+                    {/* Image Section with Tape Frame - Mobile */}
+                    {(article.image || article.articleImage || article.profilePhoto) && (
+                      <div className="flex justify-center">
+                        <div className="img-tape img-tape--1 w-full max-w-sm">
+                          <Image
+                            src={article.image || article.articleImage || article.profilePhoto || '/alfa-logo.png'}
+                            alt={article.title}
+                            width={400}
+                            height={225}
+                            className="w-full h-auto"
+                            priority
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
                 
-                {/* Decorative corner lines */}
-                <div className="absolute top-2 left-2 w-8 h-8 border-l-2 border-t-2 border-blue-400 opacity-60"></div>
-                <div className="absolute bottom-2 right-2 w-8 h-8 border-r-2 border-b-2 border-green-400 opacity-60"></div>
+                {/* School Corner Decorations */}
+                <div className="absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-blue-400 opacity-60"></div>
+                <div className="absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-green-400 opacity-60"></div>
+                <div className="absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 border-yellow-400 opacity-60"></div>
+                <div className="absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-red-400 opacity-60"></div>
               </div>
             </motion.div>
 
-            {/* Expert Quote */}
+
+            {/* School Style Date - Left Aligned */}
+            <motion.div 
+              className="flex items-center justify-start mb-6"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.65 }}
+            >
+              <div className="relative bg-white/90 dark:bg-gray-800/90 rounded-lg border border-blue-200/50 dark:border-blue-700/50 px-4 py-2 shadow-sm">
+                {/* Subtle notebook line */}
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className={`absolute w-full h-px ${
+                    isDarkMode ? 'bg-blue-300/10' : 'bg-blue-200/20'
+                  }`} style={{ top: '50%', left: '10%', right: '10%' }}></div>
+                  <div className={`absolute left-3 top-0 bottom-0 w-px ${
+                    isDarkMode ? 'bg-red-400/20' : 'bg-red-300/30'
+                  }`}></div>
+                </div>
+                
+                <div className="relative z-10 flex items-center gap-2">
+                  <div className="w-5 h-5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                    <Calendar className="w-3 h-3 text-white" />
+                  </div>
+                  <span className="text-sm text-slate-600 dark:text-slate-400" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                    {formatDate(article.date)}
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Expert Quote - Beautiful School Style */}
             {article.expert && (
               <motion.div 
-                className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border-l-4 border-blue-500 p-8 mb-12 rounded-r-2xl shadow-lg"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
+                className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-lg border-2 border-blue-200/30 dark:border-blue-700/30 overflow-hidden mb-8"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
               >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <Sparkles className="w-5 h-5 text-white" />
-                  </div>
-                  <p className="text-slate-700 dark:text-slate-300 italic text-xl leading-relaxed">"{article.expert}"</p>
+                {/* Notebook Lines Background */}
+                <div className="absolute inset-0 pointer-events-none">
+                  {/* Horizontal lines */}
+                  {[...Array(6)].map((_, i) => (
+                    <div
+                      key={`line-${i}`}
+                      className={`absolute w-full h-px ${
+                        isDarkMode ? 'bg-blue-300/15' : 'bg-blue-200/30'
+                      }`}
+                      style={{
+                        top: `${15 + i * 12}%`,
+                        left: '8%',
+                        right: '4%'
+                      }}
+                    />
+                  ))}
+                  
+                  {/* Red margin line */}
+                  <div className={`absolute left-8 top-0 bottom-0 w-px ${
+                    isDarkMode ? 'bg-red-400/30' : 'bg-red-300/50'
+                  }`}></div>
+                  
+                  {/* Holes for binder */}
+                  {[...Array(3)].map((_, i) => (
+                    <div
+                      key={`hole-${i}`}
+                      className={`absolute w-1.5 h-1.5 rounded-full border ${
+                        isDarkMode 
+                          ? 'bg-gray-600/30 border-gray-500/50' 
+                          : 'bg-blue-200/50 border-blue-300/70'
+                      }`}
+                      style={{
+                        left: '4px',
+                        top: `${20 + i * 25}%`
+                      }}
+                    />
+                  ))}
                 </div>
+
+                {/* Content */}
+                <div className="relative z-10 p-6">
+                  {/* School Header */}
+                  <div className="flex items-center gap-3 mb-4">
+                    {/* School Badge */}
+                    <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-md">
+                      <Sparkles className="w-4 h-4 text-white" />
+                    </div>
+                    
+                    <div>
+                      <p className="text-sm font-bold text-slate-700 dark:text-slate-300" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                        Σημαντική Παρατήρηση
+                      </p>
+                      <p className="text-xs text-slate-500 dark:text-slate-500" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                        Εκπαιδευτική Συμβουλή
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Quote */}
+                  <div className="relative pl-4">
+                    <p className="text-slate-700 dark:text-slate-300 text-lg leading-relaxed italic" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                      "{article.expert}"
+                    </p>
+                    
+                    {/* Quote decoration */}
+                    <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-blue-500 to-indigo-600 rounded-full"></div>
+                  </div>
+                </div>
+                
+                {/* School Corner Decorations */}
+                <div className="absolute top-2 right-2 w-4 h-4 border-r-2 border-b-2 border-blue-300/50 dark:border-blue-600/50 rounded-br-lg"></div>
               </motion.div>
             )}
 
@@ -857,18 +1298,6 @@ export default function ArticlePage() {
               {article.excerpt}
             </motion.p>
 
-            {/* Meta Information - Only Date */}
-            <motion.div 
-              className="flex items-center gap-4 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-gray-700 pb-8 mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-            >
-              <div className="flex items-center gap-3 px-6 py-3 bg-slate-100 dark:bg-gray-700 rounded-full">
-                <Calendar className="w-5 h-5" />
-                <span className="font-medium text-lg">{formatDate(article.date)}</span>
-              </div>
-            </motion.div>
 
             {/* Article Content - NORMAL SIZES */}
             <motion.div 
@@ -888,7 +1317,7 @@ export default function ArticlePage() {
               />
             </motion.div>
 
-            {/* Tags - BEAUTIFUL BLUE DESIGN */}
+            {/* Tags - SCHOOL STYLE DESIGN */}
             {article.tags && article.tags.length > 0 && (
               <motion.div 
                 className="mt-16 pt-8 border-t border-slate-200 dark:border-gray-700"
@@ -896,84 +1325,130 @@ export default function ArticlePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.0 }}
               >
-                {/* Modern Tags Container */}
-                <div className="relative overflow-hidden bg-gradient-to-br from-blue-500/10 via-cyan-500/5 to-indigo-500/10 backdrop-blur-xl rounded-3xl border border-blue-200/20 dark:border-blue-800/30 p-8 shadow-lg hover:shadow-xl transition-all duration-500">
-                  
-                  {/* Animated background elements */}
-                  <div className="absolute inset-0 overflow-hidden">
-                    <div className="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-cyan-400/10 rounded-full blur-2xl" />
-                    <div className="absolute -bottom-8 -left-8 w-28 h-28 bg-gradient-to-tr from-indigo-400/15 to-blue-400/10 rounded-full blur-xl" />
+                {/* School Notebook Paper Background */}
+                <div className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-xl border-2 border-blue-200/30 dark:border-blue-700/30 overflow-hidden">
+                  {/* Notebook Lines Background */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    {/* Horizontal lines */}
+                    {[...Array(8)].map((_, i) => (
+                      <div
+                        key={`line-${i}`}
+                        className={`absolute w-full h-px ${
+                          isDarkMode ? 'bg-blue-300/15' : 'bg-blue-200/30'
+                        }`}
+                        style={{
+                          top: `${20 + i * 8}%`,
+                          left: '8%',
+                          right: '4%'
+                        }}
+                      />
+                    ))}
+                    
+                    {/* Red margin line */}
+                    <div className={`absolute left-8 top-0 bottom-0 w-px ${
+                      isDarkMode ? 'bg-red-400/30' : 'bg-red-300/50'
+                    }`}></div>
+                    
+                    {/* Holes for binder */}
+                    {[...Array(4)].map((_, i) => (
+                      <div
+                        key={`hole-${i}`}
+                        className={`absolute w-1.5 h-1.5 rounded-full border ${
+                          isDarkMode 
+                            ? 'bg-gray-600/30 border-gray-500/50' 
+                            : 'bg-blue-200/50 border-blue-300/70'
+                        }`}
+                        style={{
+                          left: '4px',
+                          top: `${25 + i * 18}%`
+                        }}
+                      />
+                    ))}
                   </div>
-                  
-                  {/* Subtle top accent */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-0.5 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent rounded-full z-10"></div>
-                  
-                  <div className="relative z-10 flex items-center gap-4 mb-6">
-                    {/* Modern hashtag icon */}
-                    <div className="group relative">
-                      {/* Glass container with gradient border */}
-                      <div className="w-14 h-14 rounded-2xl bg-white/40 dark:bg-gray-900/20 backdrop-blur-xl flex items-center justify-center border border-blue-300/40 dark:border-blue-700/30 shadow-lg overflow-hidden transition-all duration-500 group-hover:shadow-blue-500/20 dark:group-hover:shadow-blue-500/30">
-                        {/* Animated gradient background */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/40 via-cyan-500/40 to-indigo-500/40 opacity-60 group-hover:opacity-70 transition-opacity duration-500"></div>
-                        
-                        {/* Optimized particle effects for mobile */}
-                        {isMobile ? (
-                          // Static particles for mobile
-                          <>
-                            <div className="absolute top-1 right-1 w-1 h-1 bg-white rounded-full opacity-70"></div>
-                            <div className="absolute bottom-2 left-2 w-1 h-1 bg-white rounded-full opacity-70"></div>
-                          </>
-                        ) : (
-                          // Animated particles for desktop
-                          <>
-                            <div className="absolute top-1 right-1 w-1 h-1 bg-white rounded-full animate-ping opacity-70" style={{animationDuration: '2s', animationDelay: '0s'}}></div>
-                            <div className="absolute bottom-2 left-2 w-1 h-1 bg-white rounded-full animate-ping opacity-70" style={{animationDuration: '2.5s', animationDelay: '0.5s'}}></div>
-                          </>
-                        )}
-                        
-                        {/* Hashtag symbol */}
-                        <span className="relative text-2xl font-bold text-white transition-all duration-500">
-                          #
-                        </span>
+
+                  {/* Content */}
+                  <div className="relative z-10 p-6">
+                    {/* School Header */}
+                    <div className="flex items-center gap-3 mb-6">
+                      {/* School Badge */}
+                      <div className="relative">
+                        <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white/30">
+                          <Tag className="w-6 h-6 text-white" />
+                        </div>
+                        {/* Grade A+ Badge */}
+                        <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center border-2 border-white shadow-md">
+                          <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                            A+
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-1" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                          Ετικέτες Άρθρου
+                        </h3>
+                        <p className="text-sm text-slate-600 dark:text-slate-400" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                          Κάντε κλικ για να δείτε περισσότερα άρθρα
+                        </p>
                       </div>
                     </div>
                     
-                    <div className="relative">
-                      <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-1">
-                        Ετικέτες Άρθρου
-                      </h3>
-                      
-                      {/* Accent line */}
-                      <div className="mt-2 w-12 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full"></div>
+                    {/* Tags - Same Style as Articles Page */}
+                    <div className="flex flex-wrap gap-1">
+                      {article.tags.map((tag, index) => (
+                        <motion.div
+                          key={index}
+                          whileHover={{ scale: 1.05, rotate: 2 }}
+                          whileTap={{ scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
+                          className="inline-block relative z-50"
+                        >
+                          <span
+                            className="px-2 py-0.5 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 text-green-700 dark:text-green-300 text-xs rounded-full border-2 border-green-200/50 dark:border-green-700/50 shadow-sm cursor-pointer hover:from-green-200 hover:to-emerald-200 dark:hover:from-green-800/40 dark:hover:to-emerald-800/40 hover:border-green-300 dark:hover:border-green-600 transition-all duration-300 inline-block relative z-50"
+                            style={{ fontFamily: 'StampatelloFaceto, cursive' }}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              console.log('Tag clicked:', tag);
+                              router.push(`/tags/${encodeURIComponent(tag)}`);
+                            }}
+                          >
+                            #{tag}
+                          </span>
+                        </motion.div>
+                      ))}
+                    </div>
+                    
+                    {/* School Footer */}
+                    <div className="mt-6 pt-4 border-t border-blue-200/50 dark:border-blue-700/50">
+                      <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
+                        <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                          <Tag className="w-2 h-2 text-white" />
+                        </div>
+                        <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                          Κάντε κλικ σε οποιαδήποτε ετικέτα για να δείτε σχετικά άρθρα
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  
-                  <div className="flex flex-wrap gap-4">
-                    {article.tags.map((tag, index) => (
-                      <motion.div
-                        key={index}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="inline-block relative z-50"
-                      >
-                        <span 
-                          className="px-6 py-3 bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900/30 dark:to-cyan-900/30 text-blue-700 dark:text-blue-300 text-base font-medium rounded-full border border-blue-200/50 dark:border-blue-700/50 hover:from-blue-200 hover:to-cyan-200 dark:hover:from-blue-800/40 dark:hover:to-cyan-800/40 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 cursor-pointer inline-block relative z-50"
-                          onClick={() => {
-                            console.log('Tag clicked:', tag);
-                            router.push(`/tags/${encodeURIComponent(tag)}`);
-                          }}
-                        >
-                          #{tag}
-                        </span>
-                      </motion.div>
-                    ))}
-                  </div>
-                  
-                  {/* Subtle bottom highlight */}
-                  <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
                 </div>
               </motion.div>
             )}
+
+            {/* Share Buttons - Below Tags */}
+            <motion.div 
+              className="mt-12 flex justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.1 }}
+            >
+              <ShareButtons 
+                title={article.title}
+                url={typeof window !== "undefined" ? window.location.href : ""}
+                image={article.image || article.articleImage || article.profilePhoto}
+                className=""
+              />
+            </motion.div>
 
             {/* Image Source */}
             {article.imageSource && (
@@ -997,6 +1472,7 @@ export default function ArticlePage() {
         </div>
       </div>
 
-    </div>
+      </div>
+    </>
   );
 }

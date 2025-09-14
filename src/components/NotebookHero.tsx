@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { useTheme } from "@/contexts/ThemeContext"
 import { useLanguage } from "@/contexts/LanguageContext"
+import { useChristmasTheme } from "@/contexts/ChristmasThemeContext"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
@@ -23,8 +24,17 @@ export default function NotebookHero({
 }: NotebookHeroProps) {
   const { isDarkMode } = useTheme()
   const { t, language } = useLanguage()
+  const { isChristmasMode } = useChristmasTheme()
   const pathname = usePathname()
   const [isMobile, setIsMobile] = useState(false)
+
+  // Debug logging
+  console.log('NotebookHero - isChristmasMode:', isChristmasMode)
+
+  // Force re-render when Christmas mode changes
+  useEffect(() => {
+    console.log('NotebookHero - Christmas mode changed:', isChristmasMode)
+  }, [isChristmasMode])
 
   // Detect mobile device to reduce animations
   useEffect(() => {
@@ -92,7 +102,9 @@ export default function NotebookHero({
             <div
               className="absolute top-20 left-10 w-32 h-32 sm:w-40 sm:h-40 rounded-full"
               style={{ 
-                backgroundColor: isDarkMode ? '#4a6fa5' : '#81a1d4',
+                backgroundColor: isChristmasMode 
+                  ? (isDarkMode ? '#dc2626' : '#dc2626')
+                  : (isDarkMode ? '#4a6fa5' : '#81a1d4'),
                 opacity: isDarkMode ? 0.1 : 0.15,
                 filter: 'blur(20px)'
               }}
@@ -100,7 +112,9 @@ export default function NotebookHero({
             <div
               className="absolute top-40 right-20 w-40 h-40 sm:w-56 sm:h-56 rounded-full"
               style={{ 
-                backgroundColor: isDarkMode ? '#81a1d4' : '#fabeb6',
+                backgroundColor: isChristmasMode 
+                  ? (isDarkMode ? '#16a34a' : '#16a34a')
+                  : (isDarkMode ? '#81a1d4' : '#fabeb6'),
                 opacity: isDarkMode ? 0.08 : 0.12,
                 filter: 'blur(20px)'
               }}
@@ -112,17 +126,19 @@ export default function NotebookHero({
         <motion.div
           className="absolute top-20 left-10 w-32 h-32 sm:w-40 sm:h-40 rounded-full blur-3xl"
           style={{ 
-            backgroundColor: isDarkMode ? '#4a6fa5' : '#81a1d4',
+            backgroundColor: isChristmasMode 
+              ? (isDarkMode ? '#dc2626' : '#dc2626')
+              : (isDarkMode ? '#4a6fa5' : '#81a1d4'),
             opacity: isDarkMode ? 0.15 : 0.2
           }}
           animate={{
-            scale: [1, 1.1, 1],
-            opacity: isDarkMode ? [0.1, 0.15, 0.1] : [0.1, 0.2, 0.1],
-            x: [0, 10, 0],
-            y: [0, -5, 0]
+            scale: [1, 1.05, 1],
+            opacity: isDarkMode ? [0.1, 0.12, 0.1] : [0.1, 0.15, 0.1],
+            x: [0, 5, 0],
+            y: [0, -2, 0]
           }}
           transition={{
-            duration: 6,
+            duration: 8,
             repeat: Infinity,
             ease: "easeInOut"
           }}
@@ -130,30 +146,32 @@ export default function NotebookHero({
         <motion.div
           className="absolute top-40 right-20 w-40 h-40 sm:w-56 sm:h-56 rounded-full blur-3xl"
           style={{ 
-            backgroundColor: isDarkMode ? '#81a1d4' : '#fabeb6',
+            backgroundColor: isChristmasMode 
+              ? (isDarkMode ? '#16a34a' : '#16a34a')
+              : (isDarkMode ? '#81a1d4' : '#fabeb6'),
             opacity: isDarkMode ? 0.1 : 0.15
           }}
           animate={{
-            scale: [1.1, 1, 1.1],
-            opacity: isDarkMode ? [0.05, 0.1, 0.05] : [0.1, 0.15, 0.1],
-            x: [0, -10, 0],
-            y: [0, 10, 0]
+            scale: [1.05, 1, 1.05],
+            opacity: isDarkMode ? [0.05, 0.08, 0.05] : [0.1, 0.12, 0.1],
+            x: [0, -5, 0],
+            y: [0, 5, 0]
           }}
           transition={{
-            duration: 8,
+            duration: 10,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 2
+            delay: 3
           }}
         />
           </>
         )}
       </div>
 
-      <div className="max-w-4xl mx-auto px-3 sm:px-6 relative z-10">
+      <div key={`notebook-hero-${isChristmasMode}`} className="max-w-4xl mx-auto px-3 sm:px-6 relative z-10">
         {/* Optimized Notebook Container for Mobile */}
         {isMobile ? (
-          <div className="max-w-3xl mx-auto relative">
+          <div key={`mobile-notebook-${isChristmasMode}`} className="max-w-3xl mx-auto relative">
             {/* Realistic Notebook Shadow */}
             <div 
               className="absolute inset-0 transform rotate-1"
@@ -174,6 +192,7 @@ export default function NotebookHero({
             
             {/* Realistic Notebook with Paper Texture */}
             <div
+              key={`mobile-notebook-container-${isChristmasMode}`}
               className="relative shadow-2xl overflow-hidden"
               style={{
                 backgroundColor: isDarkMode ? '#1a1a2e' : '#ffffff',
@@ -191,9 +210,11 @@ export default function NotebookHero({
               <div 
                 className="relative px-3 sm:px-6 py-3 sm:py-5"
                 style={{ 
-                  backgroundColor: '#4a6fa5',
-                  borderBottom: '3px solid #81a1d4',
-                  backgroundImage: 'linear-gradient(135deg, #4a6fa5 0%, #5a7fb5 50%, #4a6fa5 100%)',
+                  backgroundColor: isChristmasMode ? '#dc2626' : '#4a6fa5',
+                  borderBottom: isChristmasMode ? '3px solid #16a34a' : '3px solid #81a1d4',
+                  backgroundImage: isChristmasMode 
+                    ? 'linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #dc2626 100%)'
+                    : 'linear-gradient(135deg, #4a6fa5 0%, #5a7fb5 50%, #4a6fa5 100%)',
                   boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.1)'
                 }}
               >
@@ -253,13 +274,15 @@ export default function NotebookHero({
                       <div 
                         className="w-6 h-6 rounded-full flex items-center justify-center shadow-lg flex-shrink-0" 
                         style={{ 
-                          backgroundColor: '#fabeb6',
+                          backgroundColor: isChristmasMode ? '#fbbf24' : '#fabeb6',
                           minWidth: '24px',
                           minHeight: '24px',
                           aspectRatio: '1/1'
                         }}
                       >
-                        <span className="text-white font-bold text-sm leading-none">★</span>
+                        <span className="text-white font-bold text-sm leading-none">
+                          {isChristmasMode ? '🎄' : '★'}
+                        </span>
                       </div>
                       <h1 
                         className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight"
@@ -280,13 +303,17 @@ export default function NotebookHero({
                         <div 
                           className="w-6 h-6 rounded-full flex items-center justify-center shadow-lg mt-1 flex-shrink-0" 
                           style={{ 
-                            backgroundColor: isDarkMode ? '#fabeb6' : '#81a1d4',
+                            backgroundColor: isChristmasMode 
+                              ? (isDarkMode ? '#16a34a' : '#16a34a')
+                              : (isDarkMode ? '#fabeb6' : '#81a1d4'),
                             minWidth: '24px',
                             minHeight: '24px',
                             aspectRatio: '1/1'
                           }}
                         >
-                          <span className="text-white font-bold text-sm leading-none">✓</span>
+                          <span className="text-white font-bold text-sm leading-none">
+                            {isChristmasMode ? '🎁' : '✓'}
+                          </span>
                         </div>
                         <p 
                           className="text-base sm:text-lg leading-relaxed font-medium"
@@ -333,6 +360,7 @@ export default function NotebookHero({
           </div>
         ) : (
         <motion.div
+          key={`desktop-notebook-${isChristmasMode}`}
           className="max-w-3xl mx-auto relative"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -358,6 +386,7 @@ export default function NotebookHero({
           
             {/* Realistic Notebook with Paper Texture */}
           <div
+            key={`notebook-container-${isChristmasMode}`}
             className="relative shadow-2xl overflow-hidden"
             style={{
               backgroundColor: isDarkMode ? '#1a1a2e' : '#ffffff',
@@ -375,9 +404,11 @@ export default function NotebookHero({
             <div 
               className="relative px-3 sm:px-6 py-3 sm:py-5"
               style={{ 
-                backgroundColor: '#4a6fa5',
-                borderBottom: '3px solid #81a1d4',
-                backgroundImage: 'linear-gradient(135deg, #4a6fa5 0%, #5a7fb5 50%, #4a6fa5 100%)',
+                backgroundColor: isChristmasMode ? '#dc2626' : '#4a6fa5',
+                borderBottom: isChristmasMode ? '3px solid #16a34a' : '3px solid #81a1d4',
+                backgroundImage: isChristmasMode 
+                  ? 'linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #dc2626 100%)'
+                  : 'linear-gradient(135deg, #4a6fa5 0%, #5a7fb5 50%, #4a6fa5 100%)',
                 boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.1)'
               }}
             >
@@ -425,7 +456,10 @@ export default function NotebookHero({
               <div className="absolute left-0 top-0 bottom-0 w-6 flex flex-col">
                 <div
                   className="w-full h-px mt-16"
-                  style={{ backgroundColor: '#dc2626', opacity: 0.8 }}
+                  style={{ 
+                    backgroundColor: isChristmasMode ? '#16a34a' : '#dc2626', 
+                    opacity: 0.8 
+                  }}
                 />
               </div>
 
@@ -434,21 +468,23 @@ export default function NotebookHero({
                 {/* Title with Handwriting Style */}
                 <motion.div
                   className="mb-6 sm:mb-8"
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div 
                       className="w-6 h-6 rounded-full flex items-center justify-center shadow-lg flex-shrink-0" 
                       style={{ 
-                        backgroundColor: '#fabeb6',
+                        backgroundColor: isChristmasMode ? '#fbbf24' : '#fabeb6',
                         minWidth: '24px',
                         minHeight: '24px',
                         aspectRatio: '1/1'
                       }}
                     >
-                      <span className="text-white font-bold text-sm leading-none">★</span>
+                      <span className="text-white font-bold text-sm leading-none">
+                        {isChristmasMode ? '🎄' : '★'}
+                      </span>
                     </div>
                     <h1 
                       className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight"
@@ -466,21 +502,25 @@ export default function NotebookHero({
                 {getSubtitle() && (
                   <motion.div
                     className="mb-6 sm:mb-8"
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
                   >
                     <div className="flex items-start gap-3">
                       <div 
                         className="w-6 h-6 rounded-full flex items-center justify-center shadow-lg mt-1 flex-shrink-0" 
                         style={{ 
-                          backgroundColor: isDarkMode ? '#fabeb6' : '#81a1d4',
+                          backgroundColor: isChristmasMode 
+                            ? (isDarkMode ? '#16a34a' : '#16a34a')
+                            : (isDarkMode ? '#fabeb6' : '#81a1d4'),
                           minWidth: '24px',
                           minHeight: '24px',
                           aspectRatio: '1/1'
                         }}
                       >
-                        <span className="text-white font-bold text-sm leading-none">✓</span>
+                        <span className="text-white font-bold text-sm leading-none">
+                          {isChristmasMode ? '🎁' : '✓'}
+                        </span>
                       </div>
                       <p 
                         className="text-base sm:text-lg leading-relaxed font-medium"
@@ -502,7 +542,9 @@ export default function NotebookHero({
                       key={i}
                       className="absolute w-full h-px"
                       style={{ 
-                        backgroundColor: isDarkMode ? '#fabeb6' : '#d1d5db',
+                        backgroundColor: isChristmasMode 
+                          ? (isDarkMode ? '#16a34a' : '#16a34a')
+                          : (isDarkMode ? '#fabeb6' : '#d1d5db'),
                         top: `${80 + i * 25}px`,
                         opacity: i % 2 === 0 ? 0.6 : 0.2,
                         width: '95%',
@@ -513,7 +555,7 @@ export default function NotebookHero({
                         opacity: i % 2 === 0 ? 0.6 : 0.2, 
                         scaleX: 1 
                       }}
-                      transition={{ duration: 0.3, delay: 0.6 + i * 0.05 }}
+                      transition={{ duration: 0.2, delay: 0.3 + i * 0.03 }}
                     />
                   ))}
                 </div>
@@ -523,7 +565,7 @@ export default function NotebookHero({
                   className="absolute top-20 right-6 w-8 h-8 opacity-20"
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 0.2, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.8 }}
+                  transition={{ duration: 0.3, delay: 0.4 }}
                 >
                   <svg viewBox="0 0 100 100" className="w-full h-full" style={{ color: isDarkMode ? '#fabeb6' : '#4a6fa5' }}>
                     <path d="M50,15 L55,35 L75,35 L60,50 L65,70 L50,55 L35,70 L40,50 L25,35 L45,35 Z" fill="currentColor" opacity="0.4" />

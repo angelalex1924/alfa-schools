@@ -28,51 +28,53 @@ import { ModernThemeToggle } from "./ModernThemeToggle"
 import { useTheme } from "@/contexts/ThemeContext"
 import { LanguageSwitcher } from "./LanguageSwitcher"
 import { useLanguage } from "@/contexts/LanguageContext"
+import { useChristmasTheme } from "@/contexts/ChristmasThemeContext"
 import { AnniversaryText } from "./AnniversaryText"
+import { SantaIcon, ChristmasTreeIcon, ReindeerIcon, GiftBoxIcon, BellIcon } from "./ChristmasIcons"
 
 // Navigation items with the requested links - will be updated with translations
-const getNavigationItems = (t: (key: string) => string | string[]) => [
+const getNavigationItems = (t: (key: string) => string | string[], isChristmasMode: boolean) => [
   {
     label: t('navigation.home'),
     href: "/",
-    icon: Home,
-    color: "#3b82f6", // Μπλε παραμένει για αντίθεση
-    iconColor: "text-blue-500"
+    icon: isChristmasMode ? SantaIcon : Home,
+    color: isChristmasMode ? "#dc2626" : "#3b82f6", // Κόκκινο για Χριστούγεννα
+    iconColor: isChristmasMode ? "text-red-500" : "text-blue-500"
   },
   {
     label: t('navigation.services'),
     href: "/services",
-    icon: ServicesIcon,
-    color: "#c9b6e4", // Λιλά-λεβάντα
-    iconColor: "text-[#c9b6e4]"
+    icon: isChristmasMode ? ChristmasTreeIcon : ServicesIcon,
+    color: isChristmasMode ? "#16a34a" : "#c9b6e4", // Πράσινο για Χριστούγεννα
+    iconColor: isChristmasMode ? "text-green-500" : "text-[#c9b6e4]"
   },
   {
     label: t('navigation.news'),
     href: "/articles",
-    icon: Newspaper,
-    color: "#f78da7", // Ροζ-κοραλί
-    iconColor: "text-[#f78da7]"
+    icon: isChristmasMode ? BellIcon : Newspaper,
+    color: isChristmasMode ? "#fbbf24" : "#f78da7", // Χρυσό για Χριστούγεννα
+    iconColor: isChristmasMode ? "text-yellow-500" : "text-[#f78da7]"
   },
   {
     label: t('navigation.whyUs'),
     href: "/why-us",
-    icon: Users,
-    color: "#fabeb6", // Ροζ
-    iconColor: "text-[#fabeb6]"
+    icon: isChristmasMode ? ReindeerIcon : Users,
+    color: isChristmasMode ? "#8b4513" : "#fabeb6", // Καφέ για Χριστούγεννα
+    iconColor: isChristmasMode ? "text-amber-600" : "text-[#fabeb6]"
   },
   {
     label: t('navigation.games'),
     href: "/games",
-    icon: GamesIcon,
-    color: "#a8e6cf", // Απαλό πράσινο
-    iconColor: "text-[#a8e6cf]"
+    icon: isChristmasMode ? GiftBoxIcon : GamesIcon,
+    color: isChristmasMode ? "#dc2626" : "#a8e6cf", // Κόκκινο για Χριστούγεννα
+    iconColor: isChristmasMode ? "text-red-500" : "text-[#a8e6cf]"
   },
   {
     label: t('navigation.contact'),
     href: "/contact",
     icon: Phone,
-    color: "#fde7dc", // Απαλό μπεζ-ροζ
-    iconColor: "text-[#fde7dc]"
+    color: isChristmasMode ? "#16a34a" : "#fde7dc", // Πράσινο για Χριστούγεννα
+    iconColor: isChristmasMode ? "text-green-500" : "text-[#fde7dc]"
   }
 ]
 
@@ -87,7 +89,8 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
   const [scrolled, setScrolled] = React.useState(false)
   const { isDarkMode, toggleTheme } = useTheme()
   const { t } = useLanguage()
-  const navigationItems = getNavigationItems(t)
+  const { isChristmasMode } = useChristmasTheme()
+  const navigationItems = getNavigationItems(t, isChristmasMode)
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -180,6 +183,32 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
           <div className={`absolute inset-0 backdrop-blur-3xl ${isDarkMode ? 'bg-[#0f172a]/20' : 'bg-[#81a1d4]/10'}`}></div>
           <div className={`absolute inset-0 bg-gradient-to-r ${isDarkMode ? 'from-[#0f172a]/12 via-[#0f172a]/18 to-[#0f172a]/12' : 'from-[#81a1d4]/5 via-[#81a1d4]/8 to-[#81a1d4]/5'}`}></div>
           <div className="absolute inset-0 bg-white/5 backdrop-blur-2xl"></div>
+          
+          {/* Σχολικές πινελιές - Notebook lines */}
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute left-0 top-0 w-full h-full" style={{
+              backgroundImage: `repeating-linear-gradient(
+                transparent,
+                transparent 20px,
+                ${isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'} 20px,
+                ${isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'} 21px
+              )`
+            }}></div>
+            {/* Κόκκινη γραμμή αριστερά */}
+            <div className={`absolute left-6 top-0 w-0.5 h-full ${isDarkMode ? 'bg-red-400/50' : 'bg-red-500/60'}`}></div>
+            
+            {/* Binder holes */}
+            <div className="absolute left-1 top-1/2 transform -translate-y-1/2 flex flex-col gap-3">
+              <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
+              <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
+              <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
+            </div>
+            
+            {/* Σχολικές πινελιές - Random ink spots */}
+            <div className="absolute top-4 right-8 w-1 h-1 bg-blue-400/30 rounded-full"></div>
+            <div className="absolute top-12 left-16 w-0.5 h-0.5 bg-gray-400/40 rounded-full"></div>
+            <div className="absolute bottom-6 right-12 w-0.5 h-0.5 bg-gray-400/40 rounded-full"></div>
+          </div>
         </motion.div>
 
       {/* Enhanced Logo with alfa-logo.png - REVEAL ANIMATION */}
@@ -264,6 +293,30 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
             />
           </motion.div>
         </Link>
+        
+        {/* Χριστουγεννιάτικο Δέντρο δίπλα από το logo */}
+        {isChristmasMode && (
+          <motion.div
+            className="ml-2"
+            initial={{ opacity: 0, scale: 0, rotate: -180 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.8, delay: 1, type: "spring", stiffness: 200 }}
+          >
+            <motion.div
+              animate={{
+                rotate: [0, 5, -5, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <ChristmasTreeIcon className="w-8 h-8 text-green-500" />
+            </motion.div>
+          </motion.div>
+        )}
         
         {/* 40 Years Anniversary Text */}
         <motion.div

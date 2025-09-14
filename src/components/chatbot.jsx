@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 
 
 
+
 function ChatModeIcon({ className, isActive, forceWhite }) {
   const { theme } = useTheme?.() || {};
   let color = "#fff";
@@ -584,7 +585,11 @@ const AIChatbot = () => {
         const updatedMessages = [...prevMessages]
         if (streamingMessageIndex >= 0 && streamingMessageIndex < updatedMessages.length) {
           const currentText = updatedMessages[streamingMessageIndex].text || ""
-          const stoppedText = isGreekPath ? " [Σταματήθηκε από τον χρήστη]" : " [Stopped by user]"
+          const stoppedText = isGreekPath 
+            ? " [Σταματήθηκε από τον χρήστη]" 
+            : language === 'fr' 
+              ? " [Arrêté par l'utilisateur]"
+              : " [Stopped by user]"
           updatedMessages[streamingMessageIndex] = {
             ...updatedMessages[streamingMessageIndex],
             text: currentText + stoppedText
@@ -1459,11 +1464,15 @@ const AIChatbot = () => {
     if (mode === "search") {
       welcomeMessage = isGreekPath
         ? `Γεια σας! Είμαι ο βοηθός AI της Acron Web σε ΛΕΙΤΟΥΡΓΙΑ ΑΝΑΖΗΤΗΣΗΣ. Ποιες συγκεκριμένες πληροφορίες αναζητάτε;`
-        : `Hello! I'm the Acron Web AI assistant in SEARCH MODE. What specific information are you looking for?`
+        : language === 'fr'
+          ? `Bonjour! Je suis l'assistant IA d'Acron Web en MODE RECHERCHE. Quelles informations spécifiques recherchez-vous?`
+          : `Hello! I'm the Acron Web AI assistant in SEARCH MODE. What specific information are you looking for?`
     } else if (mode === "reason") {
       welcomeMessage = isGreekPath
         ? `Γεια σας! Είμαι ο βοηθός AI της Acron Web σε ΛΕΙΤΟΥΡΓΙΑ ΑΝΑΛΥΣΗΣ. Τι θα θέλατε να αναλύσω ή να εξηγήσω;`
-        : `Hello! I'm the Acron Web AI assistant in REASONING MODE. What would you like me to analyze or explain?`
+        : language === 'fr'
+          ? `Bonjour! Je suis l'assistant IA d'Acron Web en MODE ANALYSE. Que souhaitez-vous que j'analyse ou explique?`
+          : `Hello! I'm the Acron Web AI assistant in REASONING MODE. What would you like me to analyze or explain?`
     }
 
     setMessages([
@@ -1662,13 +1671,13 @@ const AIChatbot = () => {
           <motion.div
             ref={chatContainerRef}
             className={cn(
-              "backdrop-blur-xl bg-white/90 dark:bg-gray-900/90 shadow-2xl flex flex-col overflow-hidden",
-              "w-[360px] sm:w-[400px] h-[600px] sm:h-[650px] max-h-[85vh] rounded-3xl",
+              "backdrop-blur-xl bg-white/95 dark:bg-gray-800/95 shadow-2xl flex flex-col overflow-hidden",
+              "w-[360px] sm:w-[400px] h-[600px] sm:h-[650px] max-h-[85vh] rounded-2xl",
               // Mobile-specific styles
               "sm:bottom-6 sm:right-6 sm:max-w-[400px]",
               isMobile
                 ? "fixed top-0 left-0 right-0 bottom-0 w-full h-full max-h-none max-w-none m-0 p-0 rounded-none border-none z-[9999]"
-                : "border border-white/20 dark:border-gray-800/50",
+                : "border-2 border-blue-200/50 dark:border-blue-700/50",
               theme === "dark" && "dark",
               getGradientBackground(activeMode),
               getBorderGradient(activeMode),
@@ -1684,29 +1693,73 @@ const AIChatbot = () => {
             exit="exit"
             variants={chatContainerVariants}
           >
-            {/* Header with glass effect */}
+            {/* Σχολικό στυλ Header */}
             <div
-              className="p-4 border-b border-white/20 dark:border-gray-800/50 flex justify-between items-center backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 xs:py-5 rounded-t-3xl"
+              className="relative p-4 border-b-2 border-blue-200/50 dark:border-blue-700/50 flex justify-between items-center bg-white/95 dark:bg-gray-800/95 xs:py-5 rounded-t-3xl overflow-hidden"
               style={{
                 backdropFilter: "blur(20px)",
                 WebkitBackdropFilter: "blur(20px)",
               }}
             >
-              <div className="flex items-center">
-                <div className="flex items-center">
+              {/* Notebook Lines Background */}
+              <div className="absolute inset-0 pointer-events-none">
+                {/* Horizontal lines */}
+                {[...Array(4)].map((_, i) => (
                   <div
-                    className={`bg-gradient-to-r ${currentModeConfig.gradient} p-2 rounded-xl mr-3 flex items-center justify-center shadow-lg`}
+                    key={`header-line-${i}`}
+                    className="absolute w-full h-px bg-blue-300/15 dark:bg-blue-300/15"
                     style={{
-                      boxShadow: `0 4px 12px rgba(${currentModeConfig.lightColor}, 0.3)`,
+                      top: `${20 + i * 15}%`,
+                      left: '8%',
+                      right: '4%'
                     }}
-                  >
-                    <currentModeConfig.icon className="h-4 w-4" isActive={true} forceWhite={true} />
+                  />
+                ))}
+                
+                {/* Red margin line */}
+                <div className="absolute left-8 top-0 bottom-0 w-px bg-red-400/30 dark:bg-red-400/30"></div>
+                
+                {/* Holes for binder */}
+                {[...Array(3)].map((_, i) => (
+                  <div
+                    key={`header-hole-${i}`}
+                    className="absolute w-1.5 h-1.5 rounded-full bg-blue-200/50 border border-blue-300/70 dark:bg-gray-600/30 dark:border-gray-500/50"
+                    style={{
+                      left: '4px',
+                      top: `${25 + i * 20}%`
+                    }}
+                  />
+                ))}
+              </div>
+
+              <div className="flex items-center relative z-10">
+                <div className="flex items-center">
+                  {/* School Badge */}
+                  <div className="relative mr-3">
+                    <div
+                      className={`bg-gradient-to-r ${currentModeConfig.gradient} p-2 rounded-xl flex items-center justify-center shadow-lg border-2 border-white/30`}
+                      style={{
+                        boxShadow: `0 4px 12px rgba(${currentModeConfig.lightColor}, 0.3)`,
+                      }}
+                    >
+                      <currentModeConfig.icon className="h-4 w-4" isActive={true} forceWhite={true} />
+                    </div>
+                    {/* Grade A+ Badge */}
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center border-2 border-white shadow-md">
+                      <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive', fontSize: '8px' }}>
+                        A+
+                      </span>
+                    </div>
                   </div>
                   <div>
-                    <h2 className="font-semibold text-base">{ui.header.title}</h2>
+                    <h2 className="font-semibold text-base text-slate-800 dark:text-white" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                      {ui.header.title}
+                    </h2>
                     <div className="flex items-center">
                       <span className="h-1.5 w-1.5 rounded-full bg-green-500 mr-1.5 animate-pulse"></span>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">{ui.header.online}</span>
+                      <span className="text-xs text-slate-600 dark:text-slate-400" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                        {ui.header.online}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -1878,7 +1931,7 @@ const AIChatbot = () => {
 
             {/* Messages area with subtle pattern */}
             <div
-              className={cn("flex-1 overflow-y-auto p-4 space-y-4 hide-scrollbar", getGradientBackground(activeMode))}
+              className={cn("flex-1 overflow-y-auto p-4 space-y-4", getGradientBackground(activeMode))}
               style={{
                 backgroundImage:
                   "radial-gradient(circle at 25px 25px, rgba(0, 0, 0, 0.01) 2%, transparent 0%), radial-gradient(circle at 75px 75px, rgba(0, 0, 0, 0.01) 2%, transparent 0%)",
@@ -2053,11 +2106,11 @@ const AIChatbot = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Suggestions with glass effect */}
+            {/* Σχολικό στυλ Suggestions */}
             <AnimatePresence>
               {showSuggestions && messages.length <= 2 && (
                 <motion.div
-                  className="px-4 py-3 bg-white/80 dark:bg-gray-900/80 border-t border-white/20 dark:border-gray-800/50 backdrop-blur-xl"
+                  className="relative px-4 py-3 bg-white/95 dark:bg-gray-800/95 border-t-2 border-blue-200/50 dark:border-blue-700/50 backdrop-blur-xl overflow-hidden"
                   style={{
                     backdropFilter: "blur(20px)",
                     WebkitBackdropFilter: "blur(20px)",
@@ -2067,8 +2120,14 @@ const AIChatbot = () => {
                   exit={{ opacity: 0, y: 20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="flex justify-between items-center mb-2">
-                    <h4 className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                  {/* Notebook Lines Background */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute w-full h-px bg-blue-300/15 dark:bg-blue-300/15" style={{ top: '50%', left: '8%', right: '4%' }}></div>
+                    <div className="absolute left-8 top-0 bottom-0 w-px bg-red-400/30 dark:bg-red-400/30"></div>
+                  </div>
+
+                  <div className="flex justify-between items-center mb-2 relative z-10">
+                    <h4 className="text-xs font-medium text-slate-600 dark:text-slate-400" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                       {ui.input.suggestedQuestions}
                     </h4>
                     <button
@@ -2089,10 +2148,11 @@ const AIChatbot = () => {
                         key={index}
                         onClick={() => handleSuggestionClick(suggestion)}
                         className={cn(
-                          "text-left text-sm p-3 rounded-xl bg-gray-50/70 dark:bg-gray-800/70 hover:bg-gray-100/70 dark:hover:bg-gray-700/70 transition-colors text-gray-700 dark:text-gray-300 border border-white/20 dark:border-gray-700/30 flex items-center justify-between group backdrop-blur-xl",
+                          "text-left text-sm p-3 rounded-xl bg-white/90 dark:bg-gray-800/90 hover:bg-blue-50/90 dark:hover:bg-gray-700/90 transition-colors text-slate-700 dark:text-slate-300 border-2 border-blue-200/50 dark:border-blue-700/50 flex items-center justify-between group backdrop-blur-xl shadow-sm",
                           isBusy && "opacity-50 cursor-not-allowed",
                         )}
                         style={{
+                          fontFamily: 'StampatelloFaceto, cursive',
                           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.02)",
                           backdropFilter: "blur(20px)",
                           WebkitBackdropFilter: "blur(20px)",
@@ -2116,18 +2176,49 @@ const AIChatbot = () => {
               )}
             </AnimatePresence>
 
-            {/* Input area with glass effect */}
+            {/* Σχολικό στυλ Input area */}
             <form
               onSubmit={handleSubmit}
-              className="p-4 border-t border-white/20 dark:border-gray-800/50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-b-3xl"
+              className="relative p-4 border-t-2 border-blue-200/50 dark:border-blue-700/50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-b-2xl overflow-hidden"
               style={{
                 backdropFilter: "blur(20px)",
                 WebkitBackdropFilter: "blur(20px)",
               }}
             >
+              {/* Notebook Lines Background */}
+              <div className="absolute inset-0 pointer-events-none">
+                {/* Horizontal lines */}
+                {[...Array(3)].map((_, i) => (
+                  <div
+                    key={`input-line-${i}`}
+                    className="absolute w-full h-px bg-blue-300/15 dark:bg-blue-300/15"
+                    style={{
+                      top: `${25 + i * 20}%`,
+                      left: '8%',
+                      right: '4%'
+                    }}
+                  />
+                ))}
+                
+                {/* Red margin line */}
+                <div className="absolute left-8 top-0 bottom-0 w-px bg-red-400/30 dark:bg-red-400/30"></div>
+                
+                {/* Holes for binder */}
+                {[...Array(2)].map((_, i) => (
+                  <div
+                    key={`input-hole-${i}`}
+                    className="absolute w-1.5 h-1.5 rounded-full bg-blue-200/50 border border-blue-300/70 dark:bg-gray-600/30 dark:border-gray-500/50"
+                    style={{
+                      left: '4px',
+                      top: `${30 + i * 30}%`
+                    }}
+                  />
+                ))}
+              </div>
+
               {/* Input with buttons */}
-              <div className="relative">
-                <div className="relative rounded-2xl overflow-hidden shadow-lg border border-white/30 dark:border-gray-700/50 focus-within:border-[#81a1d4]/70 focus-within:ring-2 focus-within:ring-[#81a1d4]/30 transition-all bg-white/80 dark:bg-gray-800/80 backdrop-blur-md">
+              <div className="relative z-10">
+                <div className="relative rounded-xl overflow-hidden shadow-lg border-2 border-blue-200/50 dark:border-blue-700/50 focus-within:border-blue-400/70 focus-within:ring-2 focus-within:ring-blue-400/30 transition-all bg-white/90 dark:bg-gray-800/90 backdrop-blur-md">
                   <Input
                     ref={inputRef}
                     type="text"
@@ -2135,10 +2226,11 @@ const AIChatbot = () => {
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder={isListening ? "Listening..." : ui.input.placeholder}
                     className={cn(
-                      "w-full p-3 pr-20 border-0 focus:ring-0 bg-transparent text-gray-900 dark:text-gray-100 outline-none text-sm",
+                      "w-full p-3 pr-20 border-0 focus:ring-0 bg-transparent text-slate-800 dark:text-slate-100 outline-none text-sm",
                       isBusy && "opacity-75 cursor-not-allowed",
-                      isListening && "pr-24 border-[#81a1d4]/50 dark:border-[#6b8bc4]/50",
+                      isListening && "pr-24 border-blue-400/50 dark:border-blue-400/50",
                     )}
+                    style={{ fontFamily: 'StampatelloFaceto, cursive' }}
                     disabled={isBusy}
                   />
 
@@ -2357,7 +2449,12 @@ const AIChatbot = () => {
               <div className="mt-2 text-xs text-center text-gray-400 dark:text-gray-500">
                 {isBusy && (
                   <div className="mb-2 text-red-500 font-medium animate-pulse">
-                    {isGreekPath ? "Πατήστε το κουμπί STOP ή το πλήκτρο ESC για να σταματήσει η απάντηση" : "Press STOP button or ESC key to stop response"}
+                    {isGreekPath 
+                      ? "Πατήστε το κουμπί STOP ή το πλήκτρο ESC για να σταματήσει η απάντηση" 
+                      : language === 'fr' 
+                        ? "Appuyez sur le bouton STOP ou la touche ESC pour arrêter la réponse"
+                        : "Press STOP button or ESC key to stop response"
+                    }
                   </div>
                 )}
                 {ui.footer.disclaimer}
@@ -2432,43 +2529,88 @@ const AIChatbot = () => {
             whileTap={{ scale: 0.95 }}
             aria-label="Open chat"
           >
-            {/* Διορθωμένο bubble με σωστή τοποθέτηση του SVG */}
+            {/* Σχολικό στυλ bubble με τετράδιο */}
 
             <div className="relative">
-              {/* Matte light blue bubble background, no glow */}
-              <div className="relative w-14 h-14 rounded-full overflow-hidden flex items-center justify-center" style={{backgroundColor: '#81a1d4'}}>
+              {/* Σχολικό τετράδιο bubble background */}
+              <div className="relative w-14 h-14 rounded-2xl overflow-hidden flex items-center justify-center bg-white/95 shadow-lg border-2 border-blue-200/50">
+                {/* Notebook Lines Background */}
+                <div className="absolute inset-0 pointer-events-none">
+                  {/* Horizontal lines */}
+                  {[...Array(6)].map((_, i) => (
+                    <div
+                      key={`line-${i}`}
+                      className="absolute w-full h-px bg-blue-300/20"
+                      style={{
+                        top: `${15 + i * 12}%`,
+                        left: '8%',
+                        right: '4%'
+                      }}
+                    />
+                  ))}
+                  
+                  {/* Red margin line */}
+                  <div className="absolute left-3 top-0 bottom-0 w-px bg-red-400/30"></div>
+                  
+                  {/* Holes for binder */}
+                  {[...Array(3)].map((_, i) => (
+                    <div
+                      key={`hole-${i}`}
+                      className="absolute w-1 h-1 rounded-full bg-blue-200/60 border border-blue-300/70"
+                      style={{
+                        left: '2px',
+                        top: `${20 + i * 25}%`
+                      }}
+                    />
+                  ))}
+                </div>
+
                 {/* Icon - custom SVG, centered */}
                 <span className="relative z-10 flex items-center justify-center w-full h-full">
                   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
-                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" stroke="#fafafa" strokeWidth="1.5"></path>
-                    <path d="M12 16V8" stroke="#fafafa" strokeWidth="1.5" strokeLinecap="round"></path>
-                    <path d="M8 14V10" stroke="#fafafa" strokeWidth="1.5" strokeLinecap="round"></path>
-                    <path d="M16 14V10" stroke="#fafafa" strokeWidth="1.5" strokeLinecap="round"></path>
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" stroke="#4a90e2" strokeWidth="1.5"></path>
+                    <path d="M12 16V8" stroke="#4a90e2" strokeWidth="1.5" strokeLinecap="round"></path>
+                    <path d="M8 14V10" stroke="#4a90e2" strokeWidth="1.5" strokeLinecap="round"></path>
+                    <path d="M16 14V10" stroke="#4a90e2" strokeWidth="1.5" strokeLinecap="round"></path>
                   </svg>
                 </span>
               </div>
 
-              {/* Online indicator */}
+              {/* School Grade Badge */}
               <div className="absolute -bottom-0.5 -right-0.5">
                 <div className="relative w-4 h-4">
-                  {/* Matte lime green badge, no glow */}
-                  <div className="absolute inset-0 rounded-full bg-lime-500"></div>
+                  {/* Grade A+ Badge */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 border border-white shadow-md flex items-center justify-center">
+                    <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive', fontSize: '8px' }}>
+                      A+
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Animated tooltip with gradient blue colors - positioned higher */}
+            {/* Σχολικό στυλ tooltip */}
             {isHovered && (
               <motion.div
                 className="absolute right-full mr-3 pointer-events-none z-50"
                 initial={{ opacity: 0, scale: 0.8, x: 10 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
-                style={{ top: "20%" }} // Moved even higher (was 30%)
+                style={{ top: "20%" }}
               >
-                <div className="text-white text-sm py-2 px-4 rounded-lg shadow-lg whitespace-nowrap border backdrop-blur-sm" style={{background: 'linear-gradient(to right, #81a1d4, #6b8bc4)', borderColor: 'rgba(129, 161, 212, 0.2)'}}>
-                  Chat with ΑΛΦΑ AI
-                  <div className="absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 rotate-45 w-2.5 h-2.5" style={{backgroundColor: '#6b8bc4'}}></div>
+                <div className="relative bg-white/95 border-2 border-blue-200/50 rounded-xl shadow-lg whitespace-nowrap backdrop-blur-sm overflow-hidden">
+                  {/* Notebook Lines Background */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute w-full h-px bg-blue-300/15" style={{ top: '50%', left: '10%', right: '10%' }}></div>
+                    <div className="absolute left-3 top-0 bottom-0 w-px bg-red-400/20"></div>
+                  </div>
+                  
+                  <div className="relative z-10 text-slate-800 text-sm py-2 px-4" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                    💬 Chat με ΑΛΦΑ AI
+                  </div>
+                  
+                  {/* Arrow */}
+                  <div className="absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 rotate-45 w-2.5 h-2.5 bg-white border-r-2 border-b-2 border-blue-200/50"></div>
                 </div>
               </motion.div>
             )}

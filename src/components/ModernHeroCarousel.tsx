@@ -6,6 +6,8 @@ import { ChevronLeft, ChevronRight, Play, Pause, ArrowRight, GraduationCap, Book
 import SplitText from "./SplitText"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { useTheme } from "@/contexts/ThemeContext"
+import { useChristmasTheme } from "@/contexts/ChristmasThemeContext"
+import { SantaIcon, ChristmasTreeIcon, ReindeerIcon, GiftBoxIcon, BellIcon } from "./ChristmasIcons"
 
 interface CarouselSlide {
   id: number
@@ -84,12 +86,12 @@ const getCarouselData = (t: (key: string) => string | string[]): CarouselSlide[]
 ]
 
 // Beautiful school-themed floating elements
-const schoolElements = [
-  { Icon: BookOpen, delay: 0, position: { top: '12%', left: '8%' }, type: 'notebook', size: 'w-6 h-6' },
-  { Icon: GraduationCap, delay: 1, position: { top: '68%', right: '12%' }, type: 'badge', size: 'w-7 h-7' },
-  { Icon: Pencil, delay: 2, position: { top: '25%', left: '5%' }, type: 'pencil', size: 'w-5 h-5' },
-  { Icon: Ruler, delay: 3, position: { top: '45%', right: '8%' }, type: 'ruler', size: 'w-6 h-6' },
-  { Icon: Calculator, delay: 4, position: { top: '75%', left: '10%' }, type: 'calculator', size: 'w-5 h-5' },
+const getSchoolElements = (isChristmasMode: boolean) => [
+  { Icon: isChristmasMode ? SantaIcon : BookOpen, delay: 0, position: { top: '12%', left: '8%' }, type: 'notebook', size: 'w-6 h-6' },
+  { Icon: isChristmasMode ? ChristmasTreeIcon : GraduationCap, delay: 1, position: { top: '68%', right: '12%' }, type: 'badge', size: 'w-7 h-7' },
+  { Icon: isChristmasMode ? ReindeerIcon : Pencil, delay: 2, position: { top: '25%', left: '5%' }, type: 'pencil', size: 'w-5 h-5' },
+  { Icon: isChristmasMode ? GiftBoxIcon : Ruler, delay: 3, position: { top: '45%', right: '8%' }, type: 'ruler', size: 'w-6 h-6' },
+  { Icon: isChristmasMode ? BellIcon : Calculator, delay: 4, position: { top: '75%', left: '10%' }, type: 'calculator', size: 'w-5 h-5' },
   { Icon: PenTool, delay: 5, position: { top: '35%', right: '15%' }, type: 'pen', size: 'w-5 h-5' },
   { Icon: BookMarked, delay: 6, position: { top: '55%', left: '3%' }, type: 'bookmark', size: 'w-4 h-4' },
   { Icon: School, delay: 7, position: { top: '15%', right: '5%' }, type: 'school', size: 'w-6 h-6' }
@@ -101,8 +103,10 @@ export default function ModernHeroCarousel() {
   const [isHovered, setIsHovered] = useState(false)
   const { t } = useLanguage()
   const { isDarkMode } = useTheme()
+  const { isChristmasMode } = useChristmasTheme()
   
   const carouselData = getCarouselData(t)
+  const schoolElements = getSchoolElements(isChristmasMode)
 
   // Auto-play functionality
   useEffect(() => {

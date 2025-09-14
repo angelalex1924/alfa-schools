@@ -47,9 +47,11 @@ import Image from "next/image"
 import { useTheme } from "@/contexts/ThemeContext"
 import { LanguageSwitcher } from "./LanguageSwitcher"
 import { useLanguage } from "@/contexts/LanguageContext"
+import { useChristmasTheme } from "@/contexts/ChristmasThemeContext"
 import { GamesIcon } from "./custom-icons"
 import { AnniversaryText } from "./AnniversaryText"
 import LanguageIcon from "./LanguageIcon"
+import { SantaIcon, ChristmasTreeIcon, ReindeerIcon, GiftBoxIcon, BellIcon } from "./ChristmasIcons"
 
 // AcronAI SVG Icon
 const AcronAIIcon = ({ className }: { className?: string }) => (
@@ -225,6 +227,16 @@ const MobileNav = ({ items }: MobileNavProps) => {
     }
   }, [isOpen])
 
+  // Listen for language change events to close mobile menu
+  useEffect(() => {
+    const handleCloseMobileMenu = () => {
+      setIsOpen(false)
+    }
+
+    window.addEventListener('closeMobileMenu', handleCloseMobileMenu)
+    return () => window.removeEventListener('closeMobileMenu', handleCloseMobileMenu)
+  }, [])
+
   useEffect(() => {
     // Set animation complete after items have animated in
     if (isOpen) {
@@ -279,48 +291,49 @@ const MobileNav = ({ items }: MobileNavProps) => {
   }
 
   // Main navigation links - Same as GlowMenu with proper branding colors
-    const mainNavigationLinks = [
-      {
-        label: t('navigation.home'),
-        href: "/",
-        icon: Home,
-      color: "bg-gradient-to-br from-blue-500 to-blue-600",
-      hoverEffect: "hover:shadow-blue-500/20",
+  const { isChristmasMode } = useChristmasTheme()
+  const mainNavigationLinks = [
+    {
+      label: t('navigation.home'),
+      href: "/",
+      icon: isChristmasMode ? SantaIcon : Home,
+      color: isChristmasMode ? "bg-gradient-to-br from-red-500 to-red-600" : "bg-gradient-to-br from-blue-500 to-blue-600",
+      hoverEffect: isChristmasMode ? "hover:shadow-red-500/20" : "hover:shadow-blue-500/20",
     },
     {
       label: t('navigation.services'),
       href: "/services",
-      icon: ServicesIcon,
-      color: "bg-gradient-to-br from-[#c9b6e4] to-[#a78fd8]",
-      hoverEffect: "hover:shadow-[#c9b6e4]/20",
+      icon: isChristmasMode ? ChristmasTreeIcon : ServicesIcon,
+      color: isChristmasMode ? "bg-gradient-to-br from-green-500 to-green-600" : "bg-gradient-to-br from-[#c9b6e4] to-[#a78fd8]",
+      hoverEffect: isChristmasMode ? "hover:shadow-green-500/20" : "hover:shadow-[#c9b6e4]/20",
     },
     {
       label: t('navigation.news'),
       href: "/articles",
-      icon: Newspaper,
-      color: "bg-gradient-to-br from-[#f78da7] to-[#f06292]",
-      hoverEffect: "hover:shadow-[#f78da7]/20",
+      icon: isChristmasMode ? BellIcon : Newspaper,
+      color: isChristmasMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : "bg-gradient-to-br from-[#f78da7] to-[#f06292]",
+      hoverEffect: isChristmasMode ? "hover:shadow-yellow-500/20" : "hover:shadow-[#f78da7]/20",
     },
     {
       label: t('navigation.whyUs'),
       href: "/why-us",
-      icon: Users,
-      color: "bg-gradient-to-br from-[#fabeb6] to-[#f8a5a5]",
-      hoverEffect: "hover:shadow-[#fabeb6]/20",
+      icon: isChristmasMode ? ReindeerIcon : Users,
+      color: isChristmasMode ? "bg-gradient-to-br from-amber-600 to-amber-700" : "bg-gradient-to-br from-[#fabeb6] to-[#f8a5a5]",
+      hoverEffect: isChristmasMode ? "hover:shadow-amber-500/20" : "hover:shadow-[#fabeb6]/20",
     },
     {
       label: t('navigation.games'),
       href: "/games",
-      icon: GamesIcon,
-      color: "bg-gradient-to-br from-[#a8e6cf] to-[#88d8a3]",
-      hoverEffect: "hover:shadow-[#a8e6cf]/20",
+      icon: isChristmasMode ? GiftBoxIcon : GamesIcon,
+      color: isChristmasMode ? "bg-gradient-to-br from-red-500 to-red-600" : "bg-gradient-to-br from-[#a8e6cf] to-[#88d8a3]",
+      hoverEffect: isChristmasMode ? "hover:shadow-red-500/20" : "hover:shadow-[#a8e6cf]/20",
     },
     {
       label: t('navigation.contact'),
       href: "/contact",
       icon: Phone,
-      color: "bg-gradient-to-br from-[#fde7dc] to-[#fad4c4]",
-      hoverEffect: "hover:shadow-[#fde7dc]/20",
+      color: isChristmasMode ? "bg-gradient-to-br from-green-500 to-green-600" : "bg-gradient-to-br from-[#fde7dc] to-[#fad4c4]",
+      hoverEffect: isChristmasMode ? "hover:shadow-green-500/20" : "hover:shadow-[#fde7dc]/20",
     },
   ]
 
@@ -412,6 +425,32 @@ const MobileNav = ({ items }: MobileNavProps) => {
           <div className={`absolute inset-0 backdrop-blur-3xl ${isDarkMode ? 'bg-[#0f172a]/15' : 'bg-[#81a1d4]/10'}`}></div>
           <div className={`absolute inset-0 bg-gradient-to-r ${isDarkMode ? 'from-[#0f172a]/8 via-[#0f172a]/12 to-[#0f172a]/8' : 'from-[#81a1d4]/5 via-[#81a1d4]/8 to-[#81a1d4]/5'}`}></div>
           <div className="absolute inset-0 bg-white/5 backdrop-blur-2xl"></div>
+          
+          {/* Σχολικές πινελιές - Notebook lines */}
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute left-0 top-0 w-full h-full" style={{
+              backgroundImage: `repeating-linear-gradient(
+                transparent,
+                transparent 20px,
+                ${isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'} 20px,
+                ${isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'} 21px
+              )`
+            }}></div>
+            {/* Κόκκινη γραμμή αριστερά */}
+            <div className={`absolute left-6 top-0 w-0.5 h-full ${isDarkMode ? 'bg-red-400/50' : 'bg-red-500/60'}`}></div>
+            
+            {/* Binder holes */}
+            <div className="absolute left-1 top-1/2 transform -translate-y-1/2 flex flex-col gap-3">
+              <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
+              <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
+              <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
+            </div>
+            
+            {/* Σχολικές πινελιές - Random ink spots */}
+            <div className="absolute top-4 right-8 w-1 h-1 bg-blue-400/30 rounded-full"></div>
+            <div className="absolute top-12 left-16 w-0.5 h-0.5 bg-gray-400/40 rounded-full"></div>
+            <div className="absolute bottom-6 right-12 w-0.5 h-0.5 bg-gray-400/40 rounded-full"></div>
+          </div>
         </div>
         
         <div className="flex items-center justify-between p-1 px-3 mx-auto relative z-10">
@@ -470,6 +509,30 @@ const MobileNav = ({ items }: MobileNavProps) => {
               </motion.div>
             </Link>
             
+            {/* Χριστουγεννιάτικο Δέντρο δίπλα από το logo στο Mobile */}
+            {isChristmasMode && (
+              <motion.div
+                className="ml-1"
+                initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, delay: 1.2, type: "spring", stiffness: 200 }}
+              >
+                <motion.div
+                  animate={{
+                    rotate: [0, 5, -5, 0],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <ChristmasTreeIcon className="w-6 h-6 text-green-500" />
+                </motion.div>
+              </motion.div>
+            )}
+            
             {/* 40 Years Anniversary Text for Mobile */}
             <motion.div
               initial={{ opacity: 0, x: -15 }}
@@ -500,15 +563,21 @@ const MobileNav = ({ items }: MobileNavProps) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                // Toggle language functionality
-                setLanguage(language === 'el' ? 'en' : 'el')
+                // Cycle through languages: el -> en -> fr -> el
+                if (language === 'el') {
+                  setLanguage('en')
+                } else if (language === 'en') {
+                  setLanguage('fr')
+                } else {
+                  setLanguage('el')
+                }
               }}
             >
                 <div className="relative">
                   <LanguageIcon className="w-6 h-5" />
                   {/* Language Badge */}
                   <div className="absolute -top-2 -right-2 bg-gradient-to-br from-blue-500 to-blue-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg border border-blue-400/30" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                    {language === 'el' ? 'EN' : 'EL'}
+                    {language === 'el' ? 'EL' : language === 'en' ? 'EN' : 'FR'}
                   </div>
                 </div>
             </motion.button>
@@ -831,12 +900,12 @@ const MobileNav = ({ items }: MobileNavProps) => {
                                   ? 'text-blue-100' 
                                   : 'text-gray-600 dark:text-white/80'
                               }`}>
-                                {link.label === t('navigation.home') && (t('navigation.homeDescription') || "Αρχική σελίδα")}
-                                {link.label === t('navigation.services') && (t('navigation.servicesDescription') || "Εξειδικευμένες υπηρεσίες")}
-                                {link.label === t('navigation.news') && (t('navigation.newsDescription') || "Τελευταία νέα και ενημερώσεις")}
-                                {link.label === t('navigation.whyUs') && (t('navigation.whyUsDescription') || "Ανακαλύψτε τα πλεονεκτήματά μας")}
-                                {link.label === t('navigation.games') && (t('navigation.gamesDescription') || "Διαδραστικά παιχνίδια για μάθηση")}
-                                {link.label === t('navigation.contact') && (t('navigation.contactDescription') || "Επικοινωνήστε μαζί μας")}
+                                {link.label === t('navigation.home') && t('navigation.homeDescription')}
+                                {link.label === t('navigation.services') && t('navigation.servicesDescription')}
+                                {link.label === t('navigation.news') && t('navigation.newsDescription')}
+                                {link.label === t('navigation.whyUs') && t('navigation.whyUsDescription')}
+                                {link.label === t('navigation.games') && t('navigation.gamesDescription')}
+                                {link.label === t('navigation.contact') && t('navigation.contactDescription')}
                               </p>
                             </div>
                             

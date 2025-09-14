@@ -352,3 +352,64 @@ body.mobile-menu-open {
 .animate-fade-in-up {
   animation: fade-in-up 0.8s ease-out forwards;
 }
+
+/* Global Custom Scrollbar Styling */
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(129, 161, 212, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(129, 161, 212, 0.6) 0%, rgba(107, 139, 196, 0.8) 100%);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(129, 161, 212, 0.8) 0%, rgba(107, 139, 196, 1) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 8px rgba(129, 161, 212, 0.3);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg, rgba(107, 139, 196, 0.9) 0%, rgba(129, 161, 212, 1) 100%);
+}
+
+::-webkit-scrollbar-corner {
+  background: rgba(129, 161, 212, 0.1);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(129, 161, 212, 0.6) rgba(129, 161, 212, 0.1);
+}
+
+/* Dark mode adjustments */
+.dark ::-webkit-scrollbar-track {
+  background: rgba(129, 161, 212, 0.05);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(129, 161, 212, 0.4) 0%, rgba(107, 139, 196, 0.6) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(129, 161, 212, 0.6) 0%, rgba(107, 139, 196, 0.8) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 8px rgba(129, 161, 212, 0.2);
+}
+
+.dark ::-webkit-scrollbar-corner {
+  background: rgba(129, 161, 212, 0.05);
+}
+
+.dark * {
+  scrollbar-color: rgba(129, 161, 212, 0.4) rgba(129, 161, 212, 0.05);
+}

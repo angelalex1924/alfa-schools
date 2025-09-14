@@ -17,6 +17,8 @@ export interface Article {
   viewCount: number;
   readingTime: number;
   expert?: string;
+  articleImage?: string;
+  profilePhoto?: string; // Backward compatibility
   // English translations
   titleEn?: string;
   excerptEn?: string;
@@ -44,6 +46,7 @@ export interface ArticleFormData {
   viewCount: number;
   readingTime: number;
   expert: string;
+  articleImage: string;
   // English translations
   titleEn: string;
   excerptEn: string;
