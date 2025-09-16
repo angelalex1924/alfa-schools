@@ -6,6 +6,10 @@ import { ChevronLeft, ChevronRight, Play, Pause, ArrowRight, GraduationCap, Book
 import { useLanguage } from "@/contexts/LanguageContext"
 import { useTheme } from "@/contexts/ThemeContext"
 import { useChristmasTheme } from "@/contexts/ChristmasThemeContext"
+import { useHalloweenTheme } from "@/contexts/HalloweenThemeContext"
+import { useCarnivalTheme } from "@/contexts/CarnivalThemeContext"
+import { useEasterTheme } from "@/contexts/EasterThemeContext"
+import { useSummerTheme } from "@/contexts/SummerThemeContext"
 import { SantaIcon, ChristmasTreeIcon, ReindeerIcon, GiftBoxIcon, BellIcon } from "./ChristmasIcons"
 
 interface CarouselSlide {
@@ -91,8 +95,95 @@ export default function MobileNotebookCarousel() {
   const { t } = useLanguage()
   const { isDarkMode } = useTheme()
   const { isChristmasMode } = useChristmasTheme()
+  const { isHalloweenMode } = useHalloweenTheme()
+  const { isCarnivalMode } = useCarnivalTheme()
+  const { isEasterMode } = useEasterTheme()
+  const { isSummerMode } = useSummerTheme()
   
   const carouselData = getCarouselData(t)
+
+  // Theme-based styling functions
+  const getThemeColors = () => {
+    if (isChristmasMode) {
+      return {
+        primary: '#dc2626', // Red
+        secondary: '#16a34a', // Green
+        accent: '#fbbf24', // Gold
+        gradient: 'linear-gradient(135deg, #dc2626 0%, #16a34a 100%)',
+        buttonGradient: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
+        sparkle1: '#fbbf24', // Gold
+        sparkle2: '#dc2626', // Red
+        corner: '#16a34a' // Green
+      }
+    } else if (isHalloweenMode) {
+      return {
+        primary: '#ea580c', // Orange
+        secondary: '#7c2d12', // Dark orange
+        accent: '#fbbf24', // Gold
+        gradient: 'linear-gradient(135deg, #ea580c 0%, #7c2d12 100%)',
+        buttonGradient: 'linear-gradient(135deg, #ea580c 0%, #c2410c 100%)',
+        sparkle1: '#fbbf24', // Gold
+        sparkle2: '#ea580c', // Orange
+        corner: '#7c2d12' // Dark orange
+      }
+    } else if (isCarnivalMode) {
+      return {
+        primary: '#7c3aed', // Purple
+        secondary: '#ec4899', // Pink
+        accent: '#fbbf24', // Gold
+        gradient: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+        buttonGradient: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
+        sparkle1: '#fbbf24', // Gold
+        sparkle2: '#ec4899', // Pink
+        corner: '#7c3aed' // Purple
+      }
+    } else if (isEasterMode) {
+      return {
+        primary: '#ec4899', // Pink
+        secondary: '#22c55e', // Green
+        accent: '#fbbf24', // Gold
+        gradient: 'linear-gradient(135deg, #ec4899 0%, #22c55e 100%)',
+        buttonGradient: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
+        sparkle1: '#fbbf24', // Gold
+        sparkle2: '#22c55e', // Green
+        corner: '#ec4899' // Pink
+      }
+    } else if (isSummerMode) {
+      return {
+        primary: '#f59e0b', // Amber
+        secondary: '#06b6d4', // Cyan
+        accent: '#fbbf24', // Gold
+        gradient: 'linear-gradient(135deg, #f59e0b 0%, #06b6d4 100%)',
+        buttonGradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+        sparkle1: '#fbbf24', // Gold
+        sparkle2: '#06b6d4', // Cyan
+        corner: '#f59e0b' // Amber
+      }
+    } else {
+      return {
+        primary: '#2563eb', // Blue
+        secondary: '#1d4ed8', // Dark blue
+        accent: '#fbbf24', // Gold
+        gradient: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+        buttonGradient: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+        sparkle1: '#fbbf24', // Gold
+        sparkle2: '#2563eb', // Blue
+        corner: '#2563eb' // Blue
+      }
+    }
+  }
+
+  const getThemeIcon = () => {
+    if (isChristmasMode) return '🎄'
+    if (isHalloweenMode) return '🎃'
+    if (isCarnivalMode) return '🎭'
+    if (isEasterMode) return '🐰'
+    if (isSummerMode) return '☀️'
+    return '⭐'
+  }
+
+  const themeColors = getThemeColors()
+  const themeIcon = getThemeIcon()
 
   // Detect mobile device
   useEffect(() => {
@@ -200,13 +291,22 @@ export default function MobileNotebookCarousel() {
                />
                
                {/* Grade Badge on Logo */}
-               <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg border border-white/50">
-                 <span className="text-white text-lg font-bold">⭐</span>
+               <div 
+                 className="absolute -top-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center shadow-lg border border-white/50"
+                 style={{ background: themeColors.gradient }}
+               >
+                 <span className="text-white text-lg font-bold">{themeIcon}</span>
                </div>
                
                {/* Decorative sparkles */}
-               <div className={`absolute -top-1 -left-1 w-2 h-2 bg-yellow-400 rounded-full opacity-75 ${isMobile ? '' : 'animate-ping'}`}></div>
-               <div className={`absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-blue-400 rounded-full ${isMobile ? '' : 'animate-pulse'}`}></div>
+               <div 
+                 className={`absolute -top-1 -left-1 w-2 h-2 rounded-full opacity-75 ${isMobile ? '' : 'animate-ping'}`}
+                 style={{ backgroundColor: themeColors.sparkle1 }}
+               ></div>
+               <div 
+                 className={`absolute -bottom-1 -left-1 w-1.5 h-1.5 rounded-full ${isMobile ? '' : 'animate-pulse'}`}
+                 style={{ backgroundColor: themeColors.sparkle2 }}
+               ></div>
              </div>
              
                {/* Since 1986 Badge - School Style */}
@@ -268,18 +368,30 @@ export default function MobileNotebookCarousel() {
             </div>
             
             {/* Enhanced corner decorations */}
-            <div className={`absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center shadow-md ${isMobile ? '' : 'animate-pulse'}`}>
+            <div 
+              className={`absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center shadow-md ${isMobile ? '' : 'animate-pulse'}`}
+              style={{ backgroundColor: themeColors.corner }}
+            >
               <Star className="w-4 h-4 text-white" />
             </div>
             
             {/* School badge decoration */}
-            <div className="absolute -bottom-2 -left-2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-md">
+            <div 
+              className="absolute -bottom-2 -left-2 w-8 h-8 rounded-full flex items-center justify-center shadow-md"
+              style={{ backgroundColor: themeColors.primary }}
+            >
               <GraduationCap className="w-4 h-4 text-white" />
             </div>
             
             {/* Decorative corner lines */}
-            <div className="absolute top-2 left-2 w-8 h-8 border-l-2 border-t-2 border-blue-400 opacity-60"></div>
-            <div className="absolute bottom-2 right-2 w-8 h-8 border-r-2 border-b-2 border-green-400 opacity-60"></div>
+            <div 
+              className="absolute top-2 left-2 w-8 h-8 border-l-2 border-t-2 opacity-60"
+              style={{ borderColor: themeColors.primary }}
+            ></div>
+            <div 
+              className="absolute bottom-2 right-2 w-8 h-8 border-r-2 border-b-2 opacity-60"
+              style={{ borderColor: themeColors.secondary }}
+            ></div>
           </div>
 
           {/* Description - School Notebook Style */}
@@ -372,7 +484,11 @@ export default function MobileNotebookCarousel() {
             <div className="relative group">
               <Button
                 size="lg"
-                className={`bg-gradient-to-r from-blue-600 to-blue-700 ${isMobile ? '' : 'hover:from-blue-700 hover:to-blue-800'} text-white px-10 py-4 rounded-xl shadow-xl ${isMobile ? '' : 'transition-all duration-300 hover:scale-105 hover:shadow-2xl'} font-bold border-2 border-blue-500/30 relative overflow-hidden`}
+                className={`text-white px-10 py-4 rounded-xl shadow-xl ${isMobile ? '' : 'transition-all duration-300 hover:scale-105 hover:shadow-2xl'} font-bold border-2 relative overflow-hidden`}
+                style={{ 
+                  background: themeColors.buttonGradient,
+                  borderColor: `${themeColors.primary}50`
+                }}
               >
                 {/* Subtle background pattern */}
                 <div className="absolute inset-0 opacity-10">
@@ -390,15 +506,27 @@ export default function MobileNotebookCarousel() {
               </Button>
               
                {/* Grade Badge on Button */}
-               <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg border border-white/50 relative">
+               <div 
+                 className="absolute -top-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center shadow-lg border border-white/50 relative"
+                 style={{ background: themeColors.gradient }}
+               >
                  <span className="text-white text-lg font-bold drop-shadow-sm">🎯</span>
                  {/* Subtle glow effect */}
-                 <div className="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-cyan-500/20 rounded-full blur-sm"></div>
+                 <div 
+                   className="absolute inset-0 rounded-full blur-sm"
+                   style={{ background: `${themeColors.primary}20` }}
+                 ></div>
                </div>
               
               {/* Decorative sparkles */}
-              <div className={`absolute -top-1 -left-1 w-2 h-2 bg-yellow-400 rounded-full opacity-75 ${isMobile ? '' : 'animate-ping'}`}></div>
-              <div className={`absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-green-400 rounded-full ${isMobile ? '' : 'animate-pulse'}`}></div>
+              <div 
+                className={`absolute -top-1 -left-1 w-2 h-2 rounded-full opacity-75 ${isMobile ? '' : 'animate-ping'}`}
+                style={{ backgroundColor: themeColors.sparkle1 }}
+              ></div>
+              <div 
+                className={`absolute -bottom-1 -left-1 w-1.5 h-1.5 rounded-full ${isMobile ? '' : 'animate-pulse'}`}
+                style={{ backgroundColor: themeColors.sparkle2 }}
+              ></div>
             </div>
           </div>
 
@@ -512,11 +640,14 @@ export default function MobileNotebookCarousel() {
               onClick={() => goToSlide(index)}
               className={`w-2 h-2 rounded-full transition-colors duration-200 ${
                 index === currentSlide
-                  ? "bg-blue-600"
+                  ? ""
                   : isDarkMode 
                     ? "bg-gray-600 hover:bg-gray-500"
                     : "bg-gray-300 hover:bg-gray-400"
               }`}
+              style={{
+                backgroundColor: index === currentSlide ? themeColors.primary : undefined
+              }}
             />
           ))}
         </div>
@@ -524,32 +655,59 @@ export default function MobileNotebookCarousel() {
         {/* Enhanced School Elements */}
         <div className={`absolute top-20 right-4 opacity-20 ${isMobile ? '' : 'animate-bounce'}`}>
           <div className="relative">
-            <BookOpen className={`w-6 h-6 ${isDarkMode ? 'text-blue-300' : 'text-blue-400'}`} />
-            <div className={`absolute -top-1 -right-1 w-2 h-2 bg-blue-400 rounded-full ${isMobile ? '' : 'animate-ping'}`}></div>
+            <BookOpen 
+              className="w-6 h-6" 
+              style={{ color: themeColors.primary }}
+            />
+            <div 
+              className={`absolute -top-1 -right-1 w-2 h-2 rounded-full ${isMobile ? '' : 'animate-ping'}`}
+              style={{ backgroundColor: themeColors.primary }}
+            ></div>
           </div>
         </div>
         <div className={`absolute bottom-20 left-4 opacity-20 ${isMobile ? '' : 'animate-pulse'}`}>
           <div className="relative">
-            <Pencil className={`w-5 h-5 ${isDarkMode ? 'text-orange-300' : 'text-orange-400'}`} />
-            <div className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-orange-400 rounded-full"></div>
+            <Pencil 
+              className="w-5 h-5" 
+              style={{ color: themeColors.secondary }}
+            />
+            <div 
+              className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full"
+              style={{ backgroundColor: themeColors.secondary }}
+            ></div>
           </div>
         </div>
         <div className={`absolute top-1/2 right-8 opacity-20 ${isMobile ? '' : 'animate-bounce'}`}>
           <div className="relative">
-            <Ruler className={`w-5 h-5 ${isDarkMode ? 'text-green-300' : 'text-green-400'}`} />
-            <div className={`absolute -top-1 -right-1 w-1.5 h-1.5 bg-green-400 rounded-full ${isMobile ? '' : 'animate-pulse'}`}></div>
+            <Ruler 
+              className="w-5 h-5" 
+              style={{ color: themeColors.accent }}
+            />
+            <div 
+              className={`absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full ${isMobile ? '' : 'animate-pulse'}`}
+              style={{ backgroundColor: themeColors.accent }}
+            ></div>
           </div>
         </div>
         
         {/* Additional decorative elements */}
         <div className="absolute top-32 left-8 opacity-15">
-          <Calculator className={`w-4 h-4 ${isDarkMode ? 'text-purple-300' : 'text-purple-400'}`} />
+          <Calculator 
+            className="w-4 h-4" 
+            style={{ color: themeColors.primary }}
+          />
         </div>
         <div className="absolute bottom-32 right-12 opacity-15">
-          <PenTool className={`w-4 h-4 ${isDarkMode ? 'text-pink-300' : 'text-pink-400'}`} />
+          <PenTool 
+            className="w-4 h-4" 
+            style={{ color: themeColors.secondary }}
+          />
         </div>
         <div className="absolute top-1/3 left-12 opacity-15">
-          <BookMarked className={`w-4 h-4 ${isDarkMode ? 'text-red-300' : 'text-red-400'}`} />
+          <BookMarked 
+            className="w-4 h-4" 
+            style={{ color: themeColors.accent }}
+          />
         </div>
       </div>
     </div>

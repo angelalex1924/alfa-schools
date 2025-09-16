@@ -37,6 +37,11 @@ import {
 import { getArticleBySlug, incrementViewCount } from '@/lib/firebase-articles';
 import type { Article } from '@/lib/types';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useChristmasTheme } from '@/contexts/ChristmasThemeContext';
+import { useHalloweenTheme } from '@/contexts/HalloweenThemeContext';
+import { useEasterTheme } from '@/contexts/EasterThemeContext';
+import { useCarnivalTheme } from '@/contexts/CarnivalThemeContext';
+import { useSummerTheme } from '@/contexts/SummerThemeContext';
 import SchoolBreadcrumb from '@/components/SchoolBreadcrumb';
 import ShareButtons from '@/components/ShareButtons';
 import Link from 'next/link';
@@ -72,7 +77,104 @@ export default function ArticlePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { isDarkMode } = useTheme();
+  const { isChristmasMode } = useChristmasTheme();
+  const { isHalloweenMode } = useHalloweenTheme();
+  const { isEasterMode } = useEasterTheme();
+  const { isCarnivalMode } = useCarnivalTheme();
+  const { isSummerMode } = useSummerTheme();
   const [isMobile, setIsMobile] = useState(false);
+
+  // Theme-based styling functions
+  const getThemeColors = () => {
+    if (isChristmasMode) {
+      return {
+        background: 'from-red-50 via-green-50 to-red-50 dark:from-red-900/20 dark:via-green-900/20 dark:to-red-900/20',
+        cardBg: 'bg-white/95 dark:bg-gray-800/95',
+        border: 'border-red-200/30 dark:border-red-700/30',
+        accent: 'from-red-500 to-green-600',
+        text: 'text-red-800 dark:text-red-200',
+        badge: 'from-red-400 to-green-500',
+        lines: 'bg-red-200/30 dark:bg-red-300/15',
+        margin: 'bg-red-300/50 dark:bg-red-400/30',
+        accentColor: 'red',
+        accentColor2: 'green',
+        specialEffects: 'christmas'
+      };
+    } else if (isHalloweenMode) {
+      return {
+        background: 'from-orange-50 via-purple-50 to-orange-50 dark:from-orange-900/20 dark:via-purple-900/20 dark:to-orange-900/20',
+        cardBg: 'bg-white/95 dark:bg-gray-800/95',
+        border: 'border-orange-200/30 dark:border-orange-700/30',
+        accent: 'from-orange-500 to-purple-600',
+        text: 'text-orange-800 dark:text-orange-200',
+        badge: 'from-orange-400 to-purple-500',
+        lines: 'bg-orange-200/30 dark:bg-orange-300/15',
+        margin: 'bg-orange-300/50 dark:bg-orange-400/30',
+        accentColor: 'orange',
+        accentColor2: 'purple',
+        specialEffects: 'halloween'
+      };
+    } else if (isEasterMode) {
+      return {
+        background: 'from-pink-50 via-yellow-50 to-pink-50 dark:from-pink-900/20 dark:via-yellow-900/20 dark:to-pink-900/20',
+        cardBg: 'bg-white/95 dark:bg-gray-800/95',
+        border: 'border-pink-200/30 dark:border-pink-700/30',
+        accent: 'from-pink-500 to-yellow-600',
+        text: 'text-pink-800 dark:text-pink-200',
+        badge: 'from-pink-400 to-yellow-500',
+        lines: 'bg-pink-200/30 dark:bg-pink-300/15',
+        margin: 'bg-pink-300/50 dark:bg-pink-400/30',
+        accentColor: 'pink',
+        accentColor2: 'yellow',
+        specialEffects: 'easter'
+      };
+    } else if (isCarnivalMode) {
+      return {
+        background: 'from-purple-50 via-pink-50 to-yellow-50 dark:from-purple-900/20 dark:via-pink-900/20 dark:to-yellow-900/20',
+        cardBg: 'bg-white/95 dark:bg-gray-800/95',
+        border: 'border-purple-200/30 dark:border-purple-700/30',
+        accent: 'from-purple-500 to-pink-600',
+        text: 'text-purple-800 dark:text-purple-200',
+        badge: 'from-purple-400 to-pink-500',
+        lines: 'bg-purple-200/30 dark:bg-purple-300/15',
+        margin: 'bg-purple-300/50 dark:bg-purple-400/30',
+        accentColor: 'purple',
+        accentColor2: 'pink',
+        specialEffects: 'carnival'
+      };
+    } else if (isSummerMode) {
+      return {
+        background: 'from-yellow-50 via-orange-50 to-yellow-50 dark:from-yellow-900/20 dark:via-orange-900/20 dark:to-yellow-900/20',
+        cardBg: 'bg-white/95 dark:bg-gray-800/95',
+        border: 'border-yellow-200/30 dark:border-yellow-700/30',
+        accent: 'from-yellow-500 to-orange-600',
+        text: 'text-yellow-800 dark:text-yellow-200',
+        badge: 'from-yellow-400 to-orange-500',
+        lines: 'bg-yellow-200/30 dark:bg-yellow-300/15',
+        margin: 'bg-yellow-300/50 dark:bg-yellow-400/30',
+        accentColor: 'yellow',
+        accentColor2: 'orange',
+        specialEffects: 'summer'
+      };
+    } else {
+      // Default theme
+      return {
+        background: 'from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900',
+        cardBg: 'bg-white/95 dark:bg-gray-800/95',
+        border: 'border-blue-200/30 dark:border-blue-700/30',
+        accent: 'from-blue-500 to-indigo-600',
+        text: 'text-slate-800 dark:text-white',
+        badge: 'from-yellow-400 via-orange-500 to-red-500',
+        lines: 'bg-blue-200/30 dark:bg-blue-300/15',
+        margin: 'bg-red-300/50 dark:bg-red-400/30',
+        accentColor: 'blue',
+        accentColor2: 'indigo',
+        specialEffects: 'default'
+      };
+    }
+  };
+
+  const themeColors = getThemeColors();
 
   // Detect mobile device to reduce animations
   useEffect(() => {
@@ -572,7 +674,7 @@ export default function ArticlePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-20">
+      <div className={`min-h-screen bg-gradient-to-br ${themeColors.background} pt-20`}>
         <div className="flex items-center justify-center min-h-[60vh]">
           <motion.div 
             className="text-center"
@@ -581,7 +683,7 @@ export default function ArticlePage() {
             transition={{ duration: 0.6 }}
           >
             <div className="relative mb-8">
-              <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center shadow-2xl">
+              <div className={`w-24 h-24 mx-auto rounded-full bg-gradient-to-r ${themeColors.accent} flex items-center justify-center shadow-2xl`}>
                 <BookOpen className="w-12 h-12 text-white" />
               </div>
             </div>
@@ -596,7 +698,7 @@ export default function ArticlePage() {
 
   if (error || !article) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 pt-20">
+      <div className={`min-h-screen bg-gradient-to-br ${themeColors.background} pt-20`}>
         <div className="flex items-center justify-center min-h-[60vh]">
           <motion.div 
             className="text-center max-w-md mx-auto px-6"
@@ -605,12 +707,12 @@ export default function ArticlePage() {
             transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
           >
             <div className="relative mb-8">
-              <div className="w-32 h-32 bg-gradient-to-br from-red-100 to-pink-200 dark:from-red-900/30 dark:to-pink-900/30 rounded-full flex items-center justify-center mx-auto shadow-2xl">
-                <BookOpen className="w-16 h-16 text-red-600 dark:text-red-400" />
+              <div className={`w-32 h-32 bg-gradient-to-br from-${themeColors.accentColor}-100 to-${themeColors.accentColor2}-200 dark:from-${themeColors.accentColor}-900/30 dark:to-${themeColors.accentColor2}-900/30 rounded-full flex items-center justify-center mx-auto shadow-2xl`}>
+                <BookOpen className={`w-16 h-16 text-${themeColors.accentColor}-600 dark:text-${themeColors.accentColor}-400`} />
               </div>
             </div>
             <motion.h1 
-              className="text-3xl font-bold text-slate-800 dark:text-white mb-4"
+              className={`text-3xl font-bold ${themeColors.text} mb-4`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
@@ -633,7 +735,7 @@ export default function ArticlePage() {
             >
               <Link href="/articles">
                 <button 
-                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl hover:from-blue-600 hover:to-indigo-700 transition-colors duration-200 shadow-lg font-medium"
+                  className={`flex items-center gap-2 px-6 py-3 bg-gradient-to-r ${themeColors.accent} text-white rounded-xl hover:opacity-80 transition-colors duration-200 shadow-lg font-medium`}
                 >
                   <ArrowLeft className="w-4 h-4" />
                   Επιστροφή στα Άρθρα
@@ -641,7 +743,7 @@ export default function ArticlePage() {
               </Link>
               <button 
                 onClick={() => window.history.back()}
-                className="flex items-center gap-2 px-6 py-3 bg-white/80 dark:bg-gray-800/80 text-slate-700 dark:text-slate-300 rounded-xl hover:bg-white dark:hover:bg-gray-800 transition-colors duration-200 shadow-lg border border-slate-200 dark:border-gray-700 font-medium"
+                className={`flex items-center gap-2 px-6 py-3 ${themeColors.cardBg.replace('/95', '/80')} text-slate-700 dark:text-slate-300 rounded-xl hover:${themeColors.cardBg.replace('/95', '')} transition-colors duration-200 shadow-lg border border-${themeColors.accentColor}-200 dark:border-${themeColors.accentColor}-700 font-medium`}
               >
                 <ArrowLeft className="w-4 h-4" />
                 Πίσω
@@ -709,11 +811,7 @@ export default function ArticlePage() {
       )}
       
       <div 
-        className={`min-h-screen pt-20 ${
-          isDarkMode 
-            ? 'bg-gray-900' 
-            : 'bg-gradient-to-br from-blue-50 via-white to-blue-50'
-        }`}
+        className={`min-h-screen pt-20 bg-gradient-to-br ${themeColors.background}`}
         style={{ fontFamily: 'StampatelloFaceto, cursive' }}
       >
       {/* Notebook Paper Background - FULL HEIGHT LINES */}
@@ -810,7 +908,7 @@ export default function ArticlePage() {
         >
           <Link href="/articles">
             <motion.button
-              className="group relative flex items-center gap-3 px-4 py-2 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl border-2 border-blue-200/50 dark:border-blue-700/50 shadow-lg hover:shadow-xl transition-all duration-300 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 overflow-hidden"
+              className={`group relative flex items-center gap-3 px-4 py-2 ${themeColors.cardBg} backdrop-blur-xl rounded-2xl border-2 ${themeColors.border} shadow-lg hover:shadow-xl transition-all duration-300 text-slate-700 dark:text-slate-300 hover:opacity-80 overflow-hidden`}
               whileHover={{ scale: 1.02, x: -5 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -821,7 +919,7 @@ export default function ArticlePage() {
                   <div
                     key={`line-${i}`}
                     className={`absolute w-full h-px ${
-                      isDarkMode ? 'bg-blue-300/10' : 'bg-blue-200/20'
+                      isDarkMode ? themeColors.lines.replace('/30', '/10') : themeColors.lines.replace('/30', '/20')
                     }`}
                     style={{
                       top: `${20 + i * 15}%`,
@@ -833,7 +931,7 @@ export default function ArticlePage() {
                 
                 {/* Red margin line */}
                 <div className={`absolute left-6 top-0 bottom-0 w-px ${
-                  isDarkMode ? 'bg-red-400/20' : 'bg-red-300/30'
+                  isDarkMode ? themeColors.margin.replace('/50', '/20') : themeColors.margin.replace('/50', '/30')
                 }`}></div>
                 
                 {/* Holes for binder */}
@@ -856,7 +954,7 @@ export default function ArticlePage() {
               {/* Content */}
               <div className="relative z-10 flex items-center gap-3">
                 {/* School Badge */}
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+                <div className={`w-8 h-8 bg-gradient-to-br ${themeColors.accent} rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform`}>
                   <ArrowLeft className="w-4 h-4 text-white group-hover:-translate-x-1 transition-transform" />
                 </div>
                 
@@ -868,7 +966,7 @@ export default function ArticlePage() {
               </div>
               
               {/* School Corner Decorations */}
-              <div className="absolute top-2 right-2 w-3 h-3 border-r-2 border-b-2 border-blue-300/50 dark:border-blue-600/50 rounded-br-lg"></div>
+              <div className={`absolute top-2 right-2 w-3 h-3 border-r-2 border-b-2 ${themeColors.border.replace('/30', '/50')} rounded-br-lg`}></div>
             </motion.button>
           </Link>
         </motion.div>
@@ -883,7 +981,7 @@ export default function ArticlePage() {
           >
             {article.featured && (
               <motion.div
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full shadow-lg"
+                className={`flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${themeColors.accent} rounded-full shadow-lg`}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.8 }}
@@ -894,7 +992,7 @@ export default function ArticlePage() {
             )}
             {article.breaking && (
               <motion.div
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 rounded-full shadow-lg"
+                className={`flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${themeColors.accent} rounded-full shadow-lg`}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.9 }}
@@ -922,7 +1020,7 @@ export default function ArticlePage() {
               transition={{ delay: 0.4 }}
             >
               <div className="relative inline-block">
-                <div className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl border-2 border-blue-200/50 dark:border-blue-700/50 shadow-lg overflow-hidden">
+                <div className={`relative ${themeColors.cardBg} backdrop-blur-xl rounded-2xl border-2 ${themeColors.border} shadow-lg overflow-hidden`}>
                   {/* Notebook Lines Background */}
                   <div className="absolute inset-0 pointer-events-none">
                     {/* Horizontal lines */}
@@ -930,7 +1028,7 @@ export default function ArticlePage() {
                       <div
                         key={`line-${i}`}
                         className={`absolute w-full h-px ${
-                          isDarkMode ? 'bg-blue-300/10' : 'bg-blue-200/20'
+                          isDarkMode ? themeColors.lines.replace('/30', '/10') : themeColors.lines.replace('/30', '/20')
                         }`}
                         style={{
                           top: `${25 + i * 20}%`,
@@ -942,7 +1040,7 @@ export default function ArticlePage() {
                     
                     {/* Red margin line */}
                     <div className={`absolute left-6 top-0 bottom-0 w-px ${
-                      isDarkMode ? 'bg-red-400/20' : 'bg-red-300/30'
+                      isDarkMode ? themeColors.margin.replace('/50', '/20') : themeColors.margin.replace('/50', '/30')
                     }`}></div>
                     
                     {/* Holes for binder */}
@@ -965,7 +1063,7 @@ export default function ArticlePage() {
                   {/* Content */}
                   <div className="relative z-10 flex items-center gap-2 px-3 py-2">
                     {/* School Badge */}
-                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-md">
+                    <div className={`w-8 h-8 bg-gradient-to-br ${themeColors.accent} rounded-full flex items-center justify-center shadow-md`}>
                       <GraduationCap className="w-4 h-4 text-white" />
                     </div>
                     
@@ -977,7 +1075,7 @@ export default function ArticlePage() {
                   </div>
                   
                   {/* School Corner Decorations */}
-                  <div className="absolute top-2 right-2 w-3 h-3 border-r-2 border-b-2 border-blue-300/50 dark:border-blue-600/50 rounded-br-lg"></div>
+                  <div className={`absolute top-2 right-2 w-3 h-3 border-r-2 border-b-2 ${themeColors.border.replace('/30', '/50')} rounded-br-lg`}></div>
                 </div>
               </div>
             </motion.div>
@@ -990,7 +1088,7 @@ export default function ArticlePage() {
               transition={{ delay: 0.5 }}
             >
               {/* School Notebook Paper Background */}
-              <div className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-xl border-2 border-blue-200/30 dark:border-blue-700/30 overflow-hidden">
+              <div className={`relative ${themeColors.cardBg} backdrop-blur-xl rounded-2xl shadow-xl border-2 ${themeColors.border} overflow-hidden`}>
                 {/* Notebook Lines Background */}
                 <div className="absolute inset-0 pointer-events-none">
                   {/* Horizontal lines */}
@@ -998,7 +1096,7 @@ export default function ArticlePage() {
                     <div
                       key={`line-${i}`}
                       className={`absolute w-full h-px ${
-                        isDarkMode ? 'bg-blue-300/15' : 'bg-blue-200/30'
+                        isDarkMode ? themeColors.lines.replace('/30', '/15') : themeColors.lines
                       }`}
                       style={{
                         top: `${15 + i * 6}%`,
@@ -1010,7 +1108,7 @@ export default function ArticlePage() {
                   
                   {/* Red margin line */}
                   <div className={`absolute left-8 top-0 bottom-0 w-px ${
-                    isDarkMode ? 'bg-red-400/30' : 'bg-red-300/50'
+                    isDarkMode ? themeColors.margin.replace('/50', '/30') : themeColors.margin
                   }`}></div>
                   
                   {/* Holes for binder */}
@@ -1040,8 +1138,8 @@ export default function ArticlePage() {
                       <div className="flex items-center justify-center mb-6">
                         {/* School Badge */}
                         <div className="relative">
-                          <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg border-2 border-blue-300 dark:border-blue-600">
-                            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                          <div className={`w-16 h-16 ${themeColors.cardBg.replace('/95', '')} rounded-full flex items-center justify-center shadow-lg border-2 ${themeColors.border.replace('/30', '')}`}>
+                            <div className={`w-12 h-12 bg-gradient-to-br ${themeColors.accent} rounded-full flex items-center justify-center`}>
                               <BookOpen className="w-6 h-6 text-white" />
                             </div>
                           </div>
@@ -1056,9 +1154,7 @@ export default function ArticlePage() {
                       
                       {/* Main Title */}
                       <div className="text-center">
-                        <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 ${
-                          isDarkMode ? 'text-white' : 'text-gray-800'
-                        }`} style={{
+                        <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 ${themeColors.text}`} style={{
                           fontFamily: 'StampatelloFaceto, cursive',
                           textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
                         }}>
@@ -1067,9 +1163,9 @@ export default function ArticlePage() {
                         
                         {/* Title Underline */}
                         <div className="flex items-center justify-center gap-4 mb-4">
-                          <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-blue-500"></div>
-                          <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                          <div className="w-8 h-0.5 bg-gradient-to-l from-transparent to-blue-500"></div>
+                          <div className={`w-8 h-0.5 bg-gradient-to-r from-transparent ${themeColors.accent.split(' ')[1]}`}></div>
+                          <div className={`w-3 h-3 ${themeColors.accent.split(' ')[1]} rounded-full`}></div>
+                          <div className={`w-8 h-0.5 bg-gradient-to-l from-transparent ${themeColors.accent.split(' ')[1]}`}></div>
                         </div>
                         
                         {/* School Info */}
@@ -1107,8 +1203,8 @@ export default function ArticlePage() {
                     <div className="flex items-center justify-center mb-6">
                       {/* School Badge */}
                       <div className="relative">
-                        <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg border-2 border-blue-300 dark:border-blue-600">
-                          <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                        <div className={`w-16 h-16 ${themeColors.cardBg.replace('/95', '')} rounded-full flex items-center justify-center shadow-lg border-2 ${themeColors.border.replace('/30', '')}`}>
+                          <div className={`w-12 h-12 bg-gradient-to-br ${themeColors.accent} rounded-full flex items-center justify-center`}>
                             <BookOpen className="w-6 h-6 text-white" />
                           </div>
                         </div>
@@ -1123,9 +1219,7 @@ export default function ArticlePage() {
                     
                     {/* Main Title */}
                     <div className="text-center mb-6">
-                      <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 ${
-                        isDarkMode ? 'text-white' : 'text-gray-800'
-                      }`} style={{
+                      <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 ${themeColors.text}`} style={{
                         fontFamily: 'StampatelloFaceto, cursive',
                         textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
                       }}>
@@ -1134,9 +1228,9 @@ export default function ArticlePage() {
                       
                       {/* Title Underline */}
                       <div className="flex items-center justify-center gap-4 mb-4">
-                        <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-blue-500"></div>
-                        <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                        <div className="w-8 h-0.5 bg-gradient-to-l from-transparent to-blue-500"></div>
+                        <div className={`w-8 h-0.5 bg-gradient-to-r from-transparent ${themeColors.accent.split(' ')[1]}`}></div>
+                        <div className={`w-3 h-3 ${themeColors.accent.split(' ')[1]} rounded-full`}></div>
+                        <div className={`w-8 h-0.5 bg-gradient-to-l from-transparent ${themeColors.accent.split(' ')[1]}`}></div>
                       </div>
                       
                       {/* School Info */}
@@ -1169,10 +1263,288 @@ export default function ArticlePage() {
                 </div>
                 
                 {/* School Corner Decorations */}
-                <div className="absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-blue-400 opacity-60"></div>
-                <div className="absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-green-400 opacity-60"></div>
-                <div className="absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 border-yellow-400 opacity-60"></div>
-                <div className="absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-red-400 opacity-60"></div>
+                <div className={`absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-${themeColors.accentColor} opacity-60`}></div>
+                <div className={`absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-${themeColors.accentColor2} opacity-60`}></div>
+                <div className={`absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 border-${themeColors.accentColor} opacity-60`}></div>
+                <div className={`absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-${themeColors.accentColor2} opacity-60`}></div>
+                
+                {/* Theme Special Effects */}
+                {themeColors.specialEffects === 'halloween' && (
+                  <>
+                    {/* Floating Bats */}
+                    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                      {[...Array(4)].map((_, i) => (
+                        <motion.div
+                          key={`bat-${i}`}
+                          className="absolute text-xl opacity-15"
+                          style={{
+                            left: `${15 + i * 25}%`,
+                            top: `${10 + i * 20}%`,
+                          }}
+                          animate={{
+                            y: [0, -15, 0],
+                            x: [0, 8, 0],
+                            rotate: [0, 8, -8, 0],
+                          }}
+                          transition={{
+                            duration: 4 + i,
+                            repeat: Infinity,
+                            delay: i * 0.7,
+                          }}
+                        >
+                          🦇
+                        </motion.div>
+                      ))}
+                    </div>
+                    
+                    {/* Spooky Shadows */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      <motion.div
+                        className="absolute w-24 h-24 bg-black/5 rounded-full blur-2xl"
+                        style={{ left: '5%', top: '15%' }}
+                        animate={{
+                          scale: [1, 1.3, 1],
+                          opacity: [0.05, 0.2, 0.05],
+                        }}
+                        transition={{
+                          duration: 5,
+                          repeat: Infinity,
+                        }}
+                      />
+                    </div>
+                  </>
+                )}
+                
+                {themeColors.specialEffects === 'christmas' && (
+                  <>
+                    {/* Floating Snowflakes */}
+                    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                      {[...Array(8)].map((_, i) => (
+                        <motion.div
+                          key={`snowflake-${i}`}
+                          className="absolute text-sm opacity-25"
+                          style={{
+                            left: `${Math.random() * 100}%`,
+                            top: `${-5 + Math.random() * 15}%`,
+                          }}
+                          animate={{
+                            y: [0, 80],
+                            rotate: [0, 360],
+                          }}
+                          transition={{
+                            duration: 6 + Math.random() * 3,
+                            repeat: Infinity,
+                            delay: Math.random() * 2,
+                          }}
+                        >
+                          ❄️
+                        </motion.div>
+                      ))}
+                    </div>
+                    
+                    {/* Christmas Lights */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      {[...Array(6)].map((_, i) => (
+                        <motion.div
+                          key={`light-${i}`}
+                          className="absolute w-1.5 h-1.5 rounded-full"
+                          style={{
+                            left: `${8 + i * 15}%`,
+                            top: `${8 + (i % 2) * 8}%`,
+                            backgroundColor: i % 2 === 0 ? '#ef4444' : '#22c55e',
+                          }}
+                          animate={{
+                            opacity: [0.2, 1, 0.2],
+                            scale: [0.6, 1.3, 0.6],
+                          }}
+                          transition={{
+                            duration: 1.2,
+                            repeat: Infinity,
+                            delay: i * 0.15,
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+                
+                {themeColors.specialEffects === 'easter' && (
+                  <>
+                    {/* Floating Easter Eggs */}
+                    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                      {[...Array(5)].map((_, i) => (
+                        <motion.div
+                          key={`egg-${i}`}
+                          className="absolute text-lg opacity-30"
+                          style={{
+                            left: `${10 + i * 20}%`,
+                            top: `${5 + i * 12}%`,
+                          }}
+                          animate={{
+                            y: [0, -12, 0],
+                            rotate: [0, 12, -12, 0],
+                          }}
+                          transition={{
+                            duration: 5 + i * 0.5,
+                            repeat: Infinity,
+                            delay: i * 0.6,
+                          }}
+                        >
+                          🥚
+                        </motion.div>
+                      ))}
+                    </div>
+                    
+                    {/* Spring Flowers */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      {[...Array(4)].map((_, i) => (
+                        <motion.div
+                          key={`flower-${i}`}
+                          className="absolute text-xs opacity-25"
+                          style={{
+                            left: `${5 + i * 25}%`,
+                            bottom: `${8 + (i % 2) * 12}%`,
+                          }}
+                          animate={{
+                            scale: [1, 1.3, 1],
+                            rotate: [0, 8, -8, 0],
+                          }}
+                          transition={{
+                            duration: 4 + i * 0.3,
+                            repeat: Infinity,
+                            delay: i * 0.4,
+                          }}
+                        >
+                          🌸
+                        </motion.div>
+                      ))}
+                    </div>
+                  </>
+                )}
+                
+                {themeColors.specialEffects === 'carnival' && (
+                  <>
+                    {/* Confetti */}
+                    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                      {[...Array(15)].map((_, i) => (
+                        <motion.div
+                          key={`confetti-${i}`}
+                          className="absolute w-1.5 h-1.5 rounded-full"
+                          style={{
+                            left: `${Math.random() * 100}%`,
+                            top: `${-3 + Math.random() * 8}%`,
+                            backgroundColor: ['#ef4444', '#f59e0b', '#8b5cf6', '#ec4899'][i % 4],
+                          }}
+                          animate={{
+                            y: [0, 100],
+                            x: [0, Math.random() * 15 - 7.5],
+                            rotate: [0, 360],
+                          }}
+                          transition={{
+                            duration: 2.5 + Math.random() * 1.5,
+                            repeat: Infinity,
+                            delay: Math.random() * 1.5,
+                          }}
+                        />
+                      ))}
+                    </div>
+                    
+                    {/* Masks */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      {[...Array(3)].map((_, i) => (
+                        <motion.div
+                          key={`mask-${i}`}
+                          className="absolute text-sm opacity-15"
+                          style={{
+                            left: `${15 + i * 35}%`,
+                            top: `${8 + i * 15}%`,
+                          }}
+                          animate={{
+                            scale: [1, 1.2, 1],
+                            rotate: [0, 6, -6, 0],
+                          }}
+                          transition={{
+                            duration: 5 + i,
+                            repeat: Infinity,
+                            delay: i * 0.6,
+                          }}
+                        >
+                          🎭
+                        </motion.div>
+                      ))}
+                    </div>
+                  </>
+                )}
+                
+                {themeColors.specialEffects === 'summer' && (
+                  <>
+                    {/* Sun Rays */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      <motion.div
+                        className="absolute w-40 h-40 bg-yellow-200/15 rounded-full blur-2xl"
+                        style={{ left: '50%', top: '5%', transform: 'translateX(-50%)' }}
+                        animate={{
+                          scale: [1, 1.3, 1],
+                          opacity: [0.1, 0.3, 0.1],
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                        }}
+                      />
+                    </div>
+                    
+                    {/* Beach Elements */}
+                    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                      {[...Array(5)].map((_, i) => (
+                        <motion.div
+                          key={`beach-${i}`}
+                          className="absolute text-sm opacity-25"
+                          style={{
+                            left: `${8 + i * 20}%`,
+                            bottom: `${5 + (i % 2) * 8}%`,
+                          }}
+                          animate={{
+                            y: [0, -10, 0],
+                            rotate: [0, 4, -4, 0],
+                          }}
+                          transition={{
+                            duration: 5 + i * 0.4,
+                            repeat: Infinity,
+                            delay: i * 0.5,
+                          }}
+                        >
+                          {i % 2 === 0 ? '🏖️' : '☀️'}
+                        </motion.div>
+                      ))}
+                    </div>
+                    
+                    {/* Tropical Leaves */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      {[...Array(4)].map((_, i) => (
+                        <motion.div
+                          key={`leaf-${i}`}
+                          className="absolute text-xs opacity-20"
+                          style={{
+                            right: `${5 + i * 20}%`,
+                            top: `${12 + i * 18}%`,
+                          }}
+                          animate={{
+                            rotate: [0, 12, -12, 0],
+                            scale: [1, 1.2, 1],
+                          }}
+                          transition={{
+                            duration: 6 + i,
+                            repeat: Infinity,
+                            delay: i * 0.7,
+                          }}
+                        >
+                          🍃
+                        </motion.div>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             </motion.div>
 
@@ -1184,19 +1556,19 @@ export default function ArticlePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.65 }}
             >
-              <div className="relative bg-white/90 dark:bg-gray-800/90 rounded-lg border border-blue-200/50 dark:border-blue-700/50 px-4 py-2 shadow-sm">
+              <div className={`relative ${themeColors.cardBg.replace('/95', '/90')} rounded-lg border ${themeColors.border.replace('/30', '/50')} px-4 py-2 shadow-sm`}>
                 {/* Subtle notebook line */}
                 <div className="absolute inset-0 pointer-events-none">
                   <div className={`absolute w-full h-px ${
-                    isDarkMode ? 'bg-blue-300/10' : 'bg-blue-200/20'
+                    isDarkMode ? themeColors.lines.replace('/30', '/10') : themeColors.lines.replace('/30', '/20')
                   }`} style={{ top: '50%', left: '10%', right: '10%' }}></div>
                   <div className={`absolute left-3 top-0 bottom-0 w-px ${
-                    isDarkMode ? 'bg-red-400/20' : 'bg-red-300/30'
+                    isDarkMode ? themeColors.margin.replace('/50', '/20') : themeColors.margin.replace('/50', '/30')
                   }`}></div>
                 </div>
                 
                 <div className="relative z-10 flex items-center gap-2">
-                  <div className="w-5 h-5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                  <div className={`w-5 h-5 bg-gradient-to-br ${themeColors.accent} rounded-full flex items-center justify-center`}>
                     <Calendar className="w-3 h-3 text-white" />
                   </div>
                   <span className="text-sm text-slate-600 dark:text-slate-400" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
@@ -1209,7 +1581,7 @@ export default function ArticlePage() {
             {/* Expert Quote - Beautiful School Style */}
             {article.expert && (
               <motion.div 
-                className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-lg border-2 border-blue-200/30 dark:border-blue-700/30 overflow-hidden mb-8"
+                className={`relative ${themeColors.cardBg} backdrop-blur-xl rounded-2xl shadow-lg border-2 ${themeColors.border} overflow-hidden mb-8`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
@@ -1221,7 +1593,7 @@ export default function ArticlePage() {
                     <div
                       key={`line-${i}`}
                       className={`absolute w-full h-px ${
-                        isDarkMode ? 'bg-blue-300/15' : 'bg-blue-200/30'
+                        isDarkMode ? themeColors.lines.replace('/30', '/15') : themeColors.lines
                       }`}
                       style={{
                         top: `${15 + i * 12}%`,
@@ -1233,7 +1605,7 @@ export default function ArticlePage() {
                   
                   {/* Red margin line */}
                   <div className={`absolute left-8 top-0 bottom-0 w-px ${
-                    isDarkMode ? 'bg-red-400/30' : 'bg-red-300/50'
+                    isDarkMode ? themeColors.margin.replace('/50', '/30') : themeColors.margin
                   }`}></div>
                   
                   {/* Holes for binder */}
@@ -1258,7 +1630,7 @@ export default function ArticlePage() {
                   {/* School Header */}
                   <div className="flex items-center gap-3 mb-4">
                     {/* School Badge */}
-                    <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-md">
+                    <div className={`w-8 h-8 bg-gradient-to-br ${themeColors.badge} rounded-full flex items-center justify-center shadow-md`}>
                       <Sparkles className="w-4 h-4 text-white" />
                     </div>
                     
@@ -1279,12 +1651,12 @@ export default function ArticlePage() {
                     </p>
                     
                     {/* Quote decoration */}
-                    <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-blue-500 to-indigo-600 rounded-full"></div>
+                    <div className={`absolute left-0 top-0 w-1 h-full bg-gradient-to-b ${themeColors.accent} rounded-full`}></div>
                   </div>
                 </div>
                 
                 {/* School Corner Decorations */}
-                <div className="absolute top-2 right-2 w-4 h-4 border-r-2 border-b-2 border-blue-300/50 dark:border-blue-600/50 rounded-br-lg"></div>
+                <div className={`absolute top-2 right-2 w-4 h-4 border-r-2 border-b-2 ${themeColors.border.replace('/30', '/50')} rounded-br-lg`}></div>
               </motion.div>
             )}
 
@@ -1320,13 +1692,13 @@ export default function ArticlePage() {
             {/* Tags - SCHOOL STYLE DESIGN */}
             {article.tags && article.tags.length > 0 && (
               <motion.div 
-                className="mt-16 pt-8 border-t border-slate-200 dark:border-gray-700"
+                className={`mt-16 pt-8 border-t border-${themeColors.accentColor}-200 dark:border-${themeColors.accentColor}-700`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.0 }}
               >
                 {/* School Notebook Paper Background */}
-                <div className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-xl border-2 border-blue-200/30 dark:border-blue-700/30 overflow-hidden">
+                <div className={`relative ${themeColors.cardBg} backdrop-blur-xl rounded-2xl shadow-xl border-2 ${themeColors.border} overflow-hidden`}>
                   {/* Notebook Lines Background */}
                   <div className="absolute inset-0 pointer-events-none">
                     {/* Horizontal lines */}
@@ -1334,7 +1706,7 @@ export default function ArticlePage() {
                       <div
                         key={`line-${i}`}
                         className={`absolute w-full h-px ${
-                          isDarkMode ? 'bg-blue-300/15' : 'bg-blue-200/30'
+                          isDarkMode ? themeColors.lines.replace('/30', '/15') : themeColors.lines
                         }`}
                         style={{
                           top: `${20 + i * 8}%`,
@@ -1346,7 +1718,7 @@ export default function ArticlePage() {
                     
                     {/* Red margin line */}
                     <div className={`absolute left-8 top-0 bottom-0 w-px ${
-                      isDarkMode ? 'bg-red-400/30' : 'bg-red-300/50'
+                      isDarkMode ? themeColors.margin.replace('/50', '/30') : themeColors.margin
                     }`}></div>
                     
                     {/* Holes for binder */}
@@ -1372,7 +1744,7 @@ export default function ArticlePage() {
                     <div className="flex items-center gap-3 mb-6">
                       {/* School Badge */}
                       <div className="relative">
-                        <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white/30">
+                        <div className={`w-12 h-12 bg-gradient-to-br ${themeColors.badge} rounded-full flex items-center justify-center shadow-lg border-2 border-white/30`}>
                           <Tag className="w-6 h-6 text-white" />
                         </div>
                         {/* Grade A+ Badge */}
@@ -1384,7 +1756,7 @@ export default function ArticlePage() {
                       </div>
                       
                       <div>
-                        <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-1" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                        <h3 className={`text-2xl font-bold ${themeColors.text} mb-1`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                           Ετικέτες Άρθρου
                         </h3>
                         <p className="text-sm text-slate-600 dark:text-slate-400" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
@@ -1420,9 +1792,9 @@ export default function ArticlePage() {
                     </div>
                     
                     {/* School Footer */}
-                    <div className="mt-6 pt-4 border-t border-blue-200/50 dark:border-blue-700/50">
+                    <div className={`mt-6 pt-4 border-t ${themeColors.border.replace('/30', '/50')}`}>
                       <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
-                        <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                        <div className={`w-4 h-4 bg-gradient-to-r ${themeColors.accent} rounded-full flex items-center justify-center`}>
                           <Tag className="w-2 h-2 text-white" />
                         </div>
                         <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
@@ -1453,17 +1825,17 @@ export default function ArticlePage() {
             {/* Image Source */}
             {article.imageSource && (
               <motion.div 
-                className="mt-12 pt-8 border-t border-slate-200 dark:border-gray-700"
+                className={`mt-12 pt-8 border-t border-${themeColors.accentColor}-200 dark:border-${themeColors.accentColor}-700`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.1 }}
               >
-                <div className="flex items-center gap-4 p-6 bg-slate-50 dark:bg-gray-800/50 rounded-2xl">
-                  <div className="w-8 h-8 bg-gradient-to-r from-gray-500 to-slate-600 rounded-full flex items-center justify-center">
+                <div className={`flex items-center gap-4 p-6 ${themeColors.cardBg.replace('/95', '/50')} rounded-2xl`}>
+                  <div className={`w-8 h-8 bg-gradient-to-r ${themeColors.accent} rounded-full flex items-center justify-center`}>
                     <Tag className="w-4 h-4 text-white" />
                   </div>
                   <p className="text-slate-600 dark:text-slate-400">
-                    <strong className="text-slate-800 dark:text-slate-200">Πηγή εικόνας:</strong> {article.imageSource}
+                    <strong className={`${themeColors.text}`}>Πηγή εικόνας:</strong> {article.imageSource}
                   </p>
                 </div>
               </motion.div>

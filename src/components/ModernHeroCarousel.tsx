@@ -7,6 +7,10 @@ import SplitText from "./SplitText"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { useTheme } from "@/contexts/ThemeContext"
 import { useChristmasTheme } from "@/contexts/ChristmasThemeContext"
+import { useHalloweenTheme } from "@/contexts/HalloweenThemeContext"
+import { useCarnivalTheme } from "@/contexts/CarnivalThemeContext"
+import { useEasterTheme } from "@/contexts/EasterThemeContext"
+import { useSummerTheme } from "@/contexts/SummerThemeContext"
 import { SantaIcon, ChristmasTreeIcon, ReindeerIcon, GiftBoxIcon, BellIcon } from "./ChristmasIcons"
 
 interface CarouselSlide {
@@ -104,9 +108,96 @@ export default function ModernHeroCarousel() {
   const { t } = useLanguage()
   const { isDarkMode } = useTheme()
   const { isChristmasMode } = useChristmasTheme()
+  const { isHalloweenMode } = useHalloweenTheme()
+  const { isCarnivalMode } = useCarnivalTheme()
+  const { isEasterMode } = useEasterTheme()
+  const { isSummerMode } = useSummerTheme()
   
   const carouselData = getCarouselData(t)
   const schoolElements = getSchoolElements(isChristmasMode)
+
+  // Theme-based styling functions
+  const getThemeColors = () => {
+    if (isChristmasMode) {
+      return {
+        primary: '#dc2626', // Red
+        secondary: '#16a34a', // Green
+        accent: '#fbbf24', // Gold
+        gradient: 'linear-gradient(135deg, #dc2626 0%, #16a34a 100%)',
+        buttonGradient: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
+        sparkle1: '#fbbf24', // Gold
+        sparkle2: '#dc2626', // Red
+        corner: '#16a34a' // Green
+      }
+    } else if (isHalloweenMode) {
+      return {
+        primary: '#ea580c', // Orange
+        secondary: '#7c2d12', // Dark orange
+        accent: '#fbbf24', // Gold
+        gradient: 'linear-gradient(135deg, #ea580c 0%, #7c2d12 100%)',
+        buttonGradient: 'linear-gradient(135deg, #ea580c 0%, #c2410c 100%)',
+        sparkle1: '#fbbf24', // Gold
+        sparkle2: '#ea580c', // Orange
+        corner: '#7c2d12' // Dark orange
+      }
+    } else if (isCarnivalMode) {
+      return {
+        primary: '#7c3aed', // Purple
+        secondary: '#ec4899', // Pink
+        accent: '#fbbf24', // Gold
+        gradient: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+        buttonGradient: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
+        sparkle1: '#fbbf24', // Gold
+        sparkle2: '#ec4899', // Pink
+        corner: '#7c3aed' // Purple
+      }
+    } else if (isEasterMode) {
+      return {
+        primary: '#ec4899', // Pink
+        secondary: '#22c55e', // Green
+        accent: '#fbbf24', // Gold
+        gradient: 'linear-gradient(135deg, #ec4899 0%, #22c55e 100%)',
+        buttonGradient: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
+        sparkle1: '#fbbf24', // Gold
+        sparkle2: '#22c55e', // Green
+        corner: '#ec4899' // Pink
+      }
+    } else if (isSummerMode) {
+      return {
+        primary: '#f59e0b', // Amber
+        secondary: '#06b6d4', // Cyan
+        accent: '#fbbf24', // Gold
+        gradient: 'linear-gradient(135deg, #f59e0b 0%, #06b6d4 100%)',
+        buttonGradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+        sparkle1: '#fbbf24', // Gold
+        sparkle2: '#06b6d4', // Cyan
+        corner: '#f59e0b' // Amber
+      }
+    } else {
+      return {
+        primary: '#2563eb', // Blue
+        secondary: '#1d4ed8', // Dark blue
+        accent: '#fbbf24', // Gold
+        gradient: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+        buttonGradient: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+        sparkle1: '#fbbf24', // Gold
+        sparkle2: '#2563eb', // Blue
+        corner: '#2563eb' // Blue
+      }
+    }
+  }
+
+  const getThemeIcon = () => {
+    if (isChristmasMode) return '🎄'
+    if (isHalloweenMode) return '🎃'
+    if (isCarnivalMode) return '🎭'
+    if (isEasterMode) return '🐰'
+    if (isSummerMode) return '☀️'
+    return '⭐'
+  }
+
+  const themeColors = getThemeColors()
+  const themeIcon = getThemeIcon()
 
   // Auto-play functionality
   useEffect(() => {
@@ -151,7 +242,10 @@ export default function ModernHeroCarousel() {
       {/* Notebook Paper Background with Photo Overlay */}
       <div className="absolute inset-0">
         {/* Main paper background */}
-        <div className={`absolute inset-0 ${isDarkMode ? 'bg-gray-800' : 'bg-blue-50/30'}`}></div>
+        <div 
+          className={`absolute inset-0 ${isDarkMode ? 'bg-gray-800' : ''}`}
+          style={{ backgroundColor: isDarkMode ? undefined : `${themeColors.primary}10` }}
+        ></div>
         
         {/* Photo background overlay */}
           <div
@@ -168,9 +262,10 @@ export default function ModernHeroCarousel() {
           <div
             key={`line-${i}`}
             className={`absolute w-full h-px ${
-              isDarkMode ? 'bg-gray-600/40' : 'bg-blue-200/30'
+              isDarkMode ? 'bg-gray-600/40' : ''
             }`}
             style={{
+              backgroundColor: isDarkMode ? undefined : `${themeColors.primary}30`,
               top: `${8 + i * 4.5}%`,
               left: '8%',
               right: '8%'
@@ -179,9 +274,12 @@ export default function ModernHeroCarousel() {
         ))}
         
         {/* Red margin line */}
-        <div className={`absolute left-8 top-0 bottom-0 w-px ${
-          isDarkMode ? 'bg-red-400' : 'bg-red-300/70'
-        }`}></div>
+        <div 
+          className={`absolute left-8 top-0 bottom-0 w-px ${
+            isDarkMode ? 'bg-red-400' : ''
+          }`}
+          style={{ backgroundColor: isDarkMode ? undefined : themeColors.primary }}
+        ></div>
         
         {/* Holes for binder */}
         {[...Array(3)].map((_, i) => (
@@ -204,22 +302,40 @@ export default function ModernHeroCarousel() {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Simple School Elements */}
         <div className="absolute top-20 right-4 opacity-20">
-          <BookOpen className={`w-6 h-6 ${isDarkMode ? 'text-blue-300' : 'text-blue-400'}`} />
+          <BookOpen 
+            className="w-6 h-6" 
+            style={{ color: themeColors.primary }}
+          />
         </div>
         <div className="absolute bottom-20 left-4 opacity-20">
-          <Pencil className={`w-5 h-5 ${isDarkMode ? 'text-orange-300' : 'text-orange-400'}`} />
+          <Pencil 
+            className="w-5 h-5" 
+            style={{ color: themeColors.secondary }}
+          />
         </div>
         <div className="absolute top-1/2 right-8 opacity-20">
-          <Ruler className={`w-5 h-5 ${isDarkMode ? 'text-green-300' : 'text-green-400'}`} />
+          <Ruler 
+            className="w-5 h-5" 
+            style={{ color: themeColors.accent }}
+          />
         </div>
         <div className="absolute top-32 left-8 opacity-15">
-          <Calculator className={`w-4 h-4 ${isDarkMode ? 'text-purple-300' : 'text-purple-400'}`} />
+          <Calculator 
+            className="w-4 h-4" 
+            style={{ color: themeColors.primary }}
+          />
         </div>
         <div className="absolute bottom-32 right-12 opacity-15">
-          <PenTool className={`w-4 h-4 ${isDarkMode ? 'text-pink-300' : 'text-pink-400'}`} />
+          <PenTool 
+            className="w-4 h-4" 
+            style={{ color: themeColors.secondary }}
+          />
         </div>
         <div className="absolute top-1/3 left-12 opacity-15">
-          <BookMarked className={`w-4 h-4 ${isDarkMode ? 'text-red-300' : 'text-red-400'}`} />
+          <BookMarked 
+            className="w-4 h-4" 
+            style={{ color: themeColors.accent }}
+          />
         </div>
       </div>
 
@@ -242,13 +358,22 @@ export default function ModernHeroCarousel() {
                     />
                     
                     {/* Decorative sparkles */}
-                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-ping opacity-75"></div>
-                    <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                    <div 
+                      className="absolute -top-1 -right-1 w-3 h-3 rounded-full animate-ping opacity-75"
+                      style={{ backgroundColor: themeColors.sparkle1 }}
+                    ></div>
+                    <div 
+                      className="absolute -bottom-1 -left-1 w-2 h-2 rounded-full animate-pulse"
+                      style={{ backgroundColor: themeColors.sparkle2 }}
+                    ></div>
                   </div>
                   
                   {/* Since 1986 Badge - School Style */}
                   <div className="relative group mt-4 transform rotate-3 hover:rotate-6 transition-transform duration-300">
-                    <div className="bg-white/20 dark:bg-gray-800/30 backdrop-blur-xl rounded-xl px-4 py-3 border-2 border-blue-200/50 dark:border-blue-600/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <div 
+                      className="bg-white/20 dark:bg-gray-800/30 backdrop-blur-xl rounded-xl px-4 py-3 border-2 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                      style={{ borderColor: isDarkMode ? undefined : `${themeColors.primary}50` }}
+                    >
                       {/* Paper texture */}
                       <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none">
                         <div className="w-full h-full" style={{
@@ -264,13 +389,19 @@ export default function ModernHeroCarousel() {
                       </div>
                       
                       {/* Corner decoration */}
-                      <div className="absolute top-1 left-1 w-2 h-2 border-t border-l border-blue-300/60 dark:border-blue-600/60 rounded-tl"></div>
+                      <div 
+                        className="absolute top-1 left-1 w-2 h-2 border-t border-l rounded-tl"
+                        style={{ borderColor: isDarkMode ? undefined : `${themeColors.primary}60` }}
+                      ></div>
                     </div>
                     
                   {/* Grade Badge - OUTSIDE the badge */}
-                  <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-lime-300 to-lime-500 rounded-full flex items-center justify-center shadow-lg border border-white/50">
+                  <div 
+                    className="absolute -top-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center shadow-lg border border-white/50"
+                    style={{ background: themeColors.gradient }}
+                  >
                     <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                      A+
+                      {themeIcon}
                     </span>
                   </div>
                   </div>
@@ -310,11 +441,12 @@ export default function ModernHeroCarousel() {
 
               {/* Enhanced Description - School Notebook Style */}
               <div className="max-w-2xl mx-auto lg:mx-0">
-                <div className={`relative rounded-2xl p-8 shadow-2xl border-2 transition-all duration-300 hover:shadow-3xl hover:scale-105 overflow-hidden ${
+                <div                 className={`relative rounded-2xl p-8 shadow-2xl border-2 transition-all duration-300 hover:shadow-3xl hover:scale-105 overflow-hidden ${
                   isDarkMode 
                     ? 'bg-white/20 border-white/40 text-white backdrop-blur-xl' 
-                    : 'bg-white/98 border-blue-200/50 text-gray-800 backdrop-blur-xl'
-                }`}>
+                    : 'bg-white/98 text-gray-800 backdrop-blur-xl'
+                }`}
+                style={{ borderColor: isDarkMode ? undefined : `${themeColors.primary}50` }}>
                   
                   {/* Paper Texture Overlay */}
                   <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none">
@@ -342,9 +474,12 @@ export default function ModernHeroCarousel() {
                     ))}
                     
                     {/* Red margin line */}
-                    <div className={`absolute left-12 top-0 bottom-0 w-0.5 ${
-                      isDarkMode ? 'bg-red-400/40' : 'bg-red-300/60'
-                    }`}></div>
+                    <div 
+                      className={`absolute left-12 top-0 bottom-0 w-0.5 ${
+                        isDarkMode ? 'bg-red-400/40' : ''
+                      }`}
+                      style={{ backgroundColor: isDarkMode ? undefined : `${themeColors.primary}60` }}
+                    ></div>
                     
                     {/* Spiral binding holes */}
                     {[...Array(3)].map((_, i) => (
@@ -353,9 +488,10 @@ export default function ModernHeroCarousel() {
                         className={`absolute w-2 h-2 rounded-full border-2 ${
                           isDarkMode 
                             ? 'bg-gray-600/40 border-gray-500/60' 
-                            : 'bg-white/80 border-blue-300/80'
+                            : 'bg-white/80'
                         }`}
-                        style={{
+                        style={{ 
+                          borderColor: isDarkMode ? undefined : `${themeColors.primary}80`,
                           left: '8px',
                           top: `${20 + i * 25}%`
                         }}
@@ -388,8 +524,14 @@ export default function ModernHeroCarousel() {
                   <div className="mt-6 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-60 rounded-full"></div>
                   
                   {/* School corner decorations */}
-                  <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-blue-300/60 dark:border-blue-600/60 rounded-tl"></div>
-                  <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-green-300/60 dark:border-green-600/60 rounded-br"></div>
+                  <div 
+                    className="absolute top-2 left-2 w-3 h-3 border-t border-l rounded-tl"
+                    style={{ borderColor: isDarkMode ? undefined : `${themeColors.primary}60` }}
+                  ></div>
+                  <div 
+                    className="absolute bottom-2 right-2 w-3 h-3 border-b border-r rounded-br"
+                    style={{ borderColor: isDarkMode ? undefined : `${themeColors.secondary}60` }}
+                  ></div>
                 </div>
               </div>
 
@@ -398,7 +540,11 @@ export default function ModernHeroCarousel() {
                 <div className="relative group">
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-12 py-6 rounded-2xl shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-3xl font-bold text-lg border-2 border-blue-500/30 relative overflow-hidden"
+                    className="text-white px-12 py-6 rounded-2xl shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-3xl font-bold text-lg border-2 relative overflow-hidden"
+                    style={{ 
+                      background: themeColors.buttonGradient,
+                      borderColor: `${themeColors.primary}30`
+                    }}
                   >
                     {/* Subtle background pattern */}
                     <div className="absolute inset-0 opacity-10">
@@ -446,21 +592,36 @@ export default function ModernHeroCarousel() {
                 </div>
                 
                 {/* Enhanced corner decorations */}
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center shadow-md animate-pulse">
+                <div 
+                  className="absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center shadow-md animate-pulse"
+                  style={{ backgroundColor: themeColors.corner }}
+                >
                   <Star className="w-4 h-4 text-white" />
                 </div>
                 
                 {/* School badge decoration */}
-                <div className="absolute -bottom-2 -left-2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-md">
+                <div 
+                  className="absolute -bottom-2 -left-2 w-8 h-8 rounded-full flex items-center justify-center shadow-md"
+                  style={{ backgroundColor: themeColors.primary }}
+                >
                   <GraduationCap className="w-4 h-4 text-white" />
                 </div>
                 
                 {/* Decorative corner lines */}
-                <div className="absolute top-2 left-2 w-8 h-8 border-l-2 border-t-2 border-blue-400 opacity-60"></div>
-                <div className="absolute bottom-2 right-2 w-8 h-8 border-r-2 border-b-2 border-green-400 opacity-60"></div>
+                <div 
+                  className="absolute top-2 left-2 w-8 h-8 border-l-2 border-t-2 opacity-60"
+                  style={{ borderColor: themeColors.primary }}
+                ></div>
+                <div 
+                  className="absolute bottom-2 right-2 w-8 h-8 border-r-2 border-b-2 opacity-60"
+                  style={{ borderColor: themeColors.secondary }}
+                ></div>
                 
                 {/* Enhanced Stats Badges - School Notebook Style */}
-                <div className="absolute -top-8 -right-8 sm:-top-10 sm:-right-10 bg-white/25 dark:bg-gray-800/25 backdrop-blur-xl rounded-2xl p-6 border-2 border-white/40 dark:border-gray-600/40 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 overflow-hidden">
+                <div 
+                  className="absolute -top-8 -right-8 sm:-top-10 sm:-right-10 bg-white/25 dark:bg-gray-800/25 backdrop-blur-xl rounded-2xl p-6 border-2 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 overflow-hidden"
+                  style={{ borderColor: isDarkMode ? undefined : `${themeColors.primary}40` }}
+                >
                   {/* Paper texture */}
                   <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none">
                     <div className="w-full h-full" style={{
@@ -502,8 +663,17 @@ export default function ModernHeroCarousel() {
                   
                   <div className="text-center relative z-10">
                     <div className="flex items-center justify-center gap-3 mb-2">
-                      <div className="p-2 bg-blue-400/20 rounded-xl border border-blue-300/30">
-                        <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                      <div 
+                        className="p-2 rounded-xl border"
+                        style={{ 
+                          backgroundColor: `${themeColors.primary}20`,
+                          borderColor: `${themeColors.primary}30`
+                        }}
+                      >
+                        <Users 
+                          className="w-5 h-5" 
+                          style={{ color: themeColors.primary }}
+                        />
                       </div>
                       <div className="text-3xl font-bold text-white dark:text-white drop-shadow-lg" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>1000+</div>
                     </div>
@@ -511,7 +681,10 @@ export default function ModernHeroCarousel() {
                   </div>
                   
                   {/* Corner decoration */}
-                  <div className="absolute bottom-1 right-1 w-2 h-2 border-b border-r border-blue-300/60 dark:border-blue-600/60 rounded-br"></div>
+                  <div 
+                    className="absolute bottom-1 right-1 w-2 h-2 border-b border-r rounded-br"
+                    style={{ borderColor: isDarkMode ? undefined : `${themeColors.primary}60` }}
+                  ></div>
                 </div>
               </div>
             </div>
@@ -570,11 +743,14 @@ export default function ModernHeroCarousel() {
               onClick={() => goToSlide(index)}
               className={`w-2 h-2 rounded-full transition-all duration-200 ${
                 index === currentSlide
-                  ? "bg-blue-600 scale-125"
+                  ? "scale-125"
                   : isDarkMode 
                     ? "bg-gray-600 hover:bg-gray-500 hover:scale-110"
                     : "bg-gray-400 hover:bg-gray-500 hover:scale-110"
               }`}
+              style={{
+                backgroundColor: index === currentSlide ? themeColors.primary : undefined
+              }}
             />
           ))}
         </div>

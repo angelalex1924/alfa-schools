@@ -231,18 +231,65 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
     },
   }
 
+  // Theme-based navbar background colors
+  const getNavbarBackground = () => {
+    if (isChristmasMode) {
+      return scrolled
+        ? isDarkMode
+          ? "bg-gradient-to-r from-red-900/15 via-green-900/8 to-red-900/15 backdrop-blur-2xl border border-red-800/20 shadow-[0_8px_32px_rgba(220,38,38,0.15)]"
+          : "bg-gradient-to-r from-red-50/30 via-green-50/20 to-red-50/30 backdrop-blur-2xl border border-red-200/40 shadow-[0_8px_32px_rgba(220,38,38,0.2)]"
+        : isDarkMode
+          ? "bg-gradient-to-r from-red-900/12 via-green-900/6 to-red-900/12 backdrop-blur-2xl border border-red-800/15 shadow-[0_4px_24px_rgba(220,38,38,0.12)]"
+          : "bg-gradient-to-r from-red-50/25 via-green-50/15 to-red-50/25 backdrop-blur-2xl border border-red-200/30 shadow-[0_4px_24px_rgba(220,38,38,0.15)]"
+    } else if (isHalloweenMode) {
+      return scrolled
+        ? isDarkMode
+          ? "bg-gradient-to-r from-orange-900/15 via-purple-900/8 to-orange-900/15 backdrop-blur-2xl border border-orange-800/20 shadow-[0_8px_32px_rgba(234,88,12,0.15)]"
+          : "bg-gradient-to-r from-orange-50/30 via-purple-50/20 to-orange-50/30 backdrop-blur-2xl border border-orange-200/40 shadow-[0_8px_32px_rgba(234,88,12,0.2)]"
+        : isDarkMode
+          ? "bg-gradient-to-r from-orange-900/12 via-purple-900/6 to-orange-900/12 backdrop-blur-2xl border border-orange-800/15 shadow-[0_4px_24px_rgba(234,88,12,0.12)]"
+          : "bg-gradient-to-r from-orange-50/25 via-purple-50/15 to-orange-50/25 backdrop-blur-2xl border border-orange-200/30 shadow-[0_4px_24px_rgba(234,88,12,0.15)]"
+    } else if (isCarnivalMode) {
+      return scrolled
+        ? isDarkMode
+          ? "bg-gradient-to-r from-pink-900/15 via-teal-900/8 to-pink-900/15 backdrop-blur-2xl border border-pink-800/20 shadow-[0_8px_32px_rgba(236,72,153,0.15)]"
+          : "bg-gradient-to-r from-pink-50/30 via-teal-50/20 to-pink-50/30 backdrop-blur-2xl border border-pink-200/40 shadow-[0_8px_32px_rgba(236,72,153,0.2)]"
+        : isDarkMode
+          ? "bg-gradient-to-r from-pink-900/12 via-teal-900/6 to-pink-900/12 backdrop-blur-2xl border border-pink-800/15 shadow-[0_4px_24px_rgba(236,72,153,0.12)]"
+          : "bg-gradient-to-r from-pink-50/25 via-teal-50/15 to-pink-50/25 backdrop-blur-2xl border border-pink-200/30 shadow-[0_4px_24px_rgba(236,72,153,0.15)]"
+    } else if (isEasterMode) {
+      return scrolled
+        ? isDarkMode
+          ? "bg-gradient-to-r from-pink-900/15 via-green-900/8 to-pink-900/15 backdrop-blur-2xl border border-pink-800/20 shadow-[0_8px_32px_rgba(236,72,153,0.15)]"
+          : "bg-gradient-to-r from-pink-50/30 via-green-50/20 to-pink-50/30 backdrop-blur-2xl border border-pink-200/40 shadow-[0_8px_32px_rgba(236,72,153,0.2)]"
+        : isDarkMode
+          ? "bg-gradient-to-r from-pink-900/12 via-green-900/6 to-pink-900/12 backdrop-blur-2xl border border-pink-800/15 shadow-[0_4px_24px_rgba(236,72,153,0.12)]"
+          : "bg-gradient-to-r from-pink-50/25 via-green-50/15 to-pink-50/25 backdrop-blur-2xl border border-pink-200/30 shadow-[0_4px_24px_rgba(236,72,153,0.15)]"
+    } else if (isSummerMode) {
+      return scrolled
+        ? isDarkMode
+          ? "bg-gradient-to-r from-yellow-900/15 via-orange-900/8 to-yellow-900/15 backdrop-blur-2xl border border-yellow-800/20 shadow-[0_8px_32px_rgba(251,191,36,0.15)]"
+          : "bg-gradient-to-r from-yellow-50/30 via-orange-50/20 to-yellow-50/30 backdrop-blur-2xl border border-yellow-200/40 shadow-[0_8px_32px_rgba(251,191,36,0.2)]"
+        : isDarkMode
+          ? "bg-gradient-to-r from-yellow-900/12 via-orange-900/6 to-yellow-900/12 backdrop-blur-2xl border border-yellow-800/15 shadow-[0_4px_24px_rgba(251,191,36,0.12)]"
+          : "bg-gradient-to-r from-yellow-50/25 via-orange-50/15 to-yellow-50/25 backdrop-blur-2xl border border-yellow-200/30 shadow-[0_4px_24px_rgba(251,191,36,0.15)]"
+    } else {
+      return scrolled
+        ? isDarkMode
+          ? "bg-[#0f172a]/50 backdrop-blur-2xl border border-[#0f172a]/60 shadow-[0_8px_32px_rgba(15,23,42,0.5)]"
+          : "bg-[#81a1d4]/20 backdrop-blur-2xl border border-[#81a1d4]/30 shadow-[0_8px_32px_rgba(129,161,212,0.2)]"
+        : isDarkMode
+          ? "bg-[#0f172a]/45 backdrop-blur-2xl border border-[#0f172a]/50 shadow-[0_4px_24px_rgba(15,23,42,0.45)]"
+          : "bg-[#81a1d4]/15 backdrop-blur-2xl border border-[#81a1d4]/20 shadow-[0_4px_24px_rgba(129,161,212,0.15)]"
+    }
+  }
+
   return (
     <motion.div
       ref={ref}
               className={cn(
           "p-1 rounded-xl transition-all duration-300 fixed top-4 left-4 right-4 z-[100] mx-auto flex items-center justify-between",
-          scrolled
-            ? isDarkMode 
-              ? "bg-[#0f172a]/50 backdrop-blur-2xl border border-[#0f172a]/60 shadow-[0_8px_32px_rgba(15,23,42,0.5)]"
-              : "bg-[#81a1d4]/20 backdrop-blur-2xl border border-[#81a1d4]/30 shadow-[0_8px_32px_rgba(129,161,212,0.2)]"
-            : isDarkMode
-              ? "bg-[#0f172a]/45 backdrop-blur-2xl border border-[#0f172a]/50 shadow-[0_4px_24px_rgba(15,23,42,0.45)]"
-              : "bg-[#81a1d4]/15 backdrop-blur-2xl border border-[#81a1d4]/20 shadow-[0_4px_24px_rgba(129,161,212,0.15)]",
+          getNavbarBackground(),
           className,
         )}
       initial={{ y: -10, opacity: 0 }}

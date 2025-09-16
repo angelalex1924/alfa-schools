@@ -483,19 +483,142 @@ const MobileNav = ({ items }: MobileNavProps) => {
   // Καθορισμός του home path - πλέον πάντα αγγλικά
   const homeHref = "/"
 
+  // Theme-based mobile navbar background colors
+  const getMobileNavbarBackground = () => {
+    if (isChristmasMode) {
+      return scrolled
+        ? isDarkMode
+          ? "bg-gradient-to-r from-red-900/15 via-green-900/8 to-red-900/15 backdrop-blur-2xl border border-red-800/20"
+          : "bg-gradient-to-r from-red-50/30 via-green-50/20 to-red-50/30 backdrop-blur-2xl border border-red-200/40"
+        : isDarkMode
+          ? "bg-gradient-to-r from-red-900/12 via-green-900/6 to-red-900/12 backdrop-blur-2xl border border-red-800/15"
+          : "bg-gradient-to-r from-red-50/25 via-green-50/15 to-red-50/25 backdrop-blur-2xl border border-red-200/30"
+    } else if (isHalloweenMode) {
+      return scrolled
+        ? isDarkMode
+          ? "bg-gradient-to-r from-orange-900/15 via-purple-900/8 to-orange-900/15 backdrop-blur-2xl border border-orange-800/20"
+          : "bg-gradient-to-r from-orange-50/30 via-purple-50/20 to-orange-50/30 backdrop-blur-2xl border border-orange-200/40"
+        : isDarkMode
+          ? "bg-gradient-to-r from-orange-900/12 via-purple-900/6 to-orange-900/12 backdrop-blur-2xl border border-orange-800/15"
+          : "bg-gradient-to-r from-orange-50/25 via-purple-50/15 to-orange-50/25 backdrop-blur-2xl border border-orange-200/30"
+    } else if (isCarnivalMode) {
+      return scrolled
+        ? isDarkMode
+          ? "bg-gradient-to-r from-pink-900/15 via-teal-900/8 to-pink-900/15 backdrop-blur-2xl border border-pink-800/20"
+          : "bg-gradient-to-r from-pink-50/30 via-teal-50/20 to-pink-50/30 backdrop-blur-2xl border border-pink-200/40"
+        : isDarkMode
+          ? "bg-gradient-to-r from-pink-900/12 via-teal-900/6 to-pink-900/12 backdrop-blur-2xl border border-pink-800/15"
+          : "bg-gradient-to-r from-pink-50/25 via-teal-50/15 to-pink-50/25 backdrop-blur-2xl border border-pink-200/30"
+    } else if (isEasterMode) {
+      return scrolled
+        ? isDarkMode
+          ? "bg-gradient-to-r from-pink-900/15 via-green-900/8 to-pink-900/15 backdrop-blur-2xl border border-pink-800/20"
+          : "bg-gradient-to-r from-pink-50/30 via-green-50/20 to-pink-50/30 backdrop-blur-2xl border border-pink-200/40"
+        : isDarkMode
+          ? "bg-gradient-to-r from-pink-900/12 via-green-900/6 to-pink-900/12 backdrop-blur-2xl border border-pink-800/15"
+          : "bg-gradient-to-r from-pink-50/25 via-green-50/15 to-pink-50/25 backdrop-blur-2xl border border-pink-200/30"
+    } else if (isSummerMode) {
+      return scrolled
+        ? isDarkMode
+          ? "bg-gradient-to-r from-yellow-900/15 via-orange-900/8 to-yellow-900/15 backdrop-blur-2xl border border-yellow-800/20"
+          : "bg-gradient-to-r from-yellow-50/30 via-orange-50/20 to-yellow-50/30 backdrop-blur-2xl border border-yellow-200/40"
+        : isDarkMode
+          ? "bg-gradient-to-r from-yellow-900/12 via-orange-900/6 to-yellow-900/12 backdrop-blur-2xl border border-yellow-800/15"
+          : "bg-gradient-to-r from-yellow-50/25 via-orange-50/15 to-yellow-50/25 backdrop-blur-2xl border border-yellow-200/30"
+    } else {
+      return scrolled
+        ? isDarkMode
+          ? "bg-[#0f172a]/50 backdrop-blur-2xl border border-[#0f172a]/60"
+          : "bg-[#81a1d4]/20 backdrop-blur-2xl border border-[#81a1d4]/30"
+        : isDarkMode
+          ? "bg-[#0f172a]/45 backdrop-blur-2xl border border-[#0f172a]/50"
+          : "bg-[#81a1d4]/15 backdrop-blur-2xl border border-[#81a1d4]/20"
+    }
+  }
+
+  // Theme-based mobile menu panel background colors
+  const getMobileMenuBackground = () => {
+    if (isChristmasMode) {
+      return isDarkMode 
+        ? 'bg-gradient-to-br from-red-900/85 via-green-900/80 to-red-900/85'
+        : 'bg-gradient-to-br from-red-50/98 via-green-50/95 to-red-50/98'
+    } else if (isHalloweenMode) {
+      return isDarkMode 
+        ? 'bg-gradient-to-br from-orange-900/85 via-purple-900/80 to-orange-900/85'
+        : 'bg-gradient-to-br from-orange-50/98 via-purple-50/95 to-orange-50/98'
+    } else if (isCarnivalMode) {
+      return isDarkMode 
+        ? 'bg-gradient-to-br from-pink-900/85 via-teal-900/80 to-pink-900/85'
+        : 'bg-gradient-to-br from-pink-50/98 via-teal-50/95 to-pink-50/98'
+    } else if (isEasterMode) {
+      return isDarkMode 
+        ? 'bg-gradient-to-br from-pink-900/85 via-green-900/80 to-pink-900/85'
+        : 'bg-gradient-to-br from-pink-50/98 via-green-50/95 to-pink-50/98'
+    } else if (isSummerMode) {
+      return isDarkMode 
+        ? 'bg-gradient-to-br from-yellow-900/85 via-orange-900/80 to-yellow-900/85'
+        : 'bg-gradient-to-br from-yellow-50/98 via-orange-50/95 to-yellow-50/98'
+    } else {
+      return isDarkMode 
+        ? 'bg-gradient-to-br from-slate-900/98 via-blue-900/95 to-slate-900/98'
+        : 'bg-gradient-to-br from-blue-50/98 via-white/95 to-blue-50/98'
+    }
+  }
+
+  // Theme-based accent colors for mobile nav elements
+  const getMobileNavAccentColor = () => {
+    if (isChristmasMode) {
+      return "text-red-600 dark:text-red-400"
+    } else if (isHalloweenMode) {
+      return "text-orange-600 dark:text-orange-400"
+    } else if (isCarnivalMode) {
+      return "text-pink-600 dark:text-pink-400"
+    } else if (isEasterMode) {
+      return "text-pink-600 dark:text-pink-400"
+    } else if (isSummerMode) {
+      return "text-yellow-600 dark:text-yellow-400"
+    } else {
+      return "text-blue-600 dark:text-blue-400"
+    }
+  }
+
+  // Theme-based card background colors for mobile nav
+  const getMobileNavCardBackground = () => {
+    if (isChristmasMode) {
+      return isDarkMode 
+        ? "bg-gradient-to-br from-red-900/12 via-green-900/6 to-red-900/12 border-red-800/20"
+        : "bg-gradient-to-br from-red-50/20 via-green-50/10 to-red-50/20 border-red-200/30"
+    } else if (isHalloweenMode) {
+      return isDarkMode 
+        ? "bg-gradient-to-br from-orange-900/12 via-purple-900/6 to-orange-900/12 border-orange-800/20"
+        : "bg-gradient-to-br from-orange-50/20 via-purple-50/10 to-orange-50/20 border-orange-200/30"
+    } else if (isCarnivalMode) {
+      return isDarkMode 
+        ? "bg-gradient-to-br from-pink-900/12 via-teal-900/6 to-pink-900/12 border-pink-800/20"
+        : "bg-gradient-to-br from-pink-50/20 via-teal-50/10 to-pink-50/20 border-pink-200/30"
+    } else if (isEasterMode) {
+      return isDarkMode 
+        ? "bg-gradient-to-br from-pink-900/12 via-green-900/6 to-pink-900/12 border-pink-800/20"
+        : "bg-gradient-to-br from-pink-50/20 via-green-50/10 to-pink-50/20 border-pink-200/30"
+    } else if (isSummerMode) {
+      return isDarkMode 
+        ? "bg-gradient-to-br from-yellow-900/12 via-orange-900/6 to-yellow-900/12 border-yellow-800/20"
+        : "bg-gradient-to-br from-yellow-50/20 via-orange-50/10 to-yellow-50/20 border-yellow-200/30"
+    } else {
+      return isDarkMode 
+        ? "bg-gradient-to-br from-white/15 via-white/8 to-white/3 border-white/25"
+        : "bg-gradient-to-br from-white/15 via-white/8 to-white/3 border-white/25"
+    }
+  }
+
+
   return (
     <div className="mobile-nav-container">
       {/* Logo and Hamburger Menu with refined glassmorphism and rounded corners like MEGA */}
       <motion.div
         className={cn(
           "fixed top-4 left-4 right-4 z-50 rounded-xl transition-all duration-300",
-          scrolled
-            ? isDarkMode 
-              ? "bg-[#0f172a]/50 backdrop-blur-2xl border border-[#0f172a]/60"
-              : "bg-[#81a1d4]/20 backdrop-blur-2xl border border-[#81a1d4]/30"
-            : isDarkMode
-              ? "bg-[#0f172a]/45 backdrop-blur-2xl border border-[#0f172a]/50"
-              : "bg-[#81a1d4]/15 backdrop-blur-2xl border border-[#81a1d4]/20",
+          getMobileNavbarBackground(),
         )}
         initial={{ y: -10, opacity: 0 }}
         animate={{
@@ -811,9 +934,9 @@ const MobileNav = ({ items }: MobileNavProps) => {
               }}
             />
 
-            {/* Mobile Navigation Panel with school-themed design */}
+            {/* Mobile Navigation Panel with theme-based design */}
             <motion.div
-              className={`fixed inset-0 z-[100] backdrop-blur-xl overflow-auto mobile-menu-optimized ${isDarkMode ? 'bg-gradient-to-br from-slate-900/98 via-blue-900/95 to-slate-900/98' : 'bg-gradient-to-br from-blue-50/98 via-white/95 to-blue-50/98'}`}
+              className={`fixed inset-0 z-[100] backdrop-blur-xl overflow-auto mobile-menu-optimized ${getMobileMenuBackground()}`}
               initial="hidden"
               animate="visible"
               exit="exit"
@@ -998,10 +1121,8 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.5 }}
                   >
-                    <h3 className={`text-sm font-medium mb-4 flex items-center ${
-                      isDarkMode ? 'text-white' : 'text-gray-800'
-                    }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                      <div className="w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mr-2 shadow-lg">
+                    <h3 className={`text-sm font-medium mb-4 flex items-center ${getMobileNavAccentColor()}`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                      <div className={`w-6 h-6 bg-gradient-to-br ${isChristmasMode ? 'from-red-400 to-green-500' : isHalloweenMode ? 'from-orange-400 to-purple-500' : isCarnivalMode ? 'from-pink-400 to-teal-500' : isEasterMode ? 'from-pink-400 to-green-500' : isSummerMode ? 'from-yellow-400 to-orange-500' : 'from-yellow-400 to-orange-500'} rounded-full flex items-center justify-center mr-2 shadow-lg`}>
                         <Star className="h-3 w-3 text-white" />
                       </div>
                       {t('navigation.main') || 'Main Navigation'}
@@ -1033,8 +1154,8 @@ const MobileNav = ({ items }: MobileNavProps) => {
                             href={link.href}
                             className={`group flex items-center gap-4 p-4 rounded-2xl backdrop-blur-2xl border transition-all duration-300 shadow-lg hover:shadow-2xl relative overflow-hidden mobile-nav-item ${
                               pathname === link.href
-                                ? 'bg-gradient-to-br from-blue-500/25 via-blue-400/15 to-blue-600/25 border-blue-400/50 shadow-blue-500/15'
-                                : 'bg-gradient-to-br from-white/15 via-white/8 to-white/3 border-white/25 hover:bg-gradient-to-br hover:from-white/30 hover:via-white/20 hover:to-white/10 hover:border-white/50 hover:scale-[1.02]'
+                                ? `${getMobileNavCardBackground()} shadow-lg`
+                                : `${getMobileNavCardBackground()} hover:scale-[1.02]`
                             } ${isDarkMode ? 'hover:shadow-slate-900/30' : 'hover:shadow-blue-200/30'}`}
                             style={{
                               transform: "translateZ(0)",
@@ -1180,10 +1301,8 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.25, duration: 0.5 }}
                   >
-                    <h3 className={`text-sm font-medium mb-3 flex items-center ${
-                      isDarkMode ? 'text-white' : 'text-gray-800'
-                    }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                      <div className="w-6 h-6 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center mr-2 shadow-lg">
+                    <h3 className={`text-sm font-medium mb-3 flex items-center ${getMobileNavAccentColor()}`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                      <div className={`w-6 h-6 bg-gradient-to-br ${isChristmasMode ? 'from-green-400 to-red-500' : isHalloweenMode ? 'from-purple-400 to-orange-500' : isCarnivalMode ? 'from-teal-400 to-pink-500' : isEasterMode ? 'from-green-400 to-pink-500' : isSummerMode ? 'from-orange-400 to-yellow-500' : 'from-green-400 to-blue-500'} rounded-full flex items-center justify-center mr-2 shadow-lg`}>
                         <Shield className="h-3 w-3 text-white" />
                       </div>
                       {t("navigation.legal") || "Legal & Contact"}
@@ -1206,7 +1325,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                         >
                           <a
                             href={link.href}
-                            className={`flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl mobile-nav-item ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
+                            className={`flex flex-col items-center gap-2 p-3 rounded-xl ${getMobileNavCardBackground()} backdrop-blur-2xl hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl mobile-nav-item ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
                             style={{
                               transform: "translateZ(0)",
                               backfaceVisibility: "hidden",
@@ -1243,10 +1362,8 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.45, duration: 0.5 }}
                   >
-                    <h3 className={`text-sm font-medium mb-3 flex items-center ${
-                      isDarkMode ? 'text-white' : 'text-gray-800'
-                    }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                      <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mr-2 shadow-lg">
+                    <h3 className={`text-sm font-medium mb-3 flex items-center ${getMobileNavAccentColor()}`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                      <div className={`w-6 h-6 bg-gradient-to-br ${isChristmasMode ? 'from-red-400 to-green-500' : isHalloweenMode ? 'from-orange-400 to-purple-500' : isCarnivalMode ? 'from-pink-400 to-teal-500' : isEasterMode ? 'from-pink-400 to-green-500' : isSummerMode ? 'from-yellow-400 to-orange-500' : 'from-purple-400 to-pink-500'} rounded-full flex items-center justify-center mr-2 shadow-lg`}>
                         <Globe className="h-3 w-3 text-white" />
                       </div>
                        {t('footer.socialMedia')}
@@ -1263,7 +1380,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           href="https://www.facebook.com/profile.php?id=100057649952827"
                           target="_blank"
                           rel="nofollow noopener"
-                          className={`flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl will-change-transform ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
+                          className={`flex flex-col items-center gap-2 p-3 rounded-xl ${getMobileNavCardBackground()} backdrop-blur-2xl hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl will-change-transform ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
                           style={{
                             transform: "translateZ(0)",
                             backfaceVisibility: "hidden",
@@ -1299,7 +1416,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           href="https://www.instagram.com/alfaschools/"
                           target="_blank"
                           rel="nofollow noopener"
-                          className={`flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl will-change-transform ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
+                          className={`flex flex-col items-center gap-2 p-3 rounded-xl ${getMobileNavCardBackground()} backdrop-blur-2xl hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl will-change-transform ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
                           style={{
                             transform: "translateZ(0)",
                             backfaceVisibility: "hidden",
@@ -1342,10 +1459,8 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.5 }}
                   >
-                    <h3 className={`text-sm font-medium mb-3 flex items-center ${
-                      isDarkMode ? 'text-white' : 'text-gray-800'
-                    }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                      <div className="w-6 h-6 bg-gradient-to-br from-red-400 to-orange-500 rounded-full flex items-center justify-center mr-2 shadow-lg">
+                    <h3 className={`text-sm font-medium mb-3 flex items-center ${getMobileNavAccentColor()}`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                      <div className={`w-6 h-6 bg-gradient-to-br ${isChristmasMode ? 'from-red-400 to-green-500' : isHalloweenMode ? 'from-orange-400 to-purple-500' : isCarnivalMode ? 'from-pink-400 to-teal-500' : isEasterMode ? 'from-pink-400 to-green-500' : isSummerMode ? 'from-yellow-400 to-orange-500' : 'from-red-400 to-orange-500'} rounded-full flex items-center justify-center mr-2 shadow-lg`}>
                         <Mail className="h-3 w-3 text-white" />
                       </div>
                        {t('contact.needHelp')}
@@ -1363,7 +1478,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.35, duration: 0.4 }}
                     >
-                      <div className={`p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl mobile-nav-item ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
+                      <div className={`p-4 rounded-2xl ${getMobileNavCardBackground()} backdrop-blur-2xl hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-2xl mobile-nav-item ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
                            style={{
                              transform: "translateZ(0)",
                              backfaceVisibility: "hidden",
@@ -1412,7 +1527,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.4, duration: 0.4 }}
                     >
-                      <div className={`p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl mobile-nav-item ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
+                      <div className={`p-4 rounded-2xl ${getMobileNavCardBackground()} backdrop-blur-2xl hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-2xl mobile-nav-item ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
                            style={{
                              transform: "translateZ(0)",
                              backfaceVisibility: "hidden",
