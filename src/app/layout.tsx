@@ -6,9 +6,18 @@ import { ConditionalFooter } from "@/components/ConditionalFooter";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ChristmasThemeProvider } from "@/contexts/ChristmasThemeContext";
+import { HalloweenThemeProvider } from "@/contexts/HalloweenThemeContext";
+import { CarnivalThemeProvider } from "@/contexts/CarnivalThemeContext";
+import { EasterThemeProvider } from "@/contexts/EasterThemeContext";
+import { SummerThemeProvider } from "@/contexts/SummerThemeContext";
 import { CookieConsent } from "@/components/cookie-consent";
 import { ConditionalChatbot } from "@/components/ConditionalChatbot";
 import { ChristmasWrapper } from "@/components/ChristmasWrapper";
+import { HalloweenWrapper } from "@/components/HalloweenWrapper";
+import { CarnivalWrapper } from "@/components/CarnivalWrapper";
+import { EasterWrapper } from "@/components/EasterWrapper";
+import { SummerWrapper } from "@/components/SummerWrapper";
+import { MobileMenuProvider } from "@/contexts/MobileMenuContext";
 
 // Pacifico font for anniversary text
 const pacifico = {
@@ -55,15 +64,33 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <LanguageProvider>
-            <ChristmasThemeProvider>
-              <ChristmasWrapper>
-                <ConditionalResponsiveNav />
-                {children}
-                <ConditionalFooter />
-                <CookieConsent />
-                <ConditionalChatbot />
-              </ChristmasWrapper>
-            </ChristmasThemeProvider>
+            <MobileMenuProvider>
+              <ChristmasThemeProvider>
+                <HalloweenThemeProvider>
+                  <CarnivalThemeProvider>
+                    <EasterThemeProvider>
+                      <SummerThemeProvider>
+                      <ChristmasWrapper>
+                        <HalloweenWrapper>
+                          <CarnivalWrapper>
+                            <EasterWrapper>
+                              <SummerWrapper>
+                                <ConditionalResponsiveNav />
+                                {children}
+                                <ConditionalFooter />
+                                <CookieConsent />
+                                <ConditionalChatbot />
+                              </SummerWrapper>
+                            </EasterWrapper>
+                          </CarnivalWrapper>
+                        </HalloweenWrapper>
+                      </ChristmasWrapper>
+                      </SummerThemeProvider>
+                    </EasterThemeProvider>
+                  </CarnivalThemeProvider>
+                </HalloweenThemeProvider>
+              </ChristmasThemeProvider>
+            </MobileMenuProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

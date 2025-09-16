@@ -48,10 +48,87 @@ import { useTheme } from "@/contexts/ThemeContext"
 import { LanguageSwitcher } from "./LanguageSwitcher"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { useChristmasTheme } from "@/contexts/ChristmasThemeContext"
+import { useHalloweenTheme } from "@/contexts/HalloweenThemeContext"
+import { useCarnivalTheme } from "@/contexts/CarnivalThemeContext"
+import { useEasterTheme } from "@/contexts/EasterThemeContext"
+import { useSummerTheme } from "@/contexts/SummerThemeContext"
+import { useMobileMenu } from "@/contexts/MobileMenuContext"
 import { GamesIcon } from "./custom-icons"
 import { AnniversaryText } from "./AnniversaryText"
 import LanguageIcon from "./LanguageIcon"
 import { SantaIcon, ChristmasTreeIcon, ReindeerIcon, GiftBoxIcon, BellIcon } from "./ChristmasIcons"
+
+// Halloween Icons Helper
+const getHalloweenIcon = (iconType: string, className?: string) => {
+  const iconMap: { [key: string]: string } = {
+    pumpkin: "🎃",
+    witch: "🧙‍♀️", 
+    ghost: "👻",
+    bat: "🦇",
+    spider: "🕷️",
+    skull: "💀"
+  }
+  
+  return (
+    <span className={`${className} flex items-center justify-center`} style={{ lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      {iconMap[iconType] || "🎃"}
+    </span>
+  )
+}
+
+// Carnival Icons Helper
+const getCarnivalIcon = (iconType: string, className?: string) => {
+  const iconMap: { [key: string]: string } = {
+    mask: "🎭",
+    circus: "🎪", 
+    art: "🎨",
+    music: "🎵",
+    guitar: "🎸",
+    trumpet: "🎺"
+  }
+  
+  return (
+    <span className={`${className} flex items-center justify-center`} style={{ lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      {iconMap[iconType] || "🎭"}
+    </span>
+  )
+}
+
+// Easter Icons Helper
+const getEasterIcon = (iconType: string, className?: string) => {
+  const iconMap: { [key: string]: string } = {
+    bunny: "🐰",
+    egg: "🥚", 
+    chick: "🐣",
+    flower: "🌸",
+    tulip: "🌷",
+    butterfly: "🦋"
+  }
+  
+  return (
+    <span className={`${className} flex items-center justify-center`} style={{ lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      {iconMap[iconType] || "🐰"}
+    </span>
+  )
+}
+
+// Summer Icons Helper
+const getSummerIcon = (iconType: string, className?: string) => {
+  const iconMap: { [key: string]: string } = {
+    sun: "☀️",
+    sunface: "🌞", 
+    sunflower: "🌻",
+    beach: "🏖️",
+    wave: "🌊",
+    shell: "🐚"
+  }
+  
+  return (
+    <span className={`${className} flex items-center justify-center`} style={{ lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      {iconMap[iconType] || "☀️"}
+    </span>
+  )
+}
 
 // AcronAI SVG Icon
 const AcronAIIcon = ({ className }: { className?: string }) => (
@@ -155,7 +232,7 @@ interface MobileNavProps {
 }
 
 const MobileNav = ({ items }: MobileNavProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const { isMobileMenuOpen, setIsMobileMenuOpen } = useMobileMenu()
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const [animationComplete, setAnimationComplete] = useState(false)
   const { isDarkMode, toggleTheme } = useTheme()
@@ -172,11 +249,11 @@ const MobileNav = ({ items }: MobileNavProps) => {
     
     setIsToggling(true)
     
-    if (isOpen) {
-      setIsOpen(false)
+    if (isMobileMenuOpen) {
+      setIsMobileMenuOpen(false)
       setActiveIndex(null)
     } else {
-      setIsOpen(true)
+      setIsMobileMenuOpen(true)
       setAnimationComplete(false)
       setActiveIndex(null)
     }
@@ -213,7 +290,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
 
   useEffect(() => {
     // Lock body scroll when menu is open
-    if (isOpen) {
+    if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden"
       document.body.classList.add("mobile-menu-open")
     } else {
@@ -225,12 +302,12 @@ const MobileNav = ({ items }: MobileNavProps) => {
       document.body.style.overflow = ""
       document.body.classList.remove("mobile-menu-open")
     }
-  }, [isOpen])
+  }, [isMobileMenuOpen])
 
   // Listen for language change events to close mobile menu
   useEffect(() => {
     const handleCloseMobileMenu = () => {
-      setIsOpen(false)
+      setIsMobileMenuOpen(false)
     }
 
     window.addEventListener('closeMobileMenu', handleCloseMobileMenu)
@@ -239,42 +316,45 @@ const MobileNav = ({ items }: MobileNavProps) => {
 
   useEffect(() => {
     // Set animation complete after items have animated in
-    if (isOpen) {
+    if (isMobileMenuOpen) {
       const timer = setTimeout(() => {
         setAnimationComplete(true)
       }, 500)
       return () => clearTimeout(timer)
     }
-  }, [isOpen])
+  }, [isMobileMenuOpen])
 
   // Handle navigation with client-side routing
   const handleNavigation = (href: string) => {
-    setIsOpen(false)
+    setIsMobileMenuOpen(false)
     router.push(href)
   }
 
-  // Simplify the animation variants to reduce performance impact
+  // Optimized animation variants to prevent flickering
   const backdropVariants = {
-    hidden: { opacity: 0 },
+    hidden: { 
+      opacity: 0,
+    },
     visible: {
       opacity: 1,
-      transition: { duration: 0.2 },
     },
     exit: {
       opacity: 0,
-      transition: { duration: 0.2 },
     },
   }
 
   const panelVariants = {
-    hidden: { opacity: 0 },
+    hidden: { 
+      opacity: 0,
+      scale: 0.98,
+    },
     visible: {
       opacity: 1,
-      transition: { duration: 0.2 },
+      scale: 1,
     },
     exit: {
       opacity: 0,
-      transition: { duration: 0.2 },
+      scale: 0.98,
     },
   }
 
@@ -292,48 +372,52 @@ const MobileNav = ({ items }: MobileNavProps) => {
 
   // Main navigation links - Same as GlowMenu with proper branding colors
   const { isChristmasMode } = useChristmasTheme()
+  const { isHalloweenMode } = useHalloweenTheme()
+  const { isCarnivalMode } = useCarnivalTheme()
+  const { isEasterMode } = useEasterTheme()
+  const { isSummerMode } = useSummerTheme()
   const mainNavigationLinks = [
     {
       label: t('navigation.home'),
       href: "/",
-      icon: isChristmasMode ? SantaIcon : Home,
-      color: isChristmasMode ? "bg-gradient-to-br from-red-500 to-red-600" : "bg-gradient-to-br from-blue-500 to-blue-600",
-      hoverEffect: isChristmasMode ? "hover:shadow-red-500/20" : "hover:shadow-blue-500/20",
+      icon: isChristmasMode ? SantaIcon : isHalloweenMode ? "pumpkin" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : Home,
+      color: isChristmasMode ? "bg-gradient-to-br from-red-500 to-red-600" : isHalloweenMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : isCarnivalMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isEasterMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isSummerMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : "bg-gradient-to-br from-blue-500 to-blue-600",
+      hoverEffect: isChristmasMode ? "hover:shadow-red-500/20" : isHalloweenMode ? "hover:shadow-orange-500/20" : isCarnivalMode ? "hover:shadow-pink-500/20" : isEasterMode ? "hover:shadow-pink-500/20" : isSummerMode ? "hover:shadow-yellow-500/20" : "hover:shadow-blue-500/20",
     },
     {
       label: t('navigation.services'),
       href: "/services",
-      icon: isChristmasMode ? ChristmasTreeIcon : ServicesIcon,
-      color: isChristmasMode ? "bg-gradient-to-br from-green-500 to-green-600" : "bg-gradient-to-br from-[#c9b6e4] to-[#a78fd8]",
-      hoverEffect: isChristmasMode ? "hover:shadow-green-500/20" : "hover:shadow-[#c9b6e4]/20",
+      icon: isChristmasMode ? ChristmasTreeIcon : isHalloweenMode ? "witch" : isCarnivalMode ? "circus" : isEasterMode ? "egg" : isSummerMode ? "sunflower" : ServicesIcon,
+      color: isChristmasMode ? "bg-gradient-to-br from-green-500 to-green-600" : isHalloweenMode ? "bg-gradient-to-br from-purple-500 to-purple-600" : isCarnivalMode ? "bg-gradient-to-br from-teal-500 to-teal-600" : isEasterMode ? "bg-gradient-to-br from-green-500 to-green-600" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : "bg-gradient-to-br from-[#c9b6e4] to-[#a78fd8]",
+      hoverEffect: isChristmasMode ? "hover:shadow-green-500/20" : isHalloweenMode ? "hover:shadow-purple-500/20" : isCarnivalMode ? "hover:shadow-teal-500/20" : isEasterMode ? "hover:shadow-green-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : "hover:shadow-[#c9b6e4]/20",
     },
     {
       label: t('navigation.news'),
       href: "/articles",
-      icon: isChristmasMode ? BellIcon : Newspaper,
-      color: isChristmasMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : "bg-gradient-to-br from-[#f78da7] to-[#f06292]",
-      hoverEffect: isChristmasMode ? "hover:shadow-yellow-500/20" : "hover:shadow-[#f78da7]/20",
+      icon: isChristmasMode ? BellIcon : isHalloweenMode ? "ghost" : isCarnivalMode ? "art" : isEasterMode ? "chick" : isSummerMode ? "beach" : Newspaper,
+      color: isChristmasMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isHalloweenMode ? "bg-gradient-to-br from-amber-500 to-amber-600" : isCarnivalMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isEasterMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : "bg-gradient-to-br from-[#f78da7] to-[#f06292]",
+      hoverEffect: isChristmasMode ? "hover:shadow-yellow-500/20" : isHalloweenMode ? "hover:shadow-amber-500/20" : isCarnivalMode ? "hover:shadow-yellow-500/20" : isEasterMode ? "hover:shadow-yellow-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : "hover:shadow-[#f78da7]/20",
     },
     {
       label: t('navigation.whyUs'),
       href: "/why-us",
-      icon: isChristmasMode ? ReindeerIcon : Users,
-      color: isChristmasMode ? "bg-gradient-to-br from-amber-600 to-amber-700" : "bg-gradient-to-br from-[#fabeb6] to-[#f8a5a5]",
-      hoverEffect: isChristmasMode ? "hover:shadow-amber-500/20" : "hover:shadow-[#fabeb6]/20",
+      icon: isChristmasMode ? ReindeerIcon : isHalloweenMode ? "bat" : isCarnivalMode ? "music" : isEasterMode ? "flower" : isSummerMode ? "wave" : Users,
+      color: isChristmasMode ? "bg-gradient-to-br from-amber-600 to-amber-700" : isHalloweenMode ? "bg-gradient-to-br from-gray-600 to-gray-700" : isCarnivalMode ? "bg-gradient-to-br from-blue-500 to-blue-600" : isEasterMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isSummerMode ? "bg-gradient-to-br from-cyan-500 to-cyan-600" : "bg-gradient-to-br from-[#fabeb6] to-[#f8a5a5]",
+      hoverEffect: isChristmasMode ? "hover:shadow-amber-500/20" : isHalloweenMode ? "hover:shadow-gray-500/20" : isCarnivalMode ? "hover:shadow-blue-500/20" : isEasterMode ? "hover:shadow-pink-500/20" : isSummerMode ? "hover:shadow-cyan-500/20" : "hover:shadow-[#fabeb6]/20",
     },
     {
       label: t('navigation.games'),
       href: "/games",
-      icon: isChristmasMode ? GiftBoxIcon : GamesIcon,
-      color: isChristmasMode ? "bg-gradient-to-br from-red-500 to-red-600" : "bg-gradient-to-br from-[#a8e6cf] to-[#88d8a3]",
-      hoverEffect: isChristmasMode ? "hover:shadow-red-500/20" : "hover:shadow-[#a8e6cf]/20",
+      icon: isChristmasMode ? GiftBoxIcon : isHalloweenMode ? "spider" : isCarnivalMode ? "guitar" : isEasterMode ? "tulip" : isSummerMode ? "shell" : GamesIcon,
+      color: isChristmasMode ? "bg-gradient-to-br from-red-500 to-red-600" : isHalloweenMode ? "bg-gradient-to-br from-red-500 to-red-600" : isCarnivalMode ? "bg-gradient-to-br from-green-500 to-green-600" : isEasterMode ? "bg-gradient-to-br from-teal-500 to-teal-600" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : "bg-gradient-to-br from-[#a8e6cf] to-[#88d8a3]",
+      hoverEffect: isChristmasMode ? "hover:shadow-red-500/20" : isHalloweenMode ? "hover:shadow-red-500/20" : isCarnivalMode ? "hover:shadow-green-500/20" : isEasterMode ? "hover:shadow-teal-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : "hover:shadow-[#a8e6cf]/20",
     },
     {
       label: t('navigation.contact'),
       href: "/contact",
-      icon: Phone,
-      color: isChristmasMode ? "bg-gradient-to-br from-green-500 to-green-600" : "bg-gradient-to-br from-[#fde7dc] to-[#fad4c4]",
-      hoverEffect: isChristmasMode ? "hover:shadow-green-500/20" : "hover:shadow-[#fde7dc]/20",
+      icon: isHalloweenMode ? "skull" : isCarnivalMode ? "trumpet" : isEasterMode ? "butterfly" : isSummerMode ? "sunface" : Phone,
+      color: isChristmasMode ? "bg-gradient-to-br from-green-500 to-green-600" : isHalloweenMode ? "bg-gradient-to-br from-gray-500 to-gray-600" : isCarnivalMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isEasterMode ? "bg-gradient-to-br from-blue-500 to-blue-600" : isSummerMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : "bg-gradient-to-br from-[#fde7dc] to-[#fad4c4]",
+      hoverEffect: isChristmasMode ? "hover:shadow-green-500/20" : isHalloweenMode ? "hover:shadow-gray-500/20" : isCarnivalMode ? "hover:shadow-pink-500/20" : isEasterMode ? "hover:shadow-blue-500/20" : isSummerMode ? "hover:shadow-yellow-500/20" : "hover:shadow-[#fde7dc]/20",
     },
   ]
 
@@ -497,7 +581,19 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       }}
                     >
                       <Image
-                        src="/alfa-logo.png"
+                src={
+                  isChristmasMode
+                    ? "/alfa-christmas-logo.png"
+                    : isHalloweenMode
+                      ? "/alfa-logo-halloween.png"
+                      : isCarnivalMode
+                        ? "/alfa-logo-carnival.png"
+                        : isEasterMode
+                          ? "/alfa-logo-easter.png"
+                          : isSummerMode
+                            ? "/alfa-summer-logo.png"
+                            : "/alfa-logo.png"
+                }
                         alt="Alfa Logo"
                         fill
                         className="object-contain"
@@ -529,6 +625,102 @@ const MobileNav = ({ items }: MobileNavProps) => {
                   }}
                 >
                   <ChristmasTreeIcon className="w-6 h-6 text-green-500" />
+                </motion.div>
+              </motion.div>
+            )}
+
+            {/* Halloween Κολοκύθα δίπλα από το logo στο Mobile */}
+            {isHalloweenMode && (
+              <motion.div
+                className="ml-1"
+                initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, delay: 1.2, type: "spring", stiffness: 200 }}
+              >
+                <motion.div
+                  animate={{
+                    rotate: [0, 5, -5, 0],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <span className="text-2xl">🎃</span>
+                </motion.div>
+              </motion.div>
+            )}
+
+            {/* Carnival Μάσκα δίπλα από το logo στο Mobile */}
+            {isCarnivalMode && (
+              <motion.div
+                className="ml-1"
+                initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, delay: 1.2, type: "spring", stiffness: 200 }}
+              >
+                <motion.div
+                  animate={{
+                    rotate: [0, 5, -5, 0],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <span className="text-2xl">🎭</span>
+                </motion.div>
+              </motion.div>
+            )}
+
+            {/* Easter Λαγός δίπλα από το logo στο Mobile */}
+            {isEasterMode && (
+              <motion.div
+                className="ml-1"
+                initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, delay: 1.2, type: "spring", stiffness: 200 }}
+              >
+                <motion.div
+                  animate={{
+                    rotate: [0, 5, -5, 0],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <span className="text-2xl">🐰</span>
+                </motion.div>
+              </motion.div>
+            )}
+
+            {/* Summer Ήλιος δίπλα από το logo στο Mobile */}
+            {isSummerMode && (
+              <motion.div
+                className="ml-1"
+                initial={{ opacity: 0, scale: 0, rotate: -180 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, delay: 1.2, type: "spring", stiffness: 200 }}
+              >
+                <motion.div
+                  animate={{
+                    rotate: [0, 5, -5, 0],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <span className="text-2xl">☀️</span>
                 </motion.div>
               </motion.div>
             )}
@@ -589,7 +781,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
             />
 
             <div className="hamburger">
-              <HamburgerMenu isOpen={isOpen} toggleMenu={toggleMenu} />
+              <HamburgerMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMenu} />
             </div>
           </div>
         </div>
@@ -597,7 +789,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
 
       {/* Animated Mobile Navigation */}
       <AnimatePresence>
-        {isOpen && (
+        {isMobileMenuOpen && (
           <>
             {/* Backdrop with enhanced blur effect */}
             <motion.div
@@ -606,26 +798,34 @@ const MobileNav = ({ items }: MobileNavProps) => {
               animate="visible"
               exit="exit"
               variants={backdropVariants}
+              transition={{ duration: 0.15, ease: "easeOut" }}
               onClick={toggleMenu}
               aria-hidden="true"
               style={{
                 transform: "translateZ(0)",
                 backfaceVisibility: "hidden",
                 zIndex: 90,
+                willChange: "opacity",
+                WebkitBackfaceVisibility: "hidden",
+                WebkitTransform: "translateZ(0)",
               }}
             />
 
             {/* Mobile Navigation Panel with school-themed design */}
             <motion.div
-              className={`fixed inset-0 z-[100] backdrop-blur-xl overflow-auto will-change-transform ${isDarkMode ? 'bg-gradient-to-br from-slate-900/98 via-blue-900/95 to-slate-900/98' : 'bg-gradient-to-br from-blue-50/98 via-white/95 to-blue-50/98'}`}
+              className={`fixed inset-0 z-[100] backdrop-blur-xl overflow-auto mobile-menu-optimized ${isDarkMode ? 'bg-gradient-to-br from-slate-900/98 via-blue-900/95 to-slate-900/98' : 'bg-gradient-to-br from-blue-50/98 via-white/95 to-blue-50/98'}`}
               initial="hidden"
               animate="visible"
               exit="exit"
               variants={panelVariants}
+              transition={{ duration: 0.15, ease: "easeOut" }}
               style={{
                 transform: "translateZ(0)",
                 backfaceVisibility: "hidden",
                 zIndex: 100,
+                willChange: "transform, opacity",
+                WebkitBackfaceVisibility: "hidden",
+                WebkitTransform: "translateZ(0)",
               }}
             >
               {/* Close button */}
@@ -635,7 +835,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 0.2 }}
               >
-                <HamburgerMenu isOpen={isOpen} toggleMenu={toggleMenu} />
+                <HamburgerMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMenu} />
               </motion.div>
 
               {/* Content container with school-themed background */}
@@ -747,7 +947,19 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     <div className="flex items-center">
                       <div className="relative w-32 h-12">
                         <Image
-                          src="/alfa-logo.png"
+                src={
+                  isChristmasMode
+                    ? "/alfa-christmas-logo.png"
+                    : isHalloweenMode
+                      ? "/alfa-logo-halloween.png"
+                      : isCarnivalMode
+                        ? "/alfa-logo-carnival.png"
+                        : isEasterMode
+                          ? "/alfa-logo-easter.png"
+                          : isSummerMode
+                            ? "/alfa-summer-logo.png"
+                            : "/alfa-logo.png"
+                }
                           alt="Alfa Logo"
                           fill
                           className="object-contain"
@@ -795,7 +1007,14 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       {t('navigation.main') || 'Main Navigation'}
                     </h3>
                     <div className="grid grid-cols-1 gap-3">
-                      {mainNavigationLinks.map((link, index) => (
+                      {mainNavigationLinks.map((link, index) => {
+            // Check if it's a Halloween, Carnival, Easter or Summer icon string
+            const isHalloweenIcon = typeof link.icon === 'string' && ['pumpkin', 'witch', 'ghost', 'bat', 'spider', 'skull'].includes(link.icon)
+            const isCarnivalIcon = typeof link.icon === 'string' && ['mask', 'circus', 'art', 'music', 'guitar', 'trumpet'].includes(link.icon)
+            const isEasterIcon = typeof link.icon === 'string' && ['bunny', 'egg', 'chick', 'flower', 'tulip', 'butterfly'].includes(link.icon)
+            const isSummerIcon = typeof link.icon === 'string' && ['sun', 'sunface', 'sunflower', 'beach', 'wave', 'shell'].includes(link.icon)
+                        
+                        return (
                         <motion.div
                           key={index}
                           whileHover={{ y: -2, scale: 1.02 }}
@@ -812,11 +1031,17 @@ const MobileNav = ({ items }: MobileNavProps) => {
                         >
                           <a
                             href={link.href}
-                            className={`group flex items-center gap-4 p-4 rounded-2xl backdrop-blur-2xl border transition-all duration-300 shadow-lg hover:shadow-2xl relative overflow-hidden ${
+                            className={`group flex items-center gap-4 p-4 rounded-2xl backdrop-blur-2xl border transition-all duration-300 shadow-lg hover:shadow-2xl relative overflow-hidden mobile-nav-item ${
                               pathname === link.href
                                 ? 'bg-gradient-to-br from-blue-500/25 via-blue-400/15 to-blue-600/25 border-blue-400/50 shadow-blue-500/15'
                                 : 'bg-gradient-to-br from-white/15 via-white/8 to-white/3 border-white/25 hover:bg-gradient-to-br hover:from-white/30 hover:via-white/20 hover:to-white/10 hover:border-white/50 hover:scale-[1.02]'
                             } ${isDarkMode ? 'hover:shadow-slate-900/30' : 'hover:shadow-blue-200/30'}`}
+                            style={{
+                              transform: "translateZ(0)",
+                              backfaceVisibility: "hidden",
+                              WebkitBackfaceVisibility: "hidden",
+                              WebkitTransform: "translateZ(0)",
+                            }}
                             onClick={(e) => {
                               if (link.href.startsWith("http")) {
                                 window.open(link.href, "_blank")
@@ -862,9 +1087,27 @@ const MobileNav = ({ items }: MobileNavProps) => {
                               }}
                               transition={{ duration: 0.3, ease: "easeInOut" }}
                             >
+                            {isHalloweenIcon ? (
+                              getHalloweenIcon(link.icon as string, `h-7 w-7 transition-colors duration-300 leading-none ${
+                                pathname === link.href ? 'text-white' : 'text-white'
+                              }`)
+                            ) : isCarnivalIcon ? (
+                              getCarnivalIcon(link.icon as string, `h-7 w-7 transition-colors duration-300 leading-none ${
+                                pathname === link.href ? 'text-white' : 'text-white'
+                              }`)
+                            ) : isEasterIcon ? (
+                              getEasterIcon(link.icon as string, `h-7 w-7 transition-colors duration-300 leading-none ${
+                                pathname === link.href ? 'text-white' : 'text-white'
+                              }`)
+                            ) : isSummerIcon ? (
+                              getSummerIcon(link.icon as string, `h-7 w-7 transition-colors duration-300 leading-none ${
+                                pathname === link.href ? 'text-white' : 'text-white'
+                              }`)
+                            ) : (
                               <link.icon className={`h-7 w-7 transition-colors duration-300 ${
                                 pathname === link.href ? 'text-white' : 'text-white'
                               }`} />
+                            )}
                               
                               {/* Active icon glow effect */}
                               {pathname === link.href && (
@@ -923,7 +1166,8 @@ const MobileNav = ({ items }: MobileNavProps) => {
                             </motion.div>
                           </a>
                         </motion.div>
-                      ))}
+                        )
+                      })}
                     </div>
                   </motion.div>
 
@@ -962,7 +1206,13 @@ const MobileNav = ({ items }: MobileNavProps) => {
                         >
                           <a
                             href={link.href}
-                            className={`flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
+                            className={`flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl mobile-nav-item ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
+                            style={{
+                              transform: "translateZ(0)",
+                              backfaceVisibility: "hidden",
+                              WebkitBackfaceVisibility: "hidden",
+                              WebkitTransform: "translateZ(0)",
+                            }}
                             onClick={(e) => {
                               e.preventDefault()
                               handleNavigation(link.href)
@@ -1013,7 +1263,13 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           href="https://www.facebook.com/profile.php?id=100057649952827"
                           target="_blank"
                           rel="nofollow noopener"
-                          className={`flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
+                          className={`flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl will-change-transform ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
+                          style={{
+                            transform: "translateZ(0)",
+                            backfaceVisibility: "hidden",
+                            WebkitBackfaceVisibility: "hidden",
+                            WebkitTransform: "translateZ(0)",
+                          }}
                         >
                           <motion.div
                             className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center shadow-sm"
@@ -1043,7 +1299,13 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           href="https://www.instagram.com/alfaschools/"
                           target="_blank"
                           rel="nofollow noopener"
-                          className={`flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
+                          className={`flex flex-col items-center gap-2 p-3 rounded-xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl will-change-transform ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
+                          style={{
+                            transform: "translateZ(0)",
+                            backfaceVisibility: "hidden",
+                            WebkitBackfaceVisibility: "hidden",
+                            WebkitTransform: "translateZ(0)",
+                          }}
                         >
                           <motion.div
                             className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500/20 to-purple-500/20 flex items-center justify-center shadow-sm"
@@ -1101,7 +1363,13 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.35, duration: 0.4 }}
                     >
-                      <div className={`p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}>
+                      <div className={`p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl mobile-nav-item ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
+                           style={{
+                             transform: "translateZ(0)",
+                             backfaceVisibility: "hidden",
+                             WebkitBackfaceVisibility: "hidden",
+                             WebkitTransform: "translateZ(0)",
+                           }}>
                         <h4 className={`text-lg font-semibold mb-3 flex items-center gap-2 ${
                           isDarkMode ? 'text-white' : 'text-gray-800'
                         }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
@@ -1144,7 +1412,13 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.4, duration: 0.4 }}
                     >
-                      <div className={`p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}>
+                      <div className={`p-4 rounded-2xl bg-gradient-to-br from-white/20 via-white/10 to-white/5 backdrop-blur-2xl border border-white/30 hover:bg-gradient-to-br hover:from-white/40 hover:via-white/30 hover:to-white/20 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-2xl mobile-nav-item ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
+                           style={{
+                             transform: "translateZ(0)",
+                             backfaceVisibility: "hidden",
+                             WebkitBackfaceVisibility: "hidden",
+                             WebkitTransform: "translateZ(0)",
+                           }}>
                         <h4 className={`text-lg font-semibold mb-3 flex items-center gap-2 ${
                           isDarkMode ? 'text-white' : 'text-gray-800'
                         }`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>

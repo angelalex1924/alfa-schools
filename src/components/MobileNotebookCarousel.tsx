@@ -87,11 +87,23 @@ const getCarouselData = (t: (key: string) => string | string[]): CarouselSlide[]
 export default function MobileNotebookCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
+  const [isMobile, setIsMobile] = useState(false)
   const { t } = useLanguage()
   const { isDarkMode } = useTheme()
   const { isChristmasMode } = useChristmasTheme()
   
   const carouselData = getCarouselData(t)
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Auto-play functionality
   useEffect(() => {
@@ -193,13 +205,13 @@ export default function MobileNotebookCarousel() {
                </div>
                
                {/* Decorative sparkles */}
-               <div className="absolute -top-1 -left-1 w-2 h-2 bg-yellow-400 rounded-full animate-ping opacity-75"></div>
-               <div className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></div>
+               <div className={`absolute -top-1 -left-1 w-2 h-2 bg-yellow-400 rounded-full opacity-75 ${isMobile ? '' : 'animate-ping'}`}></div>
+               <div className={`absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-blue-400 rounded-full ${isMobile ? '' : 'animate-pulse'}`}></div>
              </div>
              
                {/* Since 1986 Badge - School Style */}
-               <div className="relative group transform rotate-2 hover:rotate-4 transition-transform duration-300">
-                 <div className="bg-white/20 dark:bg-gray-800/30 backdrop-blur-xl rounded-lg px-3 py-2 border-2 border-blue-200/50 dark:border-blue-600/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+               <div className={`relative group transform rotate-2 ${isMobile ? '' : 'hover:rotate-4 transition-transform duration-300'}`}>
+                 <div className={`bg-white/20 dark:bg-gray-800/30 backdrop-blur-xl rounded-lg px-3 py-2 border-2 border-blue-200/50 dark:border-blue-600/50 shadow-lg ${isMobile ? '' : 'hover:shadow-xl transition-all duration-300'} overflow-hidden`}>
                  {/* Paper texture */}
                  <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none">
                    <div className="w-full h-full" style={{
@@ -245,18 +257,18 @@ export default function MobileNotebookCarousel() {
 
           {/* Image Section */}
           <div className="relative group">
-            <div className={`w-64 h-48 rounded-lg overflow-hidden shadow-lg border-2 transition-all duration-300 group-hover:shadow-xl group-hover:scale-105 ${
+            <div className={`w-64 h-48 rounded-lg overflow-hidden shadow-lg border-2 ${isMobile ? '' : 'transition-all duration-300 group-hover:shadow-xl group-hover:scale-105'} ${
               isDarkMode ? 'border-gray-600' : 'border-gray-200'
             }`}>
               <img
                 src={currentData.image}
                 alt={currentData.title}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                className={`w-full h-full object-cover ${isMobile ? '' : 'transition-transform duration-300 group-hover:scale-110'}`}
               />
             </div>
             
             {/* Enhanced corner decorations */}
-            <div className="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center shadow-md animate-pulse">
+            <div className={`absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center shadow-md ${isMobile ? '' : 'animate-pulse'}`}>
               <Star className="w-4 h-4 text-white" />
             </div>
             
@@ -272,7 +284,7 @@ export default function MobileNotebookCarousel() {
 
           {/* Description - School Notebook Style */}
           <div className="max-w-sm text-center">
-            <div className={`relative rounded-xl p-5 shadow-xl border-2 transition-all duration-300 hover:shadow-2xl hover:scale-105 overflow-hidden ${
+            <div className={`relative rounded-xl p-5 shadow-xl border-2 ${isMobile ? '' : 'transition-all duration-300 hover:shadow-2xl hover:scale-105'} overflow-hidden ${
               isDarkMode 
                 ? 'bg-white/20 border-white/40 text-white backdrop-blur-xl' 
                 : 'bg-white/98 border-blue-200/50 text-gray-800 backdrop-blur-xl'
@@ -360,7 +372,7 @@ export default function MobileNotebookCarousel() {
             <div className="relative group">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-4 rounded-xl shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl font-bold border-2 border-blue-500/30 relative overflow-hidden"
+                className={`bg-gradient-to-r from-blue-600 to-blue-700 ${isMobile ? '' : 'hover:from-blue-700 hover:to-blue-800'} text-white px-10 py-4 rounded-xl shadow-xl ${isMobile ? '' : 'transition-all duration-300 hover:scale-105 hover:shadow-2xl'} font-bold border-2 border-blue-500/30 relative overflow-hidden`}
               >
                 {/* Subtle background pattern */}
                 <div className="absolute inset-0 opacity-10">
@@ -371,9 +383,9 @@ export default function MobileNotebookCarousel() {
                 </div>
                 
                 <span className="flex items-center gap-2 relative z-10">
-                  <GraduationCap className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12" />
+                  <GraduationCap className={`w-5 h-5 ${isMobile ? '' : 'transition-transform duration-300 group-hover:rotate-12'}`} />
                   {currentData.ctaText}
-                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  <ArrowRight className={`w-4 h-4 ${isMobile ? '' : 'transition-transform duration-300 group-hover:translate-x-1'}`} />
                 </span>
               </Button>
               
@@ -385,14 +397,14 @@ export default function MobileNotebookCarousel() {
                </div>
               
               {/* Decorative sparkles */}
-              <div className="absolute -top-1 -left-1 w-2 h-2 bg-yellow-400 rounded-full animate-ping opacity-75"></div>
-              <div className="absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+              <div className={`absolute -top-1 -left-1 w-2 h-2 bg-yellow-400 rounded-full opacity-75 ${isMobile ? '' : 'animate-ping'}`}></div>
+              <div className={`absolute -bottom-1 -left-1 w-1.5 h-1.5 bg-green-400 rounded-full ${isMobile ? '' : 'animate-pulse'}`}></div>
             </div>
           </div>
 
           {/* Stats - School Notebook Style */}
           <div className="flex gap-4 max-w-sm">
-            <div className={`relative rounded-xl p-4 shadow-xl border-2 flex-1 text-center transition-all duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden ${
+            <div className={`relative rounded-xl p-4 shadow-xl border-2 flex-1 text-center ${isMobile ? '' : 'transition-all duration-300 hover:scale-105 hover:shadow-2xl'} overflow-hidden ${
               isDarkMode 
                 ? 'bg-white/20 border-white/40 backdrop-blur-xl' 
                 : 'bg-white/98 border-blue-200/50 backdrop-blur-xl'
@@ -421,7 +433,7 @@ export default function MobileNotebookCarousel() {
               <div className="absolute top-1 left-1 w-1.5 h-1.5 border-t border-l border-blue-300/60 dark:border-blue-600/60 rounded-tl"></div>
             </div>
             
-            <div className={`relative rounded-xl p-4 shadow-xl border-2 flex-1 text-center transition-all duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden ${
+            <div className={`relative rounded-xl p-4 shadow-xl border-2 flex-1 text-center ${isMobile ? '' : 'transition-all duration-300 hover:scale-105 hover:shadow-2xl'} overflow-hidden ${
               isDarkMode 
                 ? 'bg-white/20 border-white/40 backdrop-blur-xl' 
                 : 'bg-white/98 border-blue-200/50 backdrop-blur-xl'
@@ -510,22 +522,22 @@ export default function MobileNotebookCarousel() {
         </div>
 
         {/* Enhanced School Elements */}
-        <div className="absolute top-20 right-4 opacity-20 animate-bounce">
+        <div className={`absolute top-20 right-4 opacity-20 ${isMobile ? '' : 'animate-bounce'}`}>
           <div className="relative">
             <BookOpen className={`w-6 h-6 ${isDarkMode ? 'text-blue-300' : 'text-blue-400'}`} />
-            <div className="absolute -top-1 -right-1 w-2 h-2 bg-blue-400 rounded-full animate-ping"></div>
+            <div className={`absolute -top-1 -right-1 w-2 h-2 bg-blue-400 rounded-full ${isMobile ? '' : 'animate-ping'}`}></div>
           </div>
         </div>
-        <div className="absolute bottom-20 left-4 opacity-20 animate-pulse">
+        <div className={`absolute bottom-20 left-4 opacity-20 ${isMobile ? '' : 'animate-pulse'}`}>
           <div className="relative">
             <Pencil className={`w-5 h-5 ${isDarkMode ? 'text-orange-300' : 'text-orange-400'}`} />
             <div className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-orange-400 rounded-full"></div>
           </div>
         </div>
-        <div className="absolute top-1/2 right-8 opacity-20 animate-bounce">
+        <div className={`absolute top-1/2 right-8 opacity-20 ${isMobile ? '' : 'animate-bounce'}`}>
           <div className="relative">
             <Ruler className={`w-5 h-5 ${isDarkMode ? 'text-green-300' : 'text-green-400'}`} />
-            <div className="absolute -top-1 -right-1 w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+            <div className={`absolute -top-1 -right-1 w-1.5 h-1.5 bg-green-400 rounded-full ${isMobile ? '' : 'animate-pulse'}`}></div>
           </div>
         </div>
         

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { useMobileMenu } from "@/contexts/MobileMenuContext"
 
 interface Snowflake {
   id: number
@@ -15,6 +16,7 @@ interface Snowflake {
 export function SnowflakesAnimation() {
   const [snowflakes, setSnowflakes] = useState<Snowflake[]>([])
   const [isMobile, setIsMobile] = useState(false)
+  const { isMobileMenuOpen } = useMobileMenu()
 
   useEffect(() => {
     // Detect mobile device
@@ -28,18 +30,24 @@ export function SnowflakesAnimation() {
   }, [])
 
   useEffect(() => {
+    // Disable animations on mobile or when mobile menu is open for better performance
+    if (isMobile || isMobileMenuOpen) {
+      setSnowflakes([])
+      return
+    }
+
     // Create initial snowflakes - πιο διακριτικά
     const createSnowflakes = () => {
       const flakes: Snowflake[] = []
-      const count = isMobile ? 8 : 15 // Λιγότερα στο mobile
+      const count = 15
       for (let i = 0; i < count; i++) {
         flakes.push({
           id: i,
           x: Math.random() * 100,
           y: Math.random() * 100,
-          size: isMobile ? Math.random() * 1.5 + 0.3 : Math.random() * 2 + 0.5, // Μικρότερα στο mobile
-          speed: isMobile ? Math.random() * 0.8 + 0.2 : Math.random() * 1 + 0.3, // Πιο αργά στο mobile
-          opacity: isMobile ? Math.random() * 0.2 + 0.05 : Math.random() * 0.3 + 0.1 // Πιο διακριτικά στο mobile
+          size: Math.random() * 2 + 0.5,
+          speed: Math.random() * 1 + 0.3,
+          opacity: Math.random() * 0.3 + 0.1
         })
       }
       setSnowflakes(flakes)
@@ -61,10 +69,10 @@ export function SnowflakesAnimation() {
 
     const interval = setInterval(animateSnowflakes, isMobile ? 100 : 50) // Πιο αργά στο mobile
     return () => clearInterval(interval)
-  }, [])
+  }, [isMobile, isMobileMenuOpen])
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-10 overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       {snowflakes.map(flake => (
         <motion.div
           key={flake.id}
@@ -95,6 +103,7 @@ export function SnowflakesAnimation() {
 // Christmas Icons Component
 export function ChristmasIcons() {
   const [isMobile, setIsMobile] = useState(false)
+  const { isMobileMenuOpen } = useMobileMenu()
   const icons = ['🎄', '🎅', '🦌', '🎁', '⭐', '🔔', '❄️', '⛄']
   
   useEffect(() => {
@@ -108,8 +117,13 @@ export function ChristmasIcons() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
   
+  // Disable animations on mobile or when mobile menu is open
+  if (isMobile || isMobileMenuOpen) {
+    return null
+  }
+  
   return (
-    <div className="fixed inset-0 pointer-events-none z-5 overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       {icons.map((icon, index) => (
         <motion.div
           key={index}

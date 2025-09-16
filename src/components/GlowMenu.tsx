@@ -29,52 +29,128 @@ import { useTheme } from "@/contexts/ThemeContext"
 import { LanguageSwitcher } from "./LanguageSwitcher"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { useChristmasTheme } from "@/contexts/ChristmasThemeContext"
+import { useHalloweenTheme } from "@/contexts/HalloweenThemeContext"
+import { useCarnivalTheme } from "@/contexts/CarnivalThemeContext"
+import { useEasterTheme } from "@/contexts/EasterThemeContext"
+import { useSummerTheme } from "@/contexts/SummerThemeContext"
 import { AnniversaryText } from "./AnniversaryText"
 import { SantaIcon, ChristmasTreeIcon, ReindeerIcon, GiftBoxIcon, BellIcon } from "./ChristmasIcons"
 
+// Halloween Icons Helper
+const getHalloweenIcon = (iconType: string, className?: string) => {
+  const iconMap: { [key: string]: string } = {
+    pumpkin: "🎃",
+    witch: "🧙‍♀️", 
+    ghost: "👻",
+    bat: "🦇",
+    spider: "🕷️",
+    skull: "💀"
+  }
+  
+  return (
+    <span className={`${className} flex items-center justify-center`} style={{ lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      {iconMap[iconType] || "🎃"}
+    </span>
+  )
+}
+
+// Carnival Icons Helper
+const getCarnivalIcon = (iconType: string, className?: string) => {
+  const iconMap: { [key: string]: string } = {
+    mask: "🎭",
+    circus: "🎪", 
+    art: "🎨",
+    music: "🎵",
+    guitar: "🎸",
+    trumpet: "🎺"
+  }
+  
+  return (
+    <span className={`${className} flex items-center justify-center`} style={{ lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      {iconMap[iconType] || "🎭"}
+    </span>
+  )
+}
+
+// Easter Icons Helper
+const getEasterIcon = (iconType: string, className?: string) => {
+  const iconMap: { [key: string]: string } = {
+    bunny: "🐰",
+    egg: "🥚", 
+    chick: "🐣",
+    flower: "🌸",
+    tulip: "🌷",
+    butterfly: "🦋"
+  }
+  
+  return (
+    <span className={`${className} flex items-center justify-center`} style={{ lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      {iconMap[iconType] || "🐰"}
+    </span>
+  )
+}
+
+// Summer Icons Helper
+const getSummerIcon = (iconType: string, className?: string) => {
+  const iconMap: { [key: string]: string } = {
+    sun: "☀️",
+    sunface: "🌞", 
+    sunflower: "🌻",
+    beach: "🏖️",
+    wave: "🌊",
+    shell: "🐚"
+  }
+  
+  return (
+    <span className={`${className} flex items-center justify-center`} style={{ lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      {iconMap[iconType] || "☀️"}
+    </span>
+  )
+}
+
 // Navigation items with the requested links - will be updated with translations
-const getNavigationItems = (t: (key: string) => string | string[], isChristmasMode: boolean) => [
+const getNavigationItems = (t: (key: string) => string | string[], isChristmasMode: boolean, isHalloweenMode: boolean, isCarnivalMode: boolean, isEasterMode: boolean, isSummerMode: boolean) => [
   {
     label: t('navigation.home'),
     href: "/",
-    icon: isChristmasMode ? SantaIcon : Home,
-    color: isChristmasMode ? "#dc2626" : "#3b82f6", // Κόκκινο για Χριστούγεννα
-    iconColor: isChristmasMode ? "text-red-500" : "text-blue-500"
+    icon: isChristmasMode ? SantaIcon : isHalloweenMode ? "pumpkin" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : Home,
+    color: isChristmasMode ? "#dc2626" : isHalloweenMode ? "#ea580c" : isCarnivalMode ? "#ff6b6b" : isEasterMode ? "#ff6b9d" : isSummerMode ? "#fbbf24" : "#3b82f6", // Κόκκινο για Χριστούγεννα, Πορτοκαλί για Halloween, Ροζ για Carnival, Pink για Easter, Κίτρινο για Summer
+    iconColor: isChristmasMode ? "text-red-500" : isHalloweenMode ? "text-orange-500" : isCarnivalMode ? "text-pink-500" : isEasterMode ? "text-pink-500" : isSummerMode ? "text-yellow-500" : "text-blue-500"
   },
   {
     label: t('navigation.services'),
     href: "/services",
-    icon: isChristmasMode ? ChristmasTreeIcon : ServicesIcon,
-    color: isChristmasMode ? "#16a34a" : "#c9b6e4", // Πράσινο για Χριστούγεννα
-    iconColor: isChristmasMode ? "text-green-500" : "text-[#c9b6e4]"
+    icon: isChristmasMode ? ChristmasTreeIcon : isHalloweenMode ? "witch" : isCarnivalMode ? "circus" : isEasterMode ? "egg" : isSummerMode ? "sunflower" : ServicesIcon,
+    color: isChristmasMode ? "#16a34a" : isHalloweenMode ? "#7c3aed" : isCarnivalMode ? "#4ecdc4" : isEasterMode ? "#96ceb4" : isSummerMode ? "#f59e0b" : "#c9b6e4", // Πράσινο για Χριστούγεννα, Μωβ για Halloween, Τυρκουάζ για Carnival, Πράσινο για Easter, Πορτοκαλί για Summer
+    iconColor: isChristmasMode ? "text-green-500" : isHalloweenMode ? "text-purple-500" : isCarnivalMode ? "text-teal-500" : isEasterMode ? "text-green-500" : isSummerMode ? "text-orange-500" : "text-[#c9b6e4]"
   },
   {
     label: t('navigation.news'),
     href: "/articles",
-    icon: isChristmasMode ? BellIcon : Newspaper,
-    color: isChristmasMode ? "#fbbf24" : "#f78da7", // Χρυσό για Χριστούγεννα
-    iconColor: isChristmasMode ? "text-yellow-500" : "text-[#f78da7]"
+    icon: isChristmasMode ? BellIcon : isHalloweenMode ? "ghost" : isCarnivalMode ? "art" : isEasterMode ? "chick" : isSummerMode ? "beach" : Newspaper,
+    color: isChristmasMode ? "#fbbf24" : isHalloweenMode ? "#f59e0b" : isCarnivalMode ? "#feca57" : isEasterMode ? "#feca57" : isSummerMode ? "#f97316" : "#f78da7", // Χρυσό για Χριστούγεννα, Κίτρινο για Halloween, Κίτρινο για Carnival, Κίτρινο για Easter, Πορτοκαλί για Summer
+    iconColor: isChristmasMode ? "text-yellow-500" : isHalloweenMode ? "text-amber-500" : isCarnivalMode ? "text-yellow-500" : isEasterMode ? "text-yellow-500" : isSummerMode ? "text-orange-500" : "text-[#f78da7]"
   },
   {
     label: t('navigation.whyUs'),
     href: "/why-us",
-    icon: isChristmasMode ? ReindeerIcon : Users,
-    color: isChristmasMode ? "#8b4513" : "#fabeb6", // Καφέ για Χριστούγεννα
-    iconColor: isChristmasMode ? "text-amber-600" : "text-[#fabeb6]"
+    icon: isChristmasMode ? ReindeerIcon : isHalloweenMode ? "bat" : isCarnivalMode ? "music" : isEasterMode ? "flower" : isSummerMode ? "wave" : Users,
+    color: isChristmasMode ? "#8b4513" : isHalloweenMode ? "#374151" : isCarnivalMode ? "#45b7d1" : isEasterMode ? "#ff6b9d" : isSummerMode ? "#06b6d4" : "#fabeb6", // Καφέ για Χριστούγεννα, Γκρι για Halloween, Μπλε για Carnival, Pink για Easter, Cyan για Summer
+    iconColor: isChristmasMode ? "text-amber-600" : isHalloweenMode ? "text-gray-600" : isCarnivalMode ? "text-blue-500" : isEasterMode ? "text-pink-500" : isSummerMode ? "text-cyan-500" : "text-[#fabeb6]"
   },
   {
     label: t('navigation.games'),
     href: "/games",
-    icon: isChristmasMode ? GiftBoxIcon : GamesIcon,
-    color: isChristmasMode ? "#dc2626" : "#a8e6cf", // Κόκκινο για Χριστούγεννα
-    iconColor: isChristmasMode ? "text-red-500" : "text-[#a8e6cf]"
+    icon: isChristmasMode ? GiftBoxIcon : isHalloweenMode ? "spider" : isCarnivalMode ? "guitar" : isEasterMode ? "tulip" : isSummerMode ? "shell" : GamesIcon,
+    color: isChristmasMode ? "#dc2626" : isHalloweenMode ? "#dc2626" : isCarnivalMode ? "#96ceb4" : isEasterMode ? "#4ecdc4" : isSummerMode ? "#f59e0b" : "#a8e6cf", // Κόκκινο για Χριστούγεννα και Halloween, Πράσινο για Carnival, Τυρκουάζ για Easter, Πορτοκαλί για Summer
+    iconColor: isChristmasMode ? "text-red-500" : isHalloweenMode ? "text-red-500" : isCarnivalMode ? "text-green-500" : isEasterMode ? "text-teal-500" : isSummerMode ? "text-orange-500" : "text-[#a8e6cf]"
   },
   {
     label: t('navigation.contact'),
     href: "/contact",
-    icon: Phone,
-    color: isChristmasMode ? "#16a34a" : "#fde7dc", // Πράσινο για Χριστούγεννα
-    iconColor: isChristmasMode ? "text-green-500" : "text-[#fde7dc]"
+    icon: isHalloweenMode ? "skull" : isCarnivalMode ? "trumpet" : isEasterMode ? "butterfly" : isSummerMode ? "sunface" : Phone,
+    color: isChristmasMode ? "#16a34a" : isHalloweenMode ? "#6b7280" : isCarnivalMode ? "#ff9ff3" : isEasterMode ? "#54a0ff" : isSummerMode ? "#fbbf24" : "#fde7dc", // Πράσινο για Χριστούγεννα, Γκρι για Halloween, Ροζ για Carnival, Μπλε για Easter, Κίτρινο για Summer
+    iconColor: isChristmasMode ? "text-green-500" : isHalloweenMode ? "text-gray-500" : isCarnivalMode ? "text-pink-500" : isEasterMode ? "text-blue-500" : isSummerMode ? "text-yellow-500" : "text-[#fde7dc]"
   }
 ]
 
@@ -90,7 +166,11 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
   const { isDarkMode, toggleTheme } = useTheme()
   const { t } = useLanguage()
   const { isChristmasMode } = useChristmasTheme()
-  const navigationItems = getNavigationItems(t, isChristmasMode)
+  const { isHalloweenMode } = useHalloweenTheme()
+  const { isCarnivalMode } = useCarnivalTheme()
+  const { isEasterMode } = useEasterTheme()
+  const { isSummerMode } = useSummerTheme()
+  const navigationItems = getNavigationItems(t, isChristmasMode, isHalloweenMode, isCarnivalMode, isEasterMode, isSummerMode)
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -272,7 +352,19 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                 }}
               >
                 <Image
-                  src="/alfa-logo.png"
+            src={
+              isChristmasMode
+                ? "/alfa-christmas-logo.png"
+                : isHalloweenMode
+                  ? "/alfa-logo-halloween.png"
+                  : isCarnivalMode
+                    ? "/alfa-logo-carnival.png"
+                    : isEasterMode
+                      ? "/alfa-logo-easter.png"
+                      : isSummerMode
+                        ? "/alfa-summer-logo.png"
+                        : "/alfa-logo.png"
+            }
                   alt="Alfa Logo"
                   fill
                   className="object-contain transition-all duration-300 group-hover:brightness-110"
@@ -317,6 +409,102 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
             </motion.div>
           </motion.div>
         )}
+
+        {/* Halloween Κολοκύθα δίπλα από το logo */}
+        {isHalloweenMode && (
+          <motion.div
+            className="ml-2"
+            initial={{ opacity: 0, scale: 0, rotate: -180 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.8, delay: 1, type: "spring", stiffness: 200 }}
+          >
+            <motion.div
+              animate={{
+                rotate: [0, 5, -5, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <span className="text-3xl">🎃</span>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Carnival Μάσκα δίπλα από το logo */}
+        {isCarnivalMode && (
+          <motion.div
+            className="ml-2"
+            initial={{ opacity: 0, scale: 0, rotate: -180 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.8, delay: 1, type: "spring", stiffness: 200 }}
+          >
+            <motion.div
+              animate={{
+                rotate: [0, 5, -5, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <span className="text-3xl">🎭</span>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Easter Λαγός δίπλα από το logo */}
+        {isEasterMode && (
+          <motion.div
+            className="ml-2"
+            initial={{ opacity: 0, scale: 0, rotate: -180 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.8, delay: 1, type: "spring", stiffness: 200 }}
+          >
+            <motion.div
+              animate={{
+                rotate: [0, 5, -5, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <span className="text-3xl">🐰</span>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Summer Ήλιος δίπλα από το logo */}
+        {isSummerMode && (
+          <motion.div
+            className="ml-2"
+            initial={{ opacity: 0, scale: 0, rotate: -180 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.8, delay: 1, type: "spring", stiffness: 200 }}
+          >
+            <motion.div
+              animate={{
+                rotate: [0, 5, -5, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <span className="text-3xl">☀️</span>
+            </motion.div>
+          </motion.div>
+        )}
         
         {/* 40 Years Anniversary Text */}
         <motion.div
@@ -348,6 +536,12 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
             const Icon = item.icon
             const isActive = pathname === item.href
             const isHovered = hoveredItem === index
+            
+            // Check if it's a Halloween, Carnival, Easter or Summer icon string
+            const isHalloweenIcon = typeof item.icon === 'string' && ['pumpkin', 'witch', 'ghost', 'bat', 'spider', 'skull'].includes(item.icon)
+            const isCarnivalIcon = typeof item.icon === 'string' && ['mask', 'circus', 'art', 'music', 'guitar', 'trumpet'].includes(item.icon)
+            const isEasterIcon = typeof item.icon === 'string' && ['bunny', 'egg', 'chick', 'flower', 'tulip', 'butterfly'].includes(item.icon)
+            const isSummerIcon = typeof item.icon === 'string' && ['sun', 'sunface', 'sunflower', 'beach', 'wave', 'shell'].includes(item.icon)
 
             return (
               <motion.li
@@ -425,7 +619,17 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <Icon className="h-4 w-4" />
+                        {isHalloweenIcon ? (
+                          getHalloweenIcon(item.icon as string, "h-4 w-4 text-lg leading-none")
+                        ) : isCarnivalIcon ? (
+                          getCarnivalIcon(item.icon as string, "h-4 w-4 text-lg leading-none")
+                        ) : isEasterIcon ? (
+                          getEasterIcon(item.icon as string, "h-4 w-4 text-lg leading-none")
+                        ) : isSummerIcon ? (
+                          getSummerIcon(item.icon as string, "h-4 w-4 text-lg leading-none")
+                        ) : (
+                          <Icon className="h-4 w-4" />
+                        )}
 
                         {/* Enhanced active indicator with glow */}
                         <AnimatePresence>

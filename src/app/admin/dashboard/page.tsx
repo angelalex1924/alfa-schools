@@ -18,7 +18,7 @@ import {
   MessageSquare,
   FileText
 } from 'lucide-react';
-import { AdminThemeSwitcher } from '@/components/admin/ThemeSwitcher';
+import { DashboardThemeSwitcher } from '@/components/admin/DashboardThemeSwitcher';
 
 export default function AdminDashboard() {
   const { user, loading, logout } = useAuth();
@@ -113,9 +113,6 @@ export default function AdminDashboard() {
             
             {/* Right Section - User Info & Actions */}
             <div className="flex items-center gap-2 lg:gap-4">
-              {/* Theme Switcher */}
-              <AdminThemeSwitcher />
-              
               {/* User Info - Hidden on mobile */}
               <div className="hidden md:block text-right">
                 <p className="text-sm font-semibold text-slate-800 truncate max-w-32 lg:max-w-none">
@@ -166,11 +163,21 @@ export default function AdminDashboard() {
         </motion.div>
 
 
-        {/* Quick Actions */}
+        {/* Theme Management */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-8"
+        >
+          <DashboardThemeSwitcher />
+        </motion.div>
+
+        {/* Quick Actions */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
           className="mb-8"
         >
           <h3 className="text-2xl font-bold text-slate-800 mb-6">
@@ -182,7 +189,7 @@ export default function AdminDashboard() {
                 key={action.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+                transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
                 onClick={() => router.push(action.href)}
                 className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group hover:scale-105"
               >

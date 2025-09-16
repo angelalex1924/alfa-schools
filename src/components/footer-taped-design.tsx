@@ -10,6 +10,11 @@ import { AcronWebText } from './acron-web-logo';
 import StarBorder from './StarBorder';
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useChristmasTheme } from "@/contexts/ChristmasThemeContext";
+import { useHalloweenTheme } from "@/contexts/HalloweenThemeContext";
+import { useCarnivalTheme } from "@/contexts/CarnivalThemeContext";
+import { useEasterTheme } from "@/contexts/EasterThemeContext";
+import { useSummerTheme } from "@/contexts/SummerThemeContext";
 import { CookieSettingsButton } from './cookies-settings-button';
 import { AnniversaryText } from './AnniversaryText';
 
@@ -37,6 +42,11 @@ const tape = <svg xmlns="http://www.w3.org/2000/svg" width="95" height="80" view
 export const Component = () => {
   const currentYear = new Date().getFullYear();
   const { t, language } = useLanguage();
+  const { isChristmasMode } = useChristmasTheme();
+  const { isHalloweenMode } = useHalloweenTheme();
+  const { isCarnivalMode } = useCarnivalTheme();
+  const { isEasterMode } = useEasterTheme();
+  const { isSummerMode } = useSummerTheme();
   
   // Helper function to get Google Maps URLs based on language
   const getGoogleMapsUrl = (address: string | string[]) => {
@@ -81,7 +91,19 @@ export const Component = () => {
                   }}
                 >
                   <Image
-                    src="/alfa-logo.png"
+          src={
+            isChristmasMode
+              ? "/alfa-christmas-logo.png"
+              : isHalloweenMode
+                ? "/alfa-logo-halloween.png"
+                : isCarnivalMode
+                  ? "/alfa-logo-carnival.png"
+                  : isEasterMode
+                    ? "/alfa-logo-easter.png"
+                    : isSummerMode
+                      ? "/alfa-summer-logo.png"
+                      : "/alfa-logo.png"
+          }
                     alt="Alfa School Logo"
                     fill
                     className="object-contain"

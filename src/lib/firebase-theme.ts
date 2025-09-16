@@ -3,6 +3,10 @@ import { db } from './firebase'
 
 export interface ThemeSettings {
   isChristmasMode: boolean
+  isHalloweenMode: boolean
+  isCarnivalMode: boolean
+  isEasterMode: boolean
+  isSummerMode: boolean
   lastUpdated: number
   updatedBy: string
 }
@@ -25,12 +29,20 @@ export async function getThemeFromFirebase(): Promise<ThemeSettings | null> {
 
 // Set theme in Firebase
 export async function setThemeInFirebase(
-  isChristmasMode: boolean, 
-  updatedBy: string = 'admin'
+  isThemeMode: boolean, 
+  updatedBy: string = 'admin',
+  themeType: 'christmas' | 'halloween' | 'carnival' | 'easter' | 'summer' = 'christmas'
 ): Promise<boolean> {
   try {
+    // Get current theme data first
+    const currentTheme = await getThemeFromFirebase()
+    
     const themeData: ThemeSettings = {
-      isChristmasMode,
+      isChristmasMode: themeType === 'christmas' ? isThemeMode : (currentTheme?.isChristmasMode || false),
+      isHalloweenMode: themeType === 'halloween' ? isThemeMode : (currentTheme?.isHalloweenMode || false),
+      isCarnivalMode: themeType === 'carnival' ? isThemeMode : (currentTheme?.isCarnivalMode || false),
+      isEasterMode: themeType === 'easter' ? isThemeMode : (currentTheme?.isEasterMode || false),
+      isSummerMode: themeType === 'summer' ? isThemeMode : (currentTheme?.isSummerMode || false),
       lastUpdated: Date.now(),
       updatedBy
     }
@@ -70,7 +82,16 @@ export async function initializeDefaultTheme(): Promise<void> {
   try {
     const existingTheme = await getThemeFromFirebase()
     if (!existingTheme) {
-      await setThemeInFirebase(false, 'system')
+      const defaultTheme: ThemeSettings = {
+        isChristmasMode: false,
+        isHalloweenMode: false,
+        isCarnivalMode: false,
+        isEasterMode: false,
+        isSummerMode: false,
+        lastUpdated: Date.now(),
+        updatedBy: 'system'
+      }
+      await setDoc(doc(db, 'settings', THEME_DOC_ID), defaultTheme)
       console.log('Default theme initialized')
     }
   } catch (error) {

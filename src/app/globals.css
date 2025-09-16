@@ -25,6 +25,29 @@
   font-family: 'StampatelloFaceto', 'Comic Sans MS', cursive, sans-serif;
 }
 
+/* Mobile Menu Performance Optimizations */
+.mobile-menu-open {
+  overflow: hidden !important;
+}
+
+.mobile-menu-optimized {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  -webkit-will-change: transform, opacity;
+}
+
+/* Prevent flickering on mobile menu animations */
+.mobile-nav-item {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
