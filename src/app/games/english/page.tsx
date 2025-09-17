@@ -5,9 +5,10 @@ import { useLanguage } from "@/contexts/LanguageContext"
 import { useTheme } from "@/contexts/ThemeContext"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-import { BookOpen, Brain, Users, ArrowLeft, Star, Trophy, Clock, Sparkles, Zap, Shuffle } from "lucide-react"
+import { BookOpen, Brain, Users, ArrowLeft, Star, Trophy, Clock, Sparkles, Zap, Shuffle, Pencil, CheckCircle } from "lucide-react"
 import { GamesIcon } from "@/components/custom-icons"
 import { UKFlagIcon } from "@/components/flag-icons"
+import SchoolBreadcrumb from "@/components/SchoolBreadcrumb"
 
 export default function EnglishGamesPage() {
   const { t } = useLanguage()
@@ -61,8 +62,8 @@ export default function EnglishGamesPage() {
     },
     {
       id: "anagrams",
-      title: "Anagrams",
-      description: "Unscramble letters to form words with hints",
+      title: t('games.english.anagrams.title'),
+      description: t('games.english.anagrams.description'),
       icon: Shuffle,
       color: "from-purple-500 to-pink-500",
       hoverColor: "hover:from-purple-600 hover:to-pink-600",
@@ -82,253 +83,289 @@ export default function EnglishGamesPage() {
       style={{
         background: isDarkMode 
           ? `linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%)`
-          : `linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 50%, #d1e7ff 100%)`,
+          : `linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%)`,
       }}
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute top-20 left-10 w-40 h-40 rounded-full blur-3xl animate-pulse opacity-30"
-          style={{ 
-            backgroundColor: isDarkMode 
-              ? "rgba(74, 111, 165, 0.2)" 
-              : "rgba(74, 111, 165, 0.4)" 
-          }}
-        />
-        <motion.div
-          className="absolute top-40 right-20 w-56 h-56 rounded-full blur-3xl animate-pulse opacity-25"
-          style={{ 
-            backgroundColor: isDarkMode 
-              ? "rgba(129, 161, 212, 0.15)" 
-              : "rgba(129, 161, 212, 0.5)" 
-          }}
-        />
-        <motion.div
-          className="absolute bottom-40 left-1/3 w-32 h-32 rounded-full blur-2xl animate-pulse opacity-35"
-          style={{ 
-            backgroundColor: isDarkMode 
-              ? "rgba(201, 182, 228, 0.1)" 
-              : "rgba(201, 182, 228, 0.3)" 
-          }}
-        />
+      {/* Breadcrumb Navigation */}
+      <div className="pt-20 pb-4 px-4 sm:px-6 relative z-10">
+        <div className="max-w-6xl mx-auto">
+          <SchoolBreadcrumb 
+            items={[
+              { label: 'Αρχική', href: '/' },
+              { label: 'Παιχνίδια', href: '/games' },
+              { label: 'English Games' }
+            ]}
+          />
+        </div>
       </div>
 
-      {/* Header */}
-      <section className="relative z-10 pt-20 pb-8 lg:py-24">
+      {/* School Notebook English Games Section */}
+      <section className="relative z-10 py-8 sm:py-12 lg:py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          {/* Notebook Container */}
           <motion.div
-            className="flex items-center gap-3 sm:gap-6 mb-6 sm:mb-8"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            className="relative max-w-5xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Link 
-              href="/games"
-              className={cn(
-                "p-2 sm:p-3 rounded-lg sm:rounded-xl backdrop-blur-xl border transition-all duration-300",
-                "bg-white/10 dark:bg-white/5",
-                "border-white/20 dark:border-white/10",
-                "hover:scale-110 hover:bg-white/20 dark:hover:bg-white/10"
-              )}
-            >
-              <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: isDarkMode ? '#e5e7eb' : '#374151' }} />
-            </Link>
+            {/* Notebook Shadow */}
+            <div 
+              className="absolute inset-0 transform rotate-1"
+              style={{
+                backgroundColor: isDarkMode ? '#0a0a1a' : '#d1d5db',
+                top: '8px',
+                left: '8px'
+              }}
+            />
+            <div 
+              className="absolute inset-0 transform rotate-0.5"
+              style={{
+                backgroundColor: isDarkMode ? '#0f0f23' : '#e5e7eb',
+                top: '4px',
+                left: '4px'
+              }}
+            />
             
-            <motion.div 
-              className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-xl"
-              whileHover={{ scale: 1.05, rotate: 2 }}
+            {/* Notebook Paper */}
+            <div
+              className="relative shadow-2xl overflow-hidden"
+              style={{
+                backgroundColor: isDarkMode ? '#1a1a2e' : '#ffffff',
+                border: 'none',
+                borderRadius: '0',
+                boxShadow: isDarkMode 
+                  ? '0 25px 50px -12px rgba(74, 111, 165, 0.3), 0 0 0 1px rgba(74, 111, 165, 0.1)' 
+                  : '0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05)',
+                backgroundImage: isDarkMode 
+                  ? 'none' 
+                  : 'linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.02) 50%, transparent 100%), linear-gradient(0deg, transparent 0%, rgba(0,0,0,0.01) 50%, transparent 100%)'
+              }}
             >
-              <GamesIcon className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600 dark:text-blue-400" />
-            </motion.div>
-            
-            <div className="flex-1 min-w-0">
-              <h1 className={cn(
-                "text-xl sm:text-3xl lg:text-5xl font-bold flex items-center gap-2 sm:gap-4 mb-1 sm:mb-2",
-                isDarkMode ? 'text-white' : 'text-gray-800'
-              )}>
-                <UKFlagIcon className="w-6 h-4 sm:w-8 sm:h-6 flex-shrink-0" />
-                <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-emerald-500 bg-clip-text text-transparent">
-                  {t('games.english.title')}
-                </span>
-              </h1>
-              <p className={cn(
-                "text-sm sm:text-lg lg:text-xl",
-                isDarkMode ? 'text-gray-300' : 'text-gray-600'
-              )}>
-                {t('games.english.description')}
-              </p>
+              {/* Red Margin Line */}
+              <div className="absolute left-0 top-0 bottom-0 w-6 flex flex-col">
+                <div
+                  className="w-full h-px mt-16"
+                  style={{ backgroundColor: '#dc2626', opacity: 0.8 }}
+                />
+              </div>
+
+              {/* Content */}
+              <div className="relative p-4 sm:p-6 lg:p-8 ml-6 sm:ml-8">
+                {/* Header */}
+                <motion.div
+                  className="mb-6 sm:mb-8"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.3 }}
+                >
+                  <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <Link 
+                      href="/games"
+                      className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300 hover:scale-110 flex-shrink-0"
+                    >
+                      <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: isDarkMode ? '#e5e7eb' : '#374151' }} />
+                    </Link>
+                    <div 
+                      className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-lg flex-shrink-0" 
+                      style={{ 
+                        backgroundColor: '#3b82f6',
+                        minWidth: '32px',
+                        minHeight: '32px',
+                        aspectRatio: '1/1'
+                      }}
+                    >
+                      <UKFlagIcon className="w-5 h-3 sm:w-6 sm:h-4 text-white" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h1 
+                        className="text-lg sm:text-2xl lg:text-3xl font-bold leading-tight mb-1 sm:mb-2 break-words"
+                        style={{ 
+                          color: isDarkMode ? '#ffffff' : '#1f2937',
+                          fontFamily: 'StampatelloFaceto, cursive'
+                        }}
+                      >
+                        {t('games.english.title')}
+                      </h1>
+                      <p 
+                        className="text-sm sm:text-base lg:text-lg leading-relaxed break-words"
+                        style={{ 
+                          color: isDarkMode ? '#d1d5db' : '#4b5563',
+                          fontFamily: 'StampatelloFaceto, cursive'
+                        }}
+                      >
+                        {t('games.english.description')}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Games List */}
+                <div className="space-y-6 sm:space-y-8">
+                  {englishGames.map((game, index) => {
+                    const IconComponent = game.icon
+                    return (
+                      <motion.div
+                        key={game.id}
+                        className="group"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.5 + index * 0.2 }}
+                      >
+                        {/* Notebook Entry */}
+                        <div 
+                          className="relative p-4 sm:p-6 border-l-4 border-b-2 border-r border-t border-gray-300 dark:border-gray-600 hover:border-blue-400 dark:hover:border-blue-500 transition-all duration-300"
+                          style={{
+                            backgroundColor: isDarkMode ? '#1a1a2e' : '#ffffff',
+                            borderLeftColor: '#dc2626',
+                            borderLeftWidth: '4px'
+                          }}
+                        >
+                          {/* Game Header */}
+                          <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                            <div 
+                              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-lg flex-shrink-0"
+                              style={{ 
+                                backgroundColor: game.color.includes('emerald') ? '#10b981' : 
+                                                game.color.includes('blue') ? '#3b82f6' : 
+                                                game.color.includes('cyan') ? '#06b6d4' : '#8b5cf6'
+                              }}
+                            >
+                              <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h3 
+                                className="text-lg sm:text-xl lg:text-2xl font-bold mb-1 sm:mb-2 group-hover:scale-105 transition-all duration-300 break-words"
+                                style={{ 
+                                  color: isDarkMode ? '#ffffff' : '#1f2937',
+                                  fontFamily: 'StampatelloFaceto, cursive'
+                                }}
+                              >
+                                {game.title}
+                              </h3>
+                              <p 
+                                className="text-xs sm:text-sm lg:text-base break-words"
+                                style={{ 
+                                  color: isDarkMode ? '#d1d5db' : '#4b5563',
+                                  fontFamily: 'StampatelloFaceto, cursive'
+                                }}
+                              >
+                                {game.description}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Levels */}
+                          <div className="grid gap-3 sm:gap-4">
+                            {game.levels.map((level, levelIndex) => (
+                              <Link
+                                key={level.level}
+                                href={`/games/english/${game.gameType}/level-${level.level}`}
+                              >
+                                <motion.div
+                                  className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-300 cursor-pointer group/level border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600"
+                                  whileHover={{ scale: 1.01, x: 5 }}
+                                  whileTap={{ scale: 0.98 }}
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: 0.7 + index * 0.2 + levelIndex * 0.1 }}
+                                >
+                                  <div 
+                                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm sm:text-lg shadow-lg flex-shrink-0"
+                                    style={{ 
+                                      background: `linear-gradient(135deg, ${level.color}CC, ${level.color}99)` 
+                                    }}
+                                  >
+                                    {level.level}
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <h4 
+                                      className="font-semibold text-sm sm:text-base mb-0.5 sm:mb-1 group-hover/level:scale-105 transition-all duration-300 break-words"
+                                      style={{ 
+                                        color: isDarkMode ? '#ffffff' : '#1f2937',
+                                        fontFamily: 'StampatelloFaceto, cursive'
+                                      }}
+                                    >
+                                      {level.title}
+                                    </h4>
+                                    <p 
+                                      className="text-xs sm:text-sm break-words"
+                                      style={{ 
+                                        color: isDarkMode ? '#9ca3af' : '#6b7280',
+                                        fontFamily: 'StampatelloFaceto, cursive'
+                                      }}
+                                    >
+                                      {game.gameType === "vocabulary" && `${(level as any).words} ${t('games.words')}`}
+                                      {game.gameType === "grammar" && `${(level as any).topics} ${t('games.topics')}`}
+                                      {game.gameType === "conversation" && `${(level as any).scenarios} ${t('games.scenarios')}`}
+                                      {game.gameType === "anagrams" && `${(level as any).words} ${t('games.words')}`}
+                                    </p>
+                                  </div>
+                                  <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                                    <div 
+                                      className="px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium"
+                                      style={{ 
+                                        backgroundColor: level.color + '20',
+                                        color: level.color,
+                                        border: `1px solid ${level.color}40`
+                                      }}
+                                    >
+                                      {level.difficulty}
+                                    </div>
+                                    <div className="flex items-center gap-1 text-yellow-500">
+                                      <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-current" />
+                                      <span className="text-xs sm:text-sm font-medium">{level.level * 10}</span>
+                                    </div>
+                                  </div>
+                                </motion.div>
+                              </Link>
+                            ))}
+                          </div>
+
+                          {/* Handwritten arrow */}
+                          <div className="mt-4 flex justify-end">
+                            <motion.div
+                              className="text-2xl"
+                              style={{ color: '#dc2626' }}
+                              whileHover={{ x: 5 }}
+                            >
+                              →
+                            </motion.div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )
+                  })}
+                </div>
+
+                {/* Notebook Lines */}
+                <div className="absolute inset-0 pointer-events-none">
+                  {[...Array(15)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute w-full h-px"
+                      style={{ 
+                        backgroundColor: isDarkMode ? '#fabeb6' : '#d1d5db',
+                        top: `${120 + i * 30}px`,
+                        opacity: i % 2 === 0 ? 0.6 : 0.2,
+                        width: '95%',
+                        left: '2.5%'
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute top-20 right-6 w-8 h-8 opacity-20" style={{ color: isDarkMode ? '#fabeb6' : '#4a6fa5' }}>
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                    <path d="M50,15 L55,35 L75,35 L60,50 L65,70 L50,55 L35,70 L40,50 L25,35 L45,35 Z" fill="currentColor" opacity="0.4" />
+                  </svg>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
-
-      {/* Games Grid */}
-      <section className="relative z-10 py-8 sm:py-16 lg:py-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid gap-6 sm:gap-8 lg:gap-12">
-            {englishGames.map((game, index) => {
-              const IconComponent = game.icon
-              return (
-                <motion.div
-                  key={game.id}
-                  className="group"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
-                >
-                  <div className={cn(
-                    "relative p-8 lg:p-10 rounded-3xl backdrop-blur-xl border",
-                    "bg-white/10 dark:bg-white/5",
-                    "border-white/20 dark:border-white/10",
-                    "shadow-2xl hover:shadow-3xl transition-all duration-500",
-                    "hover:scale-[1.02] hover:-translate-y-2",
-                    "overflow-hidden"
-                  )}>
-                    {/* Animated Background Gradient */}
-                    <div className={cn(
-                      "absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-500",
-                      `bg-gradient-to-br ${game.bgGradient}`
-                    )} />
-                    
-                    {/* Floating Particles */}
-                    <div className="absolute inset-0 overflow-hidden">
-                      {[...Array(6)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          className="absolute w-2 h-2 bg-white/20 rounded-full"
-                          style={{
-                            left: `${20 + i * 15}%`,
-                            top: `${30 + i * 10}%`,
-                          }}
-                          animate={{
-                            y: [0, -20, 0],
-                            opacity: [0.2, 0.8, 0.2],
-                          }}
-                          transition={{
-                            duration: 3 + i * 0.5,
-                            repeat: Infinity,
-                            delay: i * 0.3,
-                          }}
-                        />
-                      ))}
-                    </div>
-
-                    {/* Game Header */}
-                    <div className="relative z-10 flex items-center gap-6 mb-8">
-                      <motion.div 
-                        className={cn(
-                          "p-4 rounded-2xl bg-gradient-to-br shadow-xl",
-                          game.color,
-                          "group-hover:scale-110 transition-all duration-300"
-                        )}
-                        whileHover={{ rotate: 5 }}
-                      >
-                        <IconComponent className="w-10 h-10 text-white" />
-                      </motion.div>
-                      <div className="flex-1">
-                        <h3 className={cn(
-                          "text-2xl lg:text-3xl font-bold mb-2",
-                          isDarkMode ? 'text-white' : 'text-gray-800'
-                        )}>
-                          {game.title}
-                        </h3>
-                        <p className={cn(
-                          "text-base lg:text-lg",
-                          isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                        )}>
-                          {game.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Levels */}
-                    <div className="relative z-10 grid gap-4">
-                      {game.levels.map((level, levelIndex) => (
-                        <Link
-                          key={level.level}
-                          href={`/games/english/${game.gameType}/level-${level.level}`}
-                        >
-                          <motion.div
-                            className={cn(
-                              "p-5 rounded-2xl backdrop-blur-xl border",
-                              "bg-white/5 dark:bg-white/5",
-                              "border-white/10 dark:border-white/10",
-                              "hover:bg-white/10 dark:hover:bg-white/10",
-                              "transition-all duration-300 cursor-pointer group/level"
-                            )}
-                            whileHover={{ scale: 1.02, x: 5 }}
-                            whileTap={{ scale: 0.98 }}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.8 + index * 0.2 + levelIndex * 0.1 }}
-                          >
-                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                              <div className="flex items-center gap-3 sm:gap-4">
-                                <div className={cn(
-                                  "w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center text-white font-bold text-base sm:text-lg shadow-lg flex-shrink-0",
-                                  "bg-gradient-to-br"
-                                )}
-                                  style={{ 
-                                    background: `linear-gradient(135deg, ${level.color}CC, ${level.color}99)` 
-                                  }}
-                                >
-                                  {level.level}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <h4 className={cn(
-                                    "font-semibold text-sm sm:text-lg mb-1 group-hover/level:scale-105 transition-all duration-300",
-                                    isDarkMode ? 'text-white' : 'text-gray-800'
-                                  )}>
-                                    {level.title}
-                                  </h4>
-                                  <p className={cn(
-                                    "text-xs sm:text-sm",
-                                    isDarkMode ? 'text-gray-400' : 'text-gray-600'
-                                  )}>
-                                    {game.gameType === "vocabulary" && `${(level as any).words} ${t('games.words')}`}
-                                    {game.gameType === "grammar" && `${(level as any).topics} ${t('games.topics')}`}
-                                    {game.gameType === "conversation" && `${(level as any).scenarios} ${t('games.scenarios')}`}
-                                    {game.gameType === "anagrams" && `${(level as any).words} ${t('games.words')}`}
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3">
-                                <motion.div 
-                                  className={cn(
-                                    "px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium backdrop-blur-xl border flex-shrink-0",
-                                    "bg-white/10 dark:bg-white/10",
-                                    "border-white/20 dark:border-white/20"
-                                  )}
-                                  whileHover={{ scale: 1.1 }}
-                                >
-                                  <span style={{ color: level.color }}>
-                                    {level.difficulty}
-                                  </span>
-                                </motion.div>
-                                <div className="flex items-center gap-1 sm:gap-2 text-yellow-500">
-                                  <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
-                                  <span className="text-xs sm:text-sm font-medium">{level.level * 10}</span>
-                                </div>
-                              </div>
-                            </div>
-                          </motion.div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Custom Styles */}
-      <style jsx>{`
-        .shadow-3xl {
-          box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
-        }
-      `}</style>
     </div>
   )
 }

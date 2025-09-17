@@ -6,19 +6,63 @@ import LatestArticlesNotebook from "@/components/LatestArticlesNotebook"
 import { Button } from "@/components/ui/button"
 import CountUp from "@/components/CountUp"
 import { useTheme } from "@/contexts/ThemeContext"
+import { useLanguage } from "@/contexts/LanguageContext"
+import AdvancedSEOHead from "@/components/AdvancedSEOHead"
+import SEOMonitor from "@/components/SEOMonitor"
+import SEOReport from "@/components/SEOReport"
+import { generateEnhancedHomepageSEO, generateComprehensiveStructuredData } from "@/lib/seo-utils"
+import { generateUltraKeywords, generateHighPriorityKeywords } from "@/lib/keyword-generator"
+import { useEffect } from "react"
 
 export default function Home() {
   const { isDarkMode } = useTheme()
+  const { t } = useLanguage()
+  
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alfaschools.gr'
+  const seoData = generateEnhancedHomepageSEO(baseUrl)
+  const structuredData = generateComprehensiveStructuredData(baseUrl)
+  
+  // ULTRA-POWERFUL KEYWORDS FOR MAXIMUM SEO DOMINATION
+  const ultraKeywords = generateUltraKeywords().split(', ')
+  const highPriorityKeywords = generateHighPriorityKeywords().split(', ')
+  
+  // Enhanced keywords for maximum SEO impact
+  const additionalKeywords = ultraKeywords.slice(0, 50) // Top 50 keywords
+  const locationKeywords = ultraKeywords.filter(keyword => 
+    keyword.includes('Αθήνα') || keyword.includes('Χαλάνδρι') || keyword.includes('Νέα Φιλαδέλφεια')
+  )
+  const examKeywords = ultraKeywords.filter(keyword => 
+    keyword.includes('IELTS') || keyword.includes('TOEFL') || keyword.includes('Cambridge') || 
+    keyword.includes('DELF') || keyword.includes('DALF')
+  )
   
   return (
-    <div
-      className="min-h-screen relative overflow-hidden"
-      style={{
-        background: isDarkMode 
-          ? `linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%)`
-          : `linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 50%, #d1e7ff 100%)`,
-      }}
-    >
+    <>
+      <AdvancedSEOHead 
+        seoData={seoData} 
+        structuredData={structuredData}
+        additionalKeywords={additionalKeywords}
+        locationKeywords={locationKeywords}
+        examKeywords={examKeywords}
+      />
+      <SEOMonitor 
+        pageName="Homepage"
+        keywords={ultraKeywords}
+        location="Athens"
+      />
+      <SEOReport 
+        pageName="Homepage"
+        targetKeywords={ultraKeywords}
+        location="Athens"
+      />
+      <div
+        className="min-h-screen relative overflow-hidden"
+        style={{
+          background: isDarkMode 
+            ? `linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%)`
+            : `linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 50%, #d1e7ff 100%)`,
+        }}
+      >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div
@@ -103,11 +147,11 @@ export default function Home() {
                     <span className="text-white font-bold text-lg">📊</span>
                   </div>
                   <h2 className="text-2xl lg:text-3xl font-bold text-slate-800 dark:text-white" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                    Στατιστικά Επιτυχίας
+                    {t('home.statistics.title')}
                   </h2>
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-400" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                  35+ χρόνια εμπειρίας στην εκπαίδευση
+                  {t('home.statistics.subtitle')}
                 </p>
               </div>
 
@@ -117,28 +161,28 @@ export default function Home() {
                   { 
                     number: 35, 
                     suffix: "+", 
-                    label: "Χρόνια Εμπειρίας", 
+                    label: t('home.statistics.yearsExperience'), 
                     icon: "🏆",
                     color: "from-yellow-400 to-orange-500"
                   },
                   { 
                     number: 1000, 
                     suffix: "+", 
-                    label: "Επιτυχημένοι Μαθητές", 
+                    label: t('home.statistics.successfulStudents'), 
                     icon: "👥",
                     color: "from-blue-400 to-indigo-500"
                   },
                   { 
                     number: 25, 
                     suffix: "+", 
-                    label: "Επιτυχημένες Εξετάσεις/Έτος", 
+                    label: t('home.statistics.successfulExams'), 
                     icon: "🎓",
                     color: "from-green-400 to-emerald-500"
                   },
                   { 
                     number: 99, 
                     suffix: "%", 
-                    label: "Επιτυχία", 
+                    label: t('home.statistics.successRate'), 
                     icon: "📈",
                     color: "from-purple-400 to-pink-500"
                   },
@@ -235,11 +279,11 @@ export default function Home() {
                     <span className="text-white font-bold text-lg">📚</span>
                   </div>
                   <h2 className="text-2xl lg:text-3xl font-bold text-slate-800 dark:text-white" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                    Οι Υπηρεσίες μας
+                    {t('home.services.title')}
                   </h2>
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-400" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                  Εξειδικευμένες εκπαιδευτικές υπηρεσίες
+                  {t('home.services.subtitle')}
                 </p>
               </div>
 
@@ -247,22 +291,22 @@ export default function Home() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
                 {[
                   {
-                    title: "Μαθήματα Γλωσσών",
-                    description: "Αγγλικά, Γερμανικά, Γαλλικά, Ισπανικά και άλλες γλώσσες με πιστοποιημένους εκπαιδευτές",
+                    title: t('home.services.languageCourses.title'),
+                    description: t('home.services.languageCourses.description'),
                     icon: "🌍",
                     color: "from-blue-400 to-indigo-500",
                     bgColor: "from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20"
                   },
                   {
-                    title: "Προετοιμασία Εξετάσεων",
-                    description: "Εξειδικευμένη προετοιμασία για IELTS, TOEFL, Cambridge, Goethe και άλλες πιστοποιήσεις",
+                    title: t('home.services.examPreparation.title'),
+                    description: t('home.services.examPreparation.description'),
                     icon: "🎯",
                     color: "from-green-400 to-emerald-500",
                     bgColor: "from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20"
                   },
                   {
-                    title: "Ιδιαίτερα Μαθήματα",
-                    description: "Εξατομικευμένη διδασκαλία που προσαρμόζεται στις ανάγκες και τους στόχους σας",
+                    title: t('home.services.privateLessons.title'),
+                    description: t('home.services.privateLessons.description'),
                     icon: "👨‍🏫",
                     color: "from-purple-400 to-pink-500",
                     bgColor: "from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20"
@@ -374,38 +418,81 @@ export default function Home() {
                     <span className="text-white font-bold text-lg">📞</span>
                   </div>
                   <h2 className="text-2xl lg:text-3xl font-bold text-slate-800 dark:text-white" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                    Ξεκινήστε το ταξίδι σας σήμερα
+                    {t('home.contact.title')}
                   </h2>
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-400 max-w-2xl mx-auto" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                  Επικοινωνήστε μαζί μας και ανακαλύψτε πώς μπορούμε να σας βοηθήσουμε να πετύχετε τους στόχους σας
+                  {t('home.contact.subtitle')}
                 </p>
               </div>
 
-              {/* Contact Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 justify-center">
-                <Button
-                  size="lg"
-                  className="font-semibold px-6 py-4 rounded-xl hover:scale-105 transition-all duration-200 shadow-lg border-0 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
-                  asChild
-                >
-                  <a href="tel:+306987770734" className="flex items-center gap-3 justify-center text-white">
-                    <span className="text-lg">📞</span>
-                    <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>+30 698 777 0734</span>
-                  </a>
-                </Button>
+              {/* Contact Centers */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+                {/* Nea Filadelfeia Center */}
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border-2 border-blue-200/30 dark:border-blue-700/30">
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold mb-4 text-slate-800 dark:text-white" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                      {t('home.contact.neaFiladelfeia.title')}
+                    </h3>
+                    <div className="space-y-3">
+                      <Button
+                        size="lg"
+                        className="w-full font-semibold px-4 py-3 rounded-xl hover:scale-105 transition-all duration-200 shadow-lg border-0 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700"
+                        asChild
+                      >
+                        <a href={`tel:${String(t('home.contact.neaFiladelfeia.phone')).replace(/\s/g, '')}`} className="flex items-center gap-3 justify-center text-white">
+                          <span className="text-lg">📞</span>
+                          <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('home.contact.neaFiladelfeia.phone')}</span>
+                        </a>
+                      </Button>
 
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="font-semibold px-6 py-4 rounded-xl hover:scale-105 transition-all duration-200 border-2 border-blue-300 dark:border-blue-600 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 bg-transparent"
-                  asChild
-                >
-                  <a href="mailto:info@alfaschool.gr" className="flex items-center gap-3 justify-center">
-                    <span className="text-lg">✉️</span>
-                    <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>info@alfaschool.gr</span>
-                  </a>
-                </Button>
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="w-full font-semibold px-4 py-3 rounded-xl hover:scale-105 transition-all duration-200 border-2 border-blue-300 dark:border-blue-600 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 bg-transparent"
+                        asChild
+                      >
+                        <a href={`mailto:${t('home.contact.neaFiladelfeia.email')}`} className="flex items-center gap-3 justify-center">
+                          <span className="text-lg">✉️</span>
+                          <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('home.contact.neaFiladelfeia.email')}</span>
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Chalandri Center */}
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border-2 border-green-200/30 dark:border-green-700/30">
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold mb-4 text-slate-800 dark:text-white" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                      {t('home.contact.chalandri.title')}
+                    </h3>
+                    <div className="space-y-3">
+                      <Button
+                        size="lg"
+                        className="w-full font-semibold px-4 py-3 rounded-xl hover:scale-105 transition-all duration-200 shadow-lg border-0 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700"
+                        asChild
+                      >
+                        <a href={`tel:${String(t('home.contact.chalandri.phone')).replace(/\s/g, '')}`} className="flex items-center gap-3 justify-center text-white">
+                          <span className="text-lg">📞</span>
+                          <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('home.contact.chalandri.phone')}</span>
+                        </a>
+                      </Button>
+
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="w-full font-semibold px-4 py-3 rounded-xl hover:scale-105 transition-all duration-200 border-2 border-green-300 dark:border-green-600 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 bg-transparent"
+                        asChild
+                      >
+                        <a href={`mailto:${t('home.contact.chalandri.email')}`} className="flex items-center gap-3 justify-center">
+                          <span className="text-lg">✉️</span>
+                          <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('home.contact.chalandri.email')}</span>
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -421,6 +508,7 @@ export default function Home() {
           box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
         }
       `}</style>
-    </div>
+      </div>
+    </>
   )
 }

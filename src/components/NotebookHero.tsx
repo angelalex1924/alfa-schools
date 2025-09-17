@@ -5,6 +5,9 @@ import { useTheme } from "@/contexts/ThemeContext"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { useChristmasTheme } from "@/contexts/ChristmasThemeContext"
 import { useHalloweenTheme } from "@/contexts/HalloweenThemeContext"
+import { useSummerTheme } from "@/contexts/SummerThemeContext"
+import { useCarnivalTheme } from "@/contexts/CarnivalThemeContext"
+import { useEasterTheme } from "@/contexts/EasterThemeContext"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
@@ -27,11 +30,14 @@ export default function NotebookHero({
   const { t, language } = useLanguage()
   const { isChristmasMode } = useChristmasTheme()
   const { isHalloweenMode } = useHalloweenTheme()
+  const { isSummerMode } = useSummerTheme()
+  const { isCarnivalMode } = useCarnivalTheme()
+  const { isEasterMode } = useEasterTheme()
   const pathname = usePathname()
   const [isMobile, setIsMobile] = useState(false)
 
   // Debug logging
-  console.log('NotebookHero - isChristmasMode:', isChristmasMode, 'isHalloweenMode:', isHalloweenMode)
+  console.log('NotebookHero - isChristmasMode:', isChristmasMode, 'isHalloweenMode:', isHalloweenMode, 'isSummerMode:', isSummerMode, 'isCarnivalMode:', isCarnivalMode, 'isEasterMode:', isEasterMode)
 
   // Force re-render when theme mode changes
   useEffect(() => {
@@ -41,6 +47,18 @@ export default function NotebookHero({
   useEffect(() => {
     console.log('NotebookHero - Halloween mode changed:', isHalloweenMode)
   }, [isHalloweenMode])
+
+  useEffect(() => {
+    console.log('NotebookHero - Summer mode changed:', isSummerMode)
+  }, [isSummerMode])
+
+  useEffect(() => {
+    console.log('NotebookHero - Carnival mode changed:', isCarnivalMode)
+  }, [isCarnivalMode])
+
+  useEffect(() => {
+    console.log('NotebookHero - Easter mode changed:', isEasterMode)
+  }, [isEasterMode])
 
   // Helper function to get theme colors
   const getThemeColors = () => {
@@ -63,6 +81,36 @@ export default function NotebookHero({
         borderColor: '#7c3aed',
         icon: '🎃',
         checkIcon: '👻'
+      }
+    } else if (isSummerMode) {
+      return {
+        primary: isDarkMode ? '#f59e0b' : '#f59e0b',
+        secondary: isDarkMode ? '#06b6d4' : '#06b6d4',
+        accent: '#fbbf24',
+        primaryGradient: 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #f59e0b 100%)',
+        borderColor: '#06b6d4',
+        icon: '☀️',
+        checkIcon: '🏖️'
+      }
+    } else if (isCarnivalMode) {
+      return {
+        primary: isDarkMode ? '#ec4899' : '#ec4899',
+        secondary: isDarkMode ? '#8b5cf6' : '#8b5cf6',
+        accent: '#fbbf24',
+        primaryGradient: 'linear-gradient(135deg, #ec4899 0%, #f472b6 50%, #ec4899 100%)',
+        borderColor: '#8b5cf6',
+        icon: '🎭',
+        checkIcon: '🎪'
+      }
+    } else if (isEasterMode) {
+      return {
+        primary: isDarkMode ? '#84cc16' : '#84cc16',
+        secondary: isDarkMode ? '#f59e0b' : '#f59e0b',
+        accent: '#fbbf24',
+        primaryGradient: 'linear-gradient(135deg, #84cc16 0%, #a3e635 50%, #84cc16 100%)',
+        borderColor: '#f59e0b',
+        icon: '🐰',
+        checkIcon: '🥚'
       }
     } else {
       return {
@@ -99,6 +147,7 @@ export default function NotebookHero({
     if (pathname.includes('/games')) return t('notebook.titles.games')
     if (pathname.includes('/services')) return t('notebook.titles.services')
     if (pathname.includes('/why-us')) return t('notebook.titles.why_us')
+    if (pathname.includes('/about-us')) return t('notebook.titles.about_us')
     if (pathname.includes('/news')) return t('notebook.titles.news')
     if (pathname.includes('/articles')) return t('notebook.titles.news')
     if (pathname.includes('/contact')) return t('notebook.titles.contact')
@@ -115,6 +164,7 @@ export default function NotebookHero({
     if (pathname.includes('/games')) return t('notebook.subtitles.games')
     if (pathname.includes('/services')) return t('notebook.subtitles.services')
     if (pathname.includes('/why-us')) return t('notebook.subtitles.why_us')
+    if (pathname.includes('/about-us')) return t('notebook.subtitles.about_us')
     if (pathname.includes('/news')) return t('notebook.subtitles.news')
     if (pathname.includes('/articles')) return t('notebook.subtitles.news')
     if (pathname.includes('/contact')) return t('notebook.subtitles.contact')
@@ -203,10 +253,10 @@ export default function NotebookHero({
         )}
       </div>
 
-      <div key={`notebook-hero-${isChristmasMode}-${isHalloweenMode}`} className="max-w-4xl mx-auto px-3 sm:px-6 relative z-10">
+      <div key={`notebook-hero-${isChristmasMode}-${isHalloweenMode}-${isSummerMode}-${isCarnivalMode}-${isEasterMode}`} className="max-w-4xl mx-auto px-3 sm:px-6 relative z-10">
         {/* Optimized Notebook Container for Mobile */}
         {isMobile ? (
-          <div key={`mobile-notebook-${isChristmasMode}-${isHalloweenMode}`} className="max-w-3xl mx-auto relative">
+          <div key={`mobile-notebook-${isChristmasMode}-${isHalloweenMode}-${isSummerMode}-${isCarnivalMode}-${isEasterMode}`} className="max-w-3xl mx-auto relative">
             {/* Realistic Notebook Shadow */}
             <div 
               className="absolute inset-0 transform rotate-1"
@@ -227,7 +277,7 @@ export default function NotebookHero({
             
             {/* Realistic Notebook with Paper Texture */}
             <div
-              key={`mobile-notebook-container-${isChristmasMode}-${isHalloweenMode}`}
+              key={`mobile-notebook-container-${isChristmasMode}-${isHalloweenMode}-${isSummerMode}-${isCarnivalMode}-${isEasterMode}`}
               className="relative shadow-2xl overflow-hidden"
               style={{
                 backgroundColor: isDarkMode ? '#1a1a2e' : '#ffffff',
@@ -391,7 +441,7 @@ export default function NotebookHero({
           </div>
         ) : (
         <motion.div
-          key={`desktop-notebook-${isChristmasMode}-${isHalloweenMode}`}
+          key={`desktop-notebook-${isChristmasMode}-${isHalloweenMode}-${isSummerMode}-${isCarnivalMode}-${isEasterMode}`}
           className="max-w-3xl mx-auto relative"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -417,7 +467,7 @@ export default function NotebookHero({
           
             {/* Realistic Notebook with Paper Texture */}
           <div
-            key={`notebook-container-${isChristmasMode}-${isHalloweenMode}`}
+            key={`notebook-container-${isChristmasMode}-${isHalloweenMode}-${isSummerMode}-${isCarnivalMode}-${isEasterMode}`}
             className="relative shadow-2xl overflow-hidden"
             style={{
               backgroundColor: isDarkMode ? '#1a1a2e' : '#ffffff',

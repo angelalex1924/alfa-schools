@@ -7,11 +7,115 @@ import { Calendar, Tag, Star, Zap, BookOpen, GraduationCap, Sparkles, PenTool, A
 import { getArticles } from '@/lib/firebase-articles';
 import type { Article } from '@/lib/types';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useChristmasTheme } from '@/contexts/ChristmasThemeContext';
+import { useHalloweenTheme } from '@/contexts/HalloweenThemeContext';
+import { useEasterTheme } from '@/contexts/EasterThemeContext';
+import { useCarnivalTheme } from '@/contexts/CarnivalThemeContext';
+import { useSummerTheme } from '@/contexts/SummerThemeContext';
 
 export default function LatestArticlesNotebook() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const { isDarkMode } = useTheme();
+  const { t } = useLanguage();
+  const { isChristmasMode } = useChristmasTheme();
+  const { isHalloweenMode } = useHalloweenTheme();
+  const { isEasterMode } = useEasterTheme();
+  const { isCarnivalMode } = useCarnivalTheme();
+  const { isSummerMode } = useSummerTheme();
+
+  // Theme colors function
+  const getThemeColors = () => {
+    if (isChristmasMode) {
+      return {
+        background: 'from-red-50 via-green-50 to-red-50 dark:from-red-900/20 dark:via-green-900/20 dark:to-red-900/20',
+        cardBg: 'bg-white/95 dark:bg-gray-800/95',
+        border: 'border-red-200/30 dark:border-red-700/30',
+        accent: 'from-red-500 to-green-600',
+        text: 'text-red-800 dark:text-red-200',
+        badge: 'from-red-400 to-green-500',
+        lines: 'bg-red-200/30 dark:bg-red-300/15',
+        margin: 'bg-red-300/50 dark:bg-red-400/30',
+        accentColor: 'red',
+        accentColor2: 'green',
+        specialEffects: 'christmas'
+      };
+    } else if (isHalloweenMode) {
+      return {
+        background: 'from-orange-50 via-purple-50 to-orange-50 dark:from-orange-900/20 dark:via-purple-900/20 dark:to-orange-900/20',
+        cardBg: 'bg-white/95 dark:bg-gray-800/95',
+        border: 'border-orange-200/30 dark:border-orange-700/30',
+        accent: 'from-orange-500 to-purple-600',
+        text: 'text-orange-800 dark:text-orange-200',
+        badge: 'from-orange-400 to-purple-500',
+        lines: 'bg-orange-200/30 dark:bg-orange-300/15',
+        margin: 'bg-orange-300/50 dark:bg-orange-400/30',
+        accentColor: 'orange',
+        accentColor2: 'purple',
+        specialEffects: 'halloween'
+      };
+    } else if (isEasterMode) {
+      return {
+        background: 'from-pink-50 via-yellow-50 to-green-50 dark:from-pink-900/20 dark:via-yellow-900/20 dark:to-green-900/20',
+        cardBg: 'bg-white/95 dark:bg-gray-800/95',
+        border: 'border-pink-200/30 dark:border-pink-700/30',
+        accent: 'from-pink-500 to-yellow-600',
+        text: 'text-pink-800 dark:text-pink-200',
+        badge: 'from-pink-400 to-yellow-500',
+        lines: 'bg-pink-200/30 dark:bg-pink-300/15',
+        margin: 'bg-pink-300/50 dark:bg-pink-400/30',
+        accentColor: 'pink',
+        accentColor2: 'yellow',
+        specialEffects: 'easter'
+      };
+    } else if (isCarnivalMode) {
+      return {
+        background: 'from-purple-50 via-pink-50 to-yellow-50 dark:from-purple-900/20 dark:via-pink-900/20 dark:to-yellow-900/20',
+        cardBg: 'bg-white/95 dark:bg-gray-800/95',
+        border: 'border-purple-200/30 dark:border-purple-700/30',
+        accent: 'from-purple-500 to-pink-600',
+        text: 'text-purple-800 dark:text-purple-200',
+        badge: 'from-purple-400 to-pink-500',
+        lines: 'bg-purple-200/30 dark:bg-purple-300/15',
+        margin: 'bg-purple-300/50 dark:bg-purple-400/30',
+        accentColor: 'purple',
+        accentColor2: 'pink',
+        specialEffects: 'carnival'
+      };
+    } else if (isSummerMode) {
+      return {
+        background: 'from-yellow-50 via-orange-50 to-red-50 dark:from-yellow-900/20 dark:via-orange-900/20 dark:to-red-900/20',
+        cardBg: 'bg-white/95 dark:bg-gray-800/95',
+        border: 'border-yellow-200/30 dark:border-yellow-700/30',
+        accent: 'from-yellow-500 to-orange-600',
+        text: 'text-yellow-800 dark:text-yellow-200',
+        badge: 'from-yellow-400 to-orange-500',
+        lines: 'bg-yellow-200/30 dark:bg-yellow-300/15',
+        margin: 'bg-yellow-300/50 dark:bg-yellow-400/30',
+        accentColor: 'yellow',
+        accentColor2: 'orange',
+        specialEffects: 'summer'
+      };
+    } else {
+      // Default theme
+      return {
+        background: 'from-slate-50 via-blue-50 to-slate-50 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800',
+        cardBg: 'bg-white/98 dark:bg-gray-800/98',
+        border: 'border-blue-200/40 dark:border-blue-700/40',
+        accent: 'from-blue-500 to-indigo-600',
+        text: 'text-slate-800 dark:text-white',
+        badge: 'from-green-400 to-emerald-500',
+        lines: 'bg-blue-200/40 dark:bg-blue-300/20',
+        margin: 'bg-red-300/60 dark:bg-red-400/40',
+        accentColor: 'blue',
+        accentColor2: 'green',
+        specialEffects: 'normal'
+      };
+    }
+  };
+
+  const themeColors = getThemeColors();
 
   useEffect(() => {
     loadLatestArticles();
@@ -45,15 +149,15 @@ export default function LatestArticlesNotebook() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative z-10 py-16 lg:py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800"
+        className={`relative z-10 py-16 lg:py-24 bg-gradient-to-br ${themeColors.background}`}
       >
         <div className="max-w-6xl mx-auto px-6">
-          <div className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-2xl shadow-xl border-2 border-blue-200/30 dark:border-blue-700/30 overflow-hidden">
+          <div className={`relative ${themeColors.cardBg} backdrop-blur-xl rounded-2xl shadow-xl border-2 ${themeColors.border} overflow-hidden`}>
             <div className="p-8 text-center">
-              <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center mb-4">
+              <div className={`w-16 h-16 mx-auto rounded-full bg-gradient-to-r ${themeColors.accent} flex items-center justify-center mb-4`}>
                 <BookOpen className="w-8 h-8 text-white" />
               </div>
-              <p className="text-slate-600 dark:text-slate-300 text-lg font-medium">
+              <p className={`${themeColors.text} text-lg font-medium`}>
                 Φόρτωση άρθρων...
               </p>
             </div>
@@ -68,10 +172,10 @@ export default function LatestArticlesNotebook() {
   }
 
   return (
-    <section className="relative z-10 py-12 bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800">
+    <section className={`relative z-10 py-12 bg-gradient-to-br ${themeColors.background}`}>
       <div className="max-w-5xl mx-auto px-6">
         {/* School Notebook Paper Background */}
-        <div className="relative bg-white/98 dark:bg-gray-800/98 backdrop-blur-xl rounded-2xl shadow-2xl border-2 border-blue-200/40 dark:border-blue-700/40 overflow-hidden">
+        <div className={`relative ${themeColors.cardBg} backdrop-blur-xl rounded-2xl shadow-2xl border-2 ${themeColors.border} overflow-hidden`}>
           {/* Paper Texture Overlay */}
           <div className="absolute inset-0 opacity-5 dark:opacity-10 pointer-events-none">
             <div className="w-full h-full" style={{
@@ -81,69 +185,178 @@ export default function LatestArticlesNotebook() {
           </div>
           
           {/* Notebook Lines Background */}
-          <div className="absolute inset-0 pointer-events-none">
-            {/* Horizontal lines - more authentic notebook spacing */}
-            {[...Array(12)].map((_, i) => (
-              <div
-                key={`line-${i}`}
-                className={`absolute w-full h-px ${
-                  isDarkMode ? 'bg-blue-300/20' : 'bg-blue-200/40'
-                }`}
-                style={{
-                  top: `${8 + i * 6.5}%`,
-                  left: '10%',
-                  right: '6%'
-                }}
-              />
-            ))}
+          {!isHalloweenMode && !isEasterMode && !isCarnivalMode && !isSummerMode && !isChristmasMode ? (
+            <div className="absolute inset-0 pointer-events-none">
+              {/* Horizontal lines - more authentic notebook spacing */}
+              {[...Array(12)].map((_, i) => (
+                <div
+                  key={`line-${i}`}
+                  className={`absolute w-full h-px ${themeColors.lines}`}
+                  style={{
+                    top: `${8 + i * 6.5}%`,
+                    left: '10%',
+                    right: '6%'
+                  }}
+                />
+              ))}
+              
+              {/* Red margin line - more prominent */}
+              <div className={`absolute left-10 top-0 bottom-0 w-0.5 ${themeColors.margin}`}></div>
             
-            {/* Red margin line - more prominent */}
-            <div className={`absolute left-10 top-0 bottom-0 w-0.5 ${
-              isDarkMode ? 'bg-red-400/40' : 'bg-red-300/60'
-            }`}></div>
-            
-            {/* Spiral binding holes - more realistic */}
-            {[...Array(6)].map((_, i) => (
-              <div
-                key={`hole-${i}`}
-                className={`absolute w-2 h-2 rounded-full border-2 ${
-                  isDarkMode 
-                    ? 'bg-gray-600/40 border-gray-500/60' 
-                    : 'bg-white/80 border-blue-300/80'
-                }`}
-                style={{
-                  left: '6px',
-                  top: `${12 + i * 14}%`
-                }}
-              />
-            ))}
-            
-            {/* Spiral binding effect */}
-            <div className={`absolute left-0 top-0 bottom-0 w-1 ${
-              isDarkMode ? 'bg-gray-500/30' : 'bg-blue-300/40'
-            }`}></div>
-          </div>
+              {/* Spiral binding holes - more realistic */}
+              {[...Array(6)].map((_, i) => (
+                <div
+                  key={`hole-${i}`}
+                  className={`absolute w-2 h-2 rounded-full border-2 ${
+                    isDarkMode 
+                      ? 'bg-gray-600/40 border-gray-500/60' 
+                      : 'bg-white/80 border-blue-300/80'
+                  }`}
+                  style={{
+                    left: '6px',
+                    top: `${12 + i * 14}%`
+                  }}
+                />
+              ))}
+              
+              {/* Spiral binding effect */}
+              <div className={`absolute left-0 top-0 bottom-0 w-1 ${
+                isDarkMode ? 'bg-gray-500/30' : 'bg-blue-300/40'
+              }`}></div>
+            </div>
+          ) : null}
+
+          {/* Special Effects for Each Theme */}
+          {isChristmasMode && (
+            <>
+              {/* Christmas Snowflakes */}
+              <div className="absolute inset-0 pointer-events-none">
+                {[...Array(8)].map((_, i) => (
+                  <div
+                    key={`snowflake-${i}`}
+                    className="absolute text-white/20 text-2xl animate-pulse"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 3}s`,
+                      animationDuration: `${2 + Math.random() * 2}s`
+                    }}
+                  >
+                    ❄️
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {isHalloweenMode && (
+            <>
+              {/* Halloween Bats */}
+              <div className="absolute inset-0 pointer-events-none">
+                {[...Array(5)].map((_, i) => (
+                  <div
+                    key={`bat-${i}`}
+                    className="absolute text-orange-300/30 text-xl animate-bounce"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 2}s`,
+                      animationDuration: `${1.5 + Math.random() * 1}s`
+                    }}
+                  >
+                    🦇
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {isEasterMode && (
+            <>
+              {/* Easter Eggs */}
+              <div className="absolute inset-0 pointer-events-none">
+                {[...Array(6)].map((_, i) => (
+                  <div
+                    key={`egg-${i}`}
+                    className="absolute text-pink-300/30 text-lg animate-pulse"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 2}s`,
+                      animationDuration: `${2 + Math.random() * 1}s`
+                    }}
+                  >
+                    🥚
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {isCarnivalMode && (
+            <>
+              {/* Carnival Masks */}
+              <div className="absolute inset-0 pointer-events-none">
+                {[...Array(4)].map((_, i) => (
+                  <div
+                    key={`mask-${i}`}
+                    className="absolute text-purple-300/30 text-xl animate-pulse"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 2}s`,
+                      animationDuration: `${1.5 + Math.random() * 1}s`
+                    }}
+                  >
+                    🎭
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {isSummerMode && (
+            <>
+              {/* Summer Sun */}
+              <div className="absolute inset-0 pointer-events-none">
+                {[...Array(3)].map((_, i) => (
+                  <div
+                    key={`sun-${i}`}
+                    className="absolute text-yellow-300/30 text-2xl animate-pulse"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 2}s`,
+                      animationDuration: `${2 + Math.random() * 1}s`
+                    }}
+                  >
+                    ☀️
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
 
           {/* Content */}
           <div className="relative z-10 p-4 lg:p-6">
             {/* School Header - Enhanced */}
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-green-400 via-emerald-500 to-teal-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white/40 relative">
+                <div className={`w-10 h-10 bg-gradient-to-br ${themeColors.badge} rounded-full flex items-center justify-center shadow-lg border-2 border-white/40 relative`}>
                   <span className="text-white font-bold text-base drop-shadow-sm">📰</span>
                   {/* Subtle glow effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-green-400/20 to-teal-500/20 rounded-full blur-sm"></div>
                 </div>
-                <h2 className="text-xl lg:text-2xl font-bold text-slate-800 dark:text-white leading-tight" style={{ 
+                <h2 className={`text-xl lg:text-2xl font-bold ${themeColors.text} leading-tight`} style={{ 
                   fontFamily: 'StampatelloFaceto, cursive',
                   textShadow: '0 2px 4px rgba(0,0,0,0.1)',
                   letterSpacing: '0.025em'
                 }}>
-                  Τελευταία Άρθρα
+                  {t('articles.title')}
                 </h2>
               </div>
               {/* Decorative underline */}
-              <div className="w-24 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto rounded-full"></div>
+              <div className={`w-24 h-0.5 bg-gradient-to-r ${themeColors.accent} mx-auto rounded-full`}></div>
             </div>
 
             {/* Articles Feed - Enhanced */}
@@ -165,7 +378,7 @@ export default function LatestArticlesNotebook() {
                   className="group relative"
                 >
                   <Link href={`/articles/${article.slug}`}>
-                    <div className="relative bg-gradient-to-r from-white/95 to-slate-50/95 dark:from-gray-700/95 dark:to-gray-600/95 backdrop-blur-sm rounded-xl p-5 transition-all duration-300 hover:shadow-xl border border-blue-200/50 dark:border-blue-700/50 overflow-hidden shadow-md hover:shadow-lg hover:border-blue-300/60 dark:hover:border-blue-600/60">
+                    <div className={`relative ${themeColors.cardBg} backdrop-blur-sm rounded-xl p-5 transition-all duration-300 hover:shadow-xl border ${themeColors.border} overflow-hidden shadow-md hover:shadow-lg hover:${themeColors.border}`}>
                       {/* Paper texture on card */}
                       <div className="absolute inset-0 opacity-3 dark:opacity-5 pointer-events-none">
                         <div className="w-full h-full" style={{
@@ -175,38 +388,36 @@ export default function LatestArticlesNotebook() {
                       </div>
                       
                       {/* School Notebook Lines on Card */}
-                      <div className="absolute inset-0 pointer-events-none">
-                        {[...Array(3)].map((_, i) => (
-                          <div
-                            key={`card-line-${i}`}
-                            className={`absolute w-full h-px ${
-                              isDarkMode ? 'bg-blue-300/15' : 'bg-blue-200/25'
-                            }`}
-                            style={{
-                              top: `${35 + i * 15}%`,
-                              left: '18%',
-                              right: '8%'
-                            }}
-                          />
-                        ))}
+                      {!isHalloweenMode && !isEasterMode && !isCarnivalMode && !isSummerMode && !isChristmasMode ? (
+                        <div className="absolute inset-0 pointer-events-none">
+                          {[...Array(3)].map((_, i) => (
+                            <div
+                              key={`card-line-${i}`}
+                              className={`absolute w-full h-px ${themeColors.lines}`}
+                              style={{
+                                top: `${35 + i * 15}%`,
+                                left: '18%',
+                                right: '8%'
+                              }}
+                            />
+                          ))}
+                          
+                          {/* Red margin line - more prominent */}
+                          <div className={`absolute left-8 top-0 bottom-0 w-0.5 ${themeColors.margin}`}></div>
                         
-                        {/* Red margin line - more prominent */}
-                        <div className={`absolute left-8 top-0 bottom-0 w-0.5 ${
-                          isDarkMode ? 'bg-red-400/25' : 'bg-red-300/35'
-                        }`}></div>
-                        
-                        {/* Small hole punch on card */}
-                        <div className={`absolute w-1.5 h-1.5 rounded-full border ${
-                          isDarkMode 
-                            ? 'bg-gray-600/30 border-gray-500/50' 
-                            : 'bg-white/60 border-blue-300/60'
-                        }`}
-                        style={{
-                          left: '6px',
-                          top: '50%',
-                          transform: 'translateY(-50%)'
-                        }}></div>
-                      </div>
+                          {/* Small hole punch on card */}
+                          <div className={`absolute w-1.5 h-1.5 rounded-full border ${
+                            isDarkMode 
+                              ? 'bg-gray-600/30 border-gray-500/50' 
+                              : 'bg-white/60 border-blue-300/60'
+                          }`}
+                          style={{
+                            left: '6px',
+                            top: '50%',
+                            transform: 'translateY(-50%)'
+                          }}></div>
+                        </div>
+                      ) : null}
 
                       {/* Content - Feed Style Layout */}
                       <div className="relative z-10">
@@ -214,7 +425,7 @@ export default function LatestArticlesNotebook() {
                         <div className="flex items-center gap-3 mb-3">
                           {/* Grade Badge - Enhanced */}
                           <div className="flex-shrink-0">
-                            <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white/50 relative">
+                            <div className={`w-8 h-8 bg-gradient-to-br ${themeColors.badge} rounded-full flex items-center justify-center shadow-lg border-2 border-white/50 relative`}>
                               <span className="text-white text-sm font-bold drop-shadow-sm" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                                 A+
                               </span>
@@ -320,7 +531,7 @@ export default function LatestArticlesNotebook() {
             <div className="text-center mt-8">
               <Link href="/articles">
                 <motion.button
-                  className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl mx-auto text-sm border border-blue-400/30 relative overflow-hidden"
+                  className={`group flex items-center gap-2 px-6 py-3 bg-gradient-to-r ${themeColors.accent} text-white rounded-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl mx-auto text-sm border border-blue-400/30 relative overflow-hidden`}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -337,7 +548,7 @@ export default function LatestArticlesNotebook() {
                     fontFamily: 'StampatelloFaceto, cursive',
                     textShadow: '0 1px 2px rgba(0,0,0,0.2)'
                   }}>
-                    Όλα τα Άρθρα
+                    {t('articles.viewAllArticles')}
                   </span>
                   <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform duration-300 relative z-10" />
                 </motion.button>

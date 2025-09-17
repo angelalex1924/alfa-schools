@@ -4,6 +4,7 @@
     "services": "Servizi",
     "news": "Le Nostre Notizie",
     "whyUs": "Perché Noi",
+    "aboutUs": "Chi Siamo",
     "games": "Giochi",
     "contact": "Contatto",
     "privacy": "Privacy",
@@ -18,8 +19,19 @@
     "servicesDescription": "Servizi specializzati",
     "newsDescription": "Ultime notizie e aggiornamenti",
     "whyUsDescription": "Scopri i nostri vantaggi",
+    "aboutUsDescription": "Scopri la nostra storia e i nostri insegnanti",
     "gamesDescription": "Giochi interattivi per l'apprendimento",
     "contactDescription": "Contattaci"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Servizi",
+    "news": "Notizie",
+    "whyUs": "Perché Noi",
+    "aboutUs": "Chi Siamo",
+    "games": "Giochi",
+    "contact": "Contatto",
+    "tags": "Tag"
   },
   "notFound": {
     "title": "Ops! Pagina Non Trovata!",

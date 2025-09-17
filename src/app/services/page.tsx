@@ -3,10 +3,16 @@ import NotebookHero from "@/components/NotebookHero"
 import SchoolBreadcrumb from "@/components/SchoolBreadcrumb"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { useState } from "react"
+import SEOHead from "@/components/SEOHead"
+import { generateEnhancedServicesSEO, generateComprehensiveStructuredData } from "@/lib/seo-utils"
 
 export default function Services() {
   const { language, t } = useLanguage();
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alfaschools.gr'
+  const seoData = generateEnhancedServicesSEO(baseUrl)
+  const structuredData = generateComprehensiveStructuredData(baseUrl)
 
   const services = [
     {
@@ -84,7 +90,9 @@ export default function Services() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
+    <>
+      <SEOHead seoData={seoData} structuredData={structuredData} />
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
       
       {/* Floating School Elements */}
       <div className="absolute inset-0 pointer-events-none">
@@ -235,7 +243,7 @@ export default function Services() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 { icon: "🏆", title: t('hero.years') + " " + t('hero.experience'), desc: t('hero.subtitle') },
-                { icon: "👨‍🏫", title: t('whyUs.teachers'), desc: t('whyUs.teachersDesc') },
+                { icon: "👨‍🏫", title: t('whyUs.teachers.title'), desc: t('whyUs.teachers.subtitle') },
                 { icon: "📚", title: t('whyUs.materials'), desc: t('whyUs.materialsDesc') },
                 { icon: "🎉", title: t('whyUs.fun'), desc: t('whyUs.funDesc') }
               ].map((feature, index) => (
@@ -442,6 +450,7 @@ export default function Services() {
           animation: bounceIn 0.6s ease-out;
         }
       `}</style>
-    </div>
+      </div>
+    </>
   );
 }

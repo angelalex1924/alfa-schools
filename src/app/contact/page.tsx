@@ -4,10 +4,16 @@ import SchoolBreadcrumb from "@/components/SchoolBreadcrumb"
 import { useTheme } from "@/contexts/ThemeContext"
 import { useLanguage } from "@/contexts/LanguageContext"
 import { useState } from "react"
+import SEOHead from "@/components/SEOHead"
+import { generateEnhancedContactSEO, generateComprehensiveStructuredData } from "@/lib/seo-utils"
 
 export default function Contact() {
   const { isDarkMode } = useTheme()
   const { t } = useLanguage()
+  
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alfaschools.gr'
+  const seoData = generateEnhancedContactSEO(baseUrl)
+  const structuredData = generateComprehensiveStructuredData(baseUrl)
   
   // Helper function to ensure we get a string from translation
   const getString = (key: string): string => {
@@ -79,14 +85,16 @@ export default function Contact() {
   }
   
   return (
-    <div 
-      className="min-h-screen relative overflow-hidden"
-      style={{
-        background: isDarkMode 
-          ? `linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)`
-          : `linear-gradient(135deg, #fefefe 0%, #f8fafc 50%, #f1f5f9 100%)`,
-      }}
-    >
+    <>
+      <SEOHead seoData={seoData} structuredData={structuredData} />
+      <div 
+        className="min-h-screen relative overflow-hidden"
+        style={{
+          background: isDarkMode 
+            ? `linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)`
+            : `linear-gradient(135deg, #fefefe 0%, #f8fafc 50%, #f1f5f9 100%)`,
+        }}
+      >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div
@@ -1025,6 +1033,7 @@ export default function Contact() {
           </div>
         </div>
       </main>
-    </div>
+      </div>
+    </>
   );
 }

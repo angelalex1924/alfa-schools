@@ -86,7 +86,7 @@ export const chatbotTranslationsEn = {
     },
     footer: {
       disclaimer: "Responses may contain inaccuracies. Please contact ALFA Language Centers for official information.",
-      poweredBy: "Powered by ACRONAI"
+      poweredBy: "Powered by"
     },
     welcome: "Welcome! I'm the ALFA Language Centers assistant. We have two centers: Nea Filadelfia (210 2777 725) and Chalandri (210 6800 708). How can I help you today?"
   }

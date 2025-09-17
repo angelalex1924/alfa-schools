@@ -190,11 +190,11 @@ export default function ArticlesPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-            <div className="relative mb-6">
+          <div className="relative mb-6">
               <div className={`w-16 h-16 mx-auto rounded-full bg-gradient-to-r ${themeColors.accent} flex items-center justify-center`}>
-                <BookOpen className="w-8 h-8 text-white" />
-              </div>
+              <BookOpen className="w-8 h-8 text-white" />
             </div>
+          </div>
           <p className="text-slate-600 dark:text-slate-300 text-lg font-medium">
             {t('articles.loading')}
           </p>

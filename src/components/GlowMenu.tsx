@@ -9,17 +9,35 @@ import { GamesIcon } from "./custom-icons"
 
 // Custom Services Icon
 const ServicesIcon = ({ className }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" className={className}>
-    <g clipPath="url(#clip0_4418_3849)">
-      <path d="M2 13.02V15C2 20 4 22 9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M18.3801 15.2693V7.57925C18.3801 6.80926 17.7601 6.24927 17.0001 6.30927H16.9601C15.6201 6.41927 13.5901 7.10928 12.4501 7.81928L12.3401 7.88928C12.1601 7.99928 11.8501 7.99928 11.6601 7.88928L11.5001 7.78928C10.3701 7.07928 8.34012 6.40926 7.00012 6.29926C6.24012 6.23926 5.62012 6.80928 5.62012 7.56928V15.2693C5.62012 15.8793 6.1201 16.4593 6.7301 16.5293L6.9101 16.5593C8.2901 16.7393 10.4301 17.4493 11.6501 18.1193L11.6801 18.1293C11.8501 18.2293 12.1301 18.2293 12.2901 18.1293C13.5101 17.4493 15.6601 16.7493 17.0501 16.5593L17.2601 16.5293C17.8801 16.4593 18.3801 15.8893 18.3801 15.2693Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M12 8.09961V17.6596" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  <svg
+    version="1.0"
+    id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 64 64"
+    enableBackground="new 0 0 64 64"
+    xmlSpace="preserve"
+    fill="currentColor"
+    className={className}
+  >
+    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+    <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+    <g id="SVGRepo_iconCarrier">
+      <g>
+        <path fill="#F9EBB2" d="M56,62H10c-2.209,0-4-1.791-4-4s1.791-4,4-4h46V62z"></path>
+        <g>
+          <path fill="#45AAB8" d="M6,4v49.537C7.062,52.584,8.461,52,10,52h2V2H8C6.896,2,6,2.896,6,4z"></path>
+          <path fill="#45AAB8" d="M56,2H14v50h42h2v-2V4C58,2.896,57.104,2,56,2z"></path>
+        </g>
+        <g>
+          <path fill="#394240" d="M60,52V4c0-2.211-1.789-4-4-4H8C5.789,0,4,1.789,4,4v54c0,3.313,2.687,6,6,6h49c0.553,0,1-0.447,1-1 s-0.447-1-1-1h-1v-8C59.104,54,60,53.104,60,52z M6,4c0-1.104,0.896-2,2-2h4v50h-2c-1.539,0-2.938,0.584-4,1.537V4z M56,62H10 c-2.209,0-4-1.791-4-4s1.791-4,4-4h46V62z M56,52H14V2h42c1.104,0,2,0.896,2,2v46v2H56z"></path>
+          <path fill="#394240" d="M43,26H23c-0.553,0-1,0.447-1,1s0.447,1,1,1h20c0.553,0,1-0.447,1-1S43.553,26,43,26z"></path>
+          <path fill="#394240" d="M49,20H23c-0.553,0-1,0.447-1,1s0.447,1,1,1h26c0.553,0,1-0.447,1-1S49.553,20,49,20z"></path>
+          <path fill="#394240" d="M23,16h12c0.553,0,1-0.447,1-1s-0.447-1-1-1H23c-0.553,0-1,0.447-1,1S22.447,16,23,16z"></path>
+        </g>
+        <path opacity="0.2" fill="#231F20" d="M6,4v49.537C7.062,52.584,8.461,52,10,52h2V2H8C6.896,2,6,2.896,6,4z"></path>
+      </g>
     </g>
-    <defs>
-      <clipPath id="clip0_4418_3849">
-        <rect width="24" height="24" fill="white"/>
-      </clipPath>
-    </defs>
   </svg>
 )
 import { motion, AnimatePresence } from "framer-motion"
@@ -35,6 +53,14 @@ import { useEasterTheme } from "@/contexts/EasterThemeContext"
 import { useSummerTheme } from "@/contexts/SummerThemeContext"
 import { AnniversaryText } from "./AnniversaryText"
 import { SantaIcon, ChristmasTreeIcon, ReindeerIcon, GiftBoxIcon, BellIcon } from "./ChristmasIcons"
+import HomeIcon from "./HomeIcon"
+import ArticlesIcon from "./ArticlesIcon"
+import WhyUsIcon from "./WhyUsIcon"
+import AboutUsIcon from "./AboutUsIcon"
+import ContactIcon from "./ContactIcon"
+import PrivacyIcon from "./PrivacyIcon"
+import TermsIcon from "./TermsIcon"
+import { HalloweenServicesIcon, HalloweenNewsIcon, HalloweenGamesIcon, HalloweenContactIcon } from "./HalloweenIcons"
 
 // Halloween Icons Helper
 const getHalloweenIcon = (iconType: string, className?: string) => {
@@ -113,42 +139,50 @@ const getNavigationItems = (t: (key: string) => string | string[], isChristmasMo
   {
     label: t('navigation.home'),
     href: "/",
-    icon: isChristmasMode ? SantaIcon : isHalloweenMode ? "pumpkin" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : Home,
+    icon: isChristmasMode ? SantaIcon : isHalloweenMode ? "pumpkin" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : HomeIcon,
     color: isChristmasMode ? "#dc2626" : isHalloweenMode ? "#ea580c" : isCarnivalMode ? "#ff6b6b" : isEasterMode ? "#ff6b9d" : isSummerMode ? "#fbbf24" : "#3b82f6", // Κόκκινο για Χριστούγεννα, Πορτοκαλί για Halloween, Ροζ για Carnival, Pink για Easter, Κίτρινο για Summer
     iconColor: isChristmasMode ? "text-red-500" : isHalloweenMode ? "text-orange-500" : isCarnivalMode ? "text-pink-500" : isEasterMode ? "text-pink-500" : isSummerMode ? "text-yellow-500" : "text-blue-500"
   },
   {
     label: t('navigation.services'),
     href: "/services",
-    icon: isChristmasMode ? ChristmasTreeIcon : isHalloweenMode ? "witch" : isCarnivalMode ? "circus" : isEasterMode ? "egg" : isSummerMode ? "sunflower" : ServicesIcon,
+    icon: isChristmasMode ? ChristmasTreeIcon : isHalloweenMode ? HalloweenServicesIcon : isCarnivalMode ? "circus" : isEasterMode ? "egg" : isSummerMode ? "sunflower" : ServicesIcon,
     color: isChristmasMode ? "#16a34a" : isHalloweenMode ? "#7c3aed" : isCarnivalMode ? "#4ecdc4" : isEasterMode ? "#96ceb4" : isSummerMode ? "#f59e0b" : "#c9b6e4", // Πράσινο για Χριστούγεννα, Μωβ για Halloween, Τυρκουάζ για Carnival, Πράσινο για Easter, Πορτοκαλί για Summer
     iconColor: isChristmasMode ? "text-green-500" : isHalloweenMode ? "text-purple-500" : isCarnivalMode ? "text-teal-500" : isEasterMode ? "text-green-500" : isSummerMode ? "text-orange-500" : "text-[#c9b6e4]"
   },
   {
     label: t('navigation.news'),
     href: "/articles",
-    icon: isChristmasMode ? BellIcon : isHalloweenMode ? "ghost" : isCarnivalMode ? "art" : isEasterMode ? "chick" : isSummerMode ? "beach" : Newspaper,
+    icon: isChristmasMode ? BellIcon : isHalloweenMode ? HalloweenNewsIcon : isCarnivalMode ? "art" : isEasterMode ? "chick" : isSummerMode ? "beach" : ArticlesIcon,
     color: isChristmasMode ? "#fbbf24" : isHalloweenMode ? "#f59e0b" : isCarnivalMode ? "#feca57" : isEasterMode ? "#feca57" : isSummerMode ? "#f97316" : "#f78da7", // Χρυσό για Χριστούγεννα, Κίτρινο για Halloween, Κίτρινο για Carnival, Κίτρινο για Easter, Πορτοκαλί για Summer
     iconColor: isChristmasMode ? "text-yellow-500" : isHalloweenMode ? "text-amber-500" : isCarnivalMode ? "text-yellow-500" : isEasterMode ? "text-yellow-500" : isSummerMode ? "text-orange-500" : "text-[#f78da7]"
   },
   {
     label: t('navigation.whyUs'),
     href: "/why-us",
-    icon: isChristmasMode ? ReindeerIcon : isHalloweenMode ? "bat" : isCarnivalMode ? "music" : isEasterMode ? "flower" : isSummerMode ? "wave" : Users,
+    icon: isChristmasMode ? ReindeerIcon : isHalloweenMode ? "bat" : isCarnivalMode ? "music" : isEasterMode ? "flower" : isSummerMode ? "wave" : WhyUsIcon,
     color: isChristmasMode ? "#8b4513" : isHalloweenMode ? "#374151" : isCarnivalMode ? "#45b7d1" : isEasterMode ? "#ff6b9d" : isSummerMode ? "#06b6d4" : "#fabeb6", // Καφέ για Χριστούγεννα, Γκρι για Halloween, Μπλε για Carnival, Pink για Easter, Cyan για Summer
     iconColor: isChristmasMode ? "text-amber-600" : isHalloweenMode ? "text-gray-600" : isCarnivalMode ? "text-blue-500" : isEasterMode ? "text-pink-500" : isSummerMode ? "text-cyan-500" : "text-[#fabeb6]"
   },
   {
+    label: t('navigation.aboutUs'),
+    href: "/about-us",
+    icon: isChristmasMode ? "🏫" : isHalloweenMode ? "skull" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : AboutUsIcon,
+    color: isChristmasMode ? "#1e40af" : isHalloweenMode ? "#7c2d12" : isCarnivalMode ? "#be185d" : isEasterMode ? "#be185d" : isSummerMode ? "#f59e0b" : "#1e40af", // Μπλε για Χριστούγεννα, Καφέ για Halloween, Ροζ για Carnival, Ροζ για Easter, Πορτοκαλί για Summer
+    iconColor: isChristmasMode ? "text-blue-600" : isHalloweenMode ? "text-amber-800" : isCarnivalMode ? "text-pink-600" : isEasterMode ? "text-pink-600" : isSummerMode ? "text-orange-500" : "text-blue-600",
+    isEmoji: isChristmasMode || isHalloweenMode || isCarnivalMode || isEasterMode || isSummerMode
+  },
+  {
     label: t('navigation.games'),
     href: "/games",
-    icon: isChristmasMode ? GiftBoxIcon : isHalloweenMode ? "spider" : isCarnivalMode ? "guitar" : isEasterMode ? "tulip" : isSummerMode ? "shell" : GamesIcon,
+    icon: isChristmasMode ? GiftBoxIcon : isHalloweenMode ? HalloweenGamesIcon : isCarnivalMode ? "guitar" : isEasterMode ? "tulip" : isSummerMode ? "shell" : GamesIcon,
     color: isChristmasMode ? "#dc2626" : isHalloweenMode ? "#dc2626" : isCarnivalMode ? "#96ceb4" : isEasterMode ? "#4ecdc4" : isSummerMode ? "#f59e0b" : "#a8e6cf", // Κόκκινο για Χριστούγεννα και Halloween, Πράσινο για Carnival, Τυρκουάζ για Easter, Πορτοκαλί για Summer
     iconColor: isChristmasMode ? "text-red-500" : isHalloweenMode ? "text-red-500" : isCarnivalMode ? "text-green-500" : isEasterMode ? "text-teal-500" : isSummerMode ? "text-orange-500" : "text-[#a8e6cf]"
   },
   {
     label: t('navigation.contact'),
     href: "/contact",
-    icon: isHalloweenMode ? "skull" : isCarnivalMode ? "trumpet" : isEasterMode ? "butterfly" : isSummerMode ? "sunface" : Phone,
+    icon: isHalloweenMode ? HalloweenContactIcon : isCarnivalMode ? "trumpet" : isEasterMode ? "butterfly" : isSummerMode ? "sunface" : ContactIcon,
     color: isChristmasMode ? "#16a34a" : isHalloweenMode ? "#6b7280" : isCarnivalMode ? "#ff9ff3" : isEasterMode ? "#54a0ff" : isSummerMode ? "#fbbf24" : "#fde7dc", // Πράσινο για Χριστούγεννα, Γκρι για Halloween, Ροζ για Carnival, Μπλε για Easter, Κίτρινο για Summer
     iconColor: isChristmasMode ? "text-green-500" : isHalloweenMode ? "text-gray-500" : isCarnivalMode ? "text-pink-500" : isEasterMode ? "text-blue-500" : isSummerMode ? "text-yellow-500" : "text-[#fde7dc]"
   }
@@ -287,11 +321,14 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
   return (
     <motion.div
       ref={ref}
-              className={cn(
-          "p-1 rounded-xl transition-all duration-300 fixed top-4 left-4 right-4 z-[100] mx-auto flex items-center justify-between",
-          getNavbarBackground(),
-          className,
-        )}
+      className={cn(
+        "transition-all duration-500 ease-out z-[100] mx-auto flex items-center justify-between",
+        scrolled 
+          ? "p-1 rounded-xl fixed top-4 left-4 right-4" 
+          : "p-0 rounded-none fixed top-0 left-0 right-0",
+        getNavbarBackground(),
+        className,
+      )}
       initial={{ y: -10, opacity: 0 }}
       animate={{
         y: 0,
@@ -302,7 +339,10 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
     >
               {/* Enhanced glass effect background */}
         <motion.div
-          className="absolute inset-0 overflow-hidden rounded-xl"
+          className={cn(
+            "absolute inset-0 overflow-hidden transition-all duration-500 ease-out",
+            scrolled ? "rounded-xl" : "rounded-none"
+          )}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
@@ -311,31 +351,46 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
           <div className={`absolute inset-0 bg-gradient-to-r ${isDarkMode ? 'from-[#0f172a]/12 via-[#0f172a]/18 to-[#0f172a]/12' : 'from-[#81a1d4]/5 via-[#81a1d4]/8 to-[#81a1d4]/5'}`}></div>
           <div className="absolute inset-0 bg-white/5 backdrop-blur-2xl"></div>
           
-          {/* Σχολικές πινελιές - Notebook lines */}
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute left-0 top-0 w-full h-full" style={{
-              backgroundImage: `repeating-linear-gradient(
-                transparent,
-                transparent 20px,
-                ${isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'} 20px,
-                ${isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'} 21px
-              )`
-            }}></div>
-            {/* Κόκκινη γραμμή αριστερά */}
-            <div className={`absolute left-6 top-0 w-0.5 h-full ${isDarkMode ? 'bg-red-400/50' : 'bg-red-500/60'}`}></div>
-            
-            {/* Binder holes */}
-            <div className="absolute left-1 top-1/2 transform -translate-y-1/2 flex flex-col gap-3">
-              <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
-              <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
-              <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
-            </div>
-            
-            {/* Σχολικές πινελιές - Random ink spots */}
-            <div className="absolute top-4 right-8 w-1 h-1 bg-blue-400/30 rounded-full"></div>
-            <div className="absolute top-12 left-16 w-0.5 h-0.5 bg-gray-400/40 rounded-full"></div>
-            <div className="absolute bottom-6 right-12 w-0.5 h-0.5 bg-gray-400/40 rounded-full"></div>
-          </div>
+          {/* Christmas Snow Effect Background */}
+          {isChristmasMode ? (
+            <div 
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              style={{
+                background: `url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC4xIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC4yIi8+CiAgPC9yYWRpYWxHcmFkaWVudD4KICA8cmVjdCB4PSItNTAiIHk9Ii01MCIgd2lkdGg9IjEwMSIgaGVpZ2h0PSIxMDEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==)`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                opacity: 0.3
+              }}
+            />
+          ) : !isHalloweenMode && !isEasterMode && !isCarnivalMode && !isSummerMode ? (
+            <>
+              {/* Σχολικές πινελιές - Notebook lines - Only for normal theme */}
+              <div className="absolute inset-0 opacity-30">
+                <div className="absolute left-0 top-0 w-full h-full" style={{
+                  backgroundImage: `repeating-linear-gradient(
+                    transparent,
+                    transparent 20px,
+                    ${isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'} 20px,
+                    ${isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'} 21px
+                  )`
+                }}></div>
+                {/* Κόκκινη γραμμή αριστερά */}
+                <div className={`absolute left-6 top-0 w-0.5 h-full ${isDarkMode ? 'bg-red-400/50' : 'bg-red-500/60'}`}></div>
+                
+                {/* Binder holes */}
+                <div className="absolute left-1 top-1/2 transform -translate-y-1/2 flex flex-col gap-3">
+                  <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
+                  <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
+                  <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
+                </div>
+                
+                {/* Σχολικές πινελιές - Random ink spots */}
+                <div className="absolute top-4 right-8 w-1 h-1 bg-blue-400/30 rounded-full"></div>
+                <div className="absolute top-12 left-16 w-0.5 h-0.5 bg-gray-400/40 rounded-full"></div>
+                <div className="absolute bottom-6 right-12 w-0.5 h-0.5 bg-gray-400/40 rounded-full"></div>
+              </div>
+            </>
+          ) : null}
         </motion.div>
 
       {/* Enhanced Logo with alfa-logo.png - REVEAL ANIMATION */}
@@ -343,11 +398,17 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
         variants={logoVariants}
         initial="hidden"
         animate="visible"
-        className="flex items-center gap-1"
+        className={cn(
+          "flex items-center gap-1 transition-all duration-500 ease-out",
+          scrolled ? "px-3 py-1" : "px-6 py-1"
+        )}
       >
         <Link href="/" className="relative group" prefetch={false}>
           <motion.div 
-            className="relative w-32 h-12 overflow-hidden"
+            className={cn(
+              "relative overflow-hidden transition-all duration-500 ease-out",
+              scrolled ? "w-30 h-10" : "w-34 h-12"
+            )}
             whileHover={{ 
               scale: 1.05,
               rotate: [0, 1, -1, 0],
@@ -573,7 +634,10 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
 
       {/* Navigation items */}
       <motion.div
-        className="relative z-10 flex items-center gap-2"
+        className={cn(
+          "relative z-10 flex items-center gap-2 transition-all duration-500 ease-out",
+          scrolled ? "px-3 py-1" : "px-6 py-1"
+        )}
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -629,10 +693,10 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                       {/* Icon with enhanced animations */}
                       <motion.div
                         className={cn(
-                          "relative flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-300",
+                          "relative flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-300 shadow-lg",
                           isActive || isHovered
-                            ? `${item.iconColor} bg-white/20 backdrop-blur-sm`
-                            : "text-white/70",
+                            ? `${item.iconColor} bg-white/30 backdrop-blur-sm shadow-xl`
+                            : "text-white/90",
                         )}
                         animate={
                           isActive
@@ -674,6 +738,8 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                           getEasterIcon(item.icon as string, "h-4 w-4 text-lg leading-none")
                         ) : isSummerIcon ? (
                           getSummerIcon(item.icon as string, "h-4 w-4 text-lg leading-none")
+                        ) : (item as any).isEmoji ? (
+                          <span className="h-4 w-4 text-lg leading-none flex items-center justify-center">{item.icon as string}</span>
                         ) : (
                           <Icon className="h-4 w-4" />
                         )}
@@ -798,8 +864,8 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
         {/* Right side elements - Privacy, Terms, Call Us, Email */}
         <motion.div
           className={cn(
-            "flex items-center gap-2",
-            scrolled ? "pl-2 border-l border-white/20" : "",
+            "flex items-center gap-2 transition-all duration-500 ease-out",
+            scrolled ? "pl-2 border-l border-white/20" : "pl-4",
           )}
           variants={itemVariants}
         >
@@ -837,7 +903,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                   ease: "easeInOut"
                 }}
               >
-                <Shield className="h-3.5 w-3.5 text-blue-300" />
+                <PrivacyIcon className="h-5 w-5 text-blue-300" />
               </motion.div>
               <span className="text-xs font-semibold text-shadow-sm shadow-black/40" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                 {t('navigation.privacy')}
@@ -873,7 +939,7 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                   ease: "easeInOut"
                 }}
               >
-                <ChevronRight className="h-3.5 w-3.5 text-purple-300" />
+                <TermsIcon className="h-5 w-5 text-purple-300" />
               </motion.div>
               <span className="text-xs font-semibold text-shadow-sm shadow-black/40" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                 {t('navigation.terms')}

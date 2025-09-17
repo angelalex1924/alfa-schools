@@ -2,21 +2,27 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  // Check if the request is for admin routes
-  if (request.nextUrl.pathname.startsWith('/admin')) {
-    // Allow access to login page
-    if (request.nextUrl.pathname === '/admin/login') {
-      return NextResponse.next()
-    }
-    
-    // For all other admin routes, we'll let the client-side AuthContext handle the protection
-    // since we need to check Firebase authentication state
-    return NextResponse.next()
-  }
+  // Create response
+  const response = NextResponse.next()
 
-  return NextResponse.next()
+  // Add headers to allow iframe embedding
+  response.headers.set('X-Frame-Options', 'ALLOWALL')
+  response.headers.set('Content-Security-Policy', "frame-ancestors *;")
+  response.headers.set('X-Content-Type-Options', 'nosniff')
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
+  
+  // Add CORS headers for iframe support
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  
+  // Add cache control for better performance
+  response.headers.set('Cache-Control', 'public, max-age=31536000, immutable')
+  
+  return response
 }
 
+// Configure which paths the middleware should run on
 export const config = {
   matcher: [
     /*

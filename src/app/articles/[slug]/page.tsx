@@ -619,8 +619,13 @@ export default function ArticlePage() {
       
       if (fetchedArticle) {
         setArticle(fetchedArticle);
-        // Increment view count
-        await incrementViewCount(fetchedArticle.id);
+        // Increment view count (non-blocking)
+        try {
+          await incrementViewCount(fetchedArticle.id);
+        } catch (error) {
+          console.warn('Failed to increment view count:', error);
+          // Continue loading the article even if view count fails
+        }
       } else {
         setError('Το άρθρο δεν βρέθηκε');
       }

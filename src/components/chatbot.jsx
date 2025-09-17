@@ -1,5 +1,10 @@
 "use client"
 import { useTheme } from "next-themes";
+import { useChristmasTheme } from "@/contexts/ChristmasThemeContext";
+import { useHalloweenTheme } from "@/contexts/HalloweenThemeContext";
+import { useEasterTheme } from "@/contexts/EasterThemeContext";
+import { useCarnivalTheme } from "@/contexts/CarnivalThemeContext";
+import { useSummerTheme } from "@/contexts/SummerThemeContext";
 
 
 
@@ -96,6 +101,7 @@ import { Input } from "@/components/ui/input"
 import { usePathname } from "next/navigation"
 import { chatbotTranslationsEl } from "../../src/translations/chatbot-el"
 import { chatbotTranslationsEn } from "../../src/translations/chatbot-en"
+import { chatbotTranslationsFr } from "../../src/translations/chatbot-fr"
 import { useLanguage } from "@/contexts/LanguageContext"
 
 // Custom animations
@@ -380,6 +386,98 @@ const AIChatbot = () => {
   const pathname = usePathname()
   const { language } = useLanguage()
   const isGreekPath = language === 'el'
+  
+  // Theme contexts
+  const { isChristmasMode } = useChristmasTheme()
+  const { isHalloweenMode } = useHalloweenTheme()
+  const { isEasterMode } = useEasterTheme()
+  const { isCarnivalMode } = useCarnivalTheme()
+  const { isSummerMode } = useSummerTheme()
+  
+  // Determine current theme
+  const getCurrentTheme = () => {
+    if (isChristmasMode) return 'christmas'
+    if (isHalloweenMode) return 'halloween'
+    if (isEasterMode) return 'easter'
+    if (isCarnivalMode) return 'carnival'
+    if (isSummerMode) return 'summer'
+    return 'normal'
+  }
+  
+  const currentTheme = getCurrentTheme()
+  
+  // Dark mode detection
+  const { theme: currentThemeMode } = useTheme()
+  const isDarkMode = currentThemeMode === 'dark'
+  
+  // Theme styles configuration
+  const getThemeStyles = (theme, isDark = false) => {
+    const styles = {
+      normal: {
+        bubbleBg: isDark ? 'bg-gray-800/95' : 'bg-white/95',
+        bubbleBorder: isDark ? 'border-blue-400/50' : 'border-blue-200/50',
+        lineColor: isDark ? 'bg-blue-400/20' : 'bg-blue-300/20',
+        marginColor: isDark ? 'bg-red-500/40' : 'bg-red-400/30',
+        holeColor: isDark ? 'bg-blue-300/60' : 'bg-blue-200/60',
+        holeBorder: isDark ? 'border-blue-400/70' : 'border-blue-300/70',
+        iconColor: isDark ? '#60a5fa' : '#4a90e2',
+        backgroundPattern: 'notebook'
+      },
+      christmas: {
+        bubbleBg: isDark ? 'bg-red-900/95' : 'bg-red-50/95',
+        bubbleBorder: isDark ? 'border-red-400/50' : 'border-red-300/50',
+        lineColor: isDark ? 'bg-red-400/20' : 'bg-red-300/20',
+        marginColor: isDark ? 'bg-green-400/50' : 'bg-green-500/40',
+        holeColor: isDark ? 'bg-red-300/60' : 'bg-red-200/60',
+        holeBorder: isDark ? 'border-red-400/70' : 'border-red-300/70',
+        iconColor: isDark ? '#f87171' : '#dc2626',
+        backgroundPattern: 'christmas'
+      },
+      halloween: {
+        bubbleBg: isDark ? 'bg-orange-900/95' : 'bg-orange-50/95',
+        bubbleBorder: isDark ? 'border-orange-400/50' : 'border-orange-300/50',
+        lineColor: isDark ? 'bg-orange-400/20' : 'bg-orange-300/20',
+        marginColor: isDark ? 'bg-purple-400/50' : 'bg-purple-500/40',
+        holeColor: isDark ? 'bg-orange-300/60' : 'bg-orange-200/60',
+        holeBorder: isDark ? 'border-orange-400/70' : 'border-orange-300/70',
+        iconColor: isDark ? '#fb923c' : '#ea580c',
+        backgroundPattern: 'halloween'
+      },
+      easter: {
+        bubbleBg: isDark ? 'bg-pink-900/95' : 'bg-pink-50/95',
+        bubbleBorder: isDark ? 'border-pink-400/50' : 'border-pink-300/50',
+        lineColor: isDark ? 'bg-pink-400/20' : 'bg-pink-300/20',
+        marginColor: isDark ? 'bg-yellow-300/50' : 'bg-yellow-400/40',
+        holeColor: isDark ? 'bg-pink-300/60' : 'bg-pink-200/60',
+        holeBorder: isDark ? 'border-pink-400/70' : 'border-pink-300/70',
+        iconColor: isDark ? '#f472b6' : '#ec4899',
+        backgroundPattern: 'easter'
+      },
+      carnival: {
+        bubbleBg: isDark ? 'bg-purple-900/95' : 'bg-purple-50/95',
+        bubbleBorder: isDark ? 'border-purple-400/50' : 'border-purple-300/50',
+        lineColor: isDark ? 'bg-purple-400/20' : 'bg-purple-300/20',
+        marginColor: isDark ? 'bg-yellow-300/50' : 'bg-yellow-400/40',
+        holeColor: isDark ? 'bg-purple-300/60' : 'bg-purple-200/60',
+        holeBorder: isDark ? 'border-purple-400/70' : 'border-purple-300/70',
+        iconColor: isDark ? '#a78bfa' : '#7c3aed',
+        backgroundPattern: 'carnival'
+      },
+      summer: {
+        bubbleBg: isDark ? 'bg-yellow-900/95' : 'bg-yellow-50/95',
+        bubbleBorder: isDark ? 'border-yellow-400/50' : 'border-yellow-300/50',
+        lineColor: isDark ? 'bg-yellow-400/20' : 'bg-yellow-300/20',
+        marginColor: isDark ? 'bg-blue-400/50' : 'bg-blue-500/40',
+        holeColor: isDark ? 'bg-yellow-300/60' : 'bg-yellow-200/60',
+        holeBorder: isDark ? 'border-yellow-400/70' : 'border-yellow-300/70',
+        iconColor: isDark ? '#facc15' : '#eab308',
+        backgroundPattern: 'summer'
+      }
+    }
+    return styles[theme] || styles.normal
+  }
+  
+  const themeStyles = getThemeStyles(currentTheme, isDarkMode)
 
   // Απλή προσωρινή μνήμη για συχνές ερωτήσεις
   const responseCache = useRef({})
@@ -417,9 +515,9 @@ const AIChatbot = () => {
     return null
   }
 
-  // Get translations based on path
+  // Get translations based on language
   const getTranslations = () => {
-    if (isGreekPath) {
+    if (language === 'el') {
       return {
         modeSuggestions: chatbotTranslationsEl.suggestions,
         modePrompts: chatbotTranslationsEl.prompts,
@@ -456,6 +554,44 @@ const AIChatbot = () => {
           },
         },
         ui: chatbotTranslationsEl.ui,
+      }
+    } else if (language === 'fr') {
+      return {
+        modeSuggestions: chatbotTranslationsFr.suggestions,
+        modePrompts: chatbotTranslationsFr.prompts,
+        modeConfig: {
+          chat: {
+            title: chatbotTranslationsFr.modes.chat.title,
+            description: chatbotTranslationsFr.modes.chat.description,
+           icon: ChatModeIcon,
+            color: "text-[#81a1d4]",
+            gradient: "from-[#81a1d4] to-[#6b8bc4]",
+            buttonGradient: "from-[#81a1d4] to-[#6b8bc4]",
+            lightColor: "#81a1d4",
+            darkColor: "#6b8bc4",
+          },
+          search: {
+            title: chatbotTranslationsFr.modes.search.title,
+            description: chatbotTranslationsFr.modes.search.description,
+           icon: SearchModeIcon,
+            color: "text-indigo-500",
+            gradient: "from-orange-500 to-amber-500",
+            buttonGradient: "from-orange-500 to-amber-500",
+            lightColor: "#6366f1",
+            darkColor: "#a855f7",
+          },
+          reason: {
+            title: chatbotTranslationsFr.modes.reason.title,
+            description: chatbotTranslationsFr.modes.reason.description,
+           icon: ReasonModeIcon,
+            color: "text-[#9af318]",
+            gradient: "from-[#9af318] to-green-500",
+            buttonGradient: "from-[#9af318] to-green-500",
+            lightColor: "#9af318",
+            darkColor: "#22c55e",
+          },
+        },
+        ui: chatbotTranslationsFr.ui,
       }
     } else {
       return {
@@ -1693,44 +1829,449 @@ const AIChatbot = () => {
             exit="exit"
             variants={chatContainerVariants}
           >
-            {/* Σχολικό στυλ Header */}
-            <div
-              className="relative p-4 border-b-2 border-blue-200/50 dark:border-blue-700/50 flex justify-between items-center bg-white/95 dark:bg-gray-800/95 xs:py-5 rounded-t-3xl overflow-hidden"
-              style={{
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-              }}
-            >
-              {/* Notebook Lines Background */}
-              <div className="absolute inset-0 pointer-events-none">
-                {/* Horizontal lines */}
-                {[...Array(4)].map((_, i) => (
-                  <div
-                    key={`header-line-${i}`}
-                    className="absolute w-full h-px bg-blue-300/15 dark:bg-blue-300/15"
-                    style={{
-                      top: `${20 + i * 15}%`,
-                      left: '8%',
-                      right: '4%'
-                    }}
-                  />
-                ))}
-                
-                {/* Red margin line */}
-                <div className="absolute left-8 top-0 bottom-0 w-px bg-red-400/30 dark:bg-red-400/30"></div>
-                
-                {/* Holes for binder */}
-                {[...Array(3)].map((_, i) => (
-                  <div
-                    key={`header-hole-${i}`}
-                    className="absolute w-1.5 h-1.5 rounded-full bg-blue-200/50 border border-blue-300/70 dark:bg-gray-600/30 dark:border-gray-500/50"
-                    style={{
-                      left: '4px',
-                      top: `${25 + i * 20}%`
-                    }}
-                  />
-                ))}
-              </div>
+             {/* Themed Header */}
+             <div
+               className={`relative p-4 border-b-2 flex justify-between items-center xs:py-5 rounded-t-3xl overflow-hidden ${
+                 currentTheme === 'halloween' ? 'bg-orange-50/95 dark:bg-orange-900/95 border-orange-300/50 dark:border-orange-700/50' :
+                 currentTheme === 'christmas' ? 'bg-red-50/95 dark:bg-red-900/95 border-red-300/50 dark:border-red-700/50' :
+                 currentTheme === 'easter' ? 'bg-pink-50/95 dark:bg-pink-900/95 border-pink-300/50 dark:border-pink-700/50' :
+                 currentTheme === 'carnival' ? 'bg-purple-50/95 dark:bg-purple-900/95 border-purple-300/50 dark:border-purple-700/50' :
+                 currentTheme === 'summer' ? 'bg-yellow-50/95 dark:bg-yellow-900/95 border-yellow-300/50 dark:border-yellow-700/50' :
+                 'bg-white/95 dark:bg-gray-800/95 border-blue-200/50 dark:border-blue-700/50'
+               }`}
+               style={{
+                 backdropFilter: "blur(20px)",
+                 WebkitBackdropFilter: "blur(20px)",
+               }}
+             >
+               {/* Themed Background Pattern */}
+               <div className="absolute inset-0 pointer-events-none">
+                 {currentTheme === 'halloween' ? (
+                   // Halloween pattern - Spooky elements
+                   <>
+                     {/* Spider webs */}
+                     <div className="absolute top-2 left-2 w-8 h-8 border border-orange-300/20 dark:border-orange-400/30 rounded-full"></div>
+                     <div className="absolute top-3 left-3 w-6 h-6 border border-orange-300/15 dark:border-orange-400/25 rounded-full"></div>
+                     <div className="absolute top-4 left-4 w-4 h-4 border border-orange-300/10 dark:border-orange-400/20 rounded-full"></div>
+                     
+                     {/* Web spokes */}
+                     <div className="absolute top-6 left-6 w-px h-2 bg-orange-300/20 dark:bg-orange-400/30"></div>
+                     <div className="absolute top-6 left-6 w-2 h-px bg-orange-300/20 dark:bg-orange-400/30"></div>
+                     <div className="absolute top-6 left-6 w-1.5 h-1.5 bg-orange-300/20 dark:bg-orange-400/30 transform rotate-45"></div>
+                     <div className="absolute top-6 left-6 w-1.5 h-1.5 bg-orange-300/20 dark:bg-orange-400/30 transform -rotate-45"></div>
+                     
+                     {/* Floating pumpkins with faces */}
+                     <div className="absolute top-1 right-1 w-2 h-2 bg-orange-400/30 dark:bg-orange-500/40 rounded-full">
+                       {/* Pumpkin face */}
+                       <div className="absolute top-1 left-0.5 w-0.5 h-0.5 bg-black/60 rounded-full"></div>
+                       <div className="absolute top-1 right-0.5 w-0.5 h-0.5 bg-black/60 rounded-full"></div>
+                       <div className="absolute bottom-1 left-1 w-1 h-0.5 bg-black/60 rounded-full transform rotate-45"></div>
+                     </div>
+                     <div className="absolute bottom-2 left-1 w-1.5 h-1.5 bg-orange-500/25 dark:bg-orange-600/35 rounded-full">
+                       {/* Small pumpkin face */}
+                       <div className="absolute top-0.5 left-0.25 w-0.25 h-0.25 bg-black/60 rounded-full"></div>
+                       <div className="absolute top-0.5 right-0.25 w-0.25 h-0.25 bg-black/60 rounded-full"></div>
+                       <div className="absolute bottom-0.5 left-0.5 w-0.5 h-0.25 bg-black/60 rounded-full transform rotate-45"></div>
+                     </div>
+                     
+                     {/* Spooky ghosts */}
+                     <div className="absolute top-3 right-3 w-1 h-2 bg-white/20 dark:bg-white/30 rounded-full">
+                       {/* Ghost eyes */}
+                       <div className="absolute top-0.5 left-0.25 w-0.25 h-0.25 bg-black/60 rounded-full"></div>
+                       <div className="absolute top-0.5 right-0.25 w-0.25 h-0.25 bg-black/60 rounded-full"></div>
+                       {/* Ghost mouth */}
+                       <div className="absolute bottom-0.5 left-0.25 w-0.5 h-0.25 bg-black/60 rounded-full transform rotate-45"></div>
+                     </div>
+                     <div className="absolute bottom-3 left-2 w-1.5 h-1.5 bg-white/15 dark:bg-white/25 rounded-full">
+                       {/* Ghost eyes */}
+                       <div className="absolute top-0.25 left-0.25 w-0.25 h-0.25 bg-black/60 rounded-full"></div>
+                       <div className="absolute top-0.25 right-0.25 w-0.25 h-0.25 bg-black/60 rounded-full"></div>
+                     </div>
+                     
+                     {/* Bats */}
+                     <div className="absolute top-1 left-1 w-0.5 h-0.5 bg-gray-600/40 dark:bg-gray-500/50 rounded-full"></div>
+                     <div className="absolute bottom-1 right-1 w-0.5 h-0.5 bg-gray-700/40 dark:bg-gray-600/50 rounded-full"></div>
+                     
+                     {/* Spooky trees */}
+                     <div className="absolute bottom-1 left-3 w-0.5 h-1.5 bg-gray-600/30 dark:bg-gray-500/40"></div>
+                     <div className="absolute top-2 right-2 w-0.5 h-1 bg-gray-700/30 dark:bg-gray-600/40"></div>
+                     
+                     {/* Spooky eyes */}
+                     <div className="absolute top-4 left-4 w-0.5 h-0.5 bg-yellow-400/60 dark:bg-yellow-300/70 rounded-full"></div>
+                     <div className="absolute bottom-4 right-4 w-0.5 h-0.5 bg-red-400/60 dark:bg-red-300/70 rounded-full"></div>
+                     
+                     {/* Halloween Emojis */}
+                     <div className="absolute top-1 left-1 text-xs opacity-60 dark:opacity-80">🎃</div>
+                     <div className="absolute top-2 right-1 text-xs opacity-50 dark:opacity-70">👻</div>
+                     <div className="absolute bottom-1 left-2 text-xs opacity-40 dark:opacity-60">🦇</div>
+                     <div className="absolute bottom-2 right-2 text-xs opacity-45 dark:opacity-65">🕷️</div>
+                     <div className="absolute top-3 left-3 text-xs opacity-35 dark:opacity-55">💀</div>
+                     <div className="absolute bottom-3 right-1 text-xs opacity-40 dark:opacity-60">🕸️</div>
+                   </>
+                 ) : currentTheme === 'christmas' ? (
+                   // Christmas pattern - Festive elements
+                   <>
+                     {/* Snowflakes with details */}
+                     {[...Array(6)].map((_, i) => (
+                       <div
+                         key={`snowflake-${i}`}
+                         className="absolute w-1 h-1 bg-white/40 dark:bg-white/60 rounded-full"
+                         style={{
+                           top: `${20 + i * 12}%`,
+                           left: `${15 + i * 15}%`
+                         }}
+                       >
+                         {/* Snowflake arms */}
+                         <div className="absolute top-0 left-0.5 w-0.5 h-0.5 bg-white/30 dark:bg-white/50 transform rotate-45"></div>
+                         <div className="absolute top-0.5 left-0 w-0.5 h-0.5 bg-white/30 dark:bg-white/50 transform -rotate-45"></div>
+                         <div className="absolute top-0.5 right-0 w-0.5 h-0.5 bg-white/30 dark:bg-white/50 transform rotate-45"></div>
+                         <div className="absolute bottom-0.5 left-0.5 w-0.5 h-0.5 bg-white/30 dark:bg-white/50 transform -rotate-45"></div>
+                       </div>
+                     ))}
+                     
+                     {/* Christmas tree with decorations */}
+                     <div className="absolute bottom-1 left-1 w-2 h-3 bg-green-400/30 dark:bg-green-500/40 transform rotate-12">
+                       {/* Tree decorations */}
+                       <div className="absolute top-0 left-0.5 w-0.25 h-0.25 bg-red-400/60 rounded-full"></div>
+                       <div className="absolute top-0.5 left-0.25 w-0.25 h-0.25 bg-yellow-300/60 rounded-full"></div>
+                       <div className="absolute top-1 left-0.75 w-0.25 h-0.25 bg-blue-400/60 rounded-full"></div>
+                       <div className="absolute top-1.5 left-0.5 w-0.25 h-0.25 bg-purple-400/60 rounded-full"></div>
+                       {/* Tree star */}
+                       <div className="absolute -top-0.5 left-0.5 w-0.5 h-0.5 bg-yellow-300/80 dark:bg-yellow-400/90 transform rotate-45"></div>
+                     </div>
+                     
+                     {/* Twinkling star */}
+                     <div className="absolute top-1 right-1 w-1 h-1 bg-yellow-300/50 dark:bg-yellow-400/60 transform rotate-45">
+                       {/* Star rays */}
+                       <div className="absolute -top-0.5 left-0.5 w-0.5 h-0.5 bg-yellow-300/40 dark:bg-yellow-400/50 transform rotate-45"></div>
+                       <div className="absolute top-0.5 -left-0.5 w-0.5 h-0.5 bg-yellow-300/40 dark:bg-yellow-400/50 transform rotate-45"></div>
+                       <div className="absolute top-0.5 -right-0.5 w-0.5 h-0.5 bg-yellow-300/40 dark:bg-yellow-400/50 transform rotate-45"></div>
+                       <div className="absolute -bottom-0.5 left-0.5 w-0.5 h-0.5 bg-yellow-300/40 dark:bg-yellow-400/50 transform rotate-45"></div>
+                     </div>
+                     
+                     {/* Gift boxes with ribbons */}
+                     <div className="absolute bottom-2 right-1 w-1.5 h-1 bg-red-500/40 dark:bg-red-600/50 rounded-sm">
+                       {/* Ribbon */}
+                       <div className="absolute top-0.25 left-0 w-full h-0.25 bg-white/60 dark:bg-white/80"></div>
+                       <div className="absolute top-0 left-0.5 w-0.25 h-full bg-white/60 dark:bg-white/80"></div>
+                     </div>
+                     <div className="absolute top-2 left-2 w-1 h-1.5 bg-green-500/40 dark:bg-green-600/50 rounded-sm">
+                       {/* Ribbon */}
+                       <div className="absolute top-0.5 left-0 w-full h-0.25 bg-white/60 dark:bg-white/80"></div>
+                       <div className="absolute top-0 left-0.5 w-0.25 h-full bg-white/60 dark:bg-white/80"></div>
+                     </div>
+                     
+                     {/* Christmas lights */}
+                     <div className="absolute top-3 left-3 w-0.25 h-0.25 bg-red-400/60 dark:bg-red-500/70 rounded-full"></div>
+                     <div className="absolute top-4 right-2 w-0.25 h-0.25 bg-green-400/60 dark:bg-green-500/70 rounded-full"></div>
+                     <div className="absolute bottom-3 right-3 w-0.25 h-0.25 bg-blue-400/60 dark:bg-blue-500/70 rounded-full"></div>
+                     <div className="absolute bottom-4 left-2 w-0.25 h-0.25 bg-yellow-400/60 dark:bg-yellow-500/70 rounded-full"></div>
+                     
+                     {/* Snow on ground */}
+                     <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/20 dark:bg-white/30 rounded-b-2xl"></div>
+                     
+                     {/* Christmas Emojis */}
+                     <div className="absolute top-1 left-1 text-xs opacity-60 dark:opacity-80">🎄</div>
+                     <div className="absolute top-2 right-1 text-xs opacity-50 dark:opacity-70">🎁</div>
+                     <div className="absolute bottom-1 left-2 text-xs opacity-40 dark:opacity-60">❄️</div>
+                     <div className="absolute bottom-2 right-2 text-xs opacity-45 dark:opacity-65">⭐</div>
+                     <div className="absolute top-3 left-3 text-xs opacity-35 dark:opacity-55">🎅</div>
+                     <div className="absolute bottom-3 right-1 text-xs opacity-40 dark:opacity-60">🦌</div>
+                     <div className="absolute top-4 left-2 text-xs opacity-30 dark:opacity-50">🔔</div>
+                     <div className="absolute bottom-4 right-3 text-xs opacity-35 dark:opacity-55">⛄</div>
+                   </>
+                 ) : currentTheme === 'easter' ? (
+                   // Easter pattern - Spring elements
+                   <>
+                     {/* Easter eggs with patterns */}
+                     {[...Array(4)].map((_, i) => (
+                       <div
+                         key={`egg-${i}`}
+                         className="absolute w-1.5 h-2 rounded-full"
+                         style={{
+                           top: `${25 + i * 18}%`,
+                           left: `${10 + i * 22}%`,
+                           background: i % 4 === 0 ? 'linear-gradient(45deg, #f472b6, #ec4899)' : 
+                                      i % 4 === 1 ? 'linear-gradient(45deg, #a78bfa, #8b5cf6)' : 
+                                      i % 4 === 2 ? 'linear-gradient(45deg, #fbbf24, #f59e0b)' :
+                                      'linear-gradient(45deg, #22d3ee, #06b6d4)'
+                         }}
+                       >
+                         {/* Egg patterns */}
+                         <div className="absolute top-0.5 left-0.5 w-0.5 h-0.5 bg-white/40 dark:bg-white/60 rounded-full"></div>
+                         <div className="absolute top-1 left-0.25 w-0.25 h-0.25 bg-white/30 dark:bg-white/50 rounded-full"></div>
+                         <div className="absolute top-1.5 left-0.75 w-0.25 h-0.25 bg-white/30 dark:bg-white/50 rounded-full"></div>
+                       </div>
+                     ))}
+                     
+                     {/* Bunny ears with details */}
+                     <div className="absolute top-1 left-2 w-1 h-1 bg-pink-300/30 dark:bg-pink-400/40 rounded-full">
+                       {/* Inner ear */}
+                       <div className="absolute top-0.25 left-0.25 w-0.5 h-0.5 bg-pink-200/40 dark:bg-pink-300/50 rounded-full"></div>
+                     </div>
+                     <div className="absolute top-1 right-2 w-1 h-1 bg-pink-300/30 dark:bg-pink-400/40 rounded-full">
+                       {/* Inner ear */}
+                       <div className="absolute top-0.25 left-0.25 w-0.5 h-0.5 bg-pink-200/40 dark:bg-pink-300/50 rounded-full"></div>
+                     </div>
+                     
+                     {/* Spring flowers with petals */}
+                     <div className="absolute bottom-2 left-1 w-1 h-1 bg-yellow-300/40 dark:bg-yellow-400/50 rounded-full">
+                       {/* Flower petals */}
+                       <div className="absolute -top-0.25 left-0.5 w-0.5 h-0.5 bg-yellow-200/50 dark:bg-yellow-300/60 rounded-full transform rotate-45"></div>
+                       <div className="absolute top-0.5 -left-0.25 w-0.5 h-0.5 bg-yellow-200/50 dark:bg-yellow-300/60 rounded-full transform rotate-45"></div>
+                       <div className="absolute top-0.5 -right-0.25 w-0.5 h-0.5 bg-yellow-200/50 dark:bg-yellow-300/60 rounded-full transform rotate-45"></div>
+                       <div className="absolute -bottom-0.25 left-0.5 w-0.5 h-0.5 bg-yellow-200/50 dark:bg-yellow-300/60 rounded-full transform rotate-45"></div>
+                     </div>
+                     <div className="absolute top-3 right-1 w-0.5 h-0.5 bg-pink-400/50 dark:bg-pink-500/60 rounded-full">
+                       {/* Small flower petals */}
+                       <div className="absolute -top-0.25 left-0.25 w-0.25 h-0.25 bg-pink-300/50 dark:bg-pink-400/60 rounded-full transform rotate-45"></div>
+                       <div className="absolute top-0.25 -left-0.25 w-0.25 h-0.25 bg-pink-300/50 dark:bg-pink-400/60 rounded-full transform rotate-45"></div>
+                       <div className="absolute top-0.25 -right-0.25 w-0.25 h-0.25 bg-pink-300/50 dark:bg-pink-400/60 rounded-full transform rotate-45"></div>
+                       <div className="absolute -bottom-0.25 left-0.25 w-0.25 h-0.25 bg-pink-300/50 dark:bg-pink-400/60 rounded-full transform rotate-45"></div>
+                     </div>
+                     
+                     {/* Butterflies */}
+                     <div className="absolute top-2 left-1 w-0.5 h-0.5 bg-purple-400/40 dark:bg-purple-500/50 rounded-full">
+                       {/* Butterfly wings */}
+                       <div className="absolute top-0 left-0 w-0.25 h-0.25 bg-purple-300/50 dark:bg-purple-400/60 rounded-full transform rotate-45"></div>
+                       <div className="absolute top-0 right-0 w-0.25 h-0.25 bg-purple-300/50 dark:bg-purple-400/60 rounded-full transform -rotate-45"></div>
+                       <div className="absolute bottom-0 left-0 w-0.25 h-0.25 bg-purple-300/50 dark:bg-purple-400/60 rounded-full transform -rotate-45"></div>
+                       <div className="absolute bottom-0 right-0 w-0.25 h-0.25 bg-purple-300/50 dark:bg-purple-400/60 rounded-full transform rotate-45"></div>
+                     </div>
+                     <div className="absolute bottom-1 right-1 w-0.5 h-0.5 bg-blue-400/40 dark:bg-blue-500/50 rounded-full">
+                       {/* Butterfly wings */}
+                       <div className="absolute top-0 left-0 w-0.25 h-0.25 bg-blue-300/50 dark:bg-blue-400/60 rounded-full transform rotate-45"></div>
+                       <div className="absolute top-0 right-0 w-0.25 h-0.25 bg-blue-300/50 dark:bg-blue-400/60 rounded-full transform -rotate-45"></div>
+                       <div className="absolute bottom-0 left-0 w-0.25 h-0.25 bg-blue-300/50 dark:bg-blue-400/60 rounded-full transform -rotate-45"></div>
+                       <div className="absolute bottom-0 right-0 w-0.25 h-0.25 bg-blue-300/50 dark:bg-blue-400/60 rounded-full transform rotate-45"></div>
+                     </div>
+                     
+                     {/* Spring grass */}
+                     <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-300/30 dark:bg-green-400/40 rounded-b-2xl"></div>
+                     
+                     {/* Bunny tail */}
+                     <div className="absolute bottom-1 left-3 w-0.5 h-0.5 bg-white/40 dark:bg-white/60 rounded-full"></div>
+                     
+                     {/* Easter Emojis */}
+                     <div className="absolute top-1 left-1 text-xs opacity-60 dark:opacity-80">🐰</div>
+                     <div className="absolute top-2 right-1 text-xs opacity-50 dark:opacity-70">🥚</div>
+                     <div className="absolute bottom-1 left-2 text-xs opacity-40 dark:opacity-60">🌸</div>
+                     <div className="absolute bottom-2 right-2 text-xs opacity-45 dark:opacity-65">🦋</div>
+                     <div className="absolute top-3 left-3 text-xs opacity-35 dark:opacity-55">🌷</div>
+                     <div className="absolute bottom-3 right-1 text-xs opacity-40 dark:opacity-60">🐣</div>
+                     <div className="absolute top-4 left-2 text-xs opacity-30 dark:opacity-50">🌱</div>
+                     <div className="absolute bottom-4 right-3 text-xs opacity-35 dark:opacity-55">🌺</div>
+                   </>
+                 ) : currentTheme === 'carnival' ? (
+                   // Carnival pattern - Party elements
+                   <>
+                     {/* Confetti with shapes */}
+                     {[...Array(8)].map((_, i) => (
+                       <div
+                         key={`confetti-${i}`}
+                         className="absolute rounded-full"
+                         style={{
+                           top: `${15 + i * 10}%`,
+                           left: `${5 + i * 12}%`,
+                           width: i % 3 === 0 ? '0.5rem' : i % 3 === 1 ? '0.75rem' : '0.25rem',
+                           height: i % 3 === 0 ? '0.5rem' : i % 3 === 1 ? '0.75rem' : '0.25rem',
+                           background: i % 6 === 0 ? '#a78bfa' : 
+                                      i % 6 === 1 ? '#fbbf24' : 
+                                      i % 6 === 2 ? '#f472b6' : 
+                                      i % 6 === 3 ? '#22d3ee' :
+                                      i % 6 === 4 ? '#10b981' : '#ef4444'
+                         }}
+                       >
+                         {/* Confetti details */}
+                         {i % 2 === 0 && (
+                           <div className="absolute top-0.25 left-0.25 w-0.25 h-0.25 bg-white/40 dark:bg-white/60 rounded-full"></div>
+                         )}
+                       </div>
+                     ))}
+                     
+                     {/* Masks with details */}
+                     <div className="absolute top-2 left-2 w-2 h-1.5 bg-yellow-300/30 dark:bg-yellow-400/40 rounded-full">
+                       {/* Mask eyes */}
+                       <div className="absolute top-0.5 left-0.5 w-0.5 h-0.5 bg-black/60 rounded-full"></div>
+                       <div className="absolute top-0.5 right-0.5 w-0.5 h-0.5 bg-black/60 rounded-full"></div>
+                       {/* Mask decorations */}
+                       <div className="absolute top-0.25 left-0.25 w-0.25 h-0.25 bg-purple-400/60 rounded-full"></div>
+                       <div className="absolute top-0.25 right-0.25 w-0.25 h-0.25 bg-pink-400/60 rounded-full"></div>
+                     </div>
+                     <div className="absolute bottom-2 right-1 w-1.5 h-1 bg-purple-400/30 dark:bg-purple-500/40 rounded-full">
+                       {/* Mask eyes */}
+                       <div className="absolute top-0.25 left-0.25 w-0.25 h-0.25 bg-black/60 rounded-full"></div>
+                       <div className="absolute top-0.25 right-0.25 w-0.25 h-0.25 bg-black/60 rounded-full"></div>
+                     </div>
+                     
+                     {/* Party balloons with strings */}
+                     <div className="absolute top-1 right-1 w-1 h-1.5 bg-red-400/40 dark:bg-red-500/50 rounded-full">
+                       {/* Balloon string */}
+                       <div className="absolute bottom-0 left-0.5 w-0.25 h-1 bg-gray-600/40 dark:bg-gray-500/50"></div>
+                     </div>
+                     <div className="absolute bottom-1 left-1 w-1 h-1.5 bg-blue-400/40 dark:bg-blue-500/50 rounded-full">
+                       {/* Balloon string */}
+                       <div className="absolute bottom-0 left-0.5 w-0.25 h-1 bg-gray-600/40 dark:bg-gray-500/50"></div>
+                     </div>
+                     <div className="absolute top-3 left-1 w-0.75 h-1 bg-green-400/40 dark:bg-green-500/50 rounded-full">
+                       {/* Balloon string */}
+                       <div className="absolute bottom-0 left-0.375 w-0.25 h-0.75 bg-gray-600/40 dark:bg-gray-500/50"></div>
+                     </div>
+                     
+                     {/* Party streamers */}
+                     <div className="absolute top-3 left-1 w-2 h-0.25 bg-pink-400/30 dark:bg-pink-500/40 rounded-full"></div>
+                     <div className="absolute bottom-3 right-2 w-1.5 h-0.25 bg-yellow-400/30 dark:bg-yellow-500/40 rounded-full"></div>
+                     <div className="absolute top-4 right-1 w-1 h-0.25 bg-blue-400/30 dark:bg-blue-500/40 rounded-full"></div>
+                     
+                     {/* Party lights */}
+                     <div className="absolute top-4 left-3 w-0.25 h-0.25 bg-yellow-300/60 dark:bg-yellow-400/70 rounded-full"></div>
+                     <div className="absolute top-5 right-2 w-0.25 h-0.25 bg-pink-300/60 dark:bg-pink-400/70 rounded-full"></div>
+                     <div className="absolute bottom-4 right-3 w-0.25 h-0.25 bg-blue-300/60 dark:bg-blue-400/70 rounded-full"></div>
+                     <div className="absolute bottom-5 left-2 w-0.25 h-0.25 bg-green-300/60 dark:bg-green-400/70 rounded-full"></div>
+                     
+                     {/* Party hats */}
+                     <div className="absolute top-1 left-3 w-1 h-0.75 bg-red-400/40 dark:bg-red-500/50 rounded-full transform rotate-12"></div>
+                     <div className="absolute bottom-1 right-3 w-0.75 h-0.5 bg-blue-400/40 dark:bg-blue-500/50 rounded-full transform -rotate-12"></div>
+                     
+                     {/* Carnival Emojis */}
+                     <div className="absolute top-1 left-1 text-xs opacity-60 dark:opacity-80">🎭</div>
+                     <div className="absolute top-2 right-1 text-xs opacity-50 dark:opacity-70">🎪</div>
+                     <div className="absolute bottom-1 left-2 text-xs opacity-40 dark:opacity-60">🎈</div>
+                     <div className="absolute bottom-2 right-2 text-xs opacity-45 dark:opacity-65">🎊</div>
+                     <div className="absolute top-3 left-3 text-xs opacity-35 dark:opacity-55">🎉</div>
+                     <div className="absolute bottom-3 right-1 text-xs opacity-40 dark:opacity-60">🎨</div>
+                     <div className="absolute top-4 left-2 text-xs opacity-30 dark:opacity-50">🎵</div>
+                     <div className="absolute bottom-4 right-3 text-xs opacity-35 dark:opacity-55">🎸</div>
+                   </>
+                 ) : currentTheme === 'summer' ? (
+                   // Summer pattern - Beach elements
+                   <>
+                     {/* Sun with rays */}
+                     <div className="absolute top-1 left-1 w-2 h-2 bg-yellow-300/30 dark:bg-yellow-400/40 rounded-full">
+                       {/* Sun rays */}
+                       <div className="absolute -top-0.5 left-1 w-0.5 h-0.5 bg-yellow-400/50 dark:bg-yellow-500/60 transform -translate-x-1/2"></div>
+                       <div className="absolute -bottom-0.5 left-1 w-0.5 h-0.5 bg-yellow-400/50 dark:bg-yellow-500/60 transform -translate-x-1/2"></div>
+                       <div className="absolute left-1 -left-0.5 w-0.5 h-0.5 bg-yellow-400/50 dark:bg-yellow-500/60 transform -translate-y-1/2 top-1/2"></div>
+                       <div className="absolute left-1 -right-0.5 w-0.5 h-0.5 bg-yellow-400/50 dark:bg-yellow-500/60 transform -translate-y-1/2 top-1/2"></div>
+                       <div className="absolute top-0.5 left-0.5 w-0.5 h-0.5 bg-yellow-400/50 dark:bg-yellow-500/60 transform rotate-45"></div>
+                       <div className="absolute top-0.5 right-0.5 w-0.5 h-0.5 bg-yellow-400/50 dark:bg-yellow-500/60 transform -rotate-45"></div>
+                       <div className="absolute bottom-0.5 left-0.5 w-0.5 h-0.5 bg-yellow-400/50 dark:bg-yellow-500/60 transform -rotate-45"></div>
+                       <div className="absolute bottom-0.5 right-0.5 w-0.5 h-0.5 bg-yellow-400/50 dark:bg-yellow-500/60 transform rotate-45"></div>
+                     </div>
+                     
+                     {/* Floating clouds */}
+                     <div className="absolute top-2 right-1 w-1.5 h-0.5 bg-white/40 dark:bg-white/60 rounded-full">
+                       {/* Cloud details */}
+                       <div className="absolute top-0 left-0.5 w-0.5 h-0.25 bg-white/30 dark:bg-white/50 rounded-full"></div>
+                       <div className="absolute top-0 right-0.5 w-0.5 h-0.25 bg-white/30 dark:bg-white/50 rounded-full"></div>
+                     </div>
+                     <div className="absolute top-3 left-2 w-1 h-0.5 bg-white/30 dark:bg-white/50 rounded-full">
+                       {/* Cloud details */}
+                       <div className="absolute top-0 left-0.25 w-0.25 h-0.25 bg-white/20 dark:bg-white/40 rounded-full"></div>
+                       <div className="absolute top-0 right-0.25 w-0.25 h-0.25 bg-white/20 dark:bg-white/40 rounded-full"></div>
+                     </div>
+                     
+                     {/* Beach elements */}
+                     <div className="absolute bottom-1 right-1 w-1.5 h-1 bg-blue-300/30 dark:bg-blue-400/40 rounded-full">
+                       {/* Wave details */}
+                       <div className="absolute top-0 left-0 w-full h-0.25 bg-blue-200/40 dark:bg-blue-300/50 rounded-full"></div>
+                       <div className="absolute top-0.5 left-0 w-full h-0.25 bg-blue-200/30 dark:bg-blue-300/40 rounded-full"></div>
+                     </div>
+                     
+                     {/* Palm tree with details */}
+                     <div className="absolute bottom-2 left-1 w-0.5 h-2 bg-green-500/40 dark:bg-green-600/50">
+                       {/* Palm trunk details */}
+                       <div className="absolute top-0.5 left-0 w-0.25 h-0.25 bg-green-400/50 dark:bg-green-500/60"></div>
+                       <div className="absolute top-1 left-0 w-0.25 h-0.25 bg-green-400/50 dark:bg-green-500/60"></div>
+                       <div className="absolute top-1.5 left-0 w-0.25 h-0.25 bg-green-400/50 dark:bg-green-500/60"></div>
+                     </div>
+                     
+                     {/* Palm leaves */}
+                     <div className="absolute bottom-3 left-0.5 w-1 h-0.5 bg-green-400/50 dark:bg-green-500/60 rounded-full transform rotate-45"></div>
+                     <div className="absolute bottom-3 right-0.5 w-1 h-0.5 bg-green-400/50 dark:bg-green-500/60 rounded-full transform -rotate-45"></div>
+                     <div className="absolute bottom-2.5 left-0.25 w-0.75 h-0.5 bg-green-400/40 dark:bg-green-500/50 rounded-full transform rotate-22"></div>
+                     <div className="absolute bottom-2.5 right-0.25 w-0.75 h-0.5 bg-green-400/40 dark:bg-green-500/50 rounded-full transform -rotate-22"></div>
+                     
+                     {/* Seagulls with details */}
+                     <div className="absolute top-3 left-1 w-0.5 h-0.5 bg-white/40 dark:bg-white/60 rounded-full">
+                       {/* Seagull wings */}
+                       <div className="absolute top-0 left-0 w-0.25 h-0.25 bg-white/30 dark:bg-white/50 rounded-full transform rotate-45"></div>
+                       <div className="absolute top-0 right-0 w-0.25 h-0.25 bg-white/30 dark:bg-white/50 rounded-full transform -rotate-45"></div>
+                     </div>
+                     <div className="absolute top-4 right-2 w-0.5 h-0.5 bg-white/30 dark:bg-white/50 rounded-full">
+                       {/* Seagull wings */}
+                       <div className="absolute top-0 left-0 w-0.25 h-0.25 bg-white/20 dark:bg-white/40 rounded-full transform rotate-45"></div>
+                       <div className="absolute top-0 right-0 w-0.25 h-0.25 bg-white/20 dark:bg-white/40 rounded-full transform -rotate-45"></div>
+                     </div>
+                     <div className="absolute top-2 right-1 w-0.5 h-0.5 bg-white/35 dark:bg-white/55 rounded-full">
+                       {/* Seagull wings */}
+                       <div className="absolute top-0 left-0 w-0.25 h-0.25 bg-white/25 dark:bg-white/45 rounded-full transform rotate-45"></div>
+                       <div className="absolute top-0 right-0 w-0.25 h-0.25 bg-white/25 dark:bg-white/45 rounded-full transform -rotate-45"></div>
+                     </div>
+                     
+                     {/* Beach sand */}
+                     <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-yellow-200/30 dark:bg-yellow-300/40 rounded-b-2xl"></div>
+                     
+                     {/* Beach umbrellas */}
+                     <div className="absolute bottom-1 left-3 w-0.5 h-1 bg-red-400/40 dark:bg-red-500/50 rounded-full">
+                       {/* Umbrella top */}
+                       <div className="absolute -top-0.5 left-0 w-0.5 h-0.5 bg-red-400/60 dark:bg-red-500/70 rounded-full transform rotate-45"></div>
+                     </div>
+                     <div className="absolute bottom-1 right-3 w-0.5 h-1 bg-blue-400/40 dark:bg-blue-500/50 rounded-full">
+                       {/* Umbrella top */}
+                       <div className="absolute -top-0.5 left-0 w-0.5 h-0.5 bg-blue-400/60 dark:bg-blue-500/70 rounded-full transform rotate-45"></div>
+                     </div>
+                     
+                     {/* Beach balls */}
+                     <div className="absolute top-2 left-3 w-0.75 h-0.75 bg-red-400/40 dark:bg-red-500/50 rounded-full">
+                       {/* Beach ball stripes */}
+                       <div className="absolute top-0 left-0 w-full h-0.25 bg-white/40 dark:bg-white/60"></div>
+                       <div className="absolute top-0.5 left-0 w-full h-0.25 bg-blue-400/40 dark:bg-blue-500/50"></div>
+                     </div>
+                     
+                     {/* Summer Emojis */}
+                     <div className="absolute top-1 left-1 text-xs opacity-60 dark:opacity-80">☀️</div>
+                     <div className="absolute top-2 right-1 text-xs opacity-50 dark:opacity-70">🏖️</div>
+                     <div className="absolute bottom-1 left-2 text-xs opacity-40 dark:opacity-60">🌊</div>
+                     <div className="absolute bottom-2 right-2 text-xs opacity-45 dark:opacity-65">🌴</div>
+                     <div className="absolute top-3 left-3 text-xs opacity-35 dark:opacity-55">🏄‍♂️</div>
+                     <div className="absolute bottom-3 right-1 text-xs opacity-40 dark:opacity-60">🦀</div>
+                     <div className="absolute top-4 left-2 text-xs opacity-30 dark:opacity-50">🐚</div>
+                     <div className="absolute bottom-4 right-3 text-xs opacity-35 dark:opacity-55">🌺</div>
+                   </>
+                 ) : (
+                   // Normal pattern - Notebook style
+                   <>
+                     {/* Horizontal lines */}
+                     {[...Array(4)].map((_, i) => (
+                       <div
+                         key={`header-line-${i}`}
+                         className="absolute w-full h-px bg-blue-300/15 dark:bg-blue-300/15"
+                         style={{
+                           top: `${20 + i * 15}%`,
+                           left: '8%',
+                           right: '4%'
+                         }}
+                       />
+                     ))}
+                     
+                     {/* Red margin line */}
+                     <div className="absolute left-8 top-0 bottom-0 w-px bg-red-400/30 dark:bg-red-400/30"></div>
+                     
+                     {/* Holes for binder */}
+                     {[...Array(3)].map((_, i) => (
+                       <div
+                         key={`header-hole-${i}`}
+                         className="absolute w-1.5 h-1.5 rounded-full bg-blue-200/50 border border-blue-300/70 dark:bg-gray-600/30 dark:border-gray-500/50"
+                         style={{
+                           left: '4px',
+                           top: `${25 + i * 20}%`
+                         }}
+                       />
+                     ))}
+                   </>
+                 )}
+               </div>
 
               <div className="flex items-center relative z-10">
                 <div className="flex items-center">
@@ -1861,7 +2402,7 @@ const AIChatbot = () => {
                       disabled={isBusy}
                     >
                       <MessageSquare className="h-4 w-4 mr-2" />
-                      {isGreekPath ? chatbotTranslationsEl.modes.chat.title : "Chat Mode"}
+                      {ui.modes.chat.title}
                     </button>
                     <button
                       onClick={() => switchMode("search")}
@@ -1875,7 +2416,7 @@ const AIChatbot = () => {
                       disabled={isBusy}
                     >
                       <Search className="h-4 w-4 mr-2" />
-                      {isGreekPath ? chatbotTranslationsEl.modes.search.title : "Search Mode"}
+                      {ui.modes.search.title}
                     </button>
                     <button
                       onClick={() => switchMode("reason")}
@@ -1889,7 +2430,7 @@ const AIChatbot = () => {
                       disabled={isBusy}
                     >
                       <BrainCircuit className="h-4 w-4 mr-2" />
-                      {isGreekPath ? chatbotTranslationsEl.modes.reason.title : "Reasoning Mode"}
+                      {ui.modes.reason.title}
                     </button>
                   </div>
                 </motion.div>
@@ -2077,7 +2618,14 @@ const AIChatbot = () => {
                   exit={{ opacity: 0 }}
                 >
                   <div
-                    className="max-w-[85%] p-4 rounded-2xl bg-white/80 dark:bg-gray-800/80 shadow-lg border border-white/20 dark:border-gray-700/30 backdrop-blur-xl"
+                    className={`max-w-[85%] p-4 rounded-2xl shadow-lg border backdrop-blur-xl ${
+                      currentTheme === 'halloween' ? 'bg-orange-50/80 dark:bg-orange-900/80 border-orange-200/30 dark:border-orange-700/40' :
+                      currentTheme === 'christmas' ? 'bg-red-50/80 dark:bg-red-900/80 border-red-200/30 dark:border-red-700/40' :
+                      currentTheme === 'easter' ? 'bg-pink-50/80 dark:bg-pink-900/80 border-pink-200/30 dark:border-pink-700/40' :
+                      currentTheme === 'carnival' ? 'bg-purple-50/80 dark:bg-purple-900/80 border-purple-200/30 dark:border-purple-700/40' :
+                      currentTheme === 'summer' ? 'bg-yellow-50/80 dark:bg-yellow-900/80 border-yellow-200/30 dark:border-yellow-700/40' :
+                      'bg-white/80 dark:bg-gray-800/80 border-white/20 dark:border-gray-700/30'
+                    }`}
                     style={{
                       boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)",
                       backdropFilter: "blur(20px)",
@@ -2108,13 +2656,20 @@ const AIChatbot = () => {
 
             {/* Σχολικό στυλ Suggestions */}
             <AnimatePresence>
-              {showSuggestions && messages.length <= 2 && (
-                <motion.div
-                  className="relative px-4 py-3 bg-white/95 dark:bg-gray-800/95 border-t-2 border-blue-200/50 dark:border-blue-700/50 backdrop-blur-xl overflow-hidden"
-                  style={{
-                    backdropFilter: "blur(20px)",
-                    WebkitBackdropFilter: "blur(20px)",
-                  }}
+               {showSuggestions && messages.length <= 2 && (
+                 <motion.div
+                   className={`relative px-4 py-3 border-t-2 backdrop-blur-xl overflow-hidden ${
+                     currentTheme === 'halloween' ? 'bg-orange-50/95 dark:bg-orange-900/95 border-orange-300/50 dark:border-orange-700/50' :
+                     currentTheme === 'christmas' ? 'bg-red-50/95 dark:bg-red-900/95 border-red-300/50 dark:border-red-700/50' :
+                     currentTheme === 'easter' ? 'bg-pink-50/95 dark:bg-pink-900/95 border-pink-300/50 dark:border-pink-700/50' :
+                     currentTheme === 'carnival' ? 'bg-purple-50/95 dark:bg-purple-900/95 border-purple-300/50 dark:border-purple-700/50' :
+                     currentTheme === 'summer' ? 'bg-yellow-50/95 dark:bg-yellow-900/95 border-yellow-300/50 dark:border-yellow-700/50' :
+                     'bg-white/95 dark:bg-gray-800/95 border-blue-200/50 dark:border-blue-700/50'
+                   }`}
+                   style={{
+                     backdropFilter: "blur(20px)",
+                     WebkitBackdropFilter: "blur(20px)",
+                   }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
@@ -2177,43 +2732,161 @@ const AIChatbot = () => {
             </AnimatePresence>
 
             {/* Σχολικό στυλ Input area */}
-            <form
-              onSubmit={handleSubmit}
-              className="relative p-4 border-t-2 border-blue-200/50 dark:border-blue-700/50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-b-2xl overflow-hidden"
-              style={{
-                backdropFilter: "blur(20px)",
+              <form
+                onSubmit={handleSubmit}
+                className={`relative p-4 border-t-2 backdrop-blur-xl rounded-b-2xl overflow-hidden ${
+                  currentTheme === 'halloween' ? 'bg-orange-50/95 dark:bg-orange-900/95 border-orange-300/50 dark:border-orange-700/50' :
+                  currentTheme === 'christmas' ? 'bg-red-50/95 dark:bg-red-900/95 border-red-300/50 dark:border-red-700/50' :
+                  currentTheme === 'easter' ? 'bg-pink-50/95 dark:bg-pink-900/95 border-pink-300/50 dark:border-pink-700/50' :
+                  currentTheme === 'carnival' ? 'bg-purple-50/95 dark:bg-purple-900/95 border-purple-300/50 dark:border-purple-700/50' :
+                  currentTheme === 'summer' ? 'bg-yellow-50/95 dark:bg-yellow-900/95 border-yellow-300/50 dark:border-yellow-700/50' :
+                  'bg-white/95 dark:bg-gray-800/95 border-blue-200/50 dark:border-blue-700/50'
+                }`}
+                style={{
+                  backdropFilter: "blur(20px)",
                 WebkitBackdropFilter: "blur(20px)",
               }}
             >
-              {/* Notebook Lines Background */}
+              {/* Themed Background Pattern */}
               <div className="absolute inset-0 pointer-events-none">
-                {/* Horizontal lines */}
-                {[...Array(3)].map((_, i) => (
-                  <div
-                    key={`input-line-${i}`}
-                    className="absolute w-full h-px bg-blue-300/15 dark:bg-blue-300/15"
-                    style={{
-                      top: `${25 + i * 20}%`,
-                      left: '8%',
-                      right: '4%'
-                    }}
-                  />
-                ))}
-                
-                {/* Red margin line */}
-                <div className="absolute left-8 top-0 bottom-0 w-px bg-red-400/30 dark:bg-red-400/30"></div>
-                
-                {/* Holes for binder */}
-                {[...Array(2)].map((_, i) => (
-                  <div
-                    key={`input-hole-${i}`}
-                    className="absolute w-1.5 h-1.5 rounded-full bg-blue-200/50 border border-blue-300/70 dark:bg-gray-600/30 dark:border-gray-500/50"
-                    style={{
-                      left: '4px',
-                      top: `${30 + i * 30}%`
-                    }}
-                  />
-                ))}
+                {currentTheme === 'halloween' ? (
+                  // Halloween pattern - Spooky elements
+                  <>
+                    {/* Spider webs */}
+                    <div className="absolute top-2 left-2 w-6 h-6 border border-orange-300/15 dark:border-orange-400/25 rounded-full"></div>
+                    <div className="absolute top-3 left-3 w-4 h-4 border border-orange-300/10 dark:border-orange-400/20 rounded-full"></div>
+                    
+                    {/* Floating pumpkins */}
+                    <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-orange-400/25 dark:bg-orange-500/35 rounded-full"></div>
+                    <div className="absolute bottom-1 left-1 w-1 h-1 bg-orange-500/20 dark:bg-orange-600/30 rounded-full"></div>
+                    
+                    {/* Ghosts */}
+                    <div className="absolute top-2 right-2 w-0.5 h-1 bg-white/15 dark:bg-white/25 rounded-full"></div>
+                  </>
+                ) : currentTheme === 'christmas' ? (
+                  // Christmas pattern - Festive elements
+                  <>
+                    {/* Snowflakes */}
+                    {[...Array(3)].map((_, i) => (
+                      <div
+                        key={`input-snowflake-${i}`}
+                        className="absolute w-0.5 h-0.5 bg-white/30 dark:bg-white/50 rounded-full"
+                        style={{
+                          top: `${25 + i * 25}%`,
+                          left: `${20 + i * 30}%`
+                        }}
+                      />
+                    ))}
+                    
+                    {/* Christmas tree */}
+                    <div className="absolute bottom-1 left-1 w-1.5 h-2 bg-green-400/25 dark:bg-green-500/35 transform rotate-12"></div>
+                    
+                    {/* Star */}
+                    <div className="absolute top-1 right-1 w-0.5 h-0.5 bg-yellow-300/40 dark:bg-yellow-400/50 transform rotate-45"></div>
+                    
+                    {/* Gift boxes */}
+                    <div className="absolute bottom-1 right-1 w-1 h-0.5 bg-red-500/30 dark:bg-red-600/40 rounded-sm"></div>
+                  </>
+                ) : currentTheme === 'easter' ? (
+                  // Easter pattern - Spring elements
+                  <>
+                    {/* Easter eggs */}
+                    {[...Array(2)].map((_, i) => (
+                      <div
+                        key={`input-egg-${i}`}
+                        className="absolute w-1 h-1.5 rounded-full"
+                        style={{
+                          top: `${30 + i * 30}%`,
+                          left: `${15 + i * 40}%`,
+                          background: i % 2 === 0 ? 'linear-gradient(45deg, #f472b6, #ec4899)' : 
+                                     'linear-gradient(45deg, #a78bfa, #8b5cf6)'
+                        }}
+                      />
+                    ))}
+                    
+                    {/* Bunny ears */}
+                    <div className="absolute top-1 left-1 w-0.5 h-0.5 bg-pink-300/25 dark:bg-pink-400/35 rounded-full"></div>
+                    <div className="absolute top-1 right-1 w-0.5 h-0.5 bg-pink-300/25 dark:bg-pink-400/35 rounded-full"></div>
+                    
+                    {/* Spring flowers */}
+                    <div className="absolute bottom-1 left-1 w-0.5 h-0.5 bg-yellow-300/30 dark:bg-yellow-400/40 rounded-full"></div>
+                  </>
+                ) : currentTheme === 'carnival' ? (
+                  // Carnival pattern - Party elements
+                  <>
+                    {/* Confetti */}
+                    {[...Array(4)].map((_, i) => (
+                      <div
+                        key={`input-confetti-${i}`}
+                        className="absolute w-0.5 h-0.5 rounded-full"
+                        style={{
+                          top: `${20 + i * 20}%`,
+                          left: `${10 + i * 25}%`,
+                          background: i % 4 === 0 ? '#a78bfa' : 
+                                     i % 4 === 1 ? '#fbbf24' : 
+                                     i % 4 === 2 ? '#f472b6' : '#22d3ee'
+                        }}
+                      />
+                    ))}
+                    
+                    {/* Masks */}
+                    <div className="absolute top-1 left-1 w-1 h-0.5 bg-yellow-300/25 dark:bg-yellow-400/35 rounded-full"></div>
+                    <div className="absolute bottom-1 right-1 w-0.5 h-0.5 bg-purple-400/25 dark:bg-purple-500/35 rounded-full"></div>
+                    
+                    {/* Party balloons */}
+                    <div className="absolute top-1 right-1 w-0.5 h-0.5 bg-red-400/30 dark:bg-red-500/40 rounded-full"></div>
+                    <div className="absolute bottom-1 left-1 w-0.5 h-0.5 bg-blue-400/30 dark:bg-blue-500/40 rounded-full"></div>
+                  </>
+                ) : currentTheme === 'summer' ? (
+                  // Summer pattern - Beach elements
+                  <>
+                    {/* Sun rays */}
+                    <div className="absolute top-1 left-1 w-1.5 h-1.5 bg-yellow-300/25 dark:bg-yellow-400/35 rounded-full"></div>
+                    <div className="absolute top-1 right-1 w-0.5 h-0.5 bg-yellow-400/15 dark:bg-yellow-500/25 rounded-full"></div>
+                    <div className="absolute bottom-1 left-1 w-0.5 h-0.5 bg-yellow-400/15 dark:bg-yellow-500/25 rounded-full"></div>
+                    
+                    {/* Beach elements */}
+                    <div className="absolute bottom-1 right-1 w-1 h-0.5 bg-blue-300/25 dark:bg-blue-400/35 rounded-full"></div>
+                    
+                    {/* Palm tree */}
+                    <div className="absolute bottom-1 left-1 w-0.5 h-1 bg-green-500/30 dark:bg-green-600/40"></div>
+                    
+                    {/* Seagulls */}
+                    <div className="absolute top-2 left-1 w-0.5 h-0.5 bg-white/30 dark:bg-white/50 rounded-full"></div>
+                    <div className="absolute top-2 right-1 w-0.5 h-0.5 bg-white/20 dark:bg-white/40 rounded-full"></div>
+                  </>
+                ) : (
+                  // Normal pattern - Notebook style
+                  <>
+                    {/* Horizontal lines */}
+                    {[...Array(3)].map((_, i) => (
+                      <div
+                        key={`input-line-${i}`}
+                        className="absolute w-full h-px bg-blue-300/15 dark:bg-blue-300/15"
+                        style={{
+                          top: `${25 + i * 20}%`,
+                          left: '8%',
+                          right: '4%'
+                        }}
+                      />
+                    ))}
+                    
+                    {/* Red margin line */}
+                    <div className="absolute left-8 top-0 bottom-0 w-px bg-red-400/30 dark:bg-red-400/30"></div>
+                    
+                    {/* Holes for binder */}
+                    {[...Array(2)].map((_, i) => (
+                      <div
+                        key={`input-hole-${i}`}
+                        className="absolute w-1.5 h-1.5 rounded-full bg-blue-200/50 border border-blue-300/70 dark:bg-gray-600/30 dark:border-gray-500/50"
+                        style={{
+                          left: '4px',
+                          top: `${30 + i * 30}%`
+                        }}
+                      />
+                    ))}
+                  </>
+                )}
               </div>
 
               {/* Input with buttons */}
@@ -2533,58 +3206,779 @@ const AIChatbot = () => {
 
             <div className="relative">
               {/* Σχολικό τετράδιο bubble background */}
-              <div className="relative w-14 h-14 rounded-2xl overflow-hidden flex items-center justify-center bg-white/95 shadow-lg border-2 border-blue-200/50">
-                {/* Notebook Lines Background */}
+              <div className={`relative w-14 h-14 rounded-2xl overflow-hidden flex items-center justify-center ${themeStyles.bubbleBg} shadow-lg border-2 ${themeStyles.bubbleBorder}`}>
+                {/* Background Pattern based on theme */}
                 <div className="absolute inset-0 pointer-events-none">
-                  {/* Horizontal lines */}
-                  {[...Array(6)].map((_, i) => (
-                    <div
-                      key={`line-${i}`}
-                      className="absolute w-full h-px bg-blue-300/20"
-                      style={{
-                        top: `${15 + i * 12}%`,
-                        left: '8%',
-                        right: '4%'
-                      }}
-                    />
-                  ))}
-                  
-                  {/* Red margin line */}
-                  <div className="absolute left-3 top-0 bottom-0 w-px bg-red-400/30"></div>
-                  
-                  {/* Holes for binder */}
-                  {[...Array(3)].map((_, i) => (
-                    <div
-                      key={`hole-${i}`}
-                      className="absolute w-1 h-1 rounded-full bg-blue-200/60 border border-blue-300/70"
-                      style={{
-                        left: '2px',
-                        top: `${20 + i * 25}%`
-                      }}
-                    />
-                  ))}
+                  {currentTheme === 'halloween' ? (
+                    // Halloween Background - Spooky elements
+                    <>
+                      {/* Spider web pattern */}
+                      <div className="absolute inset-0 opacity-20">
+                        {/* Web lines */}
+                        <div className="absolute top-2 left-2 w-8 h-8 border border-orange-300/30 rounded-full"></div>
+                        <div className="absolute top-3 left-3 w-6 h-6 border border-orange-300/20 rounded-full"></div>
+                        <div className="absolute top-4 left-4 w-4 h-4 border border-orange-300/10 rounded-full"></div>
+                        
+                        {/* Web spokes */}
+                        <div className="absolute top-6 left-6 w-px h-2 bg-orange-300/20"></div>
+                        <div className="absolute top-6 left-6 w-2 h-px bg-orange-300/20"></div>
+                        <div className="absolute top-6 left-6 w-1.5 h-1.5 bg-orange-300/20 transform rotate-45"></div>
+                        <div className="absolute top-6 left-6 w-1.5 h-1.5 bg-orange-300/20 transform -rotate-45"></div>
+                      </div>
+                      
+                      {/* Floating pumpkins with animation */}
+                      <motion.div 
+                        className="absolute top-1 right-1 w-2 h-2 bg-orange-400 rounded-full opacity-60"
+                        animate={{ 
+                          y: [0, -2, 0],
+                          rotate: [0, 5, -5, 0]
+                        }}
+                        transition={{ 
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      ></motion.div>
+                      <motion.div 
+                        className="absolute bottom-2 left-1 w-1.5 h-1.5 bg-orange-500 rounded-full opacity-40"
+                        animate={{ 
+                          y: [0, -1, 0],
+                          rotate: [0, -3, 3, 0]
+                        }}
+                        transition={{ 
+                          duration: 2.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.5
+                        }}
+                      ></motion.div>
+                      
+                      {/* Floating ghosts with animation */}
+                      <motion.div 
+                        className="absolute top-3 right-3 w-1 h-2 bg-white/30 rounded-full opacity-50"
+                        animate={{ 
+                          y: [0, -1, 0],
+                          opacity: [0.5, 0.8, 0.5]
+                        }}
+                        transition={{ 
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      ></motion.div>
+                      <motion.div 
+                        className="absolute bottom-3 left-2 w-1.5 h-1.5 bg-white/20 rounded-full opacity-40"
+                        animate={{ 
+                          y: [0, -1.5, 0],
+                          opacity: [0.4, 0.7, 0.4]
+                        }}
+                        transition={{ 
+                          duration: 3.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 1
+                        }}
+                      ></motion.div>
+                      
+                      {/* Flying bats with animation */}
+                      <motion.div 
+                        className="absolute top-1 left-1 w-1 h-1 bg-gray-600 rounded-full opacity-30"
+                        animate={{ 
+                          x: [0, 2, 0],
+                          y: [0, -1, 0]
+                        }}
+                        transition={{ 
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      ></motion.div>
+                      <motion.div 
+                        className="absolute bottom-1 right-2 w-1 h-1 bg-gray-700 rounded-full opacity-40"
+                        animate={{ 
+                          x: [0, -1, 0],
+                          y: [0, -2, 0]
+                        }}
+                        transition={{ 
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.8
+                        }}
+                      ></motion.div>
+                    </>
+                  ) : currentTheme === 'christmas' ? (
+                    // Christmas Background - Magical winter scene
+                    <>
+                      {/* Animated snowflakes */}
+                      {[...Array(6)].map((_, i) => (
+                        <motion.div
+                          key={`snowflake-${i}`}
+                          className="absolute w-1 h-1 bg-white/60 rounded-full"
+                          style={{
+                            top: `${15 + i * 12}%`,
+                            left: `${10 + i * 15}%`
+                          }}
+                          animate={{ 
+                            y: [0, 2, 0],
+                            rotate: [0, 180, 360],
+                            opacity: [0.4, 0.8, 0.4]
+                          }}
+                          transition={{ 
+                            duration: 3 + i * 0.5,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: i * 0.3
+                          }}
+                        />
+                      ))}
+                      
+                      {/* Animated Christmas tree */}
+                      <motion.div 
+                        className="absolute bottom-1 left-1 w-2 h-3 bg-green-400/40 transform rotate-12"
+                        animate={{ 
+                          scale: [1, 1.05, 1],
+                          rotate: [12, 15, 12]
+                        }}
+                        transition={{ 
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        {/* Tree decorations */}
+                        <div className="absolute top-0 left-0 w-0.5 h-0.5 bg-red-400 rounded-full"></div>
+                        <div className="absolute top-1 left-1 w-0.5 h-0.5 bg-yellow-300 rounded-full"></div>
+                        <div className="absolute top-2 left-0.5 w-0.5 h-0.5 bg-blue-400 rounded-full"></div>
+                      </motion.div>
+                      
+                      {/* Twinkling star */}
+                      <motion.div 
+                        className="absolute top-1 right-1 w-1 h-1 bg-yellow-300/70 transform rotate-45"
+                        animate={{ 
+                          scale: [1, 1.2, 1],
+                          opacity: [0.5, 1, 0.5],
+                          rotate: [45, 225, 405]
+                        }}
+                        transition={{ 
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      
+                      {/* Gift boxes */}
+                      <motion.div 
+                        className="absolute bottom-2 right-1 w-1.5 h-1 bg-red-500/50 rounded-sm"
+                        animate={{ 
+                          y: [0, -1, 0],
+                          rotate: [0, 5, -5, 0]
+                        }}
+                        transition={{ 
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 1
+                        }}
+                      />
+                      <motion.div 
+                        className="absolute top-2 left-2 w-1 h-1.5 bg-green-500/50 rounded-sm"
+                        animate={{ 
+                          y: [0, -0.5, 0],
+                          rotate: [0, -3, 3, 0]
+                        }}
+                        transition={{ 
+                          duration: 2.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.5
+                        }}
+                      />
+                      
+                      {/* Christmas lights */}
+                      <motion.div 
+                        className="absolute top-3 left-3 w-0.5 h-0.5 bg-red-400 rounded-full"
+                        animate={{ 
+                          opacity: [0.3, 1, 0.3]
+                        }}
+                        transition={{ 
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <motion.div 
+                        className="absolute top-4 right-2 w-0.5 h-0.5 bg-green-400 rounded-full"
+                        animate={{ 
+                          opacity: [0.3, 1, 0.3]
+                        }}
+                        transition={{ 
+                          duration: 1.8,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.3
+                        }}
+                      />
+                      <motion.div 
+                        className="absolute bottom-3 right-3 w-0.5 h-0.5 bg-blue-400 rounded-full"
+                        animate={{ 
+                          opacity: [0.3, 1, 0.3]
+                        }}
+                        transition={{ 
+                          duration: 1.2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.6
+                        }}
+                      />
+                      
+                      {/* Snow on ground */}
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20 rounded-b-2xl"></div>
+                    </>
+                  ) : currentTheme === 'easter' ? (
+                    // Easter Background - Spring garden scene
+                    <>
+                      {/* Animated Easter eggs */}
+                      {[...Array(5)].map((_, i) => (
+                        <motion.div
+                          key={`egg-${i}`}
+                          className="absolute w-1.5 h-2 rounded-full"
+                          style={{
+                            top: `${20 + i * 15}%`,
+                            left: `${15 + i * 18}%`,
+                            background: i % 3 === 0 ? 'linear-gradient(45deg, #f472b6, #ec4899)' : 
+                                       i % 3 === 1 ? 'linear-gradient(45deg, #a78bfa, #8b5cf6)' : 
+                                       'linear-gradient(45deg, #fbbf24, #f59e0b)'
+                          }}
+                          animate={{ 
+                            y: [0, -2, 0],
+                            rotate: [0, 10, -10, 0],
+                            scale: [1, 1.05, 1]
+                          }}
+                          transition={{ 
+                            duration: 2.5 + i * 0.3,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: i * 0.4
+                          }}
+                        />
+                      ))}
+                      
+                      {/* Animated bunny ears */}
+                      <motion.div 
+                        className="absolute top-1 left-2 w-1 h-1 bg-pink-300/40 rounded-full"
+                        animate={{ 
+                          y: [0, -1, 0],
+                          rotate: [0, 5, -5, 0]
+                        }}
+                        transition={{ 
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <motion.div 
+                        className="absolute top-1 right-2 w-1 h-1 bg-pink-300/40 rounded-full"
+                        animate={{ 
+                          y: [0, -1, 0],
+                          rotate: [0, -5, 5, 0]
+                        }}
+                        transition={{ 
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.5
+                        }}
+                      />
+                      
+                      {/* Spring flowers */}
+                      <motion.div 
+                        className="absolute bottom-2 left-1 w-1 h-1 bg-yellow-300/50 rounded-full"
+                        animate={{ 
+                          scale: [1, 1.2, 1],
+                          opacity: [0.5, 1, 0.5]
+                        }}
+                        transition={{ 
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <motion.div 
+                        className="absolute top-3 right-1 w-0.5 h-0.5 bg-pink-400/60 rounded-full"
+                        animate={{ 
+                          scale: [1, 1.3, 1],
+                          opacity: [0.4, 0.8, 0.4]
+                        }}
+                        transition={{ 
+                          duration: 2.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 1
+                        }}
+                      />
+                      
+                      {/* Butterflies */}
+                      <motion.div 
+                        className="absolute top-2 left-1 w-0.5 h-0.5 bg-purple-400/50 rounded-full"
+                        animate={{ 
+                          x: [0, 2, 0],
+                          y: [0, -1, 0],
+                          rotate: [0, 180, 360]
+                        }}
+                        transition={{ 
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <motion.div 
+                        className="absolute bottom-1 right-1 w-0.5 h-0.5 bg-blue-400/50 rounded-full"
+                        animate={{ 
+                          x: [0, -1, 0],
+                          y: [0, -2, 0],
+                          rotate: [0, -180, -360]
+                        }}
+                        transition={{ 
+                          duration: 3.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 1.5
+                        }}
+                      />
+                      
+                      {/* Spring grass */}
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-green-300/30 rounded-b-2xl"></div>
+                    </>
+                  ) : currentTheme === 'carnival' ? (
+                    // Carnival Background - Festive party scene
+                    <>
+                      {/* Animated confetti */}
+                      {[...Array(8)].map((_, i) => (
+                        <motion.div
+                          key={`confetti-${i}`}
+                          className="absolute w-1 h-1 rounded-full"
+                          style={{
+                            top: `${10 + i * 10}%`,
+                            left: `${5 + i * 12}%`,
+                            background: i % 4 === 0 ? '#a78bfa' : 
+                                       i % 4 === 1 ? '#fbbf24' : 
+                                       i % 4 === 2 ? '#f472b6' : '#22d3ee'
+                          }}
+                          animate={{ 
+                            y: [0, -3, 0],
+                            rotate: [0, 360, 720],
+                            scale: [1, 1.2, 1]
+                          }}
+                          transition={{ 
+                            duration: 2 + i * 0.2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: i * 0.2
+                          }}
+                        />
+                      ))}
+                      
+                      {/* Animated masks */}
+                      <motion.div 
+                        className="absolute top-2 left-2 w-2 h-1.5 bg-yellow-300/40 rounded-full"
+                        animate={{ 
+                          y: [0, -1, 0],
+                          rotate: [0, 5, -5, 0]
+                        }}
+                        transition={{ 
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <motion.div 
+                        className="absolute bottom-2 right-1 w-1.5 h-1 bg-purple-400/40 rounded-full"
+                        animate={{ 
+                          y: [0, -2, 0],
+                          rotate: [0, -10, 10, 0]
+                        }}
+                        transition={{ 
+                          duration: 2.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 1
+                        }}
+                      />
+                      
+                      {/* Party balloons */}
+                      <motion.div 
+                        className="absolute top-1 right-1 w-1 h-1.5 bg-red-400/50 rounded-full"
+                        animate={{ 
+                          y: [0, -2, 0],
+                          x: [0, 1, 0]
+                        }}
+                        transition={{ 
+                          duration: 2.8,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <motion.div 
+                        className="absolute bottom-1 left-1 w-1 h-1.5 bg-blue-400/50 rounded-full"
+                        animate={{ 
+                          y: [0, -1.5, 0],
+                          x: [0, -1, 0]
+                        }}
+                        transition={{ 
+                          duration: 3.2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.8
+                        }}
+                      />
+                      
+                      {/* Streamers */}
+                      <motion.div 
+                        className="absolute top-3 left-1 w-2 h-0.5 bg-pink-400/30 rounded-full"
+                        animate={{ 
+                          rotate: [0, 10, -10, 0],
+                          scale: [1, 1.1, 1]
+                        }}
+                        transition={{ 
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <motion.div 
+                        className="absolute bottom-3 right-2 w-1.5 h-0.5 bg-green-400/30 rounded-full"
+                        animate={{ 
+                          rotate: [0, -15, 15, 0],
+                          scale: [1, 1.2, 1]
+                        }}
+                        transition={{ 
+                          duration: 1.8,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.5
+                        }}
+                      />
+                      
+                      {/* Party lights */}
+                      <motion.div 
+                        className="absolute top-4 left-3 w-0.5 h-0.5 bg-yellow-300 rounded-full"
+                        animate={{ 
+                          opacity: [0.3, 1, 0.3]
+                        }}
+                        transition={{ 
+                          duration: 1.2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <motion.div 
+                        className="absolute bottom-4 right-3 w-0.5 h-0.5 bg-pink-300 rounded-full"
+                        animate={{ 
+                          opacity: [0.3, 1, 0.3]
+                        }}
+                        transition={{ 
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.3
+                        }}
+                      />
+                    </>
+                  ) : currentTheme === 'summer' ? (
+                    // Summer Background - Beach paradise scene
+                    <>
+                      {/* Animated sun */}
+                      <motion.div 
+                        className="absolute top-1 left-1 w-2 h-2 bg-yellow-300/40 rounded-full"
+                        animate={{ 
+                          scale: [1, 1.1, 1],
+                          rotate: [0, 180, 360]
+                        }}
+                        transition={{ 
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        {/* Sun rays */}
+                        <div className="absolute -top-1 left-1/2 w-0.5 h-1 bg-yellow-400/50 transform -translate-x-1/2"></div>
+                        <div className="absolute -bottom-1 left-1/2 w-0.5 h-1 bg-yellow-400/50 transform -translate-x-1/2"></div>
+                        <div className="absolute left-1/2 -left-1 w-1 h-0.5 bg-yellow-400/50 transform -translate-y-1/2 top-1/2"></div>
+                        <div className="absolute left-1/2 -right-1 w-1 h-0.5 bg-yellow-400/50 transform -translate-y-1/2 top-1/2"></div>
+                      </motion.div>
+                      
+                      {/* Animated clouds */}
+                      <motion.div 
+                        className="absolute top-2 right-1 w-1.5 h-0.5 bg-white/40 rounded-full"
+                        animate={{ 
+                          x: [0, 1, 0],
+                          y: [0, -0.5, 0]
+                        }}
+                        transition={{ 
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <motion.div 
+                        className="absolute top-3 left-2 w-1 h-0.5 bg-white/30 rounded-full"
+                        animate={{ 
+                          x: [0, -1, 0],
+                          y: [0, -1, 0]
+                        }}
+                        transition={{ 
+                          duration: 3.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 1
+                        }}
+                      />
+                      
+                      {/* Beach elements */}
+                      <motion.div 
+                        className="absolute bottom-1 right-1 w-1.5 h-1 bg-blue-300/40 rounded-full"
+                        animate={{ 
+                          y: [0, -0.5, 0],
+                          scale: [1, 1.05, 1]
+                        }}
+                        transition={{ 
+                          duration: 2.5,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      
+                      {/* Palm tree */}
+                      <motion.div 
+                        className="absolute bottom-2 left-1 w-0.5 h-2 bg-green-500/50"
+                        animate={{ 
+                          rotate: [0, 2, -2, 0]
+                        }}
+                        transition={{ 
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        {/* Palm leaves */}
+                        <div className="absolute top-0 left-0 w-1 h-0.5 bg-green-400/60 rounded-full transform rotate-45"></div>
+                        <div className="absolute top-0 right-0 w-1 h-0.5 bg-green-400/60 rounded-full transform -rotate-45"></div>
+                      </motion.div>
+                      
+                      {/* Seagulls */}
+                      <motion.div 
+                        className="absolute top-3 left-1 w-0.5 h-0.5 bg-white/60 rounded-full"
+                        animate={{ 
+                          x: [0, 2, 0],
+                          y: [0, -1, 0]
+                        }}
+                        transition={{ 
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                      <motion.div 
+                        className="absolute top-4 right-2 w-0.5 h-0.5 bg-white/50 rounded-full"
+                        animate={{ 
+                          x: [0, -1.5, 0],
+                          y: [0, -2, 0]
+                        }}
+                        transition={{ 
+                          duration: 3.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 1.5
+                        }}
+                      />
+                      
+                      {/* Beach sand */}
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-yellow-200/30 rounded-b-2xl"></div>
+                      
+                      {/* Ocean waves */}
+                      <motion.div 
+                        className="absolute bottom-1 left-0 right-0 h-0.5 bg-blue-400/20 rounded-full"
+                        animate={{ 
+                          scaleX: [1, 1.1, 1]
+                        }}
+                        transition={{ 
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                    </>
+                  ) : (
+                    // Normal notebook pattern
+                    <>
+                      {/* Horizontal lines */}
+                      {[...Array(6)].map((_, i) => (
+                        <div
+                          key={`line-${i}`}
+                          className={`absolute w-full h-px ${themeStyles.lineColor}`}
+                          style={{
+                            top: `${15 + i * 12}%`,
+                            left: '8%',
+                            right: '4%'
+                          }}
+                        />
+                      ))}
+                      
+                      {/* Red margin line */}
+                      <div className={`absolute left-3 top-0 bottom-0 w-px ${themeStyles.marginColor}`}></div>
+                      
+                      {/* Holes for binder */}
+                      {[...Array(3)].map((_, i) => (
+                        <div
+                          key={`hole-${i}`}
+                          className={`absolute w-1 h-1 rounded-full ${themeStyles.holeColor} border ${themeStyles.holeBorder}`}
+                          style={{
+                            left: '2px',
+                            top: `${20 + i * 25}%`
+                          }}
+                        />
+                      ))}
+                    </>
+                  )}
                 </div>
 
                 {/* Icon - custom SVG, centered */}
                 <span className="relative z-10 flex items-center justify-center w-full h-full">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
-                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" stroke="#4a90e2" strokeWidth="1.5"></path>
-                    <path d="M12 16V8" stroke="#4a90e2" strokeWidth="1.5" strokeLinecap="round"></path>
-                    <path d="M8 14V10" stroke="#4a90e2" strokeWidth="1.5" strokeLinecap="round"></path>
-                    <path d="M16 14V10" stroke="#4a90e2" strokeWidth="1.5" strokeLinecap="round"></path>
-                  </svg>
+                  {currentTheme === 'halloween' ? (
+                    // Halloween Icon - Spooky chat bubble
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
+                      {/* Spooky chat bubble with fangs */}
+                      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" stroke={themeStyles.iconColor} strokeWidth="1.5"></path>
+                      {/* Spooky eyes */}
+                      <circle cx="9" cy="9" r="1" fill={themeStyles.iconColor} />
+                      <circle cx="15" cy="9" r="1" fill={themeStyles.iconColor} />
+                      {/* Spooky mouth with fangs */}
+                      <path d="M9 15C9 15 10 16 12 16C14 16 15 15 15 15" stroke={themeStyles.iconColor} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                      {/* Fangs */}
+                      <path d="M10 15L10.5 17" stroke={themeStyles.iconColor} strokeWidth="1" strokeLinecap="round" />
+                      <path d="M14 15L13.5 17" stroke={themeStyles.iconColor} strokeWidth="1" strokeLinecap="round" />
+                    </svg>
+                  ) : currentTheme === 'christmas' ? (
+                    // Christmas Icon - Magical Christmas chat bubble
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
+                      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" stroke={themeStyles.iconColor} strokeWidth="1.5"></path>
+                      {/* Santa hat with fur trim */}
+                      <path d="M8 6L12 4L16 6L16 8L8 8Z" fill="#dc2626" />
+                      <path d="M8 7L12 5L16 7" stroke="white" strokeWidth="0.5" strokeLinecap="round" />
+                      <circle cx="14" cy="7" r="0.5" fill="white" />
+                      {/* Christmas tree on hat */}
+                      <path d="M12 5L11 6L12 7L13 6Z" fill="#22c55e" />
+                      {/* Merry eyes */}
+                      <circle cx="9" cy="11" r="1" fill={themeStyles.iconColor} />
+                      <circle cx="15" cy="11" r="1" fill={themeStyles.iconColor} />
+                      {/* Rosy cheeks */}
+                      <circle cx="7" cy="13" r="0.5" fill="#f87171" opacity="0.6" />
+                      <circle cx="17" cy="13" r="0.5" fill="#f87171" opacity="0.6" />
+                      {/* Jolly smile */}
+                      <path d="M9 16C9 16 10 17 12 17C14 17 15 16 15 16" stroke={themeStyles.iconColor} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                      {/* Snowflakes around */}
+                      <path d="M5 8L5.5 8.5L6 8L5.5 7.5Z" stroke="white" strokeWidth="0.3" />
+                      <path d="M19 9L19.5 9.5L20 9L19.5 8.5Z" stroke="white" strokeWidth="0.3" />
+                    </svg>
+                  ) : currentTheme === 'easter' ? (
+                    // Easter Icon - Bunny chat bubble
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
+                      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" stroke={themeStyles.iconColor} strokeWidth="1.5"></path>
+                      {/* Bunny ears */}
+                      <path d="M10 6L10 3L12 2L14 3L14 6" stroke={themeStyles.iconColor} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                      {/* Bunny eyes */}
+                      <circle cx="9" cy="11" r="1" fill={themeStyles.iconColor} />
+                      <circle cx="15" cy="11" r="1" fill={themeStyles.iconColor} />
+                      {/* Bunny nose */}
+                      <circle cx="12" cy="13" r="0.5" fill={themeStyles.iconColor} />
+                      {/* Bunny mouth */}
+                      <path d="M12 14C12 14 11 15 10 15" stroke={themeStyles.iconColor} strokeWidth="1" strokeLinecap="round" />
+                      <path d="M12 14C12 14 13 15 14 15" stroke={themeStyles.iconColor} strokeWidth="1" strokeLinecap="round" />
+                    </svg>
+                  ) : currentTheme === 'carnival' ? (
+                    // Carnival Icon - Mask chat bubble
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
+                      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" stroke={themeStyles.iconColor} strokeWidth="1.5"></path>
+                      {/* Mask eyes */}
+                      <circle cx="9" cy="9" r="1.5" fill={themeStyles.iconColor} />
+                      <circle cx="15" cy="9" r="1.5" fill={themeStyles.iconColor} />
+                      {/* Mask decorations */}
+                      <path d="M8 6L10 5L12 6L14 5L16 6" stroke={themeStyles.iconColor} strokeWidth="1" strokeLinecap="round" />
+                      {/* Smile */}
+                      <path d="M9 16C9 16 10 17 12 17C14 17 15 16 15 16" stroke={themeStyles.iconColor} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                    </svg>
+                  ) : currentTheme === 'summer' ? (
+                    // Summer Icon - Sunglasses chat bubble
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
+                      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" stroke={themeStyles.iconColor} strokeWidth="1.5"></path>
+                      {/* Sunglasses */}
+                      <path d="M8 8L10 7L12 8L14 7L16 8" stroke={themeStyles.iconColor} strokeWidth="1.5" strokeLinecap="round" />
+                      <circle cx="9" cy="9" r="1" fill={themeStyles.iconColor} />
+                      <circle cx="15" cy="9" r="1" fill={themeStyles.iconColor} />
+                      {/* Bridge */}
+                      <path d="M11 9L13 9" stroke={themeStyles.iconColor} strokeWidth="1" strokeLinecap="round" />
+                      {/* Smile */}
+                      <path d="M9 16C9 16 10 17 12 17C14 17 15 16 15 16" stroke={themeStyles.iconColor} strokeWidth="1.5" strokeLinecap="round" fill="none" />
+                    </svg>
+                  ) : (
+                    // Normal chat bubble
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7">
+                      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" stroke={themeStyles.iconColor} strokeWidth="1.5"></path>
+                      <path d="M12 16V8" stroke={themeStyles.iconColor} strokeWidth="1.5" strokeLinecap="round"></path>
+                      <path d="M8 14V10" stroke={themeStyles.iconColor} strokeWidth="1.5" strokeLinecap="round"></path>
+                      <path d="M16 14V10" stroke={themeStyles.iconColor} strokeWidth="1.5" strokeLinecap="round"></path>
+                    </svg>
+                  )}
                 </span>
               </div>
 
-              {/* School Grade Badge */}
+              {/* Theme Badge */}
               <div className="absolute -bottom-0.5 -right-0.5">
                 <div className="relative w-4 h-4">
-                  {/* Grade A+ Badge */}
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 border border-white shadow-md flex items-center justify-center">
-                    <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive', fontSize: '8px' }}>
-                      A+
-                    </span>
-                  </div>
+                  {currentTheme === 'halloween' ? (
+                    // Halloween Badge - Spooky pumpkin
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-orange-500 to-red-600 border border-white shadow-md flex items-center justify-center">
+                      <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive', fontSize: '6px' }}>
+                        🎃
+                      </span>
+                    </div>
+                  ) : currentTheme === 'christmas' ? (
+                    // Christmas Badge - Santa hat
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-red-500 to-red-600 border border-white shadow-md flex items-center justify-center">
+                      <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive', fontSize: '6px' }}>
+                        🎅
+                      </span>
+                    </div>
+                  ) : currentTheme === 'easter' ? (
+                    // Easter Badge - Bunny
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-400 to-pink-500 border border-white shadow-md flex items-center justify-center">
+                      <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive', fontSize: '6px' }}>
+                        🐰
+                      </span>
+                    </div>
+                  ) : currentTheme === 'carnival' ? (
+                    // Carnival Badge - Mask
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 border border-white shadow-md flex items-center justify-center">
+                      <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive', fontSize: '6px' }}>
+                        🎭
+                      </span>
+                    </div>
+                  ) : currentTheme === 'summer' ? (
+                    // Summer Badge - Sun
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 border border-white shadow-md flex items-center justify-center">
+                      <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive', fontSize: '6px' }}>
+                        ☀️
+                      </span>
+                    </div>
+                  ) : (
+                    // Normal Grade A+ Badge
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 border border-white shadow-md flex items-center justify-center">
+                      <span className="text-white text-xs font-bold" style={{ fontFamily: 'StampatelloFaceto, cursive', fontSize: '8px' }}>
+                        A+
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -2598,19 +3992,24 @@ const AIChatbot = () => {
                 transition={{ duration: 0.2, ease: "easeOut" }}
                 style={{ top: "20%" }}
               >
-                <div className="relative bg-white/95 border-2 border-blue-200/50 rounded-xl shadow-lg whitespace-nowrap backdrop-blur-sm overflow-hidden">
+                <div className={`relative ${themeStyles.bubbleBg} border-2 ${themeStyles.bubbleBorder} rounded-xl shadow-lg whitespace-nowrap backdrop-blur-sm overflow-hidden`}>
                   {/* Notebook Lines Background */}
                   <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute w-full h-px bg-blue-300/15" style={{ top: '50%', left: '10%', right: '10%' }}></div>
-                    <div className="absolute left-3 top-0 bottom-0 w-px bg-red-400/20"></div>
+                    <div className={`absolute w-full h-px ${themeStyles.lineColor}`} style={{ top: '50%', left: '10%', right: '10%' }}></div>
+                    <div className={`absolute left-3 top-0 bottom-0 w-px ${themeStyles.marginColor}`}></div>
                   </div>
                   
                   <div className="relative z-10 text-slate-800 text-sm py-2 px-4" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                    💬 Chat με ΑΛΦΑ AI
+                    {currentTheme === 'halloween' ? '🎃 Spooky Chat με ΑΛΦΑ AI 👻' :
+                     currentTheme === 'christmas' ? '🎅 Merry Chat με ΑΛΦΑ AI 🎄' :
+                     currentTheme === 'easter' ? '🐰 Happy Easter Chat με ΑΛΦΑ AI 🥚' :
+                     currentTheme === 'carnival' ? '🎭 Carnival Chat με ΑΛΦΑ AI 🎪' :
+                     currentTheme === 'summer' ? '☀️ Summer Chat με ΑΛΦΑ AI 🏖️' :
+                     '💬 Chat με ΑΛΦΑ AI'}
                   </div>
                   
                   {/* Arrow */}
-                  <div className="absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 rotate-45 w-2.5 h-2.5 bg-white border-r-2 border-b-2 border-blue-200/50"></div>
+                  <div className={`absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 rotate-45 w-2.5 h-2.5 ${themeStyles.bubbleBg} border-r-2 border-b-2 ${themeStyles.bubbleBorder}`}></div>
                 </div>
               </motion.div>
             )}

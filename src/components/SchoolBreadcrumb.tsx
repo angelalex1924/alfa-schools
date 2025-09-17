@@ -13,8 +13,49 @@ import enTranslations from "@/locales/en.json"
 import frTranslations from "@/locales/fr.json"
 import { cn } from "@/lib/utils"
 import { ChevronRight, Home, BookOpen, Gamepad2, Mail, Users, FileText } from "lucide-react"
+import HomeIcon from './HomeIcon'
+import ArticlesIcon from './ArticlesIcon'
+import WhyUsIcon from './WhyUsIcon'
+import AboutUsIcon from './AboutUsIcon'
+import ContactIcon from './ContactIcon'
+import { GamesIcon } from './custom-icons'
+
+// Custom Services Icon - EXACT SAME as GlowMenu
+const ServicesIcon = ({ className }: { className?: string }) => (
+  <svg
+    version="1.0"
+    id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 64 64"
+    enableBackground="new 0 0 64 64"
+    xmlSpace="preserve"
+    fill="currentColor"
+    className={className}
+  >
+    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+    <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+    <g id="SVGRepo_iconCarrier">
+      <g>
+        <path fill="#F9EBB2" d="M56,62H10c-2.209,0-4-1.791-4-4s1.791-4,4-4h46V62z"></path>
+        <g>
+          <path fill="#45AAB8" d="M6,4v49.537C7.062,52.584,8.461,52,10,52h2V2H8C6.896,2,6,2.896,6,4z"></path>
+          <path fill="#45AAB8" d="M56,2H14v50h42h2v-2V4C58,2.896,57.104,2,56,2z"></path>
+        </g>
+        <g>
+          <path fill="#394240" d="M60,52V4c0-2.211-1.789-4-4-4H8C5.789,0,4,1.789,4,4v54c0,3.313,2.687,6,6,6h49c0.553,0,1-0.447,1-1 s-0.447-1-1-1h-1v-8C59.104,54,60,53.104,60,52z M6,4c0-1.104,0.896-2,2-2h4v50h-2c-1.539,0-2.938,0.584-4,1.537V4z M56,62H10 c-2.209,0-4-1.791-4-4s1.791-4,4-4h46V62z M56,52H14V2h42c1.104,0,2,0.896,2,2v46v2H56z"></path>
+          <path fill="#394240" d="M43,26H23c-0.553,0-1,0.447-1,1s0.447,1,1,1h20c0.553,0,1-0.447,1-1S43.553,26,43,26z"></path>
+          <path fill="#394240" d="M49,20H23c-0.553,0-1,0.447-1,1s0.447,1,1,1h26c0.553,0,1-0.447,1-1S49.553,20,49,20z"></path>
+          <path fill="#394240" d="M23,16h12c0.553,0,1-0.447,1-1s-0.447-1-1-1H23c-0.553,0-1,0.447-1,1S22.447,16,23,16z"></path>
+        </g>
+        <path opacity="0.2" fill="#231F20" d="M6,4v49.537C7.062,52.584,8.461,52,10,52h2V2H8C6.896,2,6,2.896,6,4z"></path>
+      </g>
+    </g>
+  </svg>
+)
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { SantaIcon, ChristmasTreeIcon, ReindeerIcon, GiftBoxIcon, BellIcon } from "./ChristmasIcons"
 
 interface BreadcrumbItem {
   label: string
@@ -78,6 +119,31 @@ export default function SchoolBreadcrumb({ items, className }: SchoolBreadcrumbP
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  // Christmas Icons Helper
+  const getChristmasIcon = (iconType: string, className?: string) => {
+    const iconMap: { [key: string]: React.ComponentType<any> } = {
+      santa: SantaIcon,
+      tree: ChristmasTreeIcon,
+      reindeer: ReindeerIcon,
+      gift: GiftBoxIcon,
+      bell: BellIcon
+    }
+    
+    const IconComponent = iconMap[iconType] || ChristmasTreeIcon
+    return <IconComponent className={className} />
+  }
+
+  // Get Christmas icon for each breadcrumb item
+  const getChristmasIconType = (label: string) => {
+    const labelLower = label.toLowerCase()
+    if (labelLower.includes('home') || labelLower.includes('αρχική')) return "santa"
+    if (labelLower.includes('services') || labelLower.includes('υπηρεσίες')) return "tree"
+    if (labelLower.includes('articles') || labelLower.includes('άρθρα')) return "bell"
+    if (labelLower.includes('games') || labelLower.includes('παιχνίδια')) return "gift"
+    if (labelLower.includes('contact') || labelLower.includes('επικοινωνία')) return "reindeer"
+    return "tree"
+  }
+
   // Halloween Icons Helper
   const getHalloweenIcon = (iconType: string, className?: string) => {
     const iconMap: { [key: string]: string } = {
@@ -99,11 +165,13 @@ export default function SchoolBreadcrumb({ items, className }: SchoolBreadcrumbP
   // Get icon for each breadcrumb item
   const getIcon = (label: string) => {
     const labelLower = label.toLowerCase()
-    if (labelLower.includes('home') || labelLower.includes('αρχική')) return Home
-    if (labelLower.includes('services') || labelLower.includes('υπηρεσίες')) return Users
-    if (labelLower.includes('articles') || labelLower.includes('άρθρα')) return FileText
-    if (labelLower.includes('games') || labelLower.includes('παιχνίδια')) return Gamepad2
-    if (labelLower.includes('contact') || labelLower.includes('επικοινωνία')) return Mail
+    if (labelLower.includes('home') || labelLower.includes('αρχική')) return HomeIcon
+    if (labelLower.includes('services') || labelLower.includes('υπηρεσίες')) return ServicesIcon
+    if (labelLower.includes('articles') || labelLower.includes('άρθρα') || labelLower.includes('νέα') || labelLower.includes('τα νέα')) return ArticlesIcon
+    if (labelLower.includes('games') || labelLower.includes('παιχνίδια')) return GamesIcon
+    if (labelLower.includes('contact') || labelLower.includes('επικοινωνία')) return ContactIcon
+    if (labelLower.includes('why') || labelLower.includes('γιατί')) return WhyUsIcon
+    if (labelLower.includes('about') || labelLower.includes('σχετικά')) return AboutUsIcon
     return BookOpen
   }
 
@@ -277,7 +345,9 @@ export default function SchoolBreadcrumb({ items, className }: SchoolBreadcrumbP
                         animate={{ opacity: 1, x: 0, scale: 1 }}
                         transition={{ delay: index * 0.1 + 0.2, type: "spring", stiffness: 200 }}
                       >
-                        {isHalloweenMode ? (
+                        {isChristmasMode ? (
+                          getChristmasIcon(getChristmasIconType(item.label), "w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0")
+                        ) : isHalloweenMode ? (
                           getHalloweenIcon(getHalloweenIconType(item.label), "w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0")
                         ) : isCarnivalMode ? (
                           getCarnivalIcon(getCarnivalIconType(item.label), "w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0")
@@ -355,7 +425,9 @@ export default function SchoolBreadcrumb({ items, className }: SchoolBreadcrumbP
                           animate={{ opacity: 1, x: 0, scale: 1 }}
                           transition={{ delay: index * 0.1, type: "spring", stiffness: 200 }}
                         >
-                          {isHalloweenMode ? (
+                          {isChristmasMode ? (
+                            getChristmasIcon(getChristmasIconType(item.label), "w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0")
+                          ) : isHalloweenMode ? (
                             getHalloweenIcon(getHalloweenIconType(item.label), "w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0")
                           ) : isCarnivalMode ? (
                             getCarnivalIcon(getCarnivalIconType(item.label), "w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0")

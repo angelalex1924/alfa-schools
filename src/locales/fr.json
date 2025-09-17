@@ -4,6 +4,7 @@
     "services": "Services",
     "news": "Nos Actualités",
     "whyUs": "Pourquoi Nous",
+    "aboutUs": "À Propos de Nous",
     "games": "Jeux",
     "contact": "Contact",
     "privacy": "Confidentialité",
@@ -18,6 +19,7 @@
     "servicesDescription": "Services spécialisés",
     "newsDescription": "Dernières actualités et mises à jour",
     "whyUsDescription": "Découvrez nos avantages",
+    "aboutUsDescription": "Découvrez notre histoire et nos enseignants",
     "gamesDescription": "Jeux interactifs pour l'apprentissage",
     "contactDescription": "Contactez-nous"
   },
@@ -28,6 +30,7 @@
     "games": "Jeux",
     "contact": "Contact",
     "whyUs": "Pourquoi Nous",
+    "aboutUs": "À Propos de Nous",
     "tags": "Étiquettes"
   },
   "notebook": {
@@ -44,10 +47,12 @@
     "subject_why_us": "Avantages",
     "subject_news": "Actualités",
     "subject_contact": "Contact",
+    "subject_about_us": "À Propos de Nous",
     "titles": {
       "games": "Jeux",
       "services": "Services",
       "why_us": "Pourquoi Nous?",
+      "about_us": "À Propos de Nous",
       "news": "Nos Actualités",
       "contact": "Contact",
       "tags": "#Étiquettes"
@@ -56,6 +61,7 @@
       "games": "Apprenez en vous amusant avec nos jeux interactifs",
       "services": "Découvrez nos services spécialisés conçus pour répondre à vos besoins éducatifs",
       "why_us": "Découvrez les raisons qui font des Écoles Alfa le meilleur choix pour votre éducation",
+      "about_us": "Découvrez notre histoire et nos enseignants",
       "news": "Restez informé des dernières actualités, développements et événements de l'École Alfa",
       "contact": "Vous avez des questions? Contactez-nous pour plus d'informations et nous répondrons immédiatement"
     }
@@ -68,12 +74,157 @@
   },
   "whyUs": {
     "title": "Pourquoi Choisir ALFA?",
-    "teachers": "Enseignants Certifiés",
+    "subtitle": "Découvrez pourquoi les Centres de Langues Étrangères ALFA sont le meilleur choix pour votre éducation linguistique",
     "teachersDesc": "Spécialisés",
     "materials": "Matériaux Modernes",
     "materialsDesc": "Interactifs",
     "fun": "Apprentissage Amusant",
-    "funDesc": "Jeux & Activités"
+    "funDesc": "Jeux & Activités",
+    "history": {
+      "title": "Notre Histoire",
+      "content": "Notre première école est née en 1986 à Nea Filadelfeia, avec la vision de donner une nouvelle dimension à l'apprentissage des langues étrangères. Avec dévouement, passion et formation scientifique appropriée, nous avons créé des relations de confiance avec les étudiants et les parents, obtenant un succès continu aux examens.",
+      "evolution": {
+        "title": "L'Évolution",
+        "content": "Avec les bonnes études, notre expérience pédagogique, notre passion pour notre travail et notre amour pour les enfants, nous nous sommes rapidement imposés dans le domaine avec des succès continus aux examens, créant ainsi des relations de confiance avec les parents et les étudiants."
+      },
+      "expansion": {
+        "title": "1996 - L'Expansion",
+        "content": "En 1996, nous nous sommes retrouvés à Chalandri avec la même vision et la même cohérence dans la qualité de nos études, où notre présence dynamique et les distinctions continues de nos étudiants récompensent et scellent nos méthodes éducatives."
+      }
+    },
+    "teachers": {
+      "title": "Nos Enseignants",
+      "subtitle": "Éducateurs expérimentés et qualifiés",
+      "qualified": {
+        "title": "Enseignants Qualifiés",
+        "content": "Enseignants avec diplômes universitaires et expérience qui aiment enseigner et ont prouvé leur capacité à aider les étudiants à atteindre leurs objectifs."
+      },
+      "methodology": {
+        "title": "Méthodologie Moderne",
+        "content": "Nous utilisons des méthodes d'enseignement modernes et la technologie éducative pour rendre l'apprentissage efficace et agréable."
+      },
+      "personalized": {
+        "title": "Approche Personnalisée",
+        "content": "Chaque étudiant a des besoins différents et nous les abordons avec attention et soin personnalisés."
+      }
+    },
+    "centers": {
+      "title": "Nos Centres",
+      "subtitle": "Installations modernes dans des emplacements stratégiques",
+      "neaPhiladelphia": {
+        "title": "Nea Filadelfeia",
+        "description": "Notre premier centre depuis 1986",
+        "address": "Agiou Georgiou 15"
+      },
+      "chalandri": {
+        "title": "Chalandri",
+        "description": "Notre deuxième centre depuis 1996",
+        "address": "Roumelis 27"
+      }
+    },
+    "services": {
+      "title": "Services",
+      "subtitle": "Les Centres de Langues Étrangères ALFA fonctionnent avec succès depuis 1986, offrant le meilleur de l'apprentissage des langues étrangères.",
+      "allLevels": {
+        "title": "Cours pour Tous Niveaux",
+        "description": "Pour tous âges et niveaux de connaissance"
+      },
+      "freeClasses": {
+        "title": "Cours Gratuits",
+        "description": "Pour enfants de 1ère & 2ème Année"
+      },
+      "ebook": {
+        "title": "Livre Numérique",
+        "description": "E-book gratuit pour tous les étudiants"
+      },
+      "reinforcement": {
+        "title": "Cours de Renforcement",
+        "description": "Support supplémentaire gratuit quand nécessaire"
+      },
+      "universityPrep": {
+        "title": "Préparation à l'Entrée à l'Université",
+        "description": "Préparation spécialisée pour Philologie Anglaise & Française"
+      },
+      "abroadStudies": {
+        "title": "Études à l'Étranger",
+        "description": "Préparation pour IELTS, TOEFL, Cambridge"
+      }
+    },
+    "philosophy": {
+      "title": "Notre Philosophie",
+      "quote": "Apprendre les langues étrangères n'est pas seulement un diplôme. C'est la culture, le développement personnel et un outil pour un monde en constante évolution.",
+      "content": "La famille ALFA accueille chaque étudiant avec un intérêt personnel, cultivant des compétences qui les accompagnent tout au long de leur vie."
+    },
+    "faq": {
+      "title": "Questions Fréquemment Posées",
+      "whyLearn": {
+        "question": "Pourquoi devrais-je apprendre une langue étrangère?",
+        "answer": "L'apprentissage des langues étrangères améliore la performance scolaire, la pensée critique, la vivacité et le degré de socialisation. Il offre également l'opportunité d'études universitaires et postdoctorales à l'étranger."
+      },
+      "age": {
+        "question": "Quel est l'âge approprié?",
+        "answer": "La période appropriée pour qu'un enfant commence à apprendre une langue étrangère est en 1ère Année. Les enfants de cet âge ont la capacité d'apprendre et de retenir les choses facilement et rapidement."
+      },
+      "dyslexia": {
+        "question": "Les enfants dyslexiques peuvent-ils apprendre?",
+        "answer": "Oui, un enfant dyslexique peut apprendre une langue étrangère, à condition que l'enseignant soit correctement formé. Ils peuvent commencer l'apprentissage dès les premières années de l'école primaire."
+      },
+      "classOrPrivate": {
+        "question": "Cours en groupe ou particuliers?",
+        "answer": "L'apprentissage social est meilleur pour l'enfant. L'enfant a besoin d'encouragement, de confiance en soi, de motivation pour réussir, et là l'encouragement des parents et les expériences communes du groupe sont très importantes."
+      }
+    },
+    "stats": {
+      "experience": {
+        "title": "40 Ans",
+        "content": "Présence continue dans l'éducation depuis 1986"
+      },
+      "successes": {
+        "title": "1000+ Succès",
+        "content": "Étudiants qui ont atteint leurs objectifs"
+      },
+      "quality": {
+        "title": "Qualité",
+        "content": "Méthodologie d'enseignement moderne et enseignants spécialisés"
+      },
+      "family": {
+        "title": "Famille",
+        "content": "Soins personnels et attention individuelle à chaque étudiant"
+      }
+    },
+    "reasons": {
+      "title": "Vraies Raisons de Nous Choisir",
+      "qualifiedTeachers": {
+        "title": "Enseignants Qualifiés",
+        "content": "Enseignants avec diplômes universitaires et expérience qui aiment enseigner"
+      },
+      "personalizedApproach": {
+        "title": "Approche Personnalisée",
+        "content": "Chaque étudiant a des besoins différents et nous les abordons"
+      },
+      "modernMethod": {
+        "title": "Méthode Moderne",
+        "content": "Utilisation de méthodes d'enseignement modernes et de technologie"
+      },
+      "smallGroups": {
+        "title": "Petits Groupes",
+        "content": "Petits groupes pour une meilleure attention et interaction"
+      },
+      "multicultural": {
+        "title": "Environnement Multiculturel",
+        "content": "Apprentissage des langues dans un environnement multiculturel et amical"
+      },
+      "results": {
+        "title": "Résultats",
+        "content": "Étudiants qui atteignent leurs objectifs et se développent"
+      }
+    },
+    "cta": {
+      "title": "Prêt à commencer votre voyage?",
+      "subtitle": "Inscrivez-vous maintenant et devenez membre de la famille des Centres de Langues Étrangères ALFA.",
+      "viewServices": "Voir Nos Services",
+      "contactUs": "Contactez-nous"
+    }
   },
   "testimonials": {
     "title": "Ce que Disent nos Étudiants",
@@ -97,6 +248,7 @@
     "paragraph3": "Notre voyage s'est poursuivi en 1996 à Chalandri, toujours avec le même objectif: une éducation moderne, méthodique et efficace."
   },
   "centers": {
+    "title": "Nos Centres",
     "neaPhiladelphia": {
       "title": "Nea Filadelfeia",
       "description": "Notre premier centre depuis 1986"
@@ -162,6 +314,7 @@
     "description": "La famille ALFA accueille chaque étudiant avec un intérêt personnel, cultivant des compétences qui les accompagnent tout au long de leur vie."
   },
   "languages": {
+    "title": "Langues",
     "english": {
       "title": "Anglais",
       "description1": "C'est la langue internationale de communication et d'information.",
@@ -193,7 +346,7 @@
     "centerSelection": "Sélection du Centre",
     "selectCenter": "Sélectionner le Centre",
     "chalandri": "Chalandri",
-    "neaFiladelfeia": "Nea Filadelfeia",
+    "neaFiladelfeia": "Nea Philadelphia",
     "firstName": "Prénom",
     "lastName": "Nom de Famille",
     "emailAddress": "Adresse Email",
@@ -241,6 +394,7 @@
     }
   },
   "footer": {
+    "message": "ALFA – Ensemble depuis 1986, avec respect, amour et dévouement à l'apprentissage! 🎓✨",
     "slogan": "Ensemble depuis 1986, avec respect, amour et dévouement à l'apprentissage.",
     "workingHours": "Lundi - Vendredi: 16:00 - 21:00",
     "socialMedia": "Réseaux Sociaux",
@@ -248,7 +402,7 @@
     "poweredBy": "Powered and Developed by",
     "addresses": {
       "chalandri": "Roumelis 27, Chalandri 152 33",
-      "neaPhiladelphia": "Agiou Georgiou 15, Nea Filadelfeia 143 42"
+      "neaPhiladelphia": "Agiou Georgiou 15, Nea Philadelphia 143 42"
     }
   },
   "carousel": {
@@ -302,31 +456,6 @@
       "title": "Catégories de Jeux",
       "subtitle": "Choisissez la langue que vous voulez apprendre et commencez à jouer!"
     },
-    "english": {
-      "title": "Jeux d'Anglais",
-      "description": "Apprenez l'anglais avec des jeux amusants",
-      "vocabulary": {
-        "title": "Vocabulaire",
-        "description": "Enrichissez votre vocabulaire",
-        "question": "Qu'est-ce que c'est?",
-        "instructions": {
-          "title": "Instructions:",
-          "step1": "Vous voyez une icône",
-          "step2": "Choisissez le mot anglais correct",
-          "step3": "Vous avez 45 secondes pour terminer le jeu",
-          "step4": "Vous gagnez 1 point pour chaque bonne réponse"
-        },
-        "professionQuestion": "Quelle profession est-ce?"
-      },
-      "grammar": {
-        "title": "Grammaire",
-        "description": "Améliorez votre grammaire"
-      },
-      "conversation": {
-        "title": "Conversation",
-        "description": "Pratiquez la conversation"
-      }
-    },
     "french": {
       "title": "Jeux de Français",
       "description": "Apprenez le français avec des jeux amusants",
@@ -350,6 +479,30 @@
       "conversation": {
         "title": "Conversation",
         "description": "Pratiquez la conversation"
+      },
+      "anagrams": {
+        "title": "Anagrammes",
+        "description": "Mélangez les lettres pour former des mots avec des indices"
+      }
+    },
+    "english": {
+      "title": "Jeux d'Anglais",
+      "description": "Apprenez l'anglais avec des jeux amusants",
+      "vocabulary": {
+        "title": "Vocabulaire",
+        "description": "Enrichissez votre vocabulaire"
+      },
+      "grammar": {
+        "title": "Grammaire",
+        "description": "Améliorez votre grammaire"
+      },
+      "conversation": {
+        "title": "Conversation",
+        "description": "Pratiquez la conversation"
+      },
+      "anagrams": {
+        "title": "Anagrammes",
+        "description": "Mélangez les lettres pour former des mots avec des indices"
       }
     },
     "comingSoon": "Bientôt Disponible",
@@ -404,6 +557,7 @@
     "noArticlesDescription": "Il n'y a pas d'articles pour cette catégorie",
     "readMore": "Lire plus",
     "backToArticles": "Retour aux Articles",
+    "viewAllArticles": "Tous les Articles",
     "articlesFound": "Trouvé {count} articles",
     "articleWithTag": "Articles avec l'Étiquette: #{tag}",
     "noArticlesWithTag": "Aucun article trouvé avec cette étiquette",
@@ -438,5 +592,400 @@
   },
   "share": {
     "clickToShare": "Cliquez sur n'importe quel bouton pour partager l'article"
+  },
+  "usefulLinks": {
+    "title": "Liens Utiles",
+    "links": [
+      "Union Helléno-Américaine",
+      "British Council",
+      "Institut Français",
+      "Europalso",
+      "Cambridge Dictionary"
+    ]
+  },
+  "faq": {
+    "title": "Questions Fréquemment Posées",
+    "whyLearn": {
+      "question": "Pourquoi devrais-je apprendre une langue étrangère?",
+      "answer": "L'apprentissage des langues étrangères améliore la mémoire, la pensée critique, la socialisation et ouvre des portes pour les études et le travail dans le monde entier."
+    },
+    "age": {
+      "question": "Quel est l'âge approprié?",
+      "answer": "Dès la 1ère année, les enfants ont la capacité d'apprendre une langue étrangère facilement, naturellement et créativement."
+    },
+    "difficulties": {
+      "question": "Qu'en est-il des enfants ayant des difficultés d'apprentissage?",
+      "answer": "Avec la bonne méthodologie, même les enfants dyslexiques peuvent apprendre une langue étrangère avec succès."
+    }
+  },
+  "privacy": {
+    "title": "Politique de Confidentialité",
+    "subtitle": "Protéger vos données personnelles est notre priorité. Découvrez comment nous collectons, utilisons et protégeons vos informations.",
+    "lastUpdated": "Dernière Mise à Jour: Janvier 2025",
+    "compliance": "Conformité RGPD & Droit Grec",
+    "overview": {
+      "title": "Aperçu",
+      "summary": "Protection des Données Personnelles aux Centres de Langues Étrangères ALFA",
+      "content": [
+        "Cette Politique de Confidentialité couvre la collecte et la gestion des données personnelles aux Centres de Langues Étrangères ALFA, qui fonctionnent depuis 1986.",
+        "Nous nous engageons à protéger les données personnelles des étudiants, parents et collaborateurs conformément à la législation grecque et au Règlement Général sur la Protection des Données (RGPD).",
+        "Notre politique est entièrement conforme à la Loi 4624/2019 et aux dispositions du RGPD."
+      ]
+    },
+    "collection": {
+      "title": "Collecte de Données",
+      "summary": "Quelles données nous collectons et pourquoi",
+      "content": [
+        "Nous collectons des données personnelles telles que noms, âges, numéros de téléphone, adresses email et domiciles à des fins éducatives.",
+        "Les données sont collectées lors de l'inscription des étudiants et utilisées pour organiser les cours, évaluer et communiquer avec les parents.",
+        "Nous collectons également des données de présence, notes et observations de progrès pour le processus éducatif.",
+        "Les informations médicales ne sont collectées qu'avec le consentement explicite pour les allergies et besoins éducatifs spéciaux."
+      ]
+    },
+    "usage": {
+      "title": "Utilisation des Données",
+      "summary": "Comment nous utilisons vos données",
+      "content": [
+        "Les données sont utilisées pour organiser les cours, évaluer les progrès et communiquer avec les parents.",
+        "Nous informons les parents des progrès de leurs enfants par des réunions régulières et des contrôles de progrès.",
+        "Les données sont utilisées pour délivrer des certificats et préparer aux examens de certification.",
+        "Nous ne partageons pas les données avec des tiers sans consentement explicite, sauf si requis par la loi."
+      ]
+    },
+    "protection": {
+      "title": "Protection des Données",
+      "summary": "Comment nous protégeons vos données",
+      "content": [
+        "Nous utilisons des systèmes de sécurité modernes et des protections physiques pour sécuriser les données.",
+        "Les données sont stockées dans des environnements sécurisés avec accès limité uniquement au personnel autorisé.",
+        "Nous mettons en œuvre les mesures techniques et organisationnelles nécessaires pour la protection de la vie privée selon les exigences du RGPD.",
+        "Tout le personnel a signé des accords de confidentialité et participe à des séminaires réguliers sur la protection des données."
+      ]
+    },
+    "rights": {
+      "title": "Vos Droits",
+      "summary": "Vos droits concernant les données personnelles",
+      "content": [
+        "Vous avez le droit de demander l'accès à vos données et des informations sur leur traitement.",
+        "Vous pouvez demander la correction, mise à jour ou suppression de données inexactes ou plus nécessaires.",
+        "Vous avez le droit de retirer votre consentement à tout moment et demander la restriction du traitement.",
+        "Vous pouvez demander le transfert de vos données vers une autre entité de traitement."
+      ]
+    },
+    "retention": {
+      "title": "Conservation des Données",
+      "summary": "Combien de temps nous conservons les données",
+      "content": [
+        "Les données éducatives sont conservées tant que l'étudiant suit les cours et pendant 5 ans après l'obtention du diplôme.",
+        "Les données de communication sont conservées pendant 3 ans depuis le dernier contact.",
+        "Les données requises par la loi sont conservées selon les exigences légales.",
+        "Après l'expiration de la période de conservation, les données sont supprimées de manière sécurisée."
+      ]
+    },
+    "importantNotice": "Avis Important",
+    "importantText": "Cette politique de confidentialité peut être mise à jour périodiquement pour se conformer aux développements législatifs.",
+    "contact": "Contactez-nous",
+    "contactText": "Pour les demandes de protection des données:"
+  },
+  "terms": {
+    "title": "Conditions d'Utilisation",
+    "subtitle": "Lisez attentivement les conditions de participation et de coopération aux Centres de Langues Étrangères ALFA.",
+    "lastUpdated": "Dernière Mise à Jour: Janvier 2025",
+    "compliance": "Validité Légale et Nature Contraignante",
+    "overview": {
+      "title": "Conditions Générales",
+      "summary": "Règles opérationnelles de base",
+      "content": [
+        "Ces conditions régissent votre participation aux programmes des Centres de Langues Étrangères ALFA, qui fonctionnent depuis 1986.",
+        "En vous inscrivant, vous acceptez pleinement ces conditions et les règlements opérationnels de l'école.",
+        "Nous nous réservons le droit de modifier ces conditions, avec notification préalable aux parents et étudiants."
+      ]
+    },
+    "registration": {
+      "title": "Inscription et Participation",
+      "summary": "Conditions et processus d'inscription",
+      "content": [
+        "L'inscription commence le 1er septembre pour les nouveaux étudiants, pour les étudiants existants à la fin de chaque année académique.",
+        "Sécuriser une place dans la classe préférée n'est possible qu'avec le paiement des frais d'inscription.",
+        "Documents d'inscription requis: Formulaire d'inscription, preuve de paiement d'inscription.",
+        "Les frais d'inscription sécurisent la place de l'étudiant dans la classe et ne sont pas remboursables."
+      ]
+    },
+    "fees": {
+      "title": "Obligations Financières",
+      "summary": "Frais de scolarité et méthodes de paiement",
+      "content": [
+        "Les frais de scolarité sont annuels, couvrant l'année académique respective et varient selon le niveau de classe.",
+        "Les frais peuvent être payés en totalité avant mi-octobre ou en mensualités égales.",
+        "Une remise de 10% pour l'année académique actuelle est fournie pour le deuxième enfant de la même famille.",
+        "Une remise de 35% pour l'année académique actuelle est fournie pour les enfants suivant une deuxième langue."
+      ]
+    },
+    "attendance": {
+      "title": "Présence et Absences",
+      "summary": "Règles de présence en classe",
+      "content": [
+        "Aucune distinction n'est faite entre absences justifiées et non justifiées.",
+        "La présence régulière en classe est une garantie pour les progrès de l'étudiant.",
+        "Toute personne absente de classe doit notifier l'Administration.",
+        "En cas d'absences de classes importantes, des 'Heures de Bureau' sont fournies pour une aide supplémentaire."
+      ]
+    },
+    "evaluation": {
+      "title": "Évaluation et Promotion",
+      "summary": "Tests et critères de promotion",
+      "content": [
+        "Pendant l'année académique, des tests sont menés sur le matériel enseigné.",
+        "La participation aux tests est obligatoire pour tous les étudiants.",
+        "Les étudiants qui atteignent 50% du score total sont promus au niveau suivant.",
+        "Les tests sont remis aux parents lors des réunions d'information."
+      ]
+    },
+    "parentMeetings": {
+      "title": "Information Parentale",
+      "summary": "Réunions et contrôles de progrès",
+      "content": [
+        "Les parents sont invités à intervalles réguliers pour des informations sur la performance de leurs enfants.",
+        "La coopération parent-enseignant est précieuse pour les bons progrès des étudiants.",
+        "Les informations ne sont pas fournies pendant les pauses des enseignants.",
+        "Si la présence n'est pas possible, demandez un nouveau rendez-vous à l'Administration."
+      ]
+    },
+    "behavior": {
+      "title": "Comportement en Classe",
+      "summary": "Règles de comportement et discipline",
+      "content": [
+        "Les étudiants doivent arriver à l'école 2-3 minutes avant le début de la classe.",
+        "Les étudiants doivent se comporter respectueusement envers leurs camarades et enseignants.",
+        "Perturber la classe de quelque manière que ce soit est interdit.",
+        "L'Administration se réserve le droit d'expulser sans remboursement les étudiants qui se comportent de manière inappropriée de manière persistante."
+      ]
+    },
+    "importantNotice": "Avis Important",
+    "importantText": "Ces conditions sont sujettes à révision périodique. Nous recommandons des mises à jour régulières.",
+    "contact": "Contactez-nous",
+    "contactText": "Pour toute question sur les conditions:"
+  },
+  "home": {
+    "statistics": {
+      "title": "Statistiques de Succès",
+      "subtitle": "35+ années d'expérience dans l'éducation",
+      "yearsExperience": "Années d'Expérience",
+      "successfulStudents": "Étudiants Réussis",
+      "successfulExams": "Examens Réussis/An",
+      "successRate": "Taux de Réussite"
+    },
+    "services": {
+      "title": "Nos Services",
+      "subtitle": "Services éducatifs spécialisés",
+      "languageCourses": {
+        "title": "Cours de Langues",
+        "description": "Anglais, Allemand, Français, Espagnol et autres langues avec des instructeurs certifiés"
+      },
+      "examPreparation": {
+        "title": "Préparation aux Examens",
+        "description": "Préparation spécialisée pour IELTS, TOEFL, Cambridge, Goethe et autres certifications"
+      },
+      "privateLessons": {
+        "title": "Cours Particuliers",
+        "description": "Enseignement personnalisé qui s'adapte à vos besoins et objectifs"
+      }
+    },
+    "contact": {
+      "title": "Commencez votre voyage aujourd'hui",
+      "subtitle": "Contactez-nous et découvrez comment nous pouvons vous aider à atteindre vos objectifs",
+      "neaFiladelfeia": {
+        "title": "Nea Filadelfeia",
+        "phone": "+30 210 2777 725",
+        "email": "alfaschoolfiladelfeia@gmail.com"
+      },
+      "chalandri": {
+        "title": "Chalandri",
+        "phone": "+30 210 6800 708",
+        "email": "info@alfaschoolchalandri.com"
+      }
+    },
+    "whyUs": {
+      "title": "Pourquoi Choisir les Centres de Langues ALFA ?",
+      "subtitle": "Preuves de confiance et de fiabilité qui font de nous le premier choix",
+      "history": {
+        "title": "Notre Histoire",
+        "subtitle": "38 ans de présence continue dans l'éducation",
+        "content": "Depuis 1986, les Centres de Langues Étrangères ALFA offrent une éducation de qualité aux étudiants de tous âges. Notre longue expérience et notre présence continue dans le domaine de l'éducation font de nous un choix fiable pour l'apprentissage des langues.",
+        "evolution": {
+          "title": "L'Évolution",
+          "content": "Avec les bonnes études, notre expérience pédagogique, notre passion pour notre travail et notre amour pour les enfants, nous nous sommes rapidement imposés dans le domaine avec des succès continus aux examens, créant ainsi des relations de confiance avec les parents et les étudiants."
+        },
+        "expansion": {
+          "title": "1996 - L'Expansion",
+          "content": "En 1996, nous nous sommes retrouvés à Chalandri avec la même vision et la même cohérence dans la qualité de nos études, où notre présence dynamique et les distinctions continues de nos étudiants récompensent et scellent nos méthodes éducatives."
+        }
+      },
+      "centers": {
+        "title": "Nos Centres",
+        "subtitle": "Installations modernes dans des emplacements stratégiques",
+        "content": "Nos centres sont équipés d'installations modernes et sont situés dans des zones facilement accessibles pour mieux servir nos étudiants."
+      },
+      "philosophy": {
+        "title": "Notre Philosophie",
+        "quote": "Notre objectif n'est pas seulement d'acquérir un diplôme, mais l'éducation générale et l'acquisition d'une formation complète pour les enfants.",
+        "content": "La famille ALFA embrasse avec soin et intérêt personnel chaque étudiant individuellement."
+      },
+      "reasons": {
+        "title": "Vraies Raisons de Nous Choisir",
+        "qualifiedTeachers": {
+          "title": "Enseignants Qualifiés",
+          "content": "Enseignants avec diplômes universitaires et expérience qui aiment enseigner"
+        },
+        "personalizedApproach": {
+          "title": "Approche Personnalisée",
+          "content": "Chaque étudiant a des besoins différents et nous les abordons"
+        },
+        "modernMethod": {
+          "title": "Méthode Moderne",
+          "content": "Utilisation de méthodes d'enseignement modernes et de technologie"
+        },
+        "smallGroups": {
+          "title": "Petits Groupes",
+          "content": "Petits groupes pour une meilleure attention et interaction"
+        },
+        "multicultural": {
+          "title": "Environnement Multiculturel",
+          "content": "Apprentissage des langues dans un environnement multiculturel et amical"
+        },
+        "results": {
+          "title": "Résultats",
+          "content": "Étudiants qui atteignent leurs objectifs et se développent"
+        }
+      },
+      "stats": {
+        "experience": {
+          "title": "40 Ans",
+          "content": "Présence continue dans l'éducation depuis 1986"
+        },
+        "successes": {
+          "title": "1000+ Succès",
+          "content": "Étudiants qui ont atteint leurs objectifs"
+        },
+        "quality": {
+          "title": "Qualité",
+          "content": "Méthodologie d'enseignement moderne et enseignants spécialisés"
+        },
+        "family": {
+          "title": "Famille",
+          "content": "Soins personnels et attention individuelle à chaque étudiant"
+        }
+      }
+    }
+  },
+  "aboutUs": {
+    "title": "À Propos de Nous",
+    "subtitle": "Depuis 1986, les Centres de Langues Alfa offrent une éducation de haute qualité avec passion, dévouement et amour pour nos étudiants.",
+    "history": {
+      "title": "Notre Histoire",
+      "subtitle": "Un parcours de 35+ ans dans l'éducation linguistique"
+    },
+    "timeline": {
+      "1986": {
+        "title": "Fondation du premier centre",
+        "description": "Le premier centre de langues étrangères est né à Nea Filadelfia avec le désir de donner une nouvelle dimension au domaine de l'éducation qui est littéralement ravagé par l'amateurisme.",
+        "achievements": ["Fondation à Nea Filadelfia", "Nouvelle dimension dans l'éducation", "Approche professionnelle"]
+      },
+      "1996": {
+        "title": "Expansion à Chalandri",
+        "description": "Avec la même vision et cohérence dans la qualité de nos études, nous ouvrons notre deuxième centre à Chalandri, où notre présence dynamique et les distinctions continues de nos étudiants récompensent nos méthodes éducatives.",
+        "achievements": ["Expansion à Chalandri", "Présence dynamique", "Distinctions continues des étudiants"]
+      },
+      "2000-2010": {
+        "title": "Reconnaissance et développement",
+        "description": "Nous sommes reconnus par de grands organismes de certification comme l'Université Britannique UCLAN et l'ESB, tandis que nos enseignants participent aux examens de l'Institut Français.",
+        "achievements": ["Reconnaissance par UCLAN", "Partenariat avec ESB", "Examinateurs de l'Institut Français"]
+      },
+      "2010-2020": {
+        "title": "Éducation moderne",
+        "description": "Nous introduisons des tableaux interactifs, des livres électroniques et des méthodes d'enseignement modernes, tout en continuant à offrir une éducation de haute qualité.",
+        "achievements": ["Tableaux interactifs", "Livres électroniques", "Méthodes d'enseignement modernes"]
+      },
+      "today": {
+        "title": "35+ ans d'expérience",
+        "description": "Nous continuons à offrir une éducation de haute qualité avec passion, dévouement et amour pour nos étudiants, en maintenant la tradition tout en nous adaptant aux besoins modernes.",
+        "achievements": ["35+ ans d'expérience", "Milliers d'étudiants réussis", "Innovation continue"]
+      }
+    },
+    "teachers": {
+      "title": "Nos Enseignants",
+      "qualifications": {
+        "title": "Qualifications Éducatives",
+        "description": "Tous nos enseignants détiennent le diplôme T.T.C. (Teachers' Training Course) et participent à des séminaires de formation annuels."
+      },
+      "training": {
+        "title": "Formation Continue",
+        "description": "Ils participent aux séminaires et ateliers les plus modernes sur les méthodologies d'enseignement et les spécialités d'apprentissage."
+      },
+      "examiners": {
+        "title": "Examinateurs Spécialisés",
+        "description": "Nos enseignants participent aux examens oraux de l'Institut Français (IFA) et de l'Université de la Sorbonne."
+      }
+    },
+    "centers": {
+      "title": "Nos Centres",
+      "neaFiladelfeia": {
+        "name": "Nea Filadelfia",
+        "description": "Notre premier centre fondé en 1986",
+        "features": ["Salles de classe modernes", "Tableaux interactifs", "Bibliothèque", "Espace d'attente"]
+      },
+      "chalandri": {
+        "name": "Chalandri",
+        "description": "Notre deuxième centre ouvert en 1996",
+        "features": ["Salles de classe spacieuses", "Équipement moderne", "Environnement propre", "Accès facile"]
+      }
+    },
+    "services": {
+      "title": "Services",
+      "allLevels": {
+        "title": "Cours pour tous les niveaux",
+        "description": "Des enfants de 1ère et 2ème année jusqu'aux adultes"
+      },
+      "freeClasses": {
+        "title": "Cours gratuits",
+        "description": "Pour les enfants de 1ère et 2ème année"
+      },
+      "ebook": {
+        "title": "Livre électronique",
+        "description": "E-book gratuit pour tous les étudiants"
+      },
+      "reinforcement": {
+        "title": "Cours de renforcement",
+        "description": "Cours de renforcement et de révision gratuits"
+      },
+      "summer": {
+        "title": "Cours d'été",
+        "description": "Cours d'été intensifs pour réduire le temps d'étude"
+      },
+      "university": {
+        "title": "Préparation aux examens d'entrée",
+        "description": "Préparation spéciale pour les Examens d'Entrée à l'Université"
+      }
+    },
+    "faq": {
+      "title": "Questions Fréquemment Posées",
+      "whyLearn": {
+        "question": "Pourquoi apprendre une langue étrangère ?",
+        "answer": "L'apprentissage d'une langue étrangère offre de meilleures performances académiques, une pensée critique, de la vivacité et un degré plus élevé de socialisation. De plus, elle offre l'opportunité d'études universitaires à l'étranger et un avantage comparatif sur le marché du travail."
+      },
+      "age": {
+        "question": "Quel est l'âge approprié ?",
+        "answer": "Dès l'âge de deux ans environ, les enfants peuvent commencer à apprendre une langue étrangère. La période appropriée pour qu'un enfant commence à apprendre une langue étrangère est en 1ère année."
+      },
+      "classOrPrivate": {
+        "question": "Cours en groupe ou cours particuliers ?",
+        "answer": "L'apprentissage social est meilleur pour l'enfant. Le centre de langues suit un programme analytique, utilise des méthodes modernes, offre le travail d'équipe et la communication qui sont essentiels pour apprendre une langue étrangère."
+      }
+    },
+    "cta": {
+      "title": "Inscrivez-vous aujourd'hui !",
+      "subtitle": "Devenez membre de la famille Alfa et commencez votre parcours d'apprentissage des langues !",
+      "button": "Contact"
+    }
   }
 }

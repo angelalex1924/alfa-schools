@@ -9,6 +9,11 @@ service cloud.firestore {
          request.auth.token.email in ['admin@alfaschool.gr', 'angel@acronweb.gr']);
     }
     
+    // View counts collection - public read/write for analytics
+    match /viewCounts/{viewCountId} {
+      allow read, write: if true;
+    }
+    
     // Settings collection - public read, admin write
     match /settings/{settingId} {
       allow read: if true;

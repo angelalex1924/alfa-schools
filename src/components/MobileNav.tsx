@@ -25,17 +25,35 @@ import {
 
 // Custom Services Icon
 const ServicesIcon = ({ className }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" className={className}>
-    <g clipPath="url(#clip0_4418_3849)">
-      <path d="M2 13.02V15C2 20 4 22 9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M18.3801 15.2693V7.57925C18.3801 6.80926 17.7601 6.24927 17.0001 6.30927H16.9601C15.6201 6.41927 13.5901 7.10928 12.4501 7.81928L12.3401 7.88928C12.1601 7.99928 11.8501 7.99928 11.6601 7.88928L11.5001 7.78928C10.3701 7.07928 8.34012 6.40926 7.00012 6.29926C6.24012 6.23926 5.62012 6.80928 5.62012 7.56928V15.2693C5.62012 15.8793 6.1201 16.4593 6.7301 16.5293L6.9101 16.5593C8.2901 16.7393 10.4301 17.4493 11.6501 18.1193L11.6801 18.1293C11.8501 18.2293 12.1301 18.2293 12.2901 18.1293C13.5101 17.4493 15.6601 16.7493 17.0501 16.5593L17.2601 16.5293C17.8801 16.4593 18.3801 15.8893 18.3801 15.2693Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M12 8.09961V17.6596" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  <svg
+    version="1.0"
+    id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 64 64"
+    enableBackground="new 0 0 64 64"
+    xmlSpace="preserve"
+    fill="currentColor"
+    className={className}
+  >
+    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+    <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+    <g id="SVGRepo_iconCarrier">
+      <g>
+        <path fill="#F9EBB2" d="M56,62H10c-2.209,0-4-1.791-4-4s1.791-4,4-4h46V62z"></path>
+        <g>
+          <path fill="#45AAB8" d="M6,4v49.537C7.062,52.584,8.461,52,10,52h2V2H8C6.896,2,6,2.896,6,4z"></path>
+          <path fill="#45AAB8" d="M56,2H14v50h42h2v-2V4C58,2.896,57.104,2,56,2z"></path>
+        </g>
+        <g>
+          <path fill="#394240" d="M60,52V4c0-2.211-1.789-4-4-4H8C5.789,0,4,1.789,4,4v54c0,3.313,2.687,6,6,6h49c0.553,0,1-0.447,1-1 s-0.447-1-1-1h-1v-8C59.104,54,60,53.104,60,52z M6,4c0-1.104,0.896-2,2-2h4v50h-2c-1.539,0-2.938,0.584-4,1.537V4z M56,62H10 c-2.209,0-4-1.791-4-4s1.791-4,4-4h46V62z M56,52H14V2h42c1.104,0,2,0.896,2,2v46v2H56z"></path>
+          <path fill="#394240" d="M43,26H23c-0.553,0-1,0.447-1,1s0.447,1,1,1h20c0.553,0,1-0.447,1-1S43.553,26,43,26z"></path>
+          <path fill="#394240" d="M49,20H23c-0.553,0-1,0.447-1,1s0.447,1,1,1h26c0.553,0,1-0.447,1-1S49.553,20,49,20z"></path>
+          <path fill="#394240" d="M23,16h12c0.553,0,1-0.447,1-1s-0.447-1-1-1H23c-0.553,0-1,0.447-1,1S22.447,16,23,16z"></path>
+        </g>
+        <path opacity="0.2" fill="#231F20" d="M6,4v49.537C7.062,52.584,8.461,52,10,52h2V2H8C6.896,2,6,2.896,6,4z"></path>
+      </g>
     </g>
-    <defs>
-      <clipPath id="clip0_4418_3849">
-        <rect width="24" height="24" fill="white"/>
-      </clipPath>
-    </defs>
   </svg>
 )
 import { cn } from "@/lib/utils"
@@ -57,6 +75,14 @@ import { GamesIcon } from "./custom-icons"
 import { AnniversaryText } from "./AnniversaryText"
 import LanguageIcon from "./LanguageIcon"
 import { SantaIcon, ChristmasTreeIcon, ReindeerIcon, GiftBoxIcon, BellIcon } from "./ChristmasIcons"
+import HomeIcon from "./HomeIcon"
+import ArticlesIcon from "./ArticlesIcon"
+import WhyUsIcon from "./WhyUsIcon"
+import AboutUsIcon from "./AboutUsIcon"
+import ContactIcon from "./ContactIcon"
+import PrivacyIcon from "./PrivacyIcon"
+import TermsIcon from "./TermsIcon"
+import { HalloweenServicesIcon, HalloweenNewsIcon, HalloweenGamesIcon, HalloweenContactIcon } from "./HalloweenIcons"
 
 // Halloween Icons Helper
 const getHalloweenIcon = (iconType: string, className?: string) => {
@@ -380,42 +406,50 @@ const MobileNav = ({ items }: MobileNavProps) => {
     {
       label: t('navigation.home'),
       href: "/",
-      icon: isChristmasMode ? SantaIcon : isHalloweenMode ? "pumpkin" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : Home,
+      icon: isChristmasMode ? SantaIcon : isHalloweenMode ? "pumpkin" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : HomeIcon,
       color: isChristmasMode ? "bg-gradient-to-br from-red-500 to-red-600" : isHalloweenMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : isCarnivalMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isEasterMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isSummerMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : "bg-gradient-to-br from-blue-500 to-blue-600",
       hoverEffect: isChristmasMode ? "hover:shadow-red-500/20" : isHalloweenMode ? "hover:shadow-orange-500/20" : isCarnivalMode ? "hover:shadow-pink-500/20" : isEasterMode ? "hover:shadow-pink-500/20" : isSummerMode ? "hover:shadow-yellow-500/20" : "hover:shadow-blue-500/20",
     },
     {
       label: t('navigation.services'),
       href: "/services",
-      icon: isChristmasMode ? ChristmasTreeIcon : isHalloweenMode ? "witch" : isCarnivalMode ? "circus" : isEasterMode ? "egg" : isSummerMode ? "sunflower" : ServicesIcon,
+      icon: isChristmasMode ? ChristmasTreeIcon : isHalloweenMode ? HalloweenServicesIcon : isCarnivalMode ? "circus" : isEasterMode ? "egg" : isSummerMode ? "sunflower" : ServicesIcon,
       color: isChristmasMode ? "bg-gradient-to-br from-green-500 to-green-600" : isHalloweenMode ? "bg-gradient-to-br from-purple-500 to-purple-600" : isCarnivalMode ? "bg-gradient-to-br from-teal-500 to-teal-600" : isEasterMode ? "bg-gradient-to-br from-green-500 to-green-600" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : "bg-gradient-to-br from-[#c9b6e4] to-[#a78fd8]",
       hoverEffect: isChristmasMode ? "hover:shadow-green-500/20" : isHalloweenMode ? "hover:shadow-purple-500/20" : isCarnivalMode ? "hover:shadow-teal-500/20" : isEasterMode ? "hover:shadow-green-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : "hover:shadow-[#c9b6e4]/20",
     },
     {
       label: t('navigation.news'),
       href: "/articles",
-      icon: isChristmasMode ? BellIcon : isHalloweenMode ? "ghost" : isCarnivalMode ? "art" : isEasterMode ? "chick" : isSummerMode ? "beach" : Newspaper,
+      icon: isChristmasMode ? BellIcon : isHalloweenMode ? HalloweenNewsIcon : isCarnivalMode ? "art" : isEasterMode ? "chick" : isSummerMode ? "beach" : ArticlesIcon,
       color: isChristmasMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isHalloweenMode ? "bg-gradient-to-br from-amber-500 to-amber-600" : isCarnivalMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isEasterMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : "bg-gradient-to-br from-[#f78da7] to-[#f06292]",
       hoverEffect: isChristmasMode ? "hover:shadow-yellow-500/20" : isHalloweenMode ? "hover:shadow-amber-500/20" : isCarnivalMode ? "hover:shadow-yellow-500/20" : isEasterMode ? "hover:shadow-yellow-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : "hover:shadow-[#f78da7]/20",
     },
     {
       label: t('navigation.whyUs'),
       href: "/why-us",
-      icon: isChristmasMode ? ReindeerIcon : isHalloweenMode ? "bat" : isCarnivalMode ? "music" : isEasterMode ? "flower" : isSummerMode ? "wave" : Users,
+      icon: isChristmasMode ? ReindeerIcon : isHalloweenMode ? "bat" : isCarnivalMode ? "music" : isEasterMode ? "flower" : isSummerMode ? "wave" : WhyUsIcon,
       color: isChristmasMode ? "bg-gradient-to-br from-amber-600 to-amber-700" : isHalloweenMode ? "bg-gradient-to-br from-gray-600 to-gray-700" : isCarnivalMode ? "bg-gradient-to-br from-blue-500 to-blue-600" : isEasterMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isSummerMode ? "bg-gradient-to-br from-cyan-500 to-cyan-600" : "bg-gradient-to-br from-[#fabeb6] to-[#f8a5a5]",
       hoverEffect: isChristmasMode ? "hover:shadow-amber-500/20" : isHalloweenMode ? "hover:shadow-gray-500/20" : isCarnivalMode ? "hover:shadow-blue-500/20" : isEasterMode ? "hover:shadow-pink-500/20" : isSummerMode ? "hover:shadow-cyan-500/20" : "hover:shadow-[#fabeb6]/20",
     },
     {
+      label: t('navigation.aboutUs'),
+      href: "/about-us",
+      icon: isChristmasMode ? "🏫" : isHalloweenMode ? "skull" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : AboutUsIcon,
+      color: isChristmasMode ? "bg-gradient-to-br from-blue-600 to-blue-700" : isHalloweenMode ? "bg-gradient-to-br from-amber-800 to-amber-900" : isCarnivalMode ? "bg-gradient-to-br from-pink-600 to-pink-700" : isEasterMode ? "bg-gradient-to-br from-pink-600 to-pink-700" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : "bg-gradient-to-br from-blue-600 to-blue-700",
+      hoverEffect: isChristmasMode ? "hover:shadow-blue-500/20" : isHalloweenMode ? "hover:shadow-amber-500/20" : isCarnivalMode ? "hover:shadow-pink-500/20" : isEasterMode ? "hover:shadow-pink-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : "hover:shadow-blue-500/20",
+      isEmoji: isChristmasMode || isHalloweenMode || isCarnivalMode || isEasterMode || isSummerMode
+    },
+    {
       label: t('navigation.games'),
       href: "/games",
-      icon: isChristmasMode ? GiftBoxIcon : isHalloweenMode ? "spider" : isCarnivalMode ? "guitar" : isEasterMode ? "tulip" : isSummerMode ? "shell" : GamesIcon,
+      icon: isChristmasMode ? GiftBoxIcon : isHalloweenMode ? HalloweenGamesIcon : isCarnivalMode ? "guitar" : isEasterMode ? "tulip" : isSummerMode ? "shell" : GamesIcon,
       color: isChristmasMode ? "bg-gradient-to-br from-red-500 to-red-600" : isHalloweenMode ? "bg-gradient-to-br from-red-500 to-red-600" : isCarnivalMode ? "bg-gradient-to-br from-green-500 to-green-600" : isEasterMode ? "bg-gradient-to-br from-teal-500 to-teal-600" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : "bg-gradient-to-br from-[#a8e6cf] to-[#88d8a3]",
       hoverEffect: isChristmasMode ? "hover:shadow-red-500/20" : isHalloweenMode ? "hover:shadow-red-500/20" : isCarnivalMode ? "hover:shadow-green-500/20" : isEasterMode ? "hover:shadow-teal-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : "hover:shadow-[#a8e6cf]/20",
     },
     {
       label: t('navigation.contact'),
       href: "/contact",
-      icon: isHalloweenMode ? "skull" : isCarnivalMode ? "trumpet" : isEasterMode ? "butterfly" : isSummerMode ? "sunface" : Phone,
+      icon: isHalloweenMode ? HalloweenContactIcon : isCarnivalMode ? "trumpet" : isEasterMode ? "butterfly" : isSummerMode ? "sunface" : ContactIcon,
       color: isChristmasMode ? "bg-gradient-to-br from-green-500 to-green-600" : isHalloweenMode ? "bg-gradient-to-br from-gray-500 to-gray-600" : isCarnivalMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isEasterMode ? "bg-gradient-to-br from-blue-500 to-blue-600" : isSummerMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : "bg-gradient-to-br from-[#fde7dc] to-[#fad4c4]",
       hoverEffect: isChristmasMode ? "hover:shadow-green-500/20" : isHalloweenMode ? "hover:shadow-gray-500/20" : isCarnivalMode ? "hover:shadow-pink-500/20" : isEasterMode ? "hover:shadow-blue-500/20" : isSummerMode ? "hover:shadow-yellow-500/20" : "hover:shadow-[#fde7dc]/20",
     },
@@ -428,14 +462,14 @@ const MobileNav = ({ items }: MobileNavProps) => {
     {
       label: t("navigation.privacy"),
       href: "/legal/privacy-policy",
-      icon: Shield,
+      icon: PrivacyIcon,
       color: "bg-gradient-to-br from-indigo-500/20 to-blue-500/20 text-indigo-500",
       hoverEffect: "hover:shadow-indigo-500/20",
     },
     {
       label: t("navigation.terms"),
       href: "/legal/terms-of-service",
-      icon: FileText,
+      icon: TermsIcon,
       color: "bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-500",
       hoverEffect: "hover:shadow-purple-500/20",
     },
@@ -453,7 +487,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
     {
       label: t("contact.call"),
       href: "tel:+306987770734",
-      icon: Phone,
+      icon: ContactIcon,
       color: "bg-gradient-to-br from-green-500/20 to-emerald-500/20 text-green-500",
       hoverEffect: "hover:shadow-green-500/20",
     },
@@ -617,7 +651,10 @@ const MobileNav = ({ items }: MobileNavProps) => {
       {/* Logo and Hamburger Menu with refined glassmorphism and rounded corners like MEGA */}
       <motion.div
         className={cn(
-          "fixed top-4 left-4 right-4 z-50 rounded-xl transition-all duration-300",
+          "transition-all duration-500 ease-out z-50",
+          scrolled 
+            ? "fixed top-4 left-4 right-4 rounded-xl" 
+            : "fixed top-0 left-0 right-0 rounded-none",
           getMobileNavbarBackground(),
         )}
         initial={{ y: -10, opacity: 0 }}
@@ -628,39 +665,60 @@ const MobileNav = ({ items }: MobileNavProps) => {
         }}
       >
         {/* Enhanced glass effect background */}
-        <div className="absolute inset-0 overflow-hidden rounded-xl">
+        <div className={cn(
+          "absolute inset-0 overflow-hidden transition-all duration-500 ease-out",
+          scrolled ? "rounded-xl" : "rounded-none"
+        )}>
           <div className={`absolute inset-0 backdrop-blur-3xl ${isDarkMode ? 'bg-[#0f172a]/15' : 'bg-[#81a1d4]/10'}`}></div>
           <div className={`absolute inset-0 bg-gradient-to-r ${isDarkMode ? 'from-[#0f172a]/8 via-[#0f172a]/12 to-[#0f172a]/8' : 'from-[#81a1d4]/5 via-[#81a1d4]/8 to-[#81a1d4]/5'}`}></div>
           <div className="absolute inset-0 bg-white/5 backdrop-blur-2xl"></div>
           
-          {/* Σχολικές πινελιές - Notebook lines */}
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute left-0 top-0 w-full h-full" style={{
-              backgroundImage: `repeating-linear-gradient(
-                transparent,
-                transparent 20px,
-                ${isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'} 20px,
-                ${isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'} 21px
-              )`
-            }}></div>
-            {/* Κόκκινη γραμμή αριστερά */}
-            <div className={`absolute left-6 top-0 w-0.5 h-full ${isDarkMode ? 'bg-red-400/50' : 'bg-red-500/60'}`}></div>
-            
-            {/* Binder holes */}
-            <div className="absolute left-1 top-1/2 transform -translate-y-1/2 flex flex-col gap-3">
-              <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
-              <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
-              <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
-            </div>
-            
-            {/* Σχολικές πινελιές - Random ink spots */}
-            <div className="absolute top-4 right-8 w-1 h-1 bg-blue-400/30 rounded-full"></div>
-            <div className="absolute top-12 left-16 w-0.5 h-0.5 bg-gray-400/40 rounded-full"></div>
-            <div className="absolute bottom-6 right-12 w-0.5 h-0.5 bg-gray-400/40 rounded-full"></div>
-          </div>
+          {/* Christmas Snow Effect Background */}
+          {isChristmasMode ? (
+            <div 
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              style={{
+                background: `url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC4xIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC4yIi8+CiAgPC9yYWRpYWxHcmFkaWVudD4KICA8cmVjdCB4PSItNTAiIHk9Ii01MCIgd2lkdGg9IjEwMSIgaGVpZ2h0PSIxMDEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==)`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                opacity: 0.3
+              }}
+            />
+          ) : !isHalloweenMode && !isEasterMode && !isCarnivalMode && !isSummerMode ? (
+            <>
+              {/* Σχολικές πινελιές - Notebook lines - Only for normal theme */}
+              <div className="absolute inset-0 opacity-30">
+                <div className="absolute left-0 top-0 w-full h-full" style={{
+                  backgroundImage: `repeating-linear-gradient(
+                    transparent,
+                    transparent 20px,
+                    ${isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'} 20px,
+                    ${isDarkMode ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)'} 21px
+                  )`
+                }}></div>
+                {/* Κόκκινη γραμμή αριστερά */}
+                <div className={`absolute left-6 top-0 w-0.5 h-full ${isDarkMode ? 'bg-red-400/50' : 'bg-red-500/60'}`}></div>
+                
+                {/* Binder holes */}
+                <div className="absolute left-1 top-1/2 transform -translate-y-1/2 flex flex-col gap-3">
+                  <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
+                  <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
+                  <div className={`w-1 h-1 rounded-full ${isDarkMode ? 'bg-gray-400/40' : 'bg-gray-600/50'}`}></div>
+                </div>
+                
+                {/* Σχολικές πινελιές - Random ink spots */}
+                <div className="absolute top-4 right-8 w-1 h-1 bg-blue-400/30 rounded-full"></div>
+                <div className="absolute top-12 left-16 w-0.5 h-0.5 bg-gray-400/40 rounded-full"></div>
+                <div className="absolute bottom-6 right-12 w-0.5 h-0.5 bg-gray-400/40 rounded-full"></div>
+              </div>
+            </>
+          ) : null}
         </div>
         
-        <div className="flex items-center justify-between p-1 px-3 mx-auto relative z-10">
+        <div className={cn(
+          "flex items-center justify-between mx-auto relative z-10 transition-all duration-500 ease-out",
+          scrolled ? "p-1 px-3" : "p-2 px-4"
+        )}>
           <div className="flex items-center gap-2">
             <Link href={homeHref} className="flex items-center gap-2">
               <motion.div
@@ -669,7 +727,10 @@ const MobileNav = ({ items }: MobileNavProps) => {
                 transition={{ duration: 0.5, type: "spring" }}
                 className="relative overflow-hidden"
               >
-                <div className="relative w-24 h-10">
+                <div className={cn(
+                  "relative transition-all duration-500 ease-out",
+                  scrolled ? "w-24 h-10" : "w-28 h-11"
+                )}>
                   {/* Reveal Animation Container */}
                   <motion.div
                     className="absolute inset-0"
@@ -731,7 +792,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
             {/* Χριστουγεννιάτικο Δέντρο δίπλα από το logo στο Mobile */}
             {isChristmasMode && (
               <motion.div
-                className="ml-1"
+                className="-ml-1"
                 initial={{ opacity: 0, scale: 0, rotate: -180 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 0.8, delay: 1.2, type: "spring", stiffness: 200 }}
@@ -755,7 +816,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
             {/* Halloween Κολοκύθα δίπλα από το logo στο Mobile */}
             {isHalloweenMode && (
               <motion.div
-                className="ml-1"
+                className="-ml-1"
                 initial={{ opacity: 0, scale: 0, rotate: -180 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 0.8, delay: 1.2, type: "spring", stiffness: 200 }}
@@ -779,7 +840,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
             {/* Carnival Μάσκα δίπλα από το logo στο Mobile */}
             {isCarnivalMode && (
               <motion.div
-                className="ml-1"
+                className="-ml-1"
                 initial={{ opacity: 0, scale: 0, rotate: -180 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 0.8, delay: 1.2, type: "spring", stiffness: 200 }}
@@ -803,7 +864,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
             {/* Easter Λαγός δίπλα από το logo στο Mobile */}
             {isEasterMode && (
               <motion.div
-                className="ml-1"
+                className="-ml-1"
                 initial={{ opacity: 0, scale: 0, rotate: -180 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 0.8, delay: 1.2, type: "spring", stiffness: 200 }}
@@ -827,7 +888,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
             {/* Summer Ήλιος δίπλα από το logo στο Mobile */}
             {isSummerMode && (
               <motion.div
-                className="ml-1"
+                className="-ml-1"
                 initial={{ opacity: 0, scale: 0, rotate: -180 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ duration: 0.8, delay: 1.2, type: "spring", stiffness: 200 }}
@@ -867,7 +928,10 @@ const MobileNav = ({ items }: MobileNavProps) => {
           </div>
 
           {/* Theme toggle button */}
-          <div className="flex items-center gap-2">
+          <div className={cn(
+            "flex items-center gap-2 transition-all duration-500 ease-out",
+            scrolled ? "gap-2" : "gap-3"
+          )}>
             {/* Custom Language Icon for Mobile */}
             <motion.button
               className={cn(
@@ -963,47 +1027,62 @@ const MobileNav = ({ items }: MobileNavProps) => {
 
               {/* Content container with school-themed background */}
               <div className="relative h-full overflow-hidden">
-                {/* Notebook paper background */}
-                <div className="absolute inset-0 pointer-events-none">
-                  {/* Main paper background */}
-                  <div className={`absolute inset-0 ${isDarkMode ? 'bg-slate-800/20' : 'bg-white/30'}`}></div>
-                  
-                  {/* Notebook lines */}
-                  {[...Array(25)].map((_, i) => (
-                    <div
-                      key={`line-${i}`}
-                      className={`absolute w-full h-px ${
-                        isDarkMode ? 'bg-blue-300/20' : 'bg-blue-200/40'
-                      }`}
-                      style={{
-                        top: `${8 + i * 3.5}%`,
-                        left: '5%',
-                        right: '5%'
-                      }}
-                    />
-                  ))}
-                  
-                  {/* Red margin line */}
-                  <div className={`absolute left-6 top-0 bottom-0 w-px ${
-                    isDarkMode ? 'bg-red-400/40' : 'bg-red-300/60'
-                  }`}></div>
-                  
-                  {/* Holes for binder */}
-                  {[...Array(4)].map((_, i) => (
-                    <div
-                      key={`hole-${i}`}
-                      className={`absolute w-2 h-2 rounded-full border ${
-                        isDarkMode 
-                          ? 'bg-slate-600/40 border-slate-500/60' 
-                          : 'bg-blue-200/60 border-blue-300/80'
-                      }`}
-                      style={{
-                        left: '4px',
-                        top: `${15 + i * 22}%`
-                      }}
-                    />
-                  ))}
-                </div>
+                {/* Christmas Snow Effect Background */}
+                {isChristmasMode ? (
+                  <div 
+                    className="absolute inset-0 w-full h-full pointer-events-none"
+                    style={{
+                      background: `url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC4xIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMC4yIi8+CiAgPC9yYWRpYWxHcmFkaWVudD4KICA8cmVjdCB4PSItNTAiIHk9Ii01MCIgd2lkdGg9IjEwMSIgaGVpZ2h0PSIxMDEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==)`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      opacity: 0.3
+                    }}
+                  />
+                ) : !isHalloweenMode && !isEasterMode && !isCarnivalMode && !isSummerMode ? (
+                  <>
+                    {/* Notebook paper background - Only for normal theme */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      {/* Main paper background */}
+                      <div className={`absolute inset-0 ${isDarkMode ? 'bg-slate-800/20' : 'bg-white/30'}`}></div>
+                      
+                      {/* Notebook lines */}
+                      {[...Array(25)].map((_, i) => (
+                        <div
+                          key={`line-${i}`}
+                          className={`absolute w-full h-px ${
+                            isDarkMode ? 'bg-blue-300/20' : 'bg-blue-200/40'
+                          }`}
+                          style={{
+                            top: `${8 + i * 3.5}%`,
+                            left: '5%',
+                            right: '5%'
+                          }}
+                        />
+                      ))}
+                      
+                      {/* Red margin line */}
+                      <div className={`absolute left-6 top-0 bottom-0 w-px ${
+                        isDarkMode ? 'bg-red-400/40' : 'bg-red-300/60'
+                      }`}></div>
+                      
+                      {/* Holes for binder */}
+                      {[...Array(4)].map((_, i) => (
+                        <div
+                          key={`hole-${i}`}
+                          className={`absolute w-2 h-2 rounded-full border ${
+                            isDarkMode 
+                              ? 'bg-slate-600/40 border-slate-500/60' 
+                              : 'bg-blue-200/60 border-blue-300/80'
+                          }`}
+                          style={{
+                            left: '4px',
+                            top: `${15 + i * 22}%`
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </>
+                ) : null}
                 
                 {/* Βελτιωμένο gradient background με περισσότερα χρώματα */}
                 <div className="absolute inset-0 pointer-events-none">
@@ -1224,6 +1303,10 @@ const MobileNav = ({ items }: MobileNavProps) => {
                               getSummerIcon(link.icon as string, `h-7 w-7 transition-colors duration-300 leading-none ${
                                 pathname === link.href ? 'text-white' : 'text-white'
                               }`)
+                            ) : (link as any).isEmoji ? (
+                              <span className={`h-7 w-7 transition-colors duration-300 leading-none flex items-center justify-center ${
+                                pathname === link.href ? 'text-white' : 'text-white'
+                              }`}>{link.icon as string}</span>
                             ) : (
                               <link.icon className={`h-7 w-7 transition-colors duration-300 ${
                                 pathname === link.href ? 'text-white' : 'text-white'
@@ -1268,6 +1351,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                                 {link.label === t('navigation.services') && t('navigation.servicesDescription')}
                                 {link.label === t('navigation.news') && t('navigation.newsDescription')}
                                 {link.label === t('navigation.whyUs') && t('navigation.whyUsDescription')}
+                                {link.label === t('navigation.aboutUs') && t('navigation.aboutUsDescription')}
                                 {link.label === t('navigation.games') && t('navigation.gamesDescription')}
                                 {link.label === t('navigation.contact') && t('navigation.contactDescription')}
                               </p>
@@ -1346,7 +1430,11 @@ const MobileNav = ({ items }: MobileNavProps) => {
                               }}
                               transition={{ duration: 0.3, ease: "easeInOut" }}
                             >
-                              <link.icon className="h-5 w-5" />
+                              {(link as any).isEmoji ? (
+                                <span className="h-5 w-5 flex items-center justify-center">{link.icon as unknown as string}</span>
+                              ) : (
+                                <link.icon className="h-5 w-5" />
+                              )}
                             </motion.div>
                             <span className="text-sm font-medium text-gray-700 dark:text-white" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{link.label}</span>
                           </a>
@@ -1589,7 +1677,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           handleNavigation("/legal/privacy-policy")
                         }}
                       >
-                        <Shield className="h-3 w-3" />
+                        <PrivacyIcon className="h-4 w-4" />
                         <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t("navigation.privacy")}</span>
                       </motion.a>
                       <motion.a
@@ -1603,7 +1691,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           handleNavigation("/legal/terms-of-service")
                         }}
                       >
-                        <FileText className="h-3 w-3" />
+                        <TermsIcon className="h-4 w-4" />
                         <span className="text-xs font-semibold" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                            {t('navigation.terms')}
                         </span>

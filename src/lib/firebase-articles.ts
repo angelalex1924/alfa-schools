@@ -6,6 +6,7 @@ import {
   deleteDoc, 
   getDocs, 
   getDoc, 
+  setDoc,
   query, 
   orderBy, 
   where, 
@@ -362,21 +363,31 @@ export async function searchArticles(searchTerm: string): Promise<Article[]> {
   }
 }
 
-// Increment view count
+// Increment view count - using a more robust approach
 export async function incrementViewCount(articleId: string): Promise<void> {
   try {
-    const articleRef = doc(db, ARTICLES_COLLECTION, articleId);
-    const articleSnap = await getDoc(articleRef);
+    // Use a separate collection for view counts to avoid permission issues
+    const viewCountRef = doc(db, 'viewCounts', articleId);
+    const viewCountSnap = await getDoc(viewCountRef);
     
-    if (articleSnap.exists()) {
-      const currentViews = articleSnap.data().viewCount || 0;
-      await updateDoc(articleRef, {
-        viewCount: currentViews + 1
+    if (viewCountSnap.exists()) {
+      const currentViews = viewCountSnap.data().count || 0;
+      await updateDoc(viewCountRef, {
+        count: currentViews + 1,
+        lastViewed: Timestamp.now()
+      });
+    } else {
+      // Create new view count document
+      await setDoc(viewCountRef, {
+        count: 1,
+        lastViewed: Timestamp.now(),
+        articleId: articleId
       });
     }
   } catch (error) {
     console.error('Error incrementing view count:', error);
     // Don't throw error for view count increment failures
+    // This is a non-critical operation that shouldn't break the page
   }
 }
 
