@@ -19,6 +19,7 @@ import {
   FileText
 } from 'lucide-react';
 import { DashboardThemeSwitcher } from '@/components/admin/DashboardThemeSwitcher';
+import { AcronWebCloudLogo } from '@/components/acronweb-cloud-logo';
 
 export default function AdminDashboard() {
   const { user, loading, logout } = useAuth();
@@ -71,87 +72,38 @@ export default function AdminDashboard() {
       href: '/admin/articles'
     },
     {
-      title: 'Ρυθμίσεις',
-      description: 'Ρυθμίσεις συστήματος',
-      icon: Settings,
-      color: 'bg-purple-500',
-      href: '/admin/settings'
-    },
-    {
-      title: 'Αναφορές',
-      description: 'Στατιστικά και αναφορές',
-      icon: BarChart3,
-      color: 'bg-orange-500',
-      href: '/admin/reports'
+      title: 'Newsletter',
+      description: 'Διαχείριση newsletter subscribers',
+      icon: MessageSquare,
+      color: 'bg-pink-500',
+      href: '/admin/newsletter'
     }
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      {/* Modern Header */}
-      <header className="bg-white/90 backdrop-blur-2xl border-b border-white/30 shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 lg:h-20">
-            {/* Left Section - Logo & Title */}
-            <div className="flex items-center gap-3 lg:gap-4">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 rounded-xl blur-sm"></div>
-                <div className="relative bg-white/80 backdrop-blur-sm rounded-xl p-2 border border-white/40">
-                  <img 
-                    src="/alfa-logo.png" 
-                    alt="Alfa Schools Logo" 
-                    className="h-6 w-auto lg:h-8"
-                  />
-                </div>
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-lg lg:text-xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
-                  {t('admin.dashboard.title')}
-                </h1>
-              </div>
-            </div>
-            
-            {/* Right Section - User Info & Actions */}
-            <div className="flex items-center gap-2 lg:gap-4">
-              {/* User Info - Hidden on mobile */}
-              <div className="hidden md:block text-right">
-                <p className="text-sm font-semibold text-slate-800 truncate max-w-32 lg:max-w-none">
-                  {user.email}
-                </p>
-                <p className="text-xs text-slate-500 font-medium">
-                  Διαχειριστής
-                </p>
-              </div>
-
-              {/* User Avatar - Mobile */}
-              <div className="md:hidden">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm font-bold">
-                    {user.email?.charAt(0).toUpperCase()}
-                  </span>
-                </div>
-              </div>
-              
-              {/* Logout Button */}
-              <button
-                onClick={handleLogout}
-                className="group flex items-center gap-2 px-3 lg:px-4 py-2 text-sm font-medium text-slate-600 hover:text-white bg-white/60 hover:bg-gradient-to-r hover:from-red-500 hover:to-red-600 rounded-xl border border-white/40 hover:border-red-300 transition-all duration-300 shadow-sm hover:shadow-lg"
-              >
-                <LogOut className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                <span className="hidden sm:inline">{t('admin.dashboard.logout')}</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Welcome Section */}
+        {/* AcronWeb Cloud Logo */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          className="mb-8 flex justify-center"
+        >
+          <AcronWebCloudLogo 
+            size="lg" 
+            showTagline={false} 
+            animated={true} 
+          />
+        </motion.div>
+
+        {/* Welcome Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-8"
         >
           <h2 className="text-3xl font-bold text-slate-800 mb-2">

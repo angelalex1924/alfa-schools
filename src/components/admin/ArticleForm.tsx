@@ -206,7 +206,38 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
         if (article) {
           await updateArticle(article.id, articleData)
         } else {
-          await createArticle(articleData)
+          const newArticle = await createArticle(articleData)
+          
+          // Send newsletter to subscribers
+          try {
+            // Use slug instead of ID for the article URL
+            const articleSlug = formData.slug || formData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+            const articleUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://alfaschools.gr'}/articles/${articleSlug}`
+            const response = await fetch('/api/simple-newsletter', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                articleTitle: formData.title,
+                articleContent: formData.excerpt || formData.content.substring(0, 200),
+                articleImage: formData.image,
+                articleUrl: articleUrl
+              })
+            })
+            
+            if (response.ok) {
+              const result = await response.json()
+              console.log('Newsletter sent successfully:', result)
+            } else {
+              const errorData = await response.json()
+              console.error('Failed to send newsletter:', errorData)
+              console.error('Error details:', errorData.details)
+            }
+          } catch (newsletterError) {
+            console.error('Newsletter sending error:', newsletterError)
+            // Don't block the article creation if newsletter fails
+          }
         }
         router.push("/admin/articles")
       }

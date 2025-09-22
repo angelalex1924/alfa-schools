@@ -13,6 +13,7 @@ import SEOReport from "@/components/SEOReport"
 import { generateEnhancedHomepageSEO, generateComprehensiveStructuredData } from "@/lib/seo-utils"
 import { generateUltraKeywords, generateHighPriorityKeywords } from "@/lib/keyword-generator"
 import { useEffect } from "react"
+import NewsletterForm from "@/components/NewsletterForm"
 
 export default function Home() {
   const { isDarkMode } = useTheme()
@@ -496,6 +497,13 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <NewsletterForm />
         </div>
       </section>
 

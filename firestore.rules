@@ -6,7 +6,7 @@ service cloud.firestore {
       allow read: if true;
       allow write: if request.auth != null && 
         (request.auth.token.admin == true || 
-         request.auth.token.email in ['admin@alfaschool.gr', 'angel@acronweb.gr']);
+         request.auth.token.email in ['admin@acronweb.com', 'admin@alfaschools.gr']);
     }
     
     // View counts collection - public read/write for analytics
@@ -19,7 +19,7 @@ service cloud.firestore {
       allow read: if true;
       allow write: if request.auth != null && 
         (request.auth.token.admin == true || 
-         request.auth.token.email in ['admin@alfaschool.gr', 'angel@acronweb.gr']);
+         request.auth.token.email in ['admin@acronweb.com', 'admin@alfaschools.gr']);
     }
     
     // Site theme - public read, authenticated users write
@@ -33,11 +33,17 @@ service cloud.firestore {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
     
+  // Newsletter subscribers - public write for subscription, server-side read for newsletter API
+  match /newsletter_subscribers/{subscriberId} {
+    allow read: if true; // Allow server-side access for newsletter API
+    allow write: if true; // Allow public subscription
+  }
+    
     // Admin collection - admin only
     match /admin/{document=**} {
       allow read, write: if request.auth != null && 
         (request.auth.token.admin == true || 
-         request.auth.token.email in ['admin@alfaschool.gr', 'angel@acronweb.gr']);
+         request.auth.token.email in ['admin@acronweb.com', 'admin@alfaschools.gr']);
     }
     
     // Default rule - deny all other access

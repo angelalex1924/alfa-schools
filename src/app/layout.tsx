@@ -97,17 +97,17 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/alfa-bear.png', sizes: '16x16', type: 'image/png' },
-      { url: '/alfa-logo.png', sizes: '32x32', type: 'image/png' },
-      { url: '/alfa-logo.png', sizes: '192x192', type: 'image/png' },
+      { url: '/alfa-bear.png', sizes: '32x32', type: 'image/png' },
+      { url: '/alfa-bear.png', sizes: '192x192', type: 'image/png' },
     ],
     shortcut: '/alfa-bear.png',
     apple: [
-      { url: '/alfa-logo.png', sizes: '180x180', type: 'image/png' },
+      { url: '/alfa-bear.png', sizes: '180x180', type: 'image/png' },
     ],
     other: [
       {
         rel: 'mask-icon',
-        url: '/alfa-logo.png',
+        url: '/alfa-bear.png',
         color: '#4a6fa5',
       },
     ],
@@ -152,6 +152,15 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+        <link rel="icon" href="/alfa-bear.png?v=2" type="image/png" />
+        <link rel="shortcut icon" href="/alfa-bear.png?v=2" type="image/png" />
+        <link rel="apple-touch-icon" href="/alfa-bear.png?v=2" />
+        <meta name="theme-color" content="#4a6fa5" />
+        <meta name="msapplication-TileColor" content="#4a6fa5" />
+        <meta name="msapplication-TileImage" content="/alfa-bear.png?v=2" />
+        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta httpEquiv="Pragma" content="no-cache" />
+        <meta httpEquiv="Expires" content="0" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
