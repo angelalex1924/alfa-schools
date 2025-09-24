@@ -125,15 +125,19 @@ function generateEmailHTML({ articleTitle, articleContent, articleImage, article
             width: 80px;
             height: 80px;
             margin: 0 auto 20px;
-            background: white;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: #81a1d4;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+          }
+          
+          .school-logo img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
           }
           
           .school-name {
@@ -270,7 +274,9 @@ function generateEmailHTML({ articleTitle, articleContent, articleImage, article
       <body>
         <div class="email-container">
           <div class="header">
-            <div class="school-logo">🎓</div>
+            <div class="school-logo">
+              <img src="https://i.postimg.cc/0yJ9NVy1/alfa-logo.png" alt="Alfa Schools Logo" />
+            </div>
             <h1 class="school-name">Alfa Schools</h1>
             <p class="school-tagline">
               ${isGreek 

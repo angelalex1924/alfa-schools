@@ -14,6 +14,7 @@ import { AcronWebText } from './acron-web-logo';
 import StarBorder from './StarBorder';
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import { useChristmasTheme } from "@/contexts/ChristmasThemeContext";
 import { useHalloweenTheme } from "@/contexts/HalloweenThemeContext";
 import { useCarnivalTheme } from "@/contexts/CarnivalThemeContext";
@@ -21,6 +22,7 @@ import { useEasterTheme } from "@/contexts/EasterThemeContext";
 import { useSummerTheme } from "@/contexts/SummerThemeContext";
 import { CookieSettingsButton } from './cookies-settings-button';
 import { AnniversaryText } from './AnniversaryText';
+import FooterNewsletterForm from './FooterNewsletterForm';
 
 // Custom Services Icon - Same as GlowMenu
 const ServicesIcon = ({ className }: { className?: string }) => (
@@ -64,6 +66,7 @@ const tape = <svg xmlns="http://www.w3.org/2000/svg" width="95" height="80" view
 export const Component = () => {
   const currentYear = new Date().getFullYear();
   const { t, language } = useLanguage();
+  const { isDarkMode } = useTheme();
   const { isChristmasMode } = useChristmasTheme();
   const { isHalloweenMode } = useHalloweenTheme();
   const { isCarnivalMode } = useCarnivalTheme();
@@ -132,7 +135,7 @@ export const Component = () => {
 
   return (
    <footer className="my-8 px-4 max-w-7xl text-base-content mx-auto pb-20 md:pb-8">
-      <div className={`relative ${getFooterBackground()} rounded-3xl max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row justify-between items-center gap-6`}>
+      <div className={`relative ${getFooterBackground()} rounded-3xl max-w-7xl lg:max-w-8xl xl:max-w-9xl mx-auto px-4 py-10 flex flex-col md:flex-row justify-between items-center gap-6`}>
         <div className="hidden md:block absolute -top-4 -left-8 w-[80px] h-[36px] scale-75">
           {tape}
         </div>
@@ -204,7 +207,9 @@ export const Component = () => {
             </motion.div>
           </div>
           <p className='text-neutral/50 dark:text-white/70 font-medium text-base w-full md:w-full leading-tight' style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{t('footer.slogan')}</p>
+          
           </div>
+
 
           <div className='flex flex-col md:mx-4 md:flex-row gap-2 md:gap-20 items-start md:items-start'>
 
@@ -351,6 +356,82 @@ export const Component = () => {
 
         </div>
       </div>
+
+      {/* School Newsletter Section - Below Social Media */}
+      <div className="mt-6 px-4 md:px-8">
+        <div className="max-w-6xl mx-auto">
+          {/* School Notebook Paper Background */}
+          <div className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl rounded-xl shadow-lg border-2 border-blue-200/30 dark:border-blue-700/30 overflow-hidden">
+            {/* Notebook Lines Background */}
+            <div className="absolute inset-0 pointer-events-none">
+              {/* Horizontal lines - More lines for school style */}
+              {[...Array(6)].map((_, i) => (
+                <div
+                  key={`line-${i}`}
+                  className={`absolute w-full h-px ${
+                    isDarkMode ? 'bg-blue-300/15' : 'bg-blue-200/30'
+                  }`}
+                  style={{
+                    top: `${15 + i * 12}%`,
+                    left: '8%',
+                    right: '4%'
+                  }}
+                />
+              ))}
+              
+              {/* Red margin line */}
+              <div className={`absolute left-8 top-0 bottom-0 w-px ${
+                isDarkMode ? 'bg-red-400/30' : 'bg-red-300/50'
+              }`}></div>
+              
+              {/* Holes for binder - More holes */}
+              {[...Array(4)].map((_, i) => (
+                <div
+                  key={`hole-${i}`}
+                  className={`absolute w-1.5 h-1.5 rounded-full border ${
+                    isDarkMode 
+                      ? 'bg-gray-600/30 border-gray-500/50' 
+                      : 'bg-blue-200/50 border-blue-300/70'
+                  }`}
+                  style={{
+                    left: '4px',
+                    top: `${20 + i * 15}%`
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 p-3">
+              <div className="flex flex-col lg:flex-row items-center justify-between gap-3">
+                {/* School Header */}
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 rounded-full flex items-center justify-center shadow-md border border-white/30">
+                    <span className="text-white font-bold text-xs">📧</span>
+                  </div>
+                  <div>
+                    <h4 className={`text-sm font-bold ${getAccentColor()}`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                      {language === 'el' ? 'Newsletter' : 'Newsletter'}
+                    </h4>
+                    <p className="text-xs text-slate-600 dark:text-slate-400" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                      {language === 'el' 
+                        ? 'Ενημερωθείτε!' 
+                        : 'Stay updated!'
+                      }
+                    </p>
+                  </div>
+                </div>
+
+                {/* Newsletter Form - Full Width */}
+                <div className="w-full lg:w-2/3">
+                  <FooterNewsletterForm />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="my-1 px-4 md:px-8 pb-16 md:pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 text-sm text-neutral dark:text-white/70">
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-6 items-start sm:items-center w-full">
           <p className="whitespace-nowrap text-xs sm:text-sm font-medium" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>

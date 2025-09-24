@@ -436,7 +436,7 @@ function generateEmailHTML({ articleTitle, articleContent, articleImage, article
         <div class="email-container">
           <div class="header">
             <div class="school-logo">
-              <img src="https://i.postimg.cc/gk931X4j/alfa-logo.png" alt="Alfa Schools Logo" />
+              <img src="https://i.postimg.cc/0yJ9NVy1/alfa-logo.png" alt="Alfa Schools Logo" />
             </div>
             <h1 class="school-name">Alfa Schools</h1>
             <p class="school-tagline">
