@@ -212,7 +212,7 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
           try {
             // Use slug instead of ID for the article URL
             const articleSlug = formData.slug || formData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-            const articleUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://alfaschools.gr'}/articles/${articleSlug}`
+            const articleUrl = `https://www.alfaschools.gr/articles/${articleSlug}`
             const response = await fetch('/api/simple-newsletter', {
               method: 'POST',
               headers: {
@@ -237,6 +237,28 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
           } catch (newsletterError) {
             console.error('Newsletter sending error:', newsletterError)
             // Don't block the article creation if newsletter fails
+          }
+          
+          // Revalidate sitemap for new articles
+          try {
+            await fetch('/api/revalidate-sitemap', { method: 'POST' })
+            console.log('✅ Sitemap revalidated for new article')
+          } catch (error) {
+            console.log('⚠️ Sitemap revalidation failed (will update automatically in 4 hours)')
+          }
+          
+          // Submit for instant indexing
+          try {
+            const articleSlug = formData.slug || formData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+            const articleUrl = `https://www.alfaschools.gr/articles/${articleSlug}`
+            await fetch('/api/index-now', { 
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ url: articleUrl })
+            })
+            console.log('🚀 Article submitted for instant indexing')
+          } catch (error) {
+            console.log('⚠️ Instant indexing failed (will be indexed normally)')
           }
         }
         router.push("/admin/articles")

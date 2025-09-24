@@ -54,6 +54,15 @@ export default function EditArticlePage() {
     try {
       setSaving(true);
       await updateArticle(articleId, articleData);
+      
+      // Revalidate sitemap for updated articles
+      try {
+        await fetch('/api/revalidate-sitemap', { method: 'POST' })
+        console.log('✅ Sitemap revalidated for updated article')
+      } catch (error) {
+        console.log('⚠️ Sitemap revalidation failed (will update automatically in 4 hours)')
+      }
+      
       router.push('/admin/articles');
     } catch (error) {
       console.error('Error updating article:', error);

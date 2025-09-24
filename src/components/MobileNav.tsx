@@ -1700,10 +1700,82 @@ const MobileNav = ({ items }: MobileNavProps) => {
 
                     {/* Copyright */}
                     <div className="mt-4 text-center">
-                      <p className={`text-xs ${
-                        isDarkMode ? 'text-white/60' : 'text-gray-500'
-                      }`}>
-                        © {new Date().getFullYear()} {t('footer.copyright') || 'Alfa Schools. All rights reserved.'}
+                      <p className="whitespace-nowrap text-xs font-medium" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                        {(() => {
+                          const currentYear = new Date().getFullYear();
+                          const copyrightText = t('footer.copyright') || 'AcronWeb × Alfa Schools © {year} | All rights reserved';
+                          const text = Array.isArray(copyrightText) ? copyrightText[0] : copyrightText;
+                          const fullText = text.replace('{year}', currentYear.toString());
+                          
+                          // Split the text to highlight both "AcronWeb" and "Alfa Schools"
+                          const acronWebParts = fullText.split('AcronWeb');
+                          if (acronWebParts.length === 2) {
+                            const afterAcronWeb = acronWebParts[1];
+                            const alfaSchoolsParts = afterAcronWeb.split('Alfa Schools');
+                            
+                            return (
+                              <>
+                                {/* AcronWeb with professional styling */}
+                                <span 
+                                  className="font-bold tracking-tight leading-none relative inline-flex items-center transition-all duration-500 ease-out antialiased subpixel-antialiased filter drop-shadow-[0_1px_3px_rgba(0,0,0,0.1)]"
+                                  style={{
+                                    fontFamily: "'Inter', 'SF Pro Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
+                                    fontWeight: 700,
+                                    letterSpacing: "-0.01em",
+                                    textShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                                    lineHeight: '1',
+                                    height: 'auto'
+                                  }}
+                                >
+                                  <div className="relative inline-flex items-baseline" style={{ lineHeight: '1', height: 'auto' }}>
+                                    {/* ACRON part */}
+                                    <span 
+                                      className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500 bg-clip-text text-transparent transition-all duration-500"
+                                      style={{ 
+                                        fontFamily: "'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif", 
+                                        fontWeight: 800, 
+                                        letterSpacing: "-0.02em", 
+                                        backgroundSize: "200% 200%", 
+                                        backgroundPosition: "0% 50%", 
+                                        textShadow: "0 2px 4px rgba(59, 130, 246, 0.15), 0 1px 2px rgba(59, 130, 246, 0.08)", 
+                                        filter: "contrast(1.1) brightness(1.02)", 
+                                        lineHeight: "1" 
+                                      }}
+                                    >
+                                      ACRON
+                                    </span>
+                                    {/* WEB part */}
+                                    <span 
+                                      className="bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-slate-50 dark:via-white dark:to-slate-100 bg-clip-text text-transparent transition-all duration-500"
+                                      style={{ 
+                                        fontFamily: "'Geogola', 'Gegola DEMO', 'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif", 
+                                        fontWeight: 800, 
+                                        letterSpacing: "-0.02em", 
+                                        backgroundSize: "200% 200%", 
+                                        backgroundPosition: "0% 50%", 
+                                        textShadow: "0 2px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05)", 
+                                        filter: "contrast(1.1) brightness(1.02)", 
+                                        lineHeight: "1" 
+                                      }}
+                                    >
+                                      WEB
+                                    </span>
+                                  </div>
+                                </span>
+                                
+                                {/* Text between AcronWeb and Alfa Schools */}
+                                {alfaSchoolsParts[0]}
+                                
+                                {/* Alfa Schools with blue accent color */}
+                                <span className={`${getMobileNavAccentColor()} font-semibold`}>Alfa Schools</span>
+                                
+                                {/* Rest of the text after Alfa Schools */}
+                                {alfaSchoolsParts[1]}
+                              </>
+                            );
+                          }
+                          return fullText;
+                        })()}
                       </p>
                     </div>
                   </motion.div>

@@ -1,8 +1,11 @@
 import { MetadataRoute } from 'next'
-import { getArticles } from '@/lib/firebase-articles'
+import { fetchAllArticlesForSitemap, getAllArticleTags } from '@/lib/server-sitemap'
+
+// Cache configuration for faster updates - every 4 hours
+export const revalidate = 14400 // 4 hours in seconds (4 * 60 * 60)
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alfaschools.gr'
+  const baseUrl = 'https://www.alfaschools.gr'
   
   // ULTRA-COMPREHENSIVE STATIC PAGES - COVERING ALL POSSIBLE SEARCHES
   const staticPages = [
@@ -259,69 +262,113 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
 
-  // DYNAMIC ARTICLE PAGES WITH ENHANCED SEO
-  let articlePages: MetadataRoute.Sitemap = []
-  
+  // Get all articles from Firebase - this runs every 4 hours and fetches ALL articles
+  let articles: any[] = []
   try {
-    const { articles } = await getArticles(500) // Get more articles for comprehensive sitemap
-    
-    articlePages = articles.map((article) => {
-      // Enhanced priority calculation based on content and keywords
-      let priority = 0.6;
+    articles = await fetchAllArticlesForSitemap()
+    console.log(`📊 Article types: Breaking: ${articles.filter(a => a.breaking).length}, Featured: ${articles.filter(a => a.featured).length}, Total: ${articles.length}`)
+  } catch (error) {
+    console.error('❌ Error fetching articles for sitemap:', error)
+  }
+
+  // Create article pages
+  const articlePages = articles
+    .filter((article) => article.slug) // Filter out articles without slugs first
+    .map((article) => {
+      // Calculate priority based on article properties
+      let priority = 0.7 // Default priority
       
-      // Boost priority for language-related content
-      if (article.title.toLowerCase().includes('αγγλικά') || 
-          article.title.toLowerCase().includes('english')) priority = 0.8;
-      if (article.title.toLowerCase().includes('γαλλικά') || 
-          article.title.toLowerCase().includes('french')) priority = 0.8;
-      if (article.title.toLowerCase().includes('ielts') || 
-          article.title.toLowerCase().includes('toefl') ||
-          article.title.toLowerCase().includes('cambridge') ||
-          article.title.toLowerCase().includes('delf') ||
-          article.title.toLowerCase().includes('dalf')) priority = 0.9;
+      if (article.breaking) {
+        priority = 0.9 // Breaking news gets highest priority
+      } else if (article.featured) {
+        priority = 0.8 // Featured articles get high priority
+      } else if (article.category === "English" || article.category === "French") {
+        priority = 0.75 // Language articles get slightly higher priority
+      }
+
+      // Calculate change frequency based on content type
+      let changeFrequency: 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' = 'daily' // Default to daily for all articles
       
-      // Boost for featured and breaking content
-      if (article.featured) priority = Math.min(priority + 0.1, 0.95);
-      if (article.breaking) priority = Math.min(priority + 0.15, 1.0);
-      
-      // Calculate change frequency based on article age and type
-      const articleDate = new Date(article.date);
-      const daysSincePublished = (Date.now() - articleDate.getTime()) / (1000 * 60 * 60 * 24);
-      let changeFrequency: 'daily' | 'weekly' | 'monthly' | 'yearly' = 'monthly';
-      
-      if (daysSincePublished < 7) changeFrequency = 'daily';
-      else if (daysSincePublished < 30) changeFrequency = 'weekly';
-      else if (daysSincePublished < 365) changeFrequency = 'monthly';
-      else changeFrequency = 'yearly';
-      
+      if (article.breaking) {
+        changeFrequency = 'hourly' // Breaking news changes frequently
+      } else if (article.featured) {
+        changeFrequency = 'daily' // Featured articles change daily
+      } else {
+        changeFrequency = 'daily' // All articles get daily updates for better Google indexing
+      }
+
       return {
         url: `${baseUrl}/articles/${article.slug}`,
-        lastModified: new Date(article.updatedAt || article.date),
+        lastModified: new Date(article.updatedAt || article.date || article.publishDate),
         changeFrequency,
         priority,
       }
     })
-  } catch (error) {
-    console.error('Error fetching articles for sitemap:', error)
-  }
 
-  // DYNAMIC TAG PAGES
-  let tagPages: MetadataRoute.Sitemap = []
-  
-  try {
-    // Get unique tags from articles
-    const { articles } = await getArticles(500)
-    const uniqueTags = [...new Set(articles.flatMap(article => article.tags || []))]
+  // Create tag pages for common tags
+  const commonTags = [
+    // Language Learning
+    "αγγλικά", "english", "γαλλικά", "french", "γερμανικά", "german",
+    "ισπανικά", "spanish", "ιταλικά", "italian", "πορτογαλικά", "portuguese",
     
-    tagPages = uniqueTags.map(tag => ({
-      url: `${baseUrl}/tags/${encodeURIComponent(tag)}`,
+    // Exams & Certifications
+    "ielts", "toefl", "cambridge", "delf", "dalf", "delf", "dalf",
+    "certificate", "πιστοποίηση", "exam", "εξέταση", "test", "δοκιμασία",
+    
+    // Education & Learning
+    "education", "εκπαίδευση", "learning", "μάθηση", "teaching", "διδασκαλία",
+    "school", "σχολείο", "student", "μαθητής", "teacher", "δάσκαλος",
+    
+    // Language Skills
+    "grammar", "γραμματική", "vocabulary", "λεξιλόγιο", "pronunciation", "προφορά",
+    "conversation", "συζήτηση", "writing", "γράψιμο", "reading", "ανάγνωση",
+    "listening", "ακουστική", "speaking", "ομιλία",
+    
+    // Age Groups
+    "children", "παιδιά", "kids", "adults", "ενήλικες", "teenagers", "έφηβοι",
+    "beginners", "αρχάριοι", "intermediate", "μεσαίοι", "advanced", "προχωρημένοι",
+    
+    // Popular Topics
+    "business", "επιχειρήσεις", "travel", "ταξίδι", "culture", "πολιτισμός",
+    "technology", "τεχνολογία", "science", "επιστήμη", "art", "τέχνη",
+  ]
+
+  // Get unique tags from articles
+  const articleTags = new Set<string>()
+  articles.forEach((article) => {
+    if (article.tags && Array.isArray(article.tags)) {
+      article.tags.forEach((tag: string) => articleTags.add(tag))
+    }
+  })
+
+  // Combine common tags with article tags
+  const allTags = [...new Set([...commonTags, ...Array.from(articleTags)])]
+
+  // Create tag pages
+  const tagPages = allTags.map((tag) => {
+    // Calculate priority based on tag importance
+    let priority = 0.6 // Default tag priority
+    
+    // High priority tags
+    if (["αγγλικά", "english", "γαλλικά", "french", "ielts", "toefl"].includes(tag.toLowerCase())) {
+      priority = 0.8
+    } else if (["cambridge", "delf", "dalf", "grammar", "γραμματική"].includes(tag.toLowerCase())) {
+      priority = 0.7
+    }
+
+    // Create slug from tag
+    const tagSlug = tag.toLowerCase()
+      .replace(/[^a-z0-9α-ωάέήίόύώ]/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '')
+
+    return {
+      url: `${baseUrl}/tags/${tagSlug}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
-      priority: 0.6,
-    }))
-  } catch (error) {
-    console.error('Error fetching tags for sitemap:', error)
-  }
+      priority,
+    }
+  })
 
   // DYNAMIC GAME PAGES
   const gamePages: MetadataRoute.Sitemap = [
