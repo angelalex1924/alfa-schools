@@ -436,7 +436,7 @@ function generateEmailHTML({ articleTitle, articleContent, articleImage, article
         <div class="email-container">
           <div class="header">
             <div class="school-logo">
-              <img src="https://i.postimg.cc/0yJ9NVy1/alfa-logo.png" alt="Alfa Schools Logo" />
+              <img src="https://www.alfaschools.gr/alfa-logo.png" alt="Alfa Schools Logo" />
             </div>
             <h1 class="school-name">Alfa Schools</h1>
             <p class="school-tagline">
@@ -517,6 +517,16 @@ function generateEmailHTML({ articleTitle, articleContent, articleImage, article
               <a href="#" class="social-link">📷</a>
               <a href="#" class="social-link">🐦</a>
             </div>
+            
+            <p style="color: #94a3b8; font-size: 12px; margin: 20px 0 0;">
+              ${isGreek 
+                ? 'Αν δεν θέλετε να λαμβάνετε emails, μπορείτε να' 
+                : 'If you no longer wish to receive emails, you can'
+              } 
+              <a href="https://www.alfaschools.gr/newsletter/unsubscribe" style="color: #94a3b8; text-decoration: none; border-bottom: 1px solid #cbd5e1;">
+                ${isGreek ? 'απεγγραφείτε εδώ' : 'unsubscribe here'}
+              </a>
+            </p>
           </div>
         </div>
       </body>

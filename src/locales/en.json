@@ -750,26 +750,6 @@
     "noTags": "No tags found",
     "backToArticles": "Back to Articles"
   },
-  "notFound": {
-    "title": "Oops! Page Not Found!",
-    "subtitle": "Looks like you got lost in the school network! 😅",
-    "description": "The page you're looking for doesn't exist, but don't worry - you won't get an F in this class!",
-    "suggestions": [
-      "Maybe you typed the address wrong?",
-      "The page might have moved?",
-      "Or it simply... doesn't exist! 😅"
-    ],
-    "actions": {
-      "goHome": "🏠 Back to Home",
-      "goBack": "⬅️ Go Back",
-      "contact": "📞 Contact Us"
-    },
-    "funFacts": [
-      "404 comes from the room number where the first web server was located!",
-      "In English it's called 'Not Found' - meaning 'Not Found'!",
-      "Most users get lost on the internet every day! 😄"
-    ]
-  },
   "home": {
     "statistics": {
       "title": "Success Statistics",
@@ -991,5 +971,48 @@
       "subtitle": "Become a member of the Alfa family and start your language learning journey!",
       "button": "Contact"
     }
+  },
+  "unsubscribe": {
+    "title": "Unsubscribe from Newsletter",
+    "subtitle": "Enter your email to unsubscribe from Alfa Schools newsletter",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "Email address...",
+    "button": "Unsubscribe from Newsletter",
+    "processing": "Unsubscribing...",
+    "success": "Successfully unsubscribed from newsletter!",
+    "error": "An error occurred during unsubscription.",
+    "networkError": "An error occurred during unsubscription. Please try again.",
+    "successTitle": "Successful Unsubscription!",
+    "errorTitle": "Error",
+    "newUnsubscribe": "New Unsubscription",
+    "homePage": "Home Page",
+    "resubscribe": "If you want to subscribe to the newsletter again, you can do so from the"
+  },
+  "notFound": {
+    "title": "Oops! Page not found!",
+    "subtitle": "It seems you got lost in the school internet! 😅",
+    "description": "The page you're looking for doesn't exist, but don't worry - you won't get an F in class!",
+    "suggestions": {
+      "title": "💡 Some ideas:",
+      "items": [
+        "Maybe you typed the address wrong?",
+        "The page might have moved;",
+        "Or it simply... doesn't exist! 😅"
+      ]
+    },
+    "buttons": {
+      "home": "Back to Home",
+      "back": "Go Back",
+      "contact": "Contact"
+    },
+    "facts": {
+      "title": "🎓 Fun facts:",
+      "items": [
+        "404 comes from the room number where the first web server was located!",
+        "In English it's called 'Not Found' - meaning 'Not Found'!",
+        "Most users get lost on the internet every day! 😄"
+      ]
+    },
+    "footer": "Alfa Schools - Together since 1986, with respect, love and dedication to learning"
   }
 }

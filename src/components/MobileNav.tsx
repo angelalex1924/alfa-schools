@@ -352,8 +352,12 @@ const MobileNav = ({ items }: MobileNavProps) => {
 
   // Handle navigation with client-side routing
   const handleNavigation = (href: string) => {
-    setIsMobileMenuOpen(false)
+    // Don't close mobile menu immediately to prevent refresh
     router.push(href)
+    // Close menu after navigation
+    setTimeout(() => {
+      setIsMobileMenuOpen(false)
+    }, 100)
   }
 
   // Optimized animation variants to prevent flickering
@@ -1229,7 +1233,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                             duration: 0.4 
                           }}
                         >
-                          <a
+                          <Link
                             href={link.href}
                             className={`group flex items-center gap-4 p-4 rounded-2xl backdrop-blur-2xl border transition-all duration-300 shadow-lg hover:shadow-2xl relative overflow-hidden mobile-nav-item ${
                               pathname === link.href
@@ -1242,12 +1246,11 @@ const MobileNav = ({ items }: MobileNavProps) => {
                               WebkitBackfaceVisibility: "hidden",
                               WebkitTransform: "translateZ(0)",
                             }}
-                            onClick={(e) => {
+                            onClick={() => {
                               if (link.href.startsWith("http")) {
                                 window.open(link.href, "_blank")
                               } else {
-                                e.preventDefault()
-                                handleNavigation(link.href)
+                                setIsMobileMenuOpen(false)
                               }
                             }}
                           >
@@ -1369,7 +1372,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                             >
                               <ChevronRight className="h-5 w-5" />
                             </motion.div>
-                          </a>
+                          </Link>
                         </motion.div>
                         )
                       })}
@@ -1407,7 +1410,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                             duration: 0.3 
                           }}
                         >
-                          <a
+                          <Link
                             href={link.href}
                             className={`flex flex-col items-center gap-2 p-3 rounded-xl ${getMobileNavCardBackground()} backdrop-blur-2xl hover:scale-[1.02] transition-all shadow-lg hover:shadow-2xl mobile-nav-item ${isDarkMode ? 'hover:shadow-[#0f172a]/50' : 'hover:shadow-[#81a1d4]/50'}`}
                             style={{
@@ -1416,9 +1419,8 @@ const MobileNav = ({ items }: MobileNavProps) => {
                               WebkitBackfaceVisibility: "hidden",
                               WebkitTransform: "translateZ(0)",
                             }}
-                            onClick={(e) => {
-                              e.preventDefault()
-                              handleNavigation(link.href)
+                            onClick={() => {
+                              setIsMobileMenuOpen(false)
                             }}
                           >
                             <motion.div
@@ -1437,7 +1439,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                               )}
                             </motion.div>
                             <span className="text-sm font-medium text-gray-700 dark:text-white" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>{link.label}</span>
-                          </a>
+                          </Link>
                         </motion.div>
                       ))}
                     </div>

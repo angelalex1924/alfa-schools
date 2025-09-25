@@ -186,29 +186,29 @@ export function LanguageSwitcher({ className, compact = false, mobile = false }:
         </h3>
         
         {/* Modern Button Design - 3 Options */}
-        <div className="flex gap-2">
+        <div className="flex gap-1.5">
           {/* Greek Option */}
           <motion.button
             className={cn(
-              "flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl cursor-pointer transition-all duration-300",
-              "border-2 shadow-lg backdrop-blur-sm",
+              "flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg cursor-pointer transition-all duration-300",
+              "border-2 shadow-md backdrop-blur-sm",
               language === 'el' 
                 ? "bg-gradient-to-r from-blue-500 to-indigo-600 border-blue-400 text-white shadow-blue-500/30" 
                 : "bg-white/80 dark:bg-gray-800/80 border-gray-200/50 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 dark:hover:border-blue-600"
             )}
             onClick={() => handleLanguageChange("el")}
-            whileHover={{ scale: 1.02, y: -2 }}
+            whileHover={{ scale: 1.02, y: -1 }}
             whileTap={{ scale: 0.98 }}
-            animate={language === 'el' ? { y: -2 } : { y: 0 }}
+            animate={language === 'el' ? { y: -1 } : { y: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
-            <GreekFlag className="w-4 h-3 rounded-sm shadow-sm" />
+            <GreekFlag className="w-3 h-2 rounded-sm shadow-sm" />
             <span className="text-sm font-medium">
               Ελληνικά
             </span>
             {language === 'el' && (
               <motion.div
-                className="w-2 h-2 bg-white rounded-full ml-1"
+                className="w-1.5 h-1.5 bg-white rounded-full ml-0.5"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.1 }}
@@ -219,25 +219,25 @@ export function LanguageSwitcher({ className, compact = false, mobile = false }:
           {/* English Option */}
           <motion.button
             className={cn(
-              "flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl cursor-pointer transition-all duration-300",
-              "border-2 shadow-lg backdrop-blur-sm",
+              "flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg cursor-pointer transition-all duration-300",
+              "border-2 shadow-md backdrop-blur-sm",
               language === 'en' 
                 ? "bg-gradient-to-r from-blue-500 to-indigo-600 border-blue-400 text-white shadow-blue-500/30" 
                 : "bg-white/80 dark:bg-gray-800/80 border-gray-200/50 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 dark:hover:border-blue-600"
             )}
             onClick={() => handleLanguageChange("en")}
-            whileHover={{ scale: 1.02, y: -2 }}
+            whileHover={{ scale: 1.02, y: -1 }}
             whileTap={{ scale: 0.98 }}
-            animate={language === 'en' ? { y: -2 } : { y: 0 }}
+            animate={language === 'en' ? { y: -1 } : { y: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
-            <UKFlag className="w-4 h-3 rounded-sm shadow-sm" />
+            <UKFlag className="w-3 h-2 rounded-sm shadow-sm" />
             <span className="text-sm font-medium">
               English
             </span>
             {language === 'en' && (
               <motion.div
-                className="w-2 h-2 bg-white rounded-full ml-1"
+                className="w-1.5 h-1.5 bg-white rounded-full ml-0.5"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.1 }}
@@ -248,25 +248,25 @@ export function LanguageSwitcher({ className, compact = false, mobile = false }:
           {/* French Option */}
           <motion.button
             className={cn(
-              "flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl cursor-pointer transition-all duration-300",
-              "border-2 shadow-lg backdrop-blur-sm",
+              "flex-1 flex items-center justify-center gap-1.5 py-2 px-2 rounded-lg cursor-pointer transition-all duration-300",
+              "border-2 shadow-md backdrop-blur-sm",
               language === 'fr' 
                 ? "bg-gradient-to-r from-blue-500 to-indigo-600 border-blue-400 text-white shadow-blue-500/30" 
                 : "bg-white/80 dark:bg-gray-800/80 border-gray-200/50 dark:border-gray-700/50 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 dark:hover:border-blue-600"
             )}
             onClick={() => handleLanguageChange("fr")}
-            whileHover={{ scale: 1.02, y: -2 }}
+            whileHover={{ scale: 1.02, y: -1 }}
             whileTap={{ scale: 0.98 }}
-            animate={language === 'fr' ? { y: -2 } : { y: 0 }}
+            animate={language === 'fr' ? { y: -1 } : { y: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
-            <FrenchFlag className="w-4 h-3 rounded-sm shadow-sm" />
+            <FrenchFlag className="w-3 h-2 rounded-sm shadow-sm" />
             <span className="text-sm font-medium">
               Français
             </span>
             {language === 'fr' && (
               <motion.div
-                className="w-2 h-2 bg-white rounded-full ml-1"
+                className="w-1.5 h-1.5 bg-white rounded-full ml-0.5"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.1 }}

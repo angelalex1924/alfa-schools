@@ -570,26 +570,6 @@
     "noTags": "Aucune étiquette trouvée",
     "backToArticles": "Retour aux Articles"
   },
-  "notFound": {
-    "title": "Oups! Page Non Trouvée!",
-    "subtitle": "Il semble que vous vous soyez perdu dans le réseau scolaire! 😅",
-    "description": "La page que vous cherchez n'existe pas, mais ne vous inquiétez pas - vous n'aurez pas un F dans cette classe!",
-    "suggestions": [
-      "Peut-être avez-vous mal tapé l'adresse?",
-      "La page a peut-être été déplacée?",
-      "Ou elle n'existe tout simplement... pas! 😅"
-    ],
-    "actions": {
-      "goHome": "🏠 Retour à l'Accueil",
-      "goBack": "⬅️ Retour",
-      "contact": "📞 Contactez-nous"
-    },
-    "funFacts": [
-      "404 vient du numéro de la salle où se trouvait le premier serveur web!",
-      "En français, on dit 'Non Trouvé' - c'est-à-dire 'Non Trouvé'!",
-      "La plupart des utilisateurs se perdent sur internet chaque jour! 😄"
-    ]
-  },
   "share": {
     "clickToShare": "Cliquez sur n'importe quel bouton pour partager l'article"
   },
@@ -987,5 +967,48 @@
       "subtitle": "Devenez membre de la famille Alfa et commencez votre parcours d'apprentissage des langues !",
       "button": "Contact"
     }
+  },
+  "unsubscribe": {
+    "title": "Désabonnement de la Newsletter",
+    "subtitle": "Entrez votre email pour vous désabonner de la newsletter d'Alfa Schools",
+    "emailLabel": "Adresse Email",
+    "emailPlaceholder": "Adresse email...",
+    "button": "Se désabonner de la Newsletter",
+    "processing": "Désabonnement...",
+    "success": "Désabonnement réussi de la newsletter !",
+    "error": "Une erreur s'est produite lors du désabonnement.",
+    "networkError": "Une erreur s'est produite lors du désabonnement. Veuillez réessayer.",
+    "successTitle": "Désabonnement Réussi !",
+    "errorTitle": "Erreur",
+    "newUnsubscribe": "Nouveau Désabonnement",
+    "homePage": "Page d'Accueil",
+    "resubscribe": "Si vous souhaitez vous réabonner à la newsletter, vous pouvez le faire depuis la"
+  },
+  "notFound": {
+    "title": "Oups ! Page non trouvée !",
+    "subtitle": "Il semble que vous vous soyez perdu sur l'internet scolaire ! 😅",
+    "description": "La page que vous cherchez n'existe pas, mais ne vous inquiétez pas - vous n'aurez pas un F en classe !",
+    "suggestions": {
+      "title": "💡 Quelques idées :",
+      "items": [
+        "Peut-être avez-vous mal tapé l'adresse ?",
+        "La page a peut-être été déplacée ;",
+        "Ou elle n'existe tout simplement... pas ! 😅"
+      ]
+    },
+    "buttons": {
+      "home": "Retour à l'Accueil",
+      "back": "Retour",
+      "contact": "Contact"
+    },
+    "facts": {
+      "title": "🎓 Faits intéressants :",
+      "items": [
+        "Le 404 vient du numéro de la salle où se trouvait le premier serveur web !",
+        "En anglais, on dit 'Not Found' - c'est-à-dire 'Non trouvé' !",
+        "La plupart des utilisateurs se perdent sur internet chaque jour ! 😄"
+      ]
+    },
+    "footer": "Alfa Schools - Ensemble depuis 1986, avec respect, amour et dévouement à l'apprentissage"
   }
 }

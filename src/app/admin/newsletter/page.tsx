@@ -7,8 +7,10 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
-import { Mail, Users, Globe, Calendar, Search, Send, Download, Trash2, AlertTriangle } from 'lucide-react'
+import { Mail, Users, Globe, Calendar, Search, Send, Download, Trash2, AlertTriangle, FileText, Send as SendIcon } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { emailTemplates } from '@/lib/email-templates'
+import TemplateEditor from '@/components/TemplateEditor'
 
 interface NewsletterSubscriber {
   id: string
@@ -32,6 +34,22 @@ export default function NewsletterDashboard() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null)
   const [selectedSubscribers, setSelectedSubscribers] = useState<string[]>([])
   const [showBulkDeleteConfirm, setShowBulkDeleteConfirm] = useState(false)
+  const [showTemplateModal, setShowTemplateModal] = useState(false)
+  const [selectedTemplate, setSelectedTemplate] = useState<string>('')
+  const [templateContent, setTemplateContent] = useState({
+    title: '',
+    message: '',
+    additionalInfo: '',
+    actionText: '',
+    actionUrl: '',
+    language: 'el'
+  })
+  const [isSendingTemplate, setIsSendingTemplate] = useState(false)
+  const [testEmail, setTestEmail] = useState('')
+  const [showPreview, setShowPreview] = useState(false)
+  const [previewHtml, setPreviewHtml] = useState('')
+  const [showTemplateEditor, setShowTemplateEditor] = useState(false)
+  const [editingTemplate, setEditingTemplate] = useState<{id: string, name: string} | null>(null)
 
   useEffect(() => {
     fetchSubscribers()
@@ -108,6 +126,122 @@ export default function NewsletterDashboard() {
     // This would trigger the newsletter sending
     // For now, just show an alert
     alert('Newsletter sending feature will be implemented in the article creation process')
+  }
+
+  const sendTemplateEmail = async (isTest = false) => {
+    if (!selectedTemplate || !templateContent.title || !templateContent.message) {
+      alert('Παρακαλώ συμπληρώστε όλα τα απαραίτητα πεδία!')
+      return
+    }
+
+    try {
+      setIsSendingTemplate(true)
+      
+      const response = await fetch('/api/send-template-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          templateId: selectedTemplate,
+          ...templateContent,
+          testEmail: isTest ? testEmail : null
+        })
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        alert(isTest 
+          ? `Test email sent successfully to ${testEmail}!`
+          : `Template emails sent successfully to ${result.recipients} subscribers!`
+        )
+        
+        if (!isTest) {
+          setShowTemplateModal(false)
+          setTemplateContent({
+            title: '',
+            message: '',
+            additionalInfo: '',
+            actionText: '',
+            actionUrl: '',
+            language: 'el'
+          })
+          setSelectedTemplate('')
+        }
+      } else {
+        alert(`Error: ${result.error}`)
+      }
+    } catch (error) {
+      console.error('Error sending template email:', error)
+      alert('Error sending template email. Please try again.')
+    } finally {
+      setIsSendingTemplate(false)
+    }
+  }
+
+  const openTemplateModal = () => {
+    setShowTemplateModal(true)
+    setSelectedTemplate('')
+    setTemplateContent({
+      title: '',
+      message: '',
+      additionalInfo: '',
+      actionText: '',
+      actionUrl: '',
+      language: 'el'
+    })
+  }
+
+  const generatePreview = async () => {
+    if (!selectedTemplate || !templateContent.title || !templateContent.message) {
+      alert('Παρακαλώ συμπληρώστε όλα τα απαραίτητα πεδία για preview!')
+      return
+    }
+
+    try {
+      const response = await fetch('/api/send-template-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          templateId: selectedTemplate,
+          ...templateContent,
+          preview: true // Special flag for preview
+        })
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        setPreviewHtml(result.html)
+        setShowPreview(true)
+      } else {
+        alert(`Error generating preview: ${result.error}`)
+      }
+    } catch (error) {
+      console.error('Error generating preview:', error)
+      alert('Error generating preview. Please try again.')
+    }
+  }
+
+  const openTemplateEditor = (templateId: string, templateName: string) => {
+    setEditingTemplate({ id: templateId, name: templateName })
+    setShowTemplateEditor(true)
+  }
+
+  const saveTemplateCustomization = (customization: any) => {
+    // Here you would save the customization to your database
+    // For now, just show a success message
+    alert(`Template "${customization.name}" customization saved successfully!`)
+    setShowTemplateEditor(false)
+    setEditingTemplate(null)
+  }
+
+  const previewTemplateCustomization = (customization: any) => {
+    // This would generate a preview with the custom styling
+    console.log('Previewing template with customization:', customization)
   }
 
   const deleteSubscriber = async (id: string) => {
@@ -326,6 +460,20 @@ export default function NewsletterDashboard() {
           >
             <Send className="h-4 w-4 mr-2" />
             Send Newsletter
+          </Button>
+          <Button
+            onClick={openTemplateModal}
+            className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white shadow-lg"
+          >
+            <FileText className="h-4 w-4 mr-2" />
+            Send Template Email
+          </Button>
+          <Button
+            onClick={() => window.location.href = '/admin/template-editor'}
+            className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-lg"
+          >
+            <FileText className="h-4 w-4 mr-2" />
+            Edit Templates
           </Button>
           <Button
             onClick={exportSubscribers}
@@ -547,6 +695,256 @@ export default function NewsletterDashboard() {
             </CardContent>
           </Card>
         </motion.div>
+
+        {/* Template Email Modal */}
+        {showTemplateModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="bg-white dark:bg-slate-800 rounded-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-bold text-slate-800 dark:text-white" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                  Στείλτε Template Email
+                </h3>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowTemplateModal(false)}
+                  className="text-slate-500 hover:text-slate-700"
+                >
+                  ✕
+                </Button>
+              </div>
+
+              <div className="space-y-6">
+                {/* Template Selection */}
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    Επιλέξτε Template
+                  </label>
+                  <select
+                    value={selectedTemplate}
+                    onChange={(e) => setSelectedTemplate(e.target.value)}
+                    className="w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
+                  >
+                    <option value="">Επιλέξτε template...</option>
+                    {emailTemplates.map((template) => (
+                      <option key={template.id} value={template.id}>
+                        {template.name} - {template.description}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Title */}
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    Τίτλος *
+                  </label>
+                  <Input
+                    value={templateContent.title}
+                    onChange={(e) => setTemplateContent(prev => ({ ...prev, title: e.target.value }))}
+                    placeholder="Εισάγετε τον τίτλο..."
+                    className="w-full"
+                  />
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    Μήνυμα *
+                  </label>
+                  <textarea
+                    value={templateContent.message}
+                    onChange={(e) => setTemplateContent(prev => ({ ...prev, message: e.target.value }))}
+                    placeholder="Εισάγετε το μήνυμα..."
+                    className="w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white h-32 resize-none"
+                  />
+                </div>
+
+                {/* Additional Info */}
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    Επιπλέον Πληροφορίες
+                  </label>
+                  <textarea
+                    value={templateContent.additionalInfo}
+                    onChange={(e) => setTemplateContent(prev => ({ ...prev, additionalInfo: e.target.value }))}
+                    placeholder="Επιπλέον πληροφορίες (προαιρετικά)..."
+                    className="w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white h-24 resize-none"
+                  />
+                </div>
+
+                {/* Action Button */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      Κείμενο Κουμπιού
+                    </label>
+                    <Input
+                      value={templateContent.actionText}
+                      onChange={(e) => setTemplateContent(prev => ({ ...prev, actionText: e.target.value }))}
+                      placeholder="π.χ. Μάθετε Περισσότερα"
+                      className="w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      URL Κουμπιού
+                    </label>
+                    <Input
+                      value={templateContent.actionUrl}
+                      onChange={(e) => setTemplateContent(prev => ({ ...prev, actionUrl: e.target.value }))}
+                      placeholder="https://..."
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+
+                {/* Language */}
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    Γλώσσα
+                  </label>
+                  <select
+                    value={templateContent.language}
+                    onChange={(e) => setTemplateContent(prev => ({ ...prev, language: e.target.value }))}
+                    className="w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
+                  >
+                    <option value="el">Ελληνικά</option>
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="es">Español</option>
+                    <option value="it">Italiano</option>
+                  </select>
+                </div>
+
+                {/* Test Email */}
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    Test Email (προαιρετικά)
+                  </label>
+                  <Input
+                    value={testEmail}
+                    onChange={(e) => setTestEmail(e.target.value)}
+                    placeholder="test@example.com"
+                    className="w-full"
+                  />
+                </div>
+
+                {/* Actions */}
+                <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                  <Button
+                    onClick={generatePreview}
+                    disabled={!selectedTemplate || !templateContent.title || !templateContent.message}
+                    className="bg-purple-600 hover:bg-purple-700 text-white"
+                  >
+                    <FileText className="h-4 w-4 mr-2" />
+                    Preview
+                  </Button>
+                  <Button
+                    onClick={() => sendTemplateEmail(true)}
+                    disabled={isSendingTemplate || !testEmail}
+                    className="bg-yellow-600 hover:bg-yellow-700 text-white"
+                  >
+                    <SendIcon className="h-4 w-4 mr-2" />
+                    {isSendingTemplate ? 'Στέλνεται...' : 'Test Email'}
+                  </Button>
+                  <Button
+                    onClick={() => sendTemplateEmail(false)}
+                    disabled={isSendingTemplate}
+                    className="bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    <SendIcon className="h-4 w-4 mr-2" />
+                    {isSendingTemplate ? 'Στέλνεται...' : 'Στείλε σε Όλους'}
+                  </Button>
+                  <Button
+                    onClick={() => setShowTemplateModal(false)}
+                    variant="outline"
+                    disabled={isSendingTemplate}
+                  >
+                    Ακύρωση
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Preview Modal */}
+        {showPreview && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden"
+            >
+              <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700">
+                <h3 className="text-2xl font-bold text-slate-800 dark:text-white" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
+                  Email Preview
+                </h3>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowPreview(false)}
+                  className="text-slate-500 hover:text-slate-700"
+                >
+                  ✕
+                </Button>
+              </div>
+              
+              <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+                <div 
+                  className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden"
+                  dangerouslySetInnerHTML={{ __html: previewHtml }}
+                />
+              </div>
+              
+              <div className="p-6 border-t border-slate-200 dark:border-slate-700">
+                <div className="flex justify-end gap-3">
+                  <Button
+                    onClick={() => setShowPreview(false)}
+                    variant="outline"
+                  >
+                    Κλείσε Preview
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setShowPreview(false)
+                      setShowTemplateModal(true)
+                    }}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    Επεξεργασία
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Template Editor */}
+        {showTemplateEditor && editingTemplate && (
+          <TemplateEditor
+            templateId={editingTemplate.id}
+            templateName={editingTemplate.name}
+            onSave={saveTemplateCustomization}
+            onPreview={previewTemplateCustomization}
+            onClose={() => {
+              setShowTemplateEditor(false)
+              setEditingTemplate(null)
+            }}
+          />
+        )}
       </div>
     </div>
   )

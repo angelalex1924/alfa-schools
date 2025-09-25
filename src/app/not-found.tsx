@@ -1,9 +1,11 @@
 "use client"
 import { useState, useEffect } from "react"
 import { useTheme } from "@/contexts/ThemeContext"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 export default function NotFound() {
   const { isDarkMode } = useTheme()
+  const { t } = useLanguage()
   const [currentEmoji, setCurrentEmoji] = useState("😅")
   const [isAnimating, setIsAnimating] = useState(false)
 
@@ -137,36 +139,32 @@ export default function NotFound() {
               </div>
               
               <h2 className="text-xl md:text-2xl lg:text-4xl font-bold text-slate-800 dark:text-white mb-3 md:mb-4" style={{ fontFamily: 'StampatelloFaceto, Comic Sans MS, cursive' }}>
-                Ουπς! Σελίδα δεν βρέθηκε!
+                {t('notFound.title') as string}
               </h2>
               
               <p className="text-base md:text-lg lg:text-xl text-slate-600 dark:text-slate-400 mb-4 md:mb-6" style={{ fontFamily: 'StampatelloFaceto, Comic Sans MS, cursive' }}>
-                Φαίνεται ότι χάθηκες στο σχολικό διαδίκτυο! 😅
+                {t('notFound.subtitle') as string}
               </p>
             </div>
 
             {/* Description */}
             <div className="mb-6 md:mb-8">
               <p className="text-sm md:text-base lg:text-lg text-slate-700 dark:text-slate-300 mb-4 md:mb-6 leading-relaxed" style={{ fontFamily: 'StampatelloFaceto, Comic Sans MS, cursive' }}>
-                Η σελίδα που ψάχνεις δεν υπάρχει, αλλά μην ανησυχείς - δεν θα πάρεις άπειρα στο μάθημα!
+                {t('notFound.description') as string}
               </p>
               
               {/* Suggestions */}
               <div className="bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-xl p-4 md:p-6 mb-4 md:mb-6 border-2 border-yellow-200/30 dark:border-yellow-700/30">
                 <h3 className="text-base md:text-lg font-bold text-slate-800 dark:text-white mb-3 md:mb-4" style={{ fontFamily: 'StampatelloFaceto, Comic Sans MS, cursive' }}>
-                  💡 Μερικές ιδέες:
+                  {t('notFound.suggestions.title') as string}
                 </h3>
                 <ul className="space-y-2 text-left">
-                  {[
-                    "Ίσως έγραψες λάθος τη διεύθυνση;",
-                    "Η σελίδα μπορεί να μετακινήθηκε;",
-                    "Ή απλά... δεν υπάρχει! 😅"
-                  ].map((suggestion, index) => (
+                  {Array.isArray(t('notFound.suggestions.items')) ? (t('notFound.suggestions.items') as string[]).map((suggestion, index) => (
                     <li key={index} className="flex items-start gap-2 text-slate-700 dark:text-slate-300" style={{ fontFamily: 'StampatelloFaceto, Comic Sans MS, cursive' }}>
                       <span className="text-yellow-500 mt-1">•</span>
                       <span>{suggestion}</span>
                     </li>
-                  ))}
+                  )) : null}
                 </ul>
               </div>
             </div>
@@ -179,7 +177,7 @@ export default function NotFound() {
                 style={{ fontFamily: 'StampatelloFaceto, Comic Sans MS, cursive' }}
               >
                 <span className="text-lg">🏠</span>
-                <span>Πίσω στην Αρχική</span>
+                <span>{t('notFound.buttons.home') as string}</span>
               </button>
 
               <button
@@ -188,7 +186,7 @@ export default function NotFound() {
                 style={{ fontFamily: 'StampatelloFaceto, Comic Sans MS, cursive' }}
               >
                 <span className="text-lg">⬅️</span>
-                <span>Πίσω</span>
+                <span>{t('notFound.buttons.back') as string}</span>
               </button>
 
               <button
@@ -197,33 +195,29 @@ export default function NotFound() {
                 style={{ fontFamily: 'StampatelloFaceto, Comic Sans MS, cursive' }}
               >
                 <span className="text-lg">📞</span>
-                <span>Επικοινωνία</span>
+                <span>{t('notFound.buttons.contact') as string}</span>
               </button>
             </div>
 
             {/* Fun Facts */}
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 md:p-6 border-2 border-blue-200/30 dark:border-blue-700/30">
               <h3 className="text-base md:text-lg font-bold text-slate-800 dark:text-white mb-3 md:mb-4" style={{ fontFamily: 'StampatelloFaceto, Comic Sans MS, cursive' }}>
-                🎓 Ενδιαφέροντα γεγονότα:
+                {t('notFound.facts.title') as string}
               </h3>
               <div className="space-y-3">
-                {[
-                  "Το 404 προέρχεται από τον αριθμό του δωματίου όπου βρισκόταν ο πρώτος web server!",
-                  "Στα αγγλικά λέγεται 'Not Found' - δηλαδή 'Δεν βρέθηκε'!",
-                  "Οι περισσότεροι χρήστες χάνονται στο διαδίκτυο κάθε μέρα! 😄"
-                ].map((fact, index) => (
+                {Array.isArray(t('notFound.facts.items')) ? (t('notFound.facts.items') as string[]).map((fact, index) => (
                   <div key={index} className="flex items-start gap-3 text-slate-700 dark:text-slate-300" style={{ fontFamily: 'StampatelloFaceto, Comic Sans MS, cursive' }}>
                     <span className="text-blue-500 mt-1 text-sm">📌</span>
                     <span className="text-sm lg:text-base">{fact}</span>
                   </div>
-                ))}
+                )) : null}
               </div>
             </div>
 
             {/* School Footer */}
             <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-blue-200/30 dark:border-blue-700/30">
               <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400" style={{ fontFamily: 'StampatelloFaceto, Comic Sans MS, cursive' }}>
-                Alfa Schools - Μαζί από το 1986, με σεβασμό, αγάπη και αφοσίωση στη μάθηση
+                {t('notFound.footer') as string}
               </p>
             </div>
           </div>
