@@ -3,8 +3,20 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('🔄 Revalidating sitemap...')
+    
     // Revalidate the sitemap
     revalidatePath('/sitemap.xml')
+    
+    // Ping Google about sitemap update
+    try {
+      await fetch('https://www.google.com/ping?sitemap=https://www.alfaschools.gr/sitemap.xml', {
+        method: 'GET'
+      })
+      console.log('✅ Google pinged about sitemap update')
+    } catch (pingError) {
+      console.log('⚠️ Google ping failed (sitemap still updated)')
+    }
     
     console.log('✅ Sitemap revalidated successfully')
     
@@ -19,7 +31,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { 
         success: false, 
-        error: 'Failed to revalidate sitemap' 
+        error: 'Failed to revalidate sitemap',
+        timestamp: new Date().toISOString()
       },
       { status: 500 }
     )

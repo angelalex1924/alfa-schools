@@ -8,6 +8,7 @@ import { slugify } from "@/lib/utils"
 import type { Article, ArticleFormData } from "@/lib/types"
 import { motion, AnimatePresence } from "framer-motion"
 import RichTextEditor from "@/components/RichTextEditor"
+import SlugSuggestions from "@/components/SlugSuggestions"
 import {
   Save,
   X,
@@ -66,7 +67,7 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
       return new Date(date.getTime() - tzoffset).toISOString().slice(0, 16)
     })(),
     viewCount: article?.viewCount || 0,
-    readingTime: article?.readingTime || 5,
+    readingTime: article?.readingTime || undefined,
     expert: article?.expert || "",
     articleImage: article?.articleImage || "",
     titleEn: article?.titleEn || "",
@@ -116,7 +117,7 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
         author: article.author || "",
         publishDate: publishDate,
         viewCount: article.viewCount || 0,
-        readingTime: article.readingTime || 5,
+        readingTime: article.readingTime || undefined,
         expert: article.expert || "",
         articleImage: article.articleImage || "",
         titleEn: article.titleEn || "",
@@ -279,7 +280,6 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
     { id: "basic", label: "Βασικές Πληροφορίες", icon: FileText },
     { id: "content", label: "Περιεχόμενο", icon: Layers },
     { id: "meta", label: "Meta & Tags", icon: Tag },
-    { id: "settings", label: "Ρυθμίσεις", icon: Star },
   ]
 
   // Category options
@@ -457,6 +457,18 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                   URL-friendly version του τίτλου. Δημιουργείται αυτόματα αλλά μπορεί να επεξεργαστεί.
                 </p>
+                
+                {/* Slug Suggestions */}
+                {formData.title && (
+                  <SlugSuggestions
+                    title={formData.title}
+                    onSlugSelect={(selectedSlug) => {
+                      setFormData(prev => ({ ...prev, slug: selectedSlug }))
+                    }}
+                    currentSlug={formData.slug}
+                    className="mt-3"
+                  />
+                )}
               </div>
             </div>
 
@@ -564,42 +576,22 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="readingTime" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Χρόνος Ανάγνωσης (λεπτά) *
-                  </label>
-                  <input
-                    id="readingTime"
-                    name="readingTime"
-                    type="number"
-                    min="1"
-                    max="60"
-                    value={formData.readingTime}
-                    onChange={handleNumberChange}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all"
-                    required
-                    placeholder="5"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="publishDate" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    <div className="flex items-center gap-1.5">
-                      <Calendar className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                      <span>Ημερομηνία Δημοσίευσης *</span>
-                    </div>
-                  </label>
-                  <input
-                    id="publishDate"
-                    name="publishDate"
-                    type="datetime-local"
-                    value={formData.publishDate}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all"
-                    required
-                  />
-                </div>
+              <div>
+                <label htmlFor="publishDate" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <div className="flex items-center gap-1.5">
+                    <Calendar className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                    <span>Ημερομηνία Δημοσίευσης *</span>
+                  </div>
+                </label>
+                <input
+                  id="publishDate"
+                  name="publishDate"
+                  type="datetime-local"
+                  value={formData.publishDate}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white transition-all"
+                  required
+                />
               </div>
             </div>
           </div>
@@ -698,79 +690,6 @@ export default function ArticleForm({ article, initialData = {}, onSubmit, onSav
           </div>
         </motion.div>
 
-        {/* Settings Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: activeSection === "settings" ? 1 : 0, y: activeSection === "settings" ? 0 : 10 }}
-          transition={{ duration: 0.2 }}
-          className={`space-y-6 ${activeSection !== "settings" ? "hidden" : ""}`}
-        >
-          <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Ρυθμίσεις Άρθρου</h3>
-
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-800 transition-colors">
-                <div className="flex items-center h-5">
-                  <input
-                    id="featured"
-                    name="featured"
-                    type="checkbox"
-                    checked={formData.featured}
-                    onChange={handleCheckboxChange}
-                    className="h-5 w-5 rounded border-gray-300 text-blue-500 focus:ring-blue-500 transition-colors"
-                  />
-                </div>
-                <div className="flex items-center gap-2">
-                  <Star className="h-5 w-5 text-amber-500" />
-                  <label htmlFor="featured" className="font-medium text-gray-700 dark:text-gray-300">
-                    Προτεινόμενο Άρθρο
-                  </label>
-                </div>
-                <p className="ml-auto text-sm text-gray-500 dark:text-gray-400">Εμφανίζεται στο carousel</p>
-              </div>
-
-              <div className="flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-800 transition-colors">
-                <div className="flex items-center h-5">
-                  <input
-                    id="breaking"
-                    name="breaking"
-                    type="checkbox"
-                    checked={formData.breaking}
-                    onChange={handleCheckboxChange}
-                    className="h-5 w-5 rounded border-gray-300 text-blue-500 focus:ring-blue-500 transition-colors"
-                  />
-                </div>
-                <div className="flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-yellow-500" />
-                  <label htmlFor="breaking" className="font-medium text-gray-700 dark:text-gray-300">
-                    Σπουδαία Νέα
-                  </label>
-                </div>
-                <p className="ml-auto text-sm text-gray-500 dark:text-gray-400">Σημειώνεται ως επείγον</p>
-              </div>
-
-              <div className="flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-800 transition-colors">
-                <div className="flex items-center h-5">
-                  <input
-                    id="showInTicker"
-                    name="showInTicker"
-                    type="checkbox"
-                    checked={formData.showInTicker}
-                    onChange={handleCheckboxChange}
-                    className="h-5 w-5 rounded border-gray-300 text-blue-500 focus:ring-blue-500 transition-colors"
-                  />
-                </div>
-                <div className="flex items-center gap-2">
-                  <Radio className="h-5 w-5 text-blue-500" />
-                  <label htmlFor="showInTicker" className="font-medium text-gray-700 dark:text-gray-300">
-                    Εμφάνιση στο News Ticker
-                  </label>
-                </div>
-                <p className="ml-auto text-sm text-gray-500 dark:text-gray-400">Εμφανίζεται στο scrolling ticker</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
 
       {/* Footer with actions */}

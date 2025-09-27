@@ -796,7 +796,7 @@ export default function ArticlePage() {
       "articleSection": article.category,
       "keywords": article.tags?.join(', ') || article.category,
       "wordCount": article.content.replace(/<[^>]*>/g, '').split(' ').length,
-      "timeRequired": `PT${article.readingTime}M`,
+      "timeRequired": article.readingTime ? `PT${article.readingTime}M` : undefined,
       "inLanguage": "el-GR"
     };
 

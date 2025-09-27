@@ -15,7 +15,7 @@ export interface Article {
   date: Date | string;
   publishDate: string;
   viewCount: number;
-  readingTime: number;
+  readingTime?: number;
   expert?: string;
   articleImage?: string;
   profilePhoto?: string; // Backward compatibility
@@ -44,7 +44,7 @@ export interface ArticleFormData {
   author?: string;
   publishDate: string;
   viewCount: number;
-  readingTime: number;
+  readingTime?: number;
   expert: string;
   articleImage: string;
   // English translations
