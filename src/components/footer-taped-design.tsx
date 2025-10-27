@@ -11,6 +11,7 @@ import WhyUsIcon from './WhyUsIcon';
 import ContactIcon from './ContactIcon';
 import Image from 'next/image';
 import { AcronWebText } from './acron-web-logo';
+import { ThemeBasedLogo } from './ThemeBasedLogo';
 import StarBorder from './StarBorder';
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -463,14 +464,32 @@ export const Component = () => {
                       <div className="relative inline-flex items-baseline" style={{ lineHeight: '1', height: 'auto' }}>
                         {/* ACRON part */}
                         <span 
-                          className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500 bg-clip-text text-transparent transition-all duration-500"
+                          className={`${
+                            isChristmasMode 
+                              ? "bg-gradient-to-br from-red-600 via-red-500 to-red-700 dark:from-red-400 dark:via-red-300 dark:to-red-500 bg-clip-text text-transparent" 
+                              : isHalloweenMode 
+                              ? "bg-gradient-to-br from-orange-600 via-orange-500 to-orange-700 dark:from-orange-400 dark:via-orange-300 dark:to-orange-500 bg-clip-text text-transparent"
+                              : isEasterMode
+                              ? "bg-gradient-to-br from-lime-600 via-lime-500 to-lime-700 dark:from-lime-400 dark:via-lime-300 dark:to-lime-500 bg-clip-text text-transparent"
+                              : isSummerMode
+                              ? "bg-gradient-to-br from-yellow-600 via-yellow-500 to-yellow-700 dark:from-yellow-400 dark:via-yellow-300 dark:to-yellow-500 bg-clip-text text-transparent"
+                              : "text-blue-400"
+                          } transition-all duration-500`}
                           style={{ 
-                            fontFamily: "'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif", 
-                            fontWeight: 800, 
+                            fontFamily: "'Quizlo', 'Paytone One', 'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif", 
+                            fontWeight: 400, 
                             letterSpacing: "-0.02em", 
                             backgroundSize: "200% 200%", 
                             backgroundPosition: "0% 50%", 
-                            textShadow: "0 2px 4px rgba(59, 130, 246, 0.15), 0 1px 2px rgba(59, 130, 246, 0.08)", 
+                            textShadow: isChristmasMode 
+                              ? "0 2px 4px rgba(220, 38, 38, 0.15), 0 1px 2px rgba(220, 38, 38, 0.08)"
+                              : isHalloweenMode 
+                              ? "0 2px 4px rgba(234, 88, 12, 0.15), 0 1px 2px rgba(234, 88, 12, 0.08)"
+                              : isEasterMode
+                              ? "0 2px 4px rgba(132, 204, 22, 0.15), 0 1px 2px rgba(132, 204, 22, 0.08)"
+                              : isSummerMode
+                              ? "0 2px 4px rgba(234, 179, 8, 0.15), 0 1px 2px rgba(234, 179, 8, 0.08)"
+                              : "0 2px 4px rgba(59, 130, 246, 0.15), 0 1px 2px rgba(59, 130, 246, 0.08)", 
                             filter: "contrast(1.1) brightness(1.02)", 
                             lineHeight: "1" 
                           }}
@@ -479,14 +498,32 @@ export const Component = () => {
                         </span>
                         {/* WEB part */}
                         <span 
-                          className="bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-slate-50 dark:via-white dark:to-slate-100 bg-clip-text text-transparent transition-all duration-500"
+                          className={`${
+                            isChristmasMode 
+                              ? "bg-gradient-to-br from-green-600 via-green-500 to-green-700 dark:from-green-400 dark:via-green-300 dark:to-green-500" 
+                              : isHalloweenMode 
+                              ? "bg-gradient-to-br from-purple-600 via-purple-500 to-purple-700 dark:from-purple-400 dark:via-purple-300 dark:to-purple-500"
+                              : isEasterMode
+                              ? "bg-gradient-to-br from-pink-600 via-pink-500 to-pink-700 dark:from-pink-400 dark:via-pink-300 dark:to-pink-500"
+                              : isSummerMode
+                              ? "bg-gradient-to-br from-orange-600 via-orange-500 to-orange-700 dark:from-orange-400 dark:via-orange-300 dark:to-orange-500"
+                              : "bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-slate-50 dark:via-white dark:to-slate-100"
+                          } bg-clip-text text-transparent transition-all duration-500`}
                           style={{ 
                             fontFamily: "'Geogola', 'Gegola DEMO', 'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif", 
                             fontWeight: 800, 
                             letterSpacing: "-0.02em", 
                             backgroundSize: "200% 200%", 
                             backgroundPosition: "0% 50%", 
-                            textShadow: "0 2px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05)", 
+                            textShadow: isChristmasMode 
+                              ? "0 2px 4px rgba(34, 197, 94, 0.15), 0 1px 2px rgba(34, 197, 94, 0.08)"
+                              : isHalloweenMode 
+                              ? "0 2px 4px rgba(147, 51, 234, 0.15), 0 1px 2px rgba(147, 51, 234, 0.08)"
+                              : isEasterMode
+                              ? "0 2px 4px rgba(219, 39, 119, 0.15), 0 1px 2px rgba(219, 39, 119, 0.08)"
+                              : isSummerMode
+                              ? "0 2px 4px rgba(234, 88, 12, 0.15), 0 1px 2px rgba(234, 88, 12, 0.08)"
+                              : "0 2px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05)", 
                             filter: "contrast(1.1) brightness(1.02)", 
                             lineHeight: "1" 
                           }}
@@ -529,34 +566,13 @@ export const Component = () => {
               <span className="text-xs text-gray-500 dark:text-white/60 font-medium whitespace-nowrap">{t('footer.poweredBy') || 'Powered and Developed by'}</span>
               <div className="w-px h-3 bg-gray-300 dark:bg-white/40"></div>
               <div className="flex items-center gap-1">
-                {/* Website Icon SVG */}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" className="h-3 w-3">
-                  <defs>
-                    <linearGradient id="blueGradientLight" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#0284c7" />
-                      <stop offset="50%" stopColor="#0ea5e9" />
-                      <stop offset="100%" stopColor="#38bdf8" />
-                    </linearGradient>
-                    <linearGradient id="blueGradientDark" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#38bdf8" />
-                      <stop offset="50%" stopColor="#0ea5e9" />
-                      <stop offset="100%" stopColor="#0369a1" />
-                    </linearGradient>
-                  </defs>
-                  <g id="logogram" transform="translate(0, 0) rotate(0)">
-                    <path 
-                      fillRule="evenodd" 
-                      clipRule="evenodd" 
-                      d="M20.9053 40.0799C31.951 40.0799 40.9053 31.1256 40.9053 20.0799C40.9053 9.03427 31.951 0.0799561 20.9053 0.0799561C9.85956 0.0799561 0.905273 9.03427 0.905273 20.0799C0.905273 31.1256 9.85956 40.0799 20.9053 40.0799ZM27.1446 9.3968C27.4483 8.31801 26.4014 7.68008 25.4453 8.36125L12.0984 17.8695C11.0615 18.6082 11.2246 20.0799 12.3434 20.0799H15.858V20.0527H22.7078L17.1265 22.022L14.666 30.7631C14.3623 31.8419 15.4091 32.4798 16.3653 31.7986L29.7122 22.2904C30.7491 21.5517 30.5859 20.0799 29.4672 20.0799H24.1374L27.1446 9.3968Z" 
-                      className="fill-[url(#blueGradientLight)] dark:fill-[url(#blueGradientDark)]"
-                    />
-                  </g>
-                </svg>
-                <AcronWebText 
-                  size="xs" 
-                  animated={false} 
-                  className="[&_h1]:!text-[10px] opacity-80 hover:opacity-100 transition-opacity duration-200" 
-                />
+                {/* Theme-based Website Icon */}
+                <ThemeBasedLogo className="h-3 w-3" />
+         <AcronWebText
+           size="xs"
+           animated={false}
+           className="[&_h1]:!text-[10px] opacity-80 hover:opacity-100 transition-opacity duration-200 [&_span]:!inline [&_span]:!align-baseline [&_span:last-child]:!transform-none [&_span:last-child]:!translate-y-0 [&_span:last-child]:!text-[11px]"
+         />
               </div>
             </div>
           </StarBorder>

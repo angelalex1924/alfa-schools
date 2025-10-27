@@ -19,15 +19,29 @@ import type { Article, ArticleFormData } from './types';
 
 const ARTICLES_COLLECTION = 'articles';
 
+// Helper function to remove undefined values
+function removeUndefinedFields(obj: any): any {
+  const cleaned: any = {};
+  Object.keys(obj).forEach(key => {
+    if (obj[key] !== undefined) {
+      cleaned[key] = obj[key];
+    }
+  });
+  return cleaned;
+}
+
 // Create a new article
 export async function createArticle(articleData: ArticleFormData): Promise<string> {
   try {
-    const docRef = await addDoc(collection(db, ARTICLES_COLLECTION), {
+    // Remove undefined fields before saving to Firestore
+    const cleanedData = removeUndefinedFields({
       ...articleData,
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
       date: Timestamp.fromDate(new Date(articleData.publishDate)),
     });
+    
+    const docRef = await addDoc(collection(db, ARTICLES_COLLECTION), cleanedData);
     return docRef.id;
   } catch (error) {
     console.error('Error creating article:', error);
@@ -39,11 +53,15 @@ export async function createArticle(articleData: ArticleFormData): Promise<strin
 export async function updateArticle(articleId: string, articleData: Partial<ArticleFormData>): Promise<void> {
   try {
     const articleRef = doc(db, ARTICLES_COLLECTION, articleId);
-    await updateDoc(articleRef, {
+    
+    // Remove undefined fields before updating
+    const cleanedData = removeUndefinedFields({
       ...articleData,
       updatedAt: Timestamp.now(),
       date: articleData.publishDate ? Timestamp.fromDate(new Date(articleData.publishDate)) : undefined,
     });
+    
+    await updateDoc(articleRef, cleanedData);
   } catch (error) {
     console.error('Error updating article:', error);
     throw new Error('Failed to update article');

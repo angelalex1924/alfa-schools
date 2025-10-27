@@ -2,6 +2,10 @@
 
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { useChristmasTheme } from "@/contexts/ChristmasThemeContext"
+import { useHalloweenTheme } from "@/contexts/HalloweenThemeContext"
+import { useEasterTheme } from "@/contexts/EasterThemeContext"
+import { useSummerTheme } from "@/contexts/SummerThemeContext"
 
 // Import Geogola font
 import "@/app/globals.css"
@@ -43,6 +47,10 @@ export const AcronWebLogo = ({
   variant = "horizontal",
   ...props 
 }) => {
+  const { isChristmasMode } = useChristmasTheme()
+  const { isHalloweenMode } = useHalloweenTheme()
+  const { isEasterMode } = useEasterTheme()
+  const { isSummerMode } = useSummerTheme()
   const sizeClasses = {
     xxxxs: {
       icon: "h-3 w-3",
@@ -215,16 +223,34 @@ export const AcronWebLogo = ({
           }}
         >
           <div className="relative inline-flex items-center" style={{ lineHeight: '1', height: 'auto' }}>
-            {/* ACRON - Blue Color */}
+            {/* ACRON - Theme-based Color */}
             <span 
-              className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500 bg-clip-text text-transparent group-hover:from-blue-700 group-hover:via-blue-600 group-hover:to-blue-800 dark:group-hover:from-blue-300 dark:group-hover:via-blue-200 dark:group-hover:to-blue-400 transition-all duration-500"
+              className={`${
+                isChristmasMode 
+                  ? "bg-gradient-to-br from-red-600 via-red-500 to-red-700 dark:from-red-400 dark:via-red-300 dark:to-red-500 group-hover:from-red-700 group-hover:via-red-600 group-hover:to-red-800 dark:group-hover:from-red-300 dark:group-hover:via-red-200 dark:group-hover:to-red-400 bg-clip-text text-transparent" 
+                  : isHalloweenMode 
+                  ? "bg-gradient-to-br from-orange-600 via-orange-500 to-orange-700 dark:from-orange-400 dark:via-orange-300 dark:to-orange-500 group-hover:from-orange-700 group-hover:via-orange-600 group-hover:to-orange-800 dark:group-hover:from-orange-300 dark:group-hover:via-orange-200 dark:group-hover:to-orange-400 bg-clip-text text-transparent"
+                  : isEasterMode
+                  ? "bg-gradient-to-br from-lime-600 via-lime-500 to-lime-700 dark:from-lime-400 dark:via-lime-300 dark:to-lime-500 group-hover:from-lime-700 group-hover:via-lime-600 group-hover:to-lime-800 dark:group-hover:from-lime-300 dark:group-hover:via-lime-200 dark:group-hover:to-lime-400 bg-clip-text text-transparent"
+                  : isSummerMode
+                  ? "bg-gradient-to-br from-yellow-600 via-yellow-500 to-yellow-700 dark:from-yellow-400 dark:via-yellow-300 dark:to-yellow-500 group-hover:from-yellow-700 group-hover:via-yellow-600 group-hover:to-yellow-800 dark:group-hover:from-yellow-300 dark:group-hover:via-yellow-200 dark:group-hover:to-yellow-400 bg-clip-text text-transparent"
+                  : "text-blue-400 group-hover:text-blue-500"
+              } transition-all duration-500`}
               style={{
-                fontFamily: "'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
-                fontWeight: 800,
+                fontFamily: "'Quizlo', 'Paytone One', 'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
+                fontWeight: 400,
                 letterSpacing: "-0.02em",
                 backgroundSize: "200% 200%",
                 backgroundPosition: "0% 50%",
-                textShadow: "0 2px 4px rgba(59, 130, 246, 0.15), 0 1px 2px rgba(59, 130, 246, 0.08)",
+                textShadow: isChristmasMode 
+                  ? "0 2px 4px rgba(220, 38, 38, 0.15), 0 1px 2px rgba(220, 38, 38, 0.08)"
+                  : isHalloweenMode 
+                  ? "0 2px 4px rgba(234, 88, 12, 0.15), 0 1px 2px rgba(234, 88, 12, 0.08)"
+                  : isEasterMode
+                  ? "0 2px 4px rgba(132, 204, 22, 0.15), 0 1px 2px rgba(132, 204, 22, 0.08)"
+                  : isSummerMode
+                  ? "0 2px 4px rgba(234, 179, 8, 0.15), 0 1px 2px rgba(234, 179, 8, 0.08)"
+                  : "0 2px 4px rgba(59, 130, 246, 0.15), 0 1px 2px rgba(59, 130, 246, 0.08)",
                 filter: "contrast(1.1) brightness(1.02)",
                 lineHeight: size === "xxxxs" ? "1" : "1",
                 display: "inline-block",
@@ -234,16 +260,34 @@ export const AcronWebLogo = ({
             >
               ACRON
             </span>
-                         {/* WEB - Black/White Color */}
+                         {/* WEB - Theme-based Color */}
              <span 
-               className="bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-slate-50 dark:via-white dark:to-slate-100 bg-clip-text text-transparent group-hover:from-slate-950 group-hover:via-slate-800 group-hover:to-slate-900 dark:group-hover:from-white dark:group-hover:via-slate-50 dark:group-hover:to-slate-100 transition-all duration-500 desktop-web-align"
+               className={`${
+                 isChristmasMode 
+                   ? "bg-gradient-to-br from-green-600 via-green-500 to-green-700 dark:from-green-400 dark:via-green-300 dark:to-green-500 group-hover:from-green-700 group-hover:via-green-600 group-hover:to-green-800 dark:group-hover:from-green-300 dark:group-hover:via-green-200 dark:group-hover:to-green-400" 
+                   : isHalloweenMode 
+                   ? "bg-gradient-to-br from-purple-600 via-purple-500 to-purple-700 dark:from-purple-400 dark:via-purple-300 dark:to-purple-500 group-hover:from-purple-700 group-hover:via-purple-600 group-hover:to-purple-800 dark:group-hover:from-purple-300 dark:group-hover:via-purple-200 dark:group-hover:to-purple-400"
+                   : isEasterMode
+                   ? "bg-gradient-to-br from-pink-600 via-pink-500 to-pink-700 dark:from-pink-400 dark:via-pink-300 dark:to-pink-500 group-hover:from-pink-700 group-hover:via-pink-600 group-hover:to-pink-800 dark:group-hover:from-pink-300 dark:group-hover:via-pink-200 dark:group-hover:to-pink-400"
+                   : isSummerMode
+                   ? "bg-gradient-to-br from-orange-600 via-orange-500 to-orange-700 dark:from-orange-400 dark:via-orange-300 dark:to-orange-500 group-hover:from-orange-700 group-hover:via-orange-600 group-hover:to-orange-800 dark:group-hover:from-orange-300 dark:group-hover:via-orange-200 dark:group-hover:to-orange-400"
+                   : "bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-slate-50 dark:via-white dark:to-slate-100 group-hover:from-slate-950 group-hover:via-slate-800 group-hover:to-slate-900 dark:group-hover:from-white dark:group-hover:via-slate-50 dark:group-hover:to-slate-100"
+               } bg-clip-text text-transparent transition-all duration-500 desktop-web-align`}
                style={{
                  fontFamily: "'Geogola', 'Gegola DEMO', 'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
                  fontWeight: 800,
                  letterSpacing: "-0.02em",
                  backgroundSize: "200% 200%",
                  backgroundPosition: "0% 50%",
-                 textShadow: "0 2px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05)",
+                 textShadow: isChristmasMode 
+                   ? "0 2px 4px rgba(34, 197, 94, 0.15), 0 1px 2px rgba(34, 197, 94, 0.08)"
+                   : isHalloweenMode 
+                   ? "0 2px 4px rgba(147, 51, 234, 0.15), 0 1px 2px rgba(147, 51, 234, 0.08)"
+                   : isEasterMode
+                   ? "0 2px 4px rgba(219, 39, 119, 0.15), 0 1px 2px rgba(219, 39, 119, 0.08)"
+                   : isSummerMode
+                   ? "0 2px 4px rgba(234, 88, 12, 0.15), 0 1px 2px rgba(234, 88, 12, 0.08)"
+                   : "0 2px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05)",
                  filter: "contrast(1.1) brightness(1.02)",
                  lineHeight: size === "xxxxs" ? "1" : "1",
                  display: "inline-block",
@@ -402,6 +446,10 @@ export const AcronWebText = ({
   clickable?: boolean;
   [key: string]: any;
 }) => {
+  const { isChristmasMode } = useChristmasTheme()
+  const { isHalloweenMode } = useHalloweenTheme()
+  const { isEasterMode } = useEasterTheme()
+  const { isSummerMode } = useSummerTheme()
   const openAcronweb = () => {
     if (typeof window !== 'undefined') {
       window.open('https://www.acronweb.gr', '_blank', 'noopener,noreferrer');
@@ -500,14 +548,32 @@ export const AcronWebText = ({
           >
             {/* ACRON part */}
             <span 
-              className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500 bg-clip-text text-transparent group-hover:from-blue-700 group-hover:via-blue-600 group-hover:to-blue-800 dark:group-hover:from-blue-300 dark:group-hover:via-blue-200 dark:group-hover:to-blue-400 transition-all duration-500"
+              className={`${
+                isChristmasMode 
+                  ? "bg-gradient-to-br from-red-600 via-red-500 to-red-700 dark:from-red-400 dark:via-red-300 dark:to-red-500 group-hover:from-red-700 group-hover:via-red-600 group-hover:to-red-800 dark:group-hover:from-red-300 dark:group-hover:via-red-200 dark:group-hover:to-red-400 bg-clip-text text-transparent" 
+                  : isHalloweenMode 
+                  ? "bg-gradient-to-br from-orange-600 via-orange-500 to-orange-700 dark:from-orange-400 dark:via-orange-300 dark:to-orange-500 group-hover:from-orange-700 group-hover:via-orange-600 group-hover:to-orange-800 dark:group-hover:from-orange-300 dark:group-hover:via-orange-200 dark:group-hover:to-orange-400 bg-clip-text text-transparent"
+                  : isEasterMode
+                  ? "bg-gradient-to-br from-lime-600 via-lime-500 to-lime-700 dark:from-lime-400 dark:via-lime-300 dark:to-lime-500 group-hover:from-lime-700 group-hover:via-lime-600 group-hover:to-lime-800 dark:group-hover:from-lime-300 dark:group-hover:via-lime-200 dark:group-hover:to-lime-400 bg-clip-text text-transparent"
+                  : isSummerMode
+                  ? "bg-gradient-to-br from-yellow-600 via-yellow-500 to-yellow-700 dark:from-yellow-400 dark:via-yellow-300 dark:to-yellow-500 group-hover:from-yellow-700 group-hover:via-yellow-600 group-hover:to-yellow-800 dark:group-hover:from-yellow-300 dark:group-hover:via-yellow-200 dark:group-hover:to-yellow-400 bg-clip-text text-transparent"
+                  : "text-blue-400 group-hover:text-blue-500"
+              } transition-all duration-500`}
               style={{ 
-                fontFamily: "'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif", 
-                fontWeight: 800, 
+                fontFamily: "'Quizlo', 'Paytone One', 'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif", 
+                fontWeight: 400, 
                 letterSpacing: "-0.02em", 
                 backgroundSize: "200% 200%", 
                 backgroundPosition: "0% 50%", 
-                textShadow: "0 2px 4px rgba(59, 130, 246, 0.15), 0 1px 2px rgba(59, 130, 246, 0.08)", 
+                textShadow: isChristmasMode 
+                  ? "0 2px 4px rgba(220, 38, 38, 0.15), 0 1px 2px rgba(220, 38, 38, 0.08)"
+                  : isHalloweenMode 
+                  ? "0 2px 4px rgba(234, 88, 12, 0.15), 0 1px 2px rgba(234, 88, 12, 0.08)"
+                  : isEasterMode
+                  ? "0 2px 4px rgba(132, 204, 22, 0.15), 0 1px 2px rgba(132, 204, 22, 0.08)"
+                  : isSummerMode
+                  ? "0 2px 4px rgba(234, 179, 8, 0.15), 0 1px 2px rgba(234, 179, 8, 0.08)"
+                  : "0 2px 4px rgba(59, 130, 246, 0.15), 0 1px 2px rgba(59, 130, 246, 0.08)", 
                 filter: "contrast(1.1) brightness(1.02)", 
                 lineHeight: "1" 
               }}
@@ -516,14 +582,32 @@ export const AcronWebText = ({
             </span>
             {/* WEB part */}
             <span 
-              className="bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-slate-50 dark:via-white dark:to-slate-100 bg-clip-text text-transparent group-hover:from-slate-950 group-hover:via-slate-800 group-hover:to-slate-900 dark:group-hover:from-white dark:group-hover:via-slate-50 dark:group-hover:to-slate-100 transition-all duration-500"
+              className={`${
+                isChristmasMode 
+                  ? "bg-gradient-to-br from-green-600 via-green-500 to-green-700 dark:from-green-400 dark:via-green-300 dark:to-green-500 group-hover:from-green-700 group-hover:via-green-600 group-hover:to-green-800 dark:group-hover:from-green-300 dark:group-hover:via-green-200 dark:group-hover:to-green-400" 
+                  : isHalloweenMode 
+                  ? "bg-gradient-to-br from-purple-600 via-purple-500 to-purple-700 dark:from-purple-400 dark:via-purple-300 dark:to-purple-500 group-hover:from-purple-700 group-hover:via-purple-600 group-hover:to-purple-800 dark:group-hover:from-purple-300 dark:group-hover:via-purple-200 dark:group-hover:to-purple-400"
+                  : isEasterMode
+                  ? "bg-gradient-to-br from-pink-600 via-pink-500 to-pink-700 dark:from-pink-400 dark:via-pink-300 dark:to-pink-500 group-hover:from-pink-700 group-hover:via-pink-600 group-hover:to-pink-800 dark:group-hover:from-pink-300 dark:group-hover:via-pink-200 dark:group-hover:to-pink-400"
+                  : isSummerMode
+                  ? "bg-gradient-to-br from-orange-600 via-orange-500 to-orange-700 dark:from-orange-400 dark:via-orange-300 dark:to-orange-500 group-hover:from-orange-700 group-hover:via-orange-600 group-hover:to-orange-800 dark:group-hover:from-orange-300 dark:group-hover:via-orange-200 dark:group-hover:to-orange-400"
+                  : "bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-slate-50 dark:via-white dark:to-slate-100 group-hover:from-slate-950 group-hover:via-slate-800 group-hover:to-slate-900 dark:group-hover:from-white dark:group-hover:via-slate-50 dark:group-hover:to-slate-100"
+              } bg-clip-text text-transparent transition-all duration-500`}
               style={{ 
                 fontFamily: "'Geogola', 'Gegola DEMO', 'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif", 
                 fontWeight: 800, 
                 letterSpacing: "-0.02em", 
                 backgroundSize: "200% 200%", 
                 backgroundPosition: "0% 50%", 
-                textShadow: "0 2px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05)", 
+                textShadow: isChristmasMode 
+                  ? "0 2px 4px rgba(34, 197, 94, 0.15), 0 1px 2px rgba(34, 197, 94, 0.08)"
+                  : isHalloweenMode 
+                  ? "0 2px 4px rgba(147, 51, 234, 0.15), 0 1px 2px rgba(147, 51, 234, 0.08)"
+                  : isEasterMode
+                  ? "0 2px 4px rgba(219, 39, 119, 0.15), 0 1px 2px rgba(219, 39, 119, 0.08)"
+                  : isSummerMode
+                  ? "0 2px 4px rgba(234, 88, 12, 0.15), 0 1px 2px rgba(234, 88, 12, 0.08)"
+                  : "0 2px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05)", 
                 filter: "contrast(1.1) brightness(1.02)", 
                 lineHeight: "1" 
               }}

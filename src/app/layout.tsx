@@ -152,6 +152,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Paytone+One&display=swap" rel="stylesheet" />
         <link rel="icon" href="/alfa-bear.png?v=2" type="image/png" />
         <link rel="shortcut icon" href="/alfa-bear.png?v=2" type="image/png" />
         <link rel="apple-touch-icon" href="/alfa-bear.png?v=2" />

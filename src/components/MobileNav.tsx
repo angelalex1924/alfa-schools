@@ -1732,14 +1732,24 @@ const MobileNav = ({ items }: MobileNavProps) => {
                                   <div className="relative inline-flex items-baseline" style={{ lineHeight: '1', height: 'auto' }}>
                                     {/* ACRON part */}
                                     <span 
-                                      className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 dark:from-blue-400 dark:via-blue-300 dark:to-blue-500 bg-clip-text text-transparent transition-all duration-500"
+                                      className={`${
+                                        isChristmasMode 
+                                          ? "bg-gradient-to-br from-red-600 via-red-500 to-red-700 dark:from-red-400 dark:via-red-300 dark:to-red-500" 
+                                          : isHalloweenMode 
+                                          ? "bg-gradient-to-br from-orange-600 via-orange-500 to-orange-700 dark:from-orange-400 dark:via-orange-300 dark:to-orange-500"
+                                          : "text-blue-400"
+                                      } transition-all duration-500`}
                                       style={{ 
-                                        fontFamily: "'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif", 
-                                        fontWeight: 800, 
+                                        fontFamily: "'Quizlo', 'Paytone One', 'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif", 
+                                        fontWeight: 400, 
                                         letterSpacing: "-0.02em", 
                                         backgroundSize: "200% 200%", 
                                         backgroundPosition: "0% 50%", 
-                                        textShadow: "0 2px 4px rgba(59, 130, 246, 0.15), 0 1px 2px rgba(59, 130, 246, 0.08)", 
+                                        textShadow: isChristmasMode 
+                                          ? "0 2px 4px rgba(220, 38, 38, 0.15), 0 1px 2px rgba(220, 38, 38, 0.08)"
+                                          : isHalloweenMode 
+                                          ? "0 2px 4px rgba(234, 88, 12, 0.15), 0 1px 2px rgba(234, 88, 12, 0.08)"
+                                          : "0 2px 4px rgba(59, 130, 246, 0.15), 0 1px 2px rgba(59, 130, 246, 0.08)", 
                                         filter: "contrast(1.1) brightness(1.02)", 
                                         lineHeight: "1" 
                                       }}
@@ -1748,14 +1758,24 @@ const MobileNav = ({ items }: MobileNavProps) => {
                                     </span>
                                     {/* WEB part */}
                                     <span 
-                                      className="bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-slate-50 dark:via-white dark:to-slate-100 bg-clip-text text-transparent transition-all duration-500"
+                                      className={`${
+                                        isChristmasMode 
+                                          ? "bg-gradient-to-br from-green-600 via-green-500 to-green-700 dark:from-green-400 dark:via-green-300 dark:to-green-500" 
+                                          : isHalloweenMode 
+                                          ? "bg-gradient-to-br from-purple-600 via-purple-500 to-purple-700 dark:from-purple-400 dark:via-purple-300 dark:to-purple-500"
+                                          : "bg-gradient-to-br from-slate-900 via-slate-700 to-slate-800 dark:from-slate-50 dark:via-white dark:to-slate-100"
+                                      } bg-clip-text text-transparent transition-all duration-500`}
                                       style={{ 
                                         fontFamily: "'Geogola', 'Gegola DEMO', 'Outfit', 'Space Grotesk', 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif", 
                                         fontWeight: 800, 
                                         letterSpacing: "-0.02em", 
                                         backgroundSize: "200% 200%", 
                                         backgroundPosition: "0% 50%", 
-                                        textShadow: "0 2px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05)", 
+                                        textShadow: isChristmasMode 
+                                          ? "0 2px 4px rgba(34, 197, 94, 0.15), 0 1px 2px rgba(34, 197, 94, 0.08)"
+                                          : isHalloweenMode 
+                                          ? "0 2px 4px rgba(147, 51, 234, 0.15), 0 1px 2px rgba(147, 51, 234, 0.08)"
+                                          : "0 2px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05)", 
                                         filter: "contrast(1.1) brightness(1.02)", 
                                         lineHeight: "1" 
                                       }}

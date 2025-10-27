@@ -20,6 +20,15 @@
   font-display: swap;
 }
 
+/* Quizlo Font */
+@font-face {
+  font-family: 'Quizlo';
+  src: url('/fonts/quizlo-demo.regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Fallback for StampatelloFaceto */
 .font-stampatello {
   font-family: 'StampatelloFaceto', 'Comic Sans MS', cursive, sans-serif;
