@@ -27,6 +27,18 @@ export interface Article {
   authorEn?: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  // New translation system
+  translations?: {
+    [languageCode: string]: {
+      title: string;
+      excerpt: string;
+      content: string;
+      expert?: string;
+      author?: string;
+      translatedAt: string;
+      translatedBy: string;
+    };
+  };
 }
 
 export interface ArticleFormData {

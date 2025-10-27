@@ -51,6 +51,7 @@ import { useHalloweenTheme } from "@/contexts/HalloweenThemeContext"
 import { useCarnivalTheme } from "@/contexts/CarnivalThemeContext"
 import { useEasterTheme } from "@/contexts/EasterThemeContext"
 import { useSummerTheme } from "@/contexts/SummerThemeContext"
+import { useNationalHolidaysTheme } from "@/contexts/NationalHolidaysThemeContext"
 import { AnniversaryText } from "./AnniversaryText"
 import { SantaIcon, ChristmasTreeIcon, ReindeerIcon, GiftBoxIcon, BellIcon } from "./ChristmasIcons"
 import HomeIcon from "./HomeIcon"
@@ -134,57 +135,134 @@ const getSummerIcon = (iconType: string, className?: string) => {
   )
 }
 
+  // Custom Home Icon for National Holidays (Greek Flag)
+  const NationalHolidaysHomeIcon = ({ className }: { className?: string }) => (
+    <svg
+      id="Layer_1"
+      data-name="Layer 1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 1500 1000"
+      fill="currentColor"
+      className={className}
+    >
+      <defs>
+        <style>{`.cls-1{fill:none;}.cls-2{clip-path:url(#clip-path);}.cls-3{fill:#145fac;}.cls-4{fill:#fff;}`}</style>
+        <clipPath id="clip-path">
+          <rect className="cls-1" x="0.08" y="0.19" width="1500" height="1000"/>
+        </clipPath>
+      </defs>
+      <title>Flag-of-Greece</title>
+      <g className="cls-2">
+        <rect className="cls-3" x="-0.05" y="0.09" width="1500.29" height="1000.2"/>
+        <path className="cls-4" d="M-.06,784.35v100.3H1500.23V784.35ZM696.4,338.61V438.9h803.83V338.61Zm0-222.86V216h803.83V115.75ZM410.86,561.47v-234H696.4V227.14H410.86V.09H285.49V227.14H-.06V327.48H285.49v234H-.06V661.77H1500.23V561.47Z"/>
+      </g>
+    </svg>
+  )
+
+  // Custom Contact Icon for National Holidays (Mail)
+  const NationalHolidaysContactIcon = ({ className }: { className?: string }) => (
+    <svg
+      height="200px"
+      width="200px"
+      version="1.1"
+      id="Layer_1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 512.003 512.003"
+      xmlSpace="preserve"
+      fill="currentColor"
+      className={className}
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path style={{fill:"#CCCCCC"}} d="M228.723,346.835V471.82h-39.33V362.785c3.235-0.4,6.507-0.824,9.829-1.286 c11.166-1.549,21.52-6.707,29.488-14.675L228.723,346.835z"></path>
+        <path style={{fill:"#0B9B53"}} d="M502.634,251.989v26.328l-203.869,16.012c-12.29,0.962-23.83,6.282-32.548,15l-37.507,37.494 c-7.968,7.968-18.322,13.127-29.488,14.675c-3.322,0.462-6.595,0.887-9.829,1.286c-72.64,8.843-123.398,0.712-152.087-7.044v-0.013 l39.305-76.512c9.192-17.898,27.402-29.338,47.511-29.888c126.458-3.497,282.429-5.97,339.57-15.15L502.634,251.989z"></path>
+        <path style={{fill:"#999999"}} d="M228.723,346.835v44.938l-0.012,0.013c-7.968,7.968-18.322,13.127-29.488,14.675 c-3.322,0.462-6.595,0.887-9.829,1.286v-44.963c3.235-0.4,6.507-0.824,9.829-1.286c11.166-1.549,21.52-6.707,29.488-14.675 L228.723,346.835z"></path>
+        <path style={{fill:"#06B559"}} d="M450.34,193.612l13.351,40.567c-57.14,9.18-213.112,11.653-339.57,15.15 c-20.108,0.55-38.318,11.99-47.511,29.888l-39.305,76.512v0.013c-18.61-5.033-27.939-9.917-27.939-9.917 c4.022-12.078,5.545-44.588,5.745-83.718c0.287-58.489,23.181-111.883,60.588-151.637c37.394-39.755,89.314-65.858,147.666-69.78 C325.068,33.869,418.466,96.804,450.34,193.612z"></path>
+        <path style={{fill:"#0B9B53"}} d="M150.648,131.441c34.197-36.355,81.676-60.227,135.039-63.814c25.79-1.73,50.994,1.454,74.578,8.835 c-39.516-25.781-87.216-39.105-136.902-35.774c-58.352,3.922-110.272,30.025-147.666,69.78 c-37.407,39.755-60.3,93.148-60.588,151.637c-0.2,39.13-1.724,71.641-5.745,83.718c0,0,9.33,4.883,27.939,9.917v-0.013 l39.305-76.512c4.48-8.722,11.111-15.893,19.049-21.035C98.729,209.385,119.002,165.073,150.648,131.441z"></path>
+        <g>
+          <path style={{fill:"#333333"}} d="M506.528,243.478l-35.22-16.107l-12.073-36.68C426.019,89.756,328.779,24.227,222.744,31.346 c-58.825,3.948-113.471,29.768-153.869,72.706C28.462,147.005,6.043,203.119,5.749,262.058 c-0.272,54.539-3.015,74.043-5.267,80.801c-1.454,4.36,0.471,9.131,4.545,11.262c2.133,1.117,43.032,21.911,122.941,21.911 c15.817,0,33.18-0.823,52.06-2.768v98.554c0,5.173,4.194,9.367,9.367,9.367h39.33c5.173,0,9.367-4.194,9.367-9.367v-121.11 l34.75-34.75c7.134-7.135,16.604-11.501,26.664-12.29l203.862-16.008c4.875-0.383,8.634-4.45,8.634-9.339v-26.325 C512,248.332,509.862,245.002,506.528,243.478z M24.484,262.15c0.27-54.183,20.88-105.771,58.035-145.26 c37.147-39.48,87.392-63.222,141.481-66.851c97.475-6.547,186.898,53.704,217.442,146.51l9.846,29.915 c-52.589,6.478-160.152,9.21-264.424,11.858c-21.407,0.543-42.585,1.082-62.993,1.645c-23.541,0.648-44.841,14.051-55.585,34.974 l-35.758,69.593c-5.117-1.562-9.209-3.021-12.245-4.2C22.916,325.619,24.296,299.847,24.484,262.15z M198.761,462.45v-91.436 c0.592-0.08,1.165-0.147,1.76-0.23c6.558-0.913,12.932-2.911,18.836-5.851v97.517H198.761z M493.266,269.66l-195.228,15.33 c-14.504,1.139-28.158,7.433-38.445,17.72l-37.495,37.495c-6.488,6.488-15.068,10.757-24.16,12.024 c-67.182,9.354-116.284,3.911-146.834-2.853l33.847-65.876c7.621-14.841,22.732-24.347,39.437-24.807 c20.396-0.565,41.558-1.102,62.951-1.644c110.601-2.808,224.889-5.71,275.006-13.178l30.921,14.141V269.66z"></path>
+          <circle style={{fill:"#333333"}} cx="235.381" cy="203.409" r="9.367"></circle>
+        </g>
+      </g>
+    </svg>
+  )
+
+  // National Holidays Icons Helper
+  const getNationalHolidaysIcon = (iconType: string, className?: string) => {
+    switch (iconType) {
+      case 'flag':
+        return <NationalHolidaysHomeIcon className={className} />
+      case 'monument':
+        return <ServicesIcon className={className} />
+      case 'laurel':
+        return <Newspaper className={className} />
+      case 'crown':
+        return <WhyUsIcon className={className} />
+      case 'shield':
+        return <AboutUsIcon className={className} />
+      case 'star':
+        return <Users className={className} />
+      default:
+        return <span className={`${className} flex items-center justify-center`} style={{ lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          🇬🇷
+        </span>
+    }
+  }
+
 // Navigation items with the requested links - will be updated with translations
-const getNavigationItems = (t: (key: string) => string | string[], isChristmasMode: boolean, isHalloweenMode: boolean, isCarnivalMode: boolean, isEasterMode: boolean, isSummerMode: boolean) => [
+const getNavigationItems = (t: (key: string) => string | string[], isChristmasMode: boolean, isHalloweenMode: boolean, isCarnivalMode: boolean, isEasterMode: boolean, isSummerMode: boolean, isNationalHolidaysMode: boolean) => [
   {
     label: t('navigation.home'),
     href: "/",
-    icon: isChristmasMode ? SantaIcon : isHalloweenMode ? "pumpkin" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : HomeIcon,
-    color: isChristmasMode ? "#dc2626" : isHalloweenMode ? "#ea580c" : isCarnivalMode ? "#ff6b6b" : isEasterMode ? "#ff6b9d" : isSummerMode ? "#fbbf24" : "#3b82f6", // Κόκκινο για Χριστούγεννα, Πορτοκαλί για Halloween, Ροζ για Carnival, Pink για Easter, Κίτρινο για Summer
-    iconColor: isChristmasMode ? "text-red-500" : isHalloweenMode ? "text-orange-500" : isCarnivalMode ? "text-pink-500" : isEasterMode ? "text-pink-500" : isSummerMode ? "text-yellow-500" : "text-blue-500"
+    icon: isChristmasMode ? SantaIcon : isHalloweenMode ? "pumpkin" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : isNationalHolidaysMode ? "flag" : HomeIcon,
+    color: isChristmasMode ? "#dc2626" : isHalloweenMode ? "#ea580c" : isCarnivalMode ? "#ff6b6b" : isEasterMode ? "#ff6b9d" : isSummerMode ? "#fbbf24" : isNationalHolidaysMode ? "#1e40af" : "#3b82f6", // Κόκκινο για Χριστούγεννα, Πορτοκαλί για Halloween, Ροζ για Carnival, Pink για Easter, Κίτρινο για Summer, Μπλε για National Holidays
+    iconColor: isChristmasMode ? "text-red-500" : isHalloweenMode ? "text-orange-500" : isCarnivalMode ? "text-pink-500" : isEasterMode ? "text-pink-500" : isSummerMode ? "text-yellow-500" : isNationalHolidaysMode ? "text-blue-600" : "text-blue-500"
   },
   {
     label: t('navigation.services'),
     href: "/services",
-    icon: isChristmasMode ? ChristmasTreeIcon : isHalloweenMode ? HalloweenServicesIcon : isCarnivalMode ? "circus" : isEasterMode ? "egg" : isSummerMode ? "sunflower" : ServicesIcon,
-    color: isChristmasMode ? "#16a34a" : isHalloweenMode ? "#7c3aed" : isCarnivalMode ? "#4ecdc4" : isEasterMode ? "#96ceb4" : isSummerMode ? "#f59e0b" : "#c9b6e4", // Πράσινο για Χριστούγεννα, Μωβ για Halloween, Τυρκουάζ για Carnival, Πράσινο για Easter, Πορτοκαλί για Summer
-    iconColor: isChristmasMode ? "text-green-500" : isHalloweenMode ? "text-purple-500" : isCarnivalMode ? "text-teal-500" : isEasterMode ? "text-green-500" : isSummerMode ? "text-orange-500" : "text-[#c9b6e4]"
+    icon: isChristmasMode ? ChristmasTreeIcon : isHalloweenMode ? HalloweenServicesIcon : isCarnivalMode ? "circus" : isEasterMode ? "egg" : isSummerMode ? "sunflower" : isNationalHolidaysMode ? "monument" : ServicesIcon,
+    color: isChristmasMode ? "#16a34a" : isHalloweenMode ? "#7c3aed" : isCarnivalMode ? "#4ecdc4" : isEasterMode ? "#96ceb4" : isSummerMode ? "#f59e0b" : isNationalHolidaysMode ? "#1e40af" : "#c9b6e4", // Πράσινο για Χριστούγεννα, Μωβ για Halloween, Τυρκουάζ για Carnival, Πράσινο για Easter, Πορτοκαλί για Summer, Μπλε για National Holidays
+    iconColor: isChristmasMode ? "text-green-500" : isHalloweenMode ? "text-purple-500" : isCarnivalMode ? "text-teal-500" : isEasterMode ? "text-green-500" : isSummerMode ? "text-orange-500" : isNationalHolidaysMode ? "text-blue-600" : "text-[#c9b6e4]"
   },
   {
     label: t('navigation.news'),
     href: "/articles",
-    icon: isChristmasMode ? BellIcon : isHalloweenMode ? HalloweenNewsIcon : isCarnivalMode ? "art" : isEasterMode ? "chick" : isSummerMode ? "beach" : ArticlesIcon,
-    color: isChristmasMode ? "#fbbf24" : isHalloweenMode ? "#f59e0b" : isCarnivalMode ? "#feca57" : isEasterMode ? "#feca57" : isSummerMode ? "#f97316" : "#f78da7", // Χρυσό για Χριστούγεννα, Κίτρινο για Halloween, Κίτρινο για Carnival, Κίτρινο για Easter, Πορτοκαλί για Summer
-    iconColor: isChristmasMode ? "text-yellow-500" : isHalloweenMode ? "text-amber-500" : isCarnivalMode ? "text-yellow-500" : isEasterMode ? "text-yellow-500" : isSummerMode ? "text-orange-500" : "text-[#f78da7]"
+    icon: isChristmasMode ? BellIcon : isHalloweenMode ? HalloweenNewsIcon : isCarnivalMode ? "art" : isEasterMode ? "chick" : isSummerMode ? "beach" : isNationalHolidaysMode ? "laurel" : ArticlesIcon,
+    color: isChristmasMode ? "#fbbf24" : isHalloweenMode ? "#f59e0b" : isCarnivalMode ? "#feca57" : isEasterMode ? "#feca57" : isSummerMode ? "#f97316" : isNationalHolidaysMode ? "#1e40af" : "#f78da7", // Χρυσό για Χριστούγεννα, Κίτρινο για Halloween, Κίτρινο για Carnival, Κίτρινο για Easter, Πορτοκαλί για Summer, Μπλε για National Holidays
+    iconColor: isChristmasMode ? "text-yellow-500" : isHalloweenMode ? "text-amber-500" : isCarnivalMode ? "text-yellow-500" : isEasterMode ? "text-yellow-500" : isSummerMode ? "text-orange-500" : isNationalHolidaysMode ? "text-blue-600" : "text-[#f78da7]"
   },
-  {
-    label: t('navigation.whyUs'),
-    href: "/why-us",
-    icon: isChristmasMode ? ReindeerIcon : isHalloweenMode ? "bat" : isCarnivalMode ? "music" : isEasterMode ? "flower" : isSummerMode ? "wave" : WhyUsIcon,
-    color: isChristmasMode ? "#8b4513" : isHalloweenMode ? "#374151" : isCarnivalMode ? "#45b7d1" : isEasterMode ? "#ff6b9d" : isSummerMode ? "#06b6d4" : "#fabeb6", // Καφέ για Χριστούγεννα, Γκρι για Halloween, Μπλε για Carnival, Pink για Easter, Cyan για Summer
-    iconColor: isChristmasMode ? "text-amber-600" : isHalloweenMode ? "text-gray-600" : isCarnivalMode ? "text-blue-500" : isEasterMode ? "text-pink-500" : isSummerMode ? "text-cyan-500" : "text-[#fabeb6]"
+    {
+      label: t('navigation.whyUs'),
+      href: "/why-us",
+      icon: isChristmasMode ? ReindeerIcon : isHalloweenMode ? "bat" : isCarnivalMode ? "music" : isEasterMode ? "flower" : isSummerMode ? "wave" : isNationalHolidaysMode ? "crown" : WhyUsIcon,
+    color: isChristmasMode ? "#8b4513" : isHalloweenMode ? "#374151" : isCarnivalMode ? "#45b7d1" : isEasterMode ? "#ff6b9d" : isSummerMode ? "#06b6d4" : isNationalHolidaysMode ? "#1e40af" : "#fabeb6", // Καφέ για Χριστούγεννα, Γκρι για Halloween, Μπλε για Carnival, Pink για Easter, Cyan για Summer, Μπλε για National Holidays
+    iconColor: isChristmasMode ? "text-amber-600" : isHalloweenMode ? "text-gray-600" : isCarnivalMode ? "text-blue-500" : isEasterMode ? "text-pink-500" : isSummerMode ? "text-cyan-500" : isNationalHolidaysMode ? "text-blue-600" : "text-[#fabeb6]"
   },
-  {
-    label: t('navigation.aboutUs'),
-    href: "/about-us",
-    icon: isChristmasMode ? "🏫" : isHalloweenMode ? "skull" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : AboutUsIcon,
-    color: isChristmasMode ? "#1e40af" : isHalloweenMode ? "#7c2d12" : isCarnivalMode ? "#be185d" : isEasterMode ? "#be185d" : isSummerMode ? "#f59e0b" : "#1e40af", // Μπλε για Χριστούγεννα, Καφέ για Halloween, Ροζ για Carnival, Ροζ για Easter, Πορτοκαλί για Summer
-    iconColor: isChristmasMode ? "text-blue-600" : isHalloweenMode ? "text-amber-800" : isCarnivalMode ? "text-pink-600" : isEasterMode ? "text-pink-600" : isSummerMode ? "text-orange-500" : "text-blue-600",
-    isEmoji: isChristmasMode || isHalloweenMode || isCarnivalMode || isEasterMode || isSummerMode
+    {
+      label: t('navigation.aboutUs'),
+      href: "/about-us",
+      icon: isChristmasMode ? "🏫" : isHalloweenMode ? "skull" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : isNationalHolidaysMode ? "shield" : AboutUsIcon,
+    color: isChristmasMode ? "#1e40af" : isHalloweenMode ? "#7c2d12" : isCarnivalMode ? "#be185d" : isEasterMode ? "#be185d" : isSummerMode ? "#f59e0b" : isNationalHolidaysMode ? "#1e40af" : "#1e40af", // Μπλε για Χριστούγεννα, Καφέ για Halloween, Ροζ για Carnival, Ροζ για Easter, Πορτοκαλί για Summer, Μπλε για National Holidays
+    iconColor: isChristmasMode ? "text-blue-600" : isHalloweenMode ? "text-amber-800" : isCarnivalMode ? "text-pink-600" : isEasterMode ? "text-pink-600" : isSummerMode ? "text-orange-500" : isNationalHolidaysMode ? "text-blue-600" : "text-blue-600",
+    isEmoji: isChristmasMode || isHalloweenMode || isCarnivalMode || isEasterMode || isSummerMode || isNationalHolidaysMode
   },
   {
     label: t('navigation.games'),
     href: "/games",
-    icon: isChristmasMode ? GiftBoxIcon : isHalloweenMode ? HalloweenGamesIcon : isCarnivalMode ? "guitar" : isEasterMode ? "tulip" : isSummerMode ? "shell" : GamesIcon,
-    color: isChristmasMode ? "#dc2626" : isHalloweenMode ? "#dc2626" : isCarnivalMode ? "#96ceb4" : isEasterMode ? "#4ecdc4" : isSummerMode ? "#f59e0b" : "#a8e6cf", // Κόκκινο για Χριστούγεννα και Halloween, Πράσινο για Carnival, Τυρκουάζ για Easter, Πορτοκαλί για Summer
-    iconColor: isChristmasMode ? "text-red-500" : isHalloweenMode ? "text-red-500" : isCarnivalMode ? "text-green-500" : isEasterMode ? "text-teal-500" : isSummerMode ? "text-orange-500" : "text-[#a8e6cf]"
+    icon: isChristmasMode ? GiftBoxIcon : isHalloweenMode ? HalloweenGamesIcon : isCarnivalMode ? "guitar" : isEasterMode ? "tulip" : isSummerMode ? "shell" : isNationalHolidaysMode ? "crown" : GamesIcon,
+    color: isChristmasMode ? "#dc2626" : isHalloweenMode ? "#dc2626" : isCarnivalMode ? "#96ceb4" : isEasterMode ? "#4ecdc4" : isSummerMode ? "#f59e0b" : isNationalHolidaysMode ? "#1e40af" : "#a8e6cf", // Κόκκινο για Χριστούγεννα και Halloween, Πράσινο για Carnival, Τυρκουάζ για Easter, Πορτοκαλί για Summer, Μπλε για National Holidays
+    iconColor: isChristmasMode ? "text-red-500" : isHalloweenMode ? "text-red-500" : isCarnivalMode ? "text-green-500" : isEasterMode ? "text-teal-500" : isSummerMode ? "text-orange-500" : isNationalHolidaysMode ? "text-blue-600" : "text-[#a8e6cf]"
   },
   {
     label: t('navigation.contact'),
     href: "/contact",
-    icon: isHalloweenMode ? HalloweenContactIcon : isCarnivalMode ? "trumpet" : isEasterMode ? "butterfly" : isSummerMode ? "sunface" : ContactIcon,
-    color: isChristmasMode ? "#16a34a" : isHalloweenMode ? "#6b7280" : isCarnivalMode ? "#ff9ff3" : isEasterMode ? "#54a0ff" : isSummerMode ? "#fbbf24" : "#fde7dc", // Πράσινο για Χριστούγεννα, Γκρι για Halloween, Ροζ για Carnival, Μπλε για Easter, Κίτρινο για Summer
-    iconColor: isChristmasMode ? "text-green-500" : isHalloweenMode ? "text-gray-500" : isCarnivalMode ? "text-pink-500" : isEasterMode ? "text-blue-500" : isSummerMode ? "text-yellow-500" : "text-[#fde7dc]"
+    icon: isHalloweenMode ? HalloweenContactIcon : isCarnivalMode ? "trumpet" : isEasterMode ? "butterfly" : isSummerMode ? "sunface" : isNationalHolidaysMode ? "flag" : ContactIcon,
+    color: isChristmasMode ? "#16a34a" : isHalloweenMode ? "#6b7280" : isCarnivalMode ? "#ff9ff3" : isEasterMode ? "#54a0ff" : isSummerMode ? "#fbbf24" : isNationalHolidaysMode ? "#1e40af" : "#fde7dc", // Πράσινο για Χριστούγεννα, Γκρι για Halloween, Ροζ για Carnival, Μπλε για Easter, Κίτρινο για Summer, Μπλε για National Holidays
+    iconColor: isChristmasMode ? "text-green-500" : isHalloweenMode ? "text-gray-500" : isCarnivalMode ? "text-pink-500" : isEasterMode ? "text-blue-500" : isSummerMode ? "text-yellow-500" : isNationalHolidaysMode ? "text-blue-600" : "text-[#fde7dc]"
   }
 ]
 
@@ -204,7 +282,8 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
   const { isCarnivalMode } = useCarnivalTheme()
   const { isEasterMode } = useEasterTheme()
   const { isSummerMode } = useSummerTheme()
-  const navigationItems = getNavigationItems(t, isChristmasMode, isHalloweenMode, isCarnivalMode, isEasterMode, isSummerMode)
+  const { isNationalHolidaysMode } = useNationalHolidaysTheme()
+  const navigationItems = getNavigationItems(t, isChristmasMode, isHalloweenMode, isCarnivalMode, isEasterMode, isSummerMode, isNationalHolidaysMode)
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -307,6 +386,14 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
         : isDarkMode
           ? "bg-gradient-to-r from-yellow-900/12 via-orange-900/6 to-yellow-900/12 backdrop-blur-2xl border border-yellow-800/15 shadow-[0_4px_24px_rgba(251,191,36,0.12)]"
           : "bg-gradient-to-r from-yellow-50/25 via-orange-50/15 to-yellow-50/25 backdrop-blur-2xl border border-yellow-200/30 shadow-[0_4px_24px_rgba(251,191,36,0.15)]"
+    } else if (isNationalHolidaysMode) {
+      return scrolled
+        ? isDarkMode
+          ? "bg-gradient-to-r from-blue-800/20 via-blue-700/12 to-blue-800/20 backdrop-blur-2xl border border-blue-700/30 shadow-[0_8px_32px_rgba(30,64,175,0.25)]"
+          : "bg-gradient-to-r from-blue-600/40 via-blue-700/30 to-blue-600/40 backdrop-blur-2xl border border-blue-600/50 shadow-[0_8px_32px_rgba(30,64,175,0.3)]"
+        : isDarkMode
+          ? "bg-gradient-to-r from-blue-800/18 via-blue-700/10 to-blue-800/18 backdrop-blur-2xl border border-blue-700/25 shadow-[0_4px_24px_rgba(30,64,175,0.2)]"
+          : "bg-gradient-to-r from-blue-600/35 via-blue-700/25 to-blue-600/35 backdrop-blur-2xl border border-blue-600/40 shadow-[0_4px_24px_rgba(30,64,175,0.25)]"
     } else {
       return scrolled
         ? isDarkMode
@@ -471,7 +558,9 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                       ? "/alfa-logo-easter.png"
                       : isSummerMode
                         ? "/alfa-summer-logo.png"
-                        : "/alfa-logo.png"
+                        : isNationalHolidaysMode
+                          ? "/alfa-logo.png"
+                          : "/alfa-logo.png"
             }
                   alt="Alfa Logo"
                   fill
@@ -613,6 +702,19 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
             </motion.div>
           </motion.div>
         )}
+
+        {/* National Holidays Ελληνικό Σημαία δίπλα από το logo */}
+        {isNationalHolidaysMode && (
+          <div className="ml-2">
+            <Image
+              src="/Flag_of_Greece.gif"
+              alt="Greek Flag"
+              width={32}
+              height={24}
+              className="object-contain brightness-110 contrast-125 saturate-110"
+            />
+          </div>
+        )}
         
         {/* 40 Years Anniversary Text */}
         <motion.div
@@ -648,11 +750,12 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
             const isActive = pathname === item.href
             const isHovered = hoveredItem === index
             
-            // Check if it's a Halloween, Carnival, Easter or Summer icon string
+            // Check if it's a Halloween, Carnival, Easter, Summer or National Holidays icon string
             const isHalloweenIcon = typeof item.icon === 'string' && ['pumpkin', 'witch', 'ghost', 'bat', 'spider', 'skull'].includes(item.icon)
             const isCarnivalIcon = typeof item.icon === 'string' && ['mask', 'circus', 'art', 'music', 'guitar', 'trumpet'].includes(item.icon)
             const isEasterIcon = typeof item.icon === 'string' && ['bunny', 'egg', 'chick', 'flower', 'tulip', 'butterfly'].includes(item.icon)
             const isSummerIcon = typeof item.icon === 'string' && ['sun', 'sunface', 'sunflower', 'beach', 'wave', 'shell'].includes(item.icon)
+            const isNationalHolidaysIcon = typeof item.icon === 'string' && ['flag', 'monument', 'laurel', 'shield', 'star', 'crown'].includes(item.icon)
 
             return (
               <motion.li
@@ -738,6 +841,8 @@ export const GlowMenu = React.forwardRef<HTMLDivElement, GlowMenuProps>(({ class
                           getEasterIcon(item.icon as string, "h-4 w-4 text-lg leading-none")
                         ) : isSummerIcon ? (
                           getSummerIcon(item.icon as string, "h-4 w-4 text-lg leading-none")
+                        ) : isNationalHolidaysIcon ? (
+                          getNationalHolidaysIcon(item.icon as string, "h-4 w-4 text-lg leading-none")
                         ) : (item as any).isEmoji ? (
                           <span className="h-4 w-4 text-lg leading-none flex items-center justify-center">{item.icon as string}</span>
                         ) : (

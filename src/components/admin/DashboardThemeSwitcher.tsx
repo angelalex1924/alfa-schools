@@ -7,6 +7,7 @@ import { useHalloweenTheme } from '@/contexts/HalloweenThemeContext'
 import { useCarnivalTheme } from '@/contexts/CarnivalThemeContext'
 import { useEasterTheme } from '@/contexts/EasterThemeContext'
 import { useSummerTheme } from '@/contexts/SummerThemeContext'
+import { useNationalHolidaysTheme } from '@/contexts/NationalHolidaysThemeContext'
 
 export function DashboardThemeSwitcher() {
   const { isChristmasMode, setChristmasMode, isLoading: christmasLoading, isAdmin: christmasAdmin } = useChristmasTheme()
@@ -14,10 +15,11 @@ export function DashboardThemeSwitcher() {
   const { isCarnivalMode, setCarnivalMode, isLoading: carnivalLoading, isAdmin: carnivalAdmin } = useCarnivalTheme()
   const { isEasterMode, setEasterMode, isLoading: easterLoading, isAdmin: easterAdmin } = useEasterTheme()
   const { isSummerMode, setSummerMode, isLoading: summerLoading, isAdmin: summerAdmin } = useSummerTheme()
+  const { isNationalHolidaysMode, setNationalHolidaysMode, isLoading: nationalHolidaysLoading, isAdmin: nationalHolidaysAdmin } = useNationalHolidaysTheme()
   const [isSaving, setIsSaving] = useState(false)
   
-  const isLoading = christmasLoading || halloweenLoading || carnivalLoading || easterLoading || summerLoading
-  const isAdmin = christmasAdmin || halloweenAdmin || carnivalAdmin || easterAdmin || summerAdmin
+  const isLoading = christmasLoading || halloweenLoading || carnivalLoading || easterLoading || summerLoading || nationalHolidaysLoading
+  const isAdmin = christmasAdmin || halloweenAdmin || carnivalAdmin || easterAdmin || summerAdmin || nationalHolidaysAdmin
 
   const themes = [
     {
@@ -26,7 +28,7 @@ export function DashboardThemeSwitcher() {
       description: 'Το κανονικό θέμα της ιστοσελίδας',
       icon: '🏠',
       color: 'bg-gradient-to-br from-slate-500 to-slate-600',
-      active: !isChristmasMode && !isHalloweenMode && !isCarnivalMode && !isEasterMode && !isSummerMode
+      active: !isChristmasMode && !isHalloweenMode && !isCarnivalMode && !isEasterMode && !isSummerMode && !isNationalHolidaysMode
     },
     {
       id: 'christmas',
@@ -67,6 +69,14 @@ export function DashboardThemeSwitcher() {
       icon: '☀️',
       color: 'bg-gradient-to-br from-yellow-500 to-yellow-600',
       active: isSummerMode
+    },
+    {
+      id: 'nationalHolidays',
+      name: 'Εθνικές Γιορτές Θέμα',
+      description: '28η Οκτωβρίου - 25η Μαρτίου, Ελληνικό σημαία',
+      icon: '🇬🇷',
+      color: 'bg-gradient-to-br from-blue-600 to-blue-700',
+      active: isNationalHolidaysMode
     }
   ]
 
@@ -105,6 +115,14 @@ export function DashboardThemeSwitcher() {
         await setHalloweenMode(false)
         await setCarnivalMode(false)
         await setEasterMode(false)
+        await setNationalHolidaysMode(false)
+      } else if (themeId === 'nationalHolidays') {
+        await setNationalHolidaysMode(true)
+        await setChristmasMode(false)
+        await setHalloweenMode(false)
+        await setCarnivalMode(false)
+        await setEasterMode(false)
+        await setSummerMode(false)
       } else {
         // Normal theme
         await setChristmasMode(false)
@@ -112,6 +130,7 @@ export function DashboardThemeSwitcher() {
         await setCarnivalMode(false)
         await setEasterMode(false)
         await setSummerMode(false)
+        await setNationalHolidaysMode(false)
       }
     } catch (error) {
       console.error('Error changing theme:', error)
@@ -188,7 +207,7 @@ export function DashboardThemeSwitcher() {
 
       {/* Active Theme Status */}
       <AnimatePresence>
-        {(isChristmasMode || isHalloweenMode || isCarnivalMode || isEasterMode || isSummerMode) && (
+        {(isChristmasMode || isHalloweenMode || isCarnivalMode || isEasterMode || isSummerMode || isNationalHolidaysMode) && (
           <motion.div
             className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl"
             initial={{ opacity: 0, y: 10 }}
@@ -197,7 +216,7 @@ export function DashboardThemeSwitcher() {
           >
             <div className="flex items-center gap-3">
               <div className="text-2xl">
-                {isChristmasMode ? '🎄' : isHalloweenMode ? '🎃' : isCarnivalMode ? '🎭' : isEasterMode ? '🐰' : isSummerMode ? '☀️' : '🏠'}
+                {isChristmasMode ? '🎄' : isHalloweenMode ? '🎃' : isCarnivalMode ? '🎭' : isEasterMode ? '🐰' : isSummerMode ? '☀️' : isNationalHolidaysMode ? '🇬🇷' : '🏠'}
               </div>
               <div>
                 <div className="font-semibold text-blue-800">
@@ -206,6 +225,7 @@ export function DashboardThemeSwitcher() {
                    isCarnivalMode ? 'Αποκριάτικο θέμα ενεργό!' :
                    isEasterMode ? 'Πασχαλινό θέμα ενεργό!' :
                    isSummerMode ? 'Καλοκαιρινό θέμα ενεργό!' :
+                   isNationalHolidaysMode ? 'Εθνικές Γιορτές θέμα ενεργό!' :
                    'Κανονικό θέμα ενεργό!'}
                 </div>
                 <div className="text-sm text-blue-600">

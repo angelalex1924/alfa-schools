@@ -127,12 +127,12 @@ export default function ArticlesPage() {
   // Define available categories with translations
   const categories = [
     { value: 'all', label: t('articles.categories.all'), icon: BookOpen, color: 'from-blue-500 to-indigo-600' },
-    { value: 'Εκπαίδευση', label: t('articles.categories.education'), icon: GraduationCap, color: 'from-green-500 to-emerald-600' },
-    { value: 'Νέα', label: t('articles.categories.news'), icon: Star, color: 'from-yellow-500 to-orange-600' },
-    { value: 'Δράσεις', label: t('articles.categories.actions'), icon: Zap, color: 'from-purple-500 to-pink-600' },
-    { value: 'Αγγλικά', label: t('articles.categories.english'), icon: Globe, color: 'from-red-500 to-rose-600' },
-    { value: 'Γαλλικά', label: t('articles.categories.french'), icon: Heart, color: 'from-indigo-500 to-blue-600' },
-    { value: 'Γλώσσες', label: t('articles.categories.languages'), icon: Tag, color: 'from-teal-500 to-cyan-600' },
+    { value: 'education', label: t('articles.categories.education'), icon: GraduationCap, color: 'from-green-500 to-emerald-600' },
+    { value: 'news', label: t('articles.categories.news'), icon: Star, color: 'from-yellow-500 to-orange-600' },
+    { value: 'actions', label: t('articles.categories.actions'), icon: Zap, color: 'from-purple-500 to-pink-600' },
+    { value: 'english', label: t('articles.categories.english'), icon: Globe, color: 'from-red-500 to-rose-600' },
+    { value: 'french', label: t('articles.categories.french'), icon: Heart, color: 'from-indigo-500 to-blue-600' },
+    { value: 'languages', label: t('articles.categories.languages'), icon: Tag, color: 'from-teal-500 to-cyan-600' },
   ];
 
   useEffect(() => {
@@ -431,7 +431,7 @@ export default function ArticlesPage() {
                       </div>
                       <div className="flex-1">
                         <p className="text-xs text-slate-600 dark:text-slate-400" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                          Εμφανίζονται άρθρα από την κατηγορία:
+                          {t('articles.showingArticlesFrom')}
                         </p>
                         <span className={`font-bold text-${themeColors.accentColor}-600 dark:text-${themeColors.accentColor}-400 text-sm`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
                           {categories.find(c => c.value === selectedCategory)?.label}

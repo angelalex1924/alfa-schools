@@ -11,6 +11,7 @@ import { HalloweenThemeProvider } from "@/contexts/HalloweenThemeContext";
 import { CarnivalThemeProvider } from "@/contexts/CarnivalThemeContext";
 import { EasterThemeProvider } from "@/contexts/EasterThemeContext";
 import { SummerThemeProvider } from "@/contexts/SummerThemeContext";
+import { NationalHolidaysThemeProvider } from "@/contexts/NationalHolidaysThemeContext";
 import { CookieConsent } from "@/components/cookie-consent";
 import { ConditionalChatbot } from "@/components/ConditionalChatbot";
 import { ChristmasWrapper } from "@/components/ChristmasWrapper";
@@ -174,6 +175,7 @@ export default function RootLayout({
                   <CarnivalThemeProvider>
                     <EasterThemeProvider>
                       <SummerThemeProvider>
+                        <NationalHolidaysThemeProvider>
                       <ChristmasWrapper>
                         <HalloweenWrapper>
                           <CarnivalWrapper>
@@ -189,6 +191,7 @@ export default function RootLayout({
                           </CarnivalWrapper>
                         </HalloweenWrapper>
                       </ChristmasWrapper>
+                        </NationalHolidaysThemeProvider>
                       </SummerThemeProvider>
                     </EasterThemeProvider>
                   </CarnivalThemeProvider>

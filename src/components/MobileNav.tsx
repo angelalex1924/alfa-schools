@@ -70,6 +70,7 @@ import { useHalloweenTheme } from "@/contexts/HalloweenThemeContext"
 import { useCarnivalTheme } from "@/contexts/CarnivalThemeContext"
 import { useEasterTheme } from "@/contexts/EasterThemeContext"
 import { useSummerTheme } from "@/contexts/SummerThemeContext"
+import { useNationalHolidaysTheme } from "@/contexts/NationalHolidaysThemeContext"
 import { useMobileMenu } from "@/contexts/MobileMenuContext"
 import { GamesIcon } from "./custom-icons"
 import { AnniversaryText } from "./AnniversaryText"
@@ -155,6 +156,83 @@ const getSummerIcon = (iconType: string, className?: string) => {
     </span>
   )
 }
+
+  // Custom Home Icon for National Holidays (Greek Flag)
+  const NationalHolidaysHomeIcon = ({ className }: { className?: string }) => (
+    <svg
+      id="Layer_1"
+      data-name="Layer 1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 1500 1000"
+      fill="currentColor"
+      className={className}
+    >
+      <defs>
+        <style>{`.cls-1{fill:none;}.cls-2{clip-path:url(#clip-path);}.cls-3{fill:#145fac;}.cls-4{fill:#fff;}`}</style>
+        <clipPath id="clip-path">
+          <rect className="cls-1" x="0.08" y="0.19" width="1500" height="1000"/>
+        </clipPath>
+      </defs>
+      <title>Flag-of-Greece</title>
+      <g className="cls-2">
+        <rect className="cls-3" x="-0.05" y="0.09" width="1500.29" height="1000.2"/>
+        <path className="cls-4" d="M-.06,784.35v100.3H1500.23V784.35ZM696.4,338.61V438.9h803.83V338.61Zm0-222.86V216h803.83V115.75ZM410.86,561.47v-234H696.4V227.14H410.86V.09H285.49V227.14H-.06V327.48H285.49v234H-.06V661.77H1500.23V561.47Z"/>
+      </g>
+    </svg>
+  )
+
+  // Custom Contact Icon for National Holidays (Mail)
+  const NationalHolidaysContactIcon = ({ className }: { className?: string }) => (
+    <svg
+      height="200px"
+      width="200px"
+      version="1.1"
+      id="Layer_1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 512.003 512.003"
+      xmlSpace="preserve"
+      fill="currentColor"
+      className={className}
+    >
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path style={{fill:"#CCCCCC"}} d="M228.723,346.835V471.82h-39.33V362.785c3.235-0.4,6.507-0.824,9.829-1.286 c11.166-1.549,21.52-6.707,29.488-14.675L228.723,346.835z"></path>
+        <path style={{fill:"#0B9B53"}} d="M502.634,251.989v26.328l-203.869,16.012c-12.29,0.962-23.83,6.282-32.548,15l-37.507,37.494 c-7.968,7.968-18.322,13.127-29.488,14.675c-3.322,0.462-6.595,0.887-9.829,1.286c-72.64,8.843-123.398,0.712-152.087-7.044v-0.013 l39.305-76.512c9.192-17.898,27.402-29.338,47.511-29.888c126.458-3.497,282.429-5.97,339.57-15.15L502.634,251.989z"></path>
+        <path style={{fill:"#999999"}} d="M228.723,346.835v44.938l-0.012,0.013c-7.968,7.968-18.322,13.127-29.488,14.675 c-3.322,0.462-6.595,0.887-9.829,1.286v-44.963c3.235-0.4,6.507-0.824,9.829-1.286c11.166-1.549,21.52-6.707,29.488-14.675 L228.723,346.835z"></path>
+        <path style={{fill:"#06B559"}} d="M450.34,193.612l13.351,40.567c-57.14,9.18-213.112,11.653-339.57,15.15 c-20.108,0.55-38.318,11.99-47.511,29.888l-39.305,76.512v0.013c-18.61-5.033-27.939-9.917-27.939-9.917 c4.022-12.078,5.545-44.588,5.745-83.718c0.287-58.489,23.181-111.883,60.588-151.637c37.394-39.755,89.314-65.858,147.666-69.78 C325.068,33.869,418.466,96.804,450.34,193.612z"></path>
+        <path style={{fill:"#0B9B53"}} d="M150.648,131.441c34.197-36.355,81.676-60.227,135.039-63.814c25.79-1.73,50.994,1.454,74.578,8.835 c-39.516-25.781-87.216-39.105-136.902-35.774c-58.352,3.922-110.272,30.025-147.666,69.78 c-37.407,39.755-60.3,93.148-60.588,151.637c-0.2,39.13-1.724,71.641-5.745,83.718c0,0,9.33,4.883,27.939,9.917v-0.013 l39.305-76.512c4.48-8.722,11.111-15.893,19.049-21.035C98.729,209.385,119.002,165.073,150.648,131.441z"></path>
+        <g>
+          <path style={{fill:"#333333"}} d="M506.528,243.478l-35.22-16.107l-12.073-36.68C426.019,89.756,328.779,24.227,222.744,31.346 c-58.825,3.948-113.471,29.768-153.869,72.706C28.462,147.005,6.043,203.119,5.749,262.058 c-0.272,54.539-3.015,74.043-5.267,80.801c-1.454,4.36,0.471,9.131,4.545,11.262c2.133,1.117,43.032,21.911,122.941,21.911 c15.817,0,33.18-0.823,52.06-2.768v98.554c0,5.173,4.194,9.367,9.367,9.367h39.33c5.173,0,9.367-4.194,9.367-9.367v-121.11 l34.75-34.75c7.134-7.135,16.604-11.501,26.664-12.29l203.862-16.008c4.875-0.383,8.634-4.45,8.634-9.339v-26.325 C512,248.332,509.862,245.002,506.528,243.478z M24.484,262.15c0.27-54.183,20.88-105.771,58.035-145.26 c37.147-39.48,87.392-63.222,141.481-66.851c97.475-6.547,186.898,53.704,217.442,146.51l9.846,29.915 c-52.589,6.478-160.152,9.21-264.424,11.858c-21.407,0.543-42.585,1.082-62.993,1.645c-23.541,0.648-44.841,14.051-55.585,34.974 l-35.758,69.593c-5.117-1.562-9.209-3.021-12.245-4.2C22.916,325.619,24.296,299.847,24.484,262.15z M198.761,462.45v-91.436 c0.592-0.08,1.165-0.147,1.76-0.23c6.558-0.913,12.932-2.911,18.836-5.851v97.517H198.761z M493.266,269.66l-195.228,15.33 c-14.504,1.139-28.158,7.433-38.445,17.72l-37.495,37.495c-6.488,6.488-15.068,10.757-24.16,12.024 c-67.182,9.354-116.284,3.911-146.834-2.853l33.847-65.876c7.621-14.841,22.732-24.347,39.437-24.807 c20.396-0.565,41.558-1.102,62.951-1.644c110.601-2.808,224.889-5.71,275.006-13.178l30.921,14.141V269.66z"></path>
+          <circle style={{fill:"#333333"}} cx="235.381" cy="203.409" r="9.367"></circle>
+        </g>
+      </g>
+    </svg>
+  )
+
+  // National Holidays Icons Helper
+  const getNationalHolidaysIcon = (iconType: string, className?: string) => {
+    switch (iconType) {
+      case 'flag':
+        return <NationalHolidaysHomeIcon className={className} />
+      case 'monument':
+        return <ServicesIcon className={className} />
+      case 'laurel':
+        return <Newspaper className={className} />
+      case 'crown':
+        return <WhyUsIcon className={className} />
+      case 'shield':
+        return <AboutUsIcon className={className} />
+      case 'star':
+        return <Users className={className} />
+      default:
+        return <span className={`${className} flex items-center justify-center`} style={{ lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          🇬🇷
+        </span>
+    }
+  }
 
 // AcronAI SVG Icon
 const AcronAIIcon = ({ className }: { className?: string }) => (
@@ -406,56 +484,57 @@ const MobileNav = ({ items }: MobileNavProps) => {
   const { isCarnivalMode } = useCarnivalTheme()
   const { isEasterMode } = useEasterTheme()
   const { isSummerMode } = useSummerTheme()
+  const { isNationalHolidaysMode } = useNationalHolidaysTheme()
   const mainNavigationLinks = [
     {
       label: t('navigation.home'),
       href: "/",
-      icon: isChristmasMode ? SantaIcon : isHalloweenMode ? "pumpkin" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : HomeIcon,
-      color: isChristmasMode ? "bg-gradient-to-br from-red-500 to-red-600" : isHalloweenMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : isCarnivalMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isEasterMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isSummerMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : "bg-gradient-to-br from-blue-500 to-blue-600",
-      hoverEffect: isChristmasMode ? "hover:shadow-red-500/20" : isHalloweenMode ? "hover:shadow-orange-500/20" : isCarnivalMode ? "hover:shadow-pink-500/20" : isEasterMode ? "hover:shadow-pink-500/20" : isSummerMode ? "hover:shadow-yellow-500/20" : "hover:shadow-blue-500/20",
+      icon: isChristmasMode ? SantaIcon : isHalloweenMode ? "pumpkin" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : isNationalHolidaysMode ? "flag" : HomeIcon,
+      color: isChristmasMode ? "bg-gradient-to-br from-red-500 to-red-600" : isHalloweenMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : isCarnivalMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isEasterMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isSummerMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isNationalHolidaysMode ? "bg-gradient-to-br from-blue-600 to-blue-700" : "bg-gradient-to-br from-blue-500 to-blue-600",
+      hoverEffect: isChristmasMode ? "hover:shadow-red-500/20" : isHalloweenMode ? "hover:shadow-orange-500/20" : isCarnivalMode ? "hover:shadow-pink-500/20" : isEasterMode ? "hover:shadow-pink-500/20" : isSummerMode ? "hover:shadow-yellow-500/20" : isNationalHolidaysMode ? "hover:shadow-blue-600/20" : "hover:shadow-blue-500/20",
     },
     {
       label: t('navigation.services'),
       href: "/services",
-      icon: isChristmasMode ? ChristmasTreeIcon : isHalloweenMode ? HalloweenServicesIcon : isCarnivalMode ? "circus" : isEasterMode ? "egg" : isSummerMode ? "sunflower" : ServicesIcon,
-      color: isChristmasMode ? "bg-gradient-to-br from-green-500 to-green-600" : isHalloweenMode ? "bg-gradient-to-br from-purple-500 to-purple-600" : isCarnivalMode ? "bg-gradient-to-br from-teal-500 to-teal-600" : isEasterMode ? "bg-gradient-to-br from-green-500 to-green-600" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : "bg-gradient-to-br from-[#c9b6e4] to-[#a78fd8]",
-      hoverEffect: isChristmasMode ? "hover:shadow-green-500/20" : isHalloweenMode ? "hover:shadow-purple-500/20" : isCarnivalMode ? "hover:shadow-teal-500/20" : isEasterMode ? "hover:shadow-green-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : "hover:shadow-[#c9b6e4]/20",
+      icon: isChristmasMode ? ChristmasTreeIcon : isHalloweenMode ? HalloweenServicesIcon : isCarnivalMode ? "circus" : isEasterMode ? "egg" : isSummerMode ? "sunflower" : isNationalHolidaysMode ? "monument" : ServicesIcon,
+      color: isChristmasMode ? "bg-gradient-to-br from-green-500 to-green-600" : isHalloweenMode ? "bg-gradient-to-br from-purple-500 to-purple-600" : isCarnivalMode ? "bg-gradient-to-br from-teal-500 to-teal-600" : isEasterMode ? "bg-gradient-to-br from-green-500 to-green-600" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : isNationalHolidaysMode ? "bg-gradient-to-br from-blue-600 to-blue-700" : "bg-gradient-to-br from-[#c9b6e4] to-[#a78fd8]",
+      hoverEffect: isChristmasMode ? "hover:shadow-green-500/20" : isHalloweenMode ? "hover:shadow-purple-500/20" : isCarnivalMode ? "hover:shadow-teal-500/20" : isEasterMode ? "hover:shadow-green-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : isNationalHolidaysMode ? "hover:shadow-blue-600/20" : "hover:shadow-[#c9b6e4]/20",
     },
     {
       label: t('navigation.news'),
       href: "/articles",
-      icon: isChristmasMode ? BellIcon : isHalloweenMode ? HalloweenNewsIcon : isCarnivalMode ? "art" : isEasterMode ? "chick" : isSummerMode ? "beach" : ArticlesIcon,
-      color: isChristmasMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isHalloweenMode ? "bg-gradient-to-br from-amber-500 to-amber-600" : isCarnivalMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isEasterMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : "bg-gradient-to-br from-[#f78da7] to-[#f06292]",
-      hoverEffect: isChristmasMode ? "hover:shadow-yellow-500/20" : isHalloweenMode ? "hover:shadow-amber-500/20" : isCarnivalMode ? "hover:shadow-yellow-500/20" : isEasterMode ? "hover:shadow-yellow-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : "hover:shadow-[#f78da7]/20",
+      icon: isChristmasMode ? BellIcon : isHalloweenMode ? HalloweenNewsIcon : isCarnivalMode ? "art" : isEasterMode ? "chick" : isSummerMode ? "beach" : isNationalHolidaysMode ? "laurel" : ArticlesIcon,
+      color: isChristmasMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isHalloweenMode ? "bg-gradient-to-br from-amber-500 to-amber-600" : isCarnivalMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isEasterMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : isNationalHolidaysMode ? "bg-gradient-to-br from-blue-600 to-blue-700" : "bg-gradient-to-br from-[#f78da7] to-[#f06292]",
+      hoverEffect: isChristmasMode ? "hover:shadow-yellow-500/20" : isHalloweenMode ? "hover:shadow-amber-500/20" : isCarnivalMode ? "hover:shadow-yellow-500/20" : isEasterMode ? "hover:shadow-yellow-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : isNationalHolidaysMode ? "hover:shadow-blue-600/20" : "hover:shadow-[#f78da7]/20",
     },
-    {
-      label: t('navigation.whyUs'),
-      href: "/why-us",
-      icon: isChristmasMode ? ReindeerIcon : isHalloweenMode ? "bat" : isCarnivalMode ? "music" : isEasterMode ? "flower" : isSummerMode ? "wave" : WhyUsIcon,
-      color: isChristmasMode ? "bg-gradient-to-br from-amber-600 to-amber-700" : isHalloweenMode ? "bg-gradient-to-br from-gray-600 to-gray-700" : isCarnivalMode ? "bg-gradient-to-br from-blue-500 to-blue-600" : isEasterMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isSummerMode ? "bg-gradient-to-br from-cyan-500 to-cyan-600" : "bg-gradient-to-br from-[#fabeb6] to-[#f8a5a5]",
-      hoverEffect: isChristmasMode ? "hover:shadow-amber-500/20" : isHalloweenMode ? "hover:shadow-gray-500/20" : isCarnivalMode ? "hover:shadow-blue-500/20" : isEasterMode ? "hover:shadow-pink-500/20" : isSummerMode ? "hover:shadow-cyan-500/20" : "hover:shadow-[#fabeb6]/20",
+      {
+        label: t('navigation.whyUs'),
+        href: "/why-us",
+        icon: isChristmasMode ? ReindeerIcon : isHalloweenMode ? "bat" : isCarnivalMode ? "music" : isEasterMode ? "flower" : isSummerMode ? "wave" : isNationalHolidaysMode ? "crown" : WhyUsIcon,
+      color: isChristmasMode ? "bg-gradient-to-br from-amber-600 to-amber-700" : isHalloweenMode ? "bg-gradient-to-br from-gray-600 to-gray-700" : isCarnivalMode ? "bg-gradient-to-br from-blue-500 to-blue-600" : isEasterMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isSummerMode ? "bg-gradient-to-br from-cyan-500 to-cyan-600" : isNationalHolidaysMode ? "bg-gradient-to-br from-blue-600 to-blue-700" : "bg-gradient-to-br from-[#fabeb6] to-[#f8a5a5]",
+      hoverEffect: isChristmasMode ? "hover:shadow-amber-500/20" : isHalloweenMode ? "hover:shadow-gray-500/20" : isCarnivalMode ? "hover:shadow-blue-500/20" : isEasterMode ? "hover:shadow-pink-500/20" : isSummerMode ? "hover:shadow-cyan-500/20" : isNationalHolidaysMode ? "hover:shadow-blue-600/20" : "hover:shadow-[#fabeb6]/20",
     },
     {
       label: t('navigation.aboutUs'),
       href: "/about-us",
-      icon: isChristmasMode ? "🏫" : isHalloweenMode ? "skull" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : AboutUsIcon,
-      color: isChristmasMode ? "bg-gradient-to-br from-blue-600 to-blue-700" : isHalloweenMode ? "bg-gradient-to-br from-amber-800 to-amber-900" : isCarnivalMode ? "bg-gradient-to-br from-pink-600 to-pink-700" : isEasterMode ? "bg-gradient-to-br from-pink-600 to-pink-700" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : "bg-gradient-to-br from-blue-600 to-blue-700",
-      hoverEffect: isChristmasMode ? "hover:shadow-blue-500/20" : isHalloweenMode ? "hover:shadow-amber-500/20" : isCarnivalMode ? "hover:shadow-pink-500/20" : isEasterMode ? "hover:shadow-pink-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : "hover:shadow-blue-500/20",
-      isEmoji: isChristmasMode || isHalloweenMode || isCarnivalMode || isEasterMode || isSummerMode
+      icon: isChristmasMode ? "🏫" : isHalloweenMode ? "skull" : isCarnivalMode ? "mask" : isEasterMode ? "bunny" : isSummerMode ? "sun" : isNationalHolidaysMode ? "shield" : AboutUsIcon,
+      color: isChristmasMode ? "bg-gradient-to-br from-blue-600 to-blue-700" : isHalloweenMode ? "bg-gradient-to-br from-amber-800 to-amber-900" : isCarnivalMode ? "bg-gradient-to-br from-pink-600 to-pink-700" : isEasterMode ? "bg-gradient-to-br from-pink-600 to-pink-700" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : isNationalHolidaysMode ? "bg-gradient-to-br from-blue-600 to-blue-700" : "bg-gradient-to-br from-blue-600 to-blue-700",
+      hoverEffect: isChristmasMode ? "hover:shadow-blue-500/20" : isHalloweenMode ? "hover:shadow-amber-500/20" : isCarnivalMode ? "hover:shadow-pink-500/20" : isEasterMode ? "hover:shadow-pink-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : isNationalHolidaysMode ? "hover:shadow-blue-600/20" : "hover:shadow-blue-500/20",
+      isEmoji: isChristmasMode || isHalloweenMode || isCarnivalMode || isEasterMode || isSummerMode || isNationalHolidaysMode
     },
     {
       label: t('navigation.games'),
       href: "/games",
-      icon: isChristmasMode ? GiftBoxIcon : isHalloweenMode ? HalloweenGamesIcon : isCarnivalMode ? "guitar" : isEasterMode ? "tulip" : isSummerMode ? "shell" : GamesIcon,
-      color: isChristmasMode ? "bg-gradient-to-br from-red-500 to-red-600" : isHalloweenMode ? "bg-gradient-to-br from-red-500 to-red-600" : isCarnivalMode ? "bg-gradient-to-br from-green-500 to-green-600" : isEasterMode ? "bg-gradient-to-br from-teal-500 to-teal-600" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : "bg-gradient-to-br from-[#a8e6cf] to-[#88d8a3]",
-      hoverEffect: isChristmasMode ? "hover:shadow-red-500/20" : isHalloweenMode ? "hover:shadow-red-500/20" : isCarnivalMode ? "hover:shadow-green-500/20" : isEasterMode ? "hover:shadow-teal-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : "hover:shadow-[#a8e6cf]/20",
+      icon: isChristmasMode ? GiftBoxIcon : isHalloweenMode ? HalloweenGamesIcon : isCarnivalMode ? "guitar" : isEasterMode ? "tulip" : isSummerMode ? "shell" : isNationalHolidaysMode ? "crown" : GamesIcon,
+      color: isChristmasMode ? "bg-gradient-to-br from-red-500 to-red-600" : isHalloweenMode ? "bg-gradient-to-br from-red-500 to-red-600" : isCarnivalMode ? "bg-gradient-to-br from-green-500 to-green-600" : isEasterMode ? "bg-gradient-to-br from-teal-500 to-teal-600" : isSummerMode ? "bg-gradient-to-br from-orange-500 to-orange-600" : isNationalHolidaysMode ? "bg-gradient-to-br from-blue-600 to-blue-700" : "bg-gradient-to-br from-[#a8e6cf] to-[#88d8a3]",
+      hoverEffect: isChristmasMode ? "hover:shadow-red-500/20" : isHalloweenMode ? "hover:shadow-red-500/20" : isCarnivalMode ? "hover:shadow-green-500/20" : isEasterMode ? "hover:shadow-teal-500/20" : isSummerMode ? "hover:shadow-orange-500/20" : isNationalHolidaysMode ? "hover:shadow-blue-600/20" : "hover:shadow-[#a8e6cf]/20",
     },
     {
       label: t('navigation.contact'),
       href: "/contact",
-      icon: isHalloweenMode ? HalloweenContactIcon : isCarnivalMode ? "trumpet" : isEasterMode ? "butterfly" : isSummerMode ? "sunface" : ContactIcon,
-      color: isChristmasMode ? "bg-gradient-to-br from-green-500 to-green-600" : isHalloweenMode ? "bg-gradient-to-br from-gray-500 to-gray-600" : isCarnivalMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isEasterMode ? "bg-gradient-to-br from-blue-500 to-blue-600" : isSummerMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : "bg-gradient-to-br from-[#fde7dc] to-[#fad4c4]",
-      hoverEffect: isChristmasMode ? "hover:shadow-green-500/20" : isHalloweenMode ? "hover:shadow-gray-500/20" : isCarnivalMode ? "hover:shadow-pink-500/20" : isEasterMode ? "hover:shadow-blue-500/20" : isSummerMode ? "hover:shadow-yellow-500/20" : "hover:shadow-[#fde7dc]/20",
+      icon: isHalloweenMode ? HalloweenContactIcon : isCarnivalMode ? "trumpet" : isEasterMode ? "butterfly" : isSummerMode ? "sunface" : isNationalHolidaysMode ? "flag" : ContactIcon,
+      color: isChristmasMode ? "bg-gradient-to-br from-green-500 to-green-600" : isHalloweenMode ? "bg-gradient-to-br from-gray-500 to-gray-600" : isCarnivalMode ? "bg-gradient-to-br from-pink-500 to-pink-600" : isEasterMode ? "bg-gradient-to-br from-blue-500 to-blue-600" : isSummerMode ? "bg-gradient-to-br from-yellow-500 to-yellow-600" : isNationalHolidaysMode ? "bg-gradient-to-br from-blue-600 to-blue-700" : "bg-gradient-to-br from-[#fde7dc] to-[#fad4c4]",
+      hoverEffect: isChristmasMode ? "hover:shadow-green-500/20" : isHalloweenMode ? "hover:shadow-gray-500/20" : isCarnivalMode ? "hover:shadow-pink-500/20" : isEasterMode ? "hover:shadow-blue-500/20" : isSummerMode ? "hover:shadow-yellow-500/20" : isNationalHolidaysMode ? "hover:shadow-blue-600/20" : "hover:shadow-[#fde7dc]/20",
     },
   ]
 
@@ -563,6 +642,14 @@ const MobileNav = ({ items }: MobileNavProps) => {
         : isDarkMode
           ? "bg-gradient-to-r from-yellow-900/12 via-orange-900/6 to-yellow-900/12 backdrop-blur-2xl border border-yellow-800/15"
           : "bg-gradient-to-r from-yellow-50/25 via-orange-50/15 to-yellow-50/25 backdrop-blur-2xl border border-yellow-200/30"
+    } else if (isNationalHolidaysMode) {
+      return scrolled
+        ? isDarkMode
+          ? "bg-gradient-to-r from-blue-800/20 via-blue-700/12 to-blue-800/20 backdrop-blur-2xl border border-blue-700/30 shadow-[0_8px_32px_rgba(30,64,175,0.25)]"
+          : "bg-gradient-to-r from-blue-600/40 via-blue-700/30 to-blue-600/40 backdrop-blur-2xl border border-blue-600/50 shadow-[0_8px_32px_rgba(30,64,175,0.3)]"
+        : isDarkMode
+          ? "bg-gradient-to-r from-blue-800/18 via-blue-700/10 to-blue-800/18 backdrop-blur-2xl border border-blue-700/25 shadow-[0_4px_24px_rgba(30,64,175,0.2)]"
+          : "bg-gradient-to-r from-blue-600/35 via-blue-700/25 to-blue-600/35 backdrop-blur-2xl border border-blue-600/40 shadow-[0_4px_24px_rgba(30,64,175,0.25)]"
     } else {
       return scrolled
         ? isDarkMode
@@ -596,6 +683,10 @@ const MobileNav = ({ items }: MobileNavProps) => {
       return isDarkMode 
         ? 'bg-gradient-to-br from-yellow-900/85 via-orange-900/80 to-yellow-900/85'
         : 'bg-gradient-to-br from-yellow-50/98 via-orange-50/95 to-yellow-50/98'
+    } else if (isNationalHolidaysMode) {
+      return isDarkMode 
+        ? 'bg-gradient-to-br from-blue-800/85 via-blue-700/80 to-blue-800/85'
+        : 'bg-gradient-to-br from-blue-100/98 via-blue-200/95 to-blue-100/98'
     } else {
       return isDarkMode 
         ? 'bg-gradient-to-br from-slate-900/98 via-blue-900/95 to-slate-900/98'
@@ -615,6 +706,8 @@ const MobileNav = ({ items }: MobileNavProps) => {
       return "text-pink-600 dark:text-pink-400"
     } else if (isSummerMode) {
       return "text-yellow-600 dark:text-yellow-400"
+    } else if (isNationalHolidaysMode) {
+      return "text-blue-700 dark:text-blue-300"
     } else {
       return "text-blue-600 dark:text-blue-400"
     }
@@ -642,6 +735,10 @@ const MobileNav = ({ items }: MobileNavProps) => {
       return isDarkMode 
         ? "bg-gradient-to-br from-yellow-900/12 via-orange-900/6 to-yellow-900/12 border-yellow-800/20"
         : "bg-gradient-to-br from-yellow-50/20 via-orange-50/10 to-yellow-50/20 border-yellow-200/30"
+    } else if (isNationalHolidaysMode) {
+      return isDarkMode 
+        ? "bg-gradient-to-br from-blue-800/15 via-blue-700/8 to-blue-800/15 border-blue-700/25"
+        : "bg-gradient-to-br from-blue-100/25 via-blue-200/15 to-blue-100/25 border-blue-300/40"
     } else {
       return isDarkMode 
         ? "bg-gradient-to-br from-white/15 via-white/8 to-white/3 border-white/25"
@@ -688,7 +785,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                 opacity: 0.3
               }}
             />
-          ) : !isHalloweenMode && !isEasterMode && !isCarnivalMode && !isSummerMode ? (
+          ) : !isHalloweenMode && !isEasterMode && !isCarnivalMode && !isSummerMode && !isNationalHolidaysMode ? (
             <>
               {/* Σχολικές πινελιές - Notebook lines - Only for normal theme */}
               <div className="absolute inset-0 opacity-30">
@@ -912,6 +1009,19 @@ const MobileNav = ({ items }: MobileNavProps) => {
                 </motion.div>
               </motion.div>
             )}
+
+            {/* National Holidays Ελληνικό Σημαία δίπλα από το logo στο Mobile */}
+            {isNationalHolidaysMode && (
+              <div className="-ml-1">
+                <Image
+                  src="/Flag_of_Greece.gif"
+                  alt="Greek Flag"
+                  width={24}
+                  height={18}
+                  className="object-contain brightness-110 contrast-125 saturate-110"
+                />
+              </div>
+            )}
             
             {/* 40 Years Anniversary Text for Mobile */}
             <motion.div
@@ -1042,7 +1152,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                       opacity: 0.3
                     }}
                   />
-                ) : !isHalloweenMode && !isEasterMode && !isCarnivalMode && !isSummerMode ? (
+                ) : !isHalloweenMode && !isEasterMode && !isCarnivalMode && !isSummerMode && !isNationalHolidaysMode ? (
                   <>
                     {/* Notebook paper background - Only for normal theme */}
                     <div className="absolute inset-0 pointer-events-none">
@@ -1164,7 +1274,9 @@ const MobileNav = ({ items }: MobileNavProps) => {
                           ? "/alfa-logo-easter.png"
                           : isSummerMode
                             ? "/alfa-summer-logo.png"
-                            : "/alfa-logo.png"
+                            : isNationalHolidaysMode
+                              ? "/alfa-logo.png"
+                              : "/alfa-logo.png"
                 }
                           alt="Alfa Logo"
                           fill
@@ -1205,18 +1317,19 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     transition={{ delay: 0.2, duration: 0.5 }}
                   >
                     <h3 className={`text-sm font-medium mb-4 flex items-center ${getMobileNavAccentColor()}`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                      <div className={`w-6 h-6 bg-gradient-to-br ${isChristmasMode ? 'from-red-400 to-green-500' : isHalloweenMode ? 'from-orange-400 to-purple-500' : isCarnivalMode ? 'from-pink-400 to-teal-500' : isEasterMode ? 'from-pink-400 to-green-500' : isSummerMode ? 'from-yellow-400 to-orange-500' : 'from-yellow-400 to-orange-500'} rounded-full flex items-center justify-center mr-2 shadow-lg`}>
+                      <div className={`w-6 h-6 bg-gradient-to-br ${isChristmasMode ? 'from-red-400 to-green-500' : isHalloweenMode ? 'from-orange-400 to-purple-500' : isCarnivalMode ? 'from-pink-400 to-teal-500' : isEasterMode ? 'from-pink-400 to-green-500' : isSummerMode ? 'from-yellow-400 to-orange-500' : isNationalHolidaysMode ? 'from-blue-400 to-blue-600' : 'from-yellow-400 to-orange-500'} rounded-full flex items-center justify-center mr-2 shadow-lg`}>
                         <Star className="h-3 w-3 text-white" />
                       </div>
                       {t('navigation.main') || 'Main Navigation'}
                     </h3>
                     <div className="grid grid-cols-1 gap-3">
                       {mainNavigationLinks.map((link, index) => {
-            // Check if it's a Halloween, Carnival, Easter or Summer icon string
+            // Check if it's a Halloween, Carnival, Easter, Summer or National Holidays icon string
             const isHalloweenIcon = typeof link.icon === 'string' && ['pumpkin', 'witch', 'ghost', 'bat', 'spider', 'skull'].includes(link.icon)
             const isCarnivalIcon = typeof link.icon === 'string' && ['mask', 'circus', 'art', 'music', 'guitar', 'trumpet'].includes(link.icon)
             const isEasterIcon = typeof link.icon === 'string' && ['bunny', 'egg', 'chick', 'flower', 'tulip', 'butterfly'].includes(link.icon)
             const isSummerIcon = typeof link.icon === 'string' && ['sun', 'sunface', 'sunflower', 'beach', 'wave', 'shell'].includes(link.icon)
+            const isNationalHolidaysIcon = typeof link.icon === 'string' && ['flag', 'monument', 'laurel', 'shield', 'star', 'crown'].includes(link.icon)
                         
                         return (
                         <motion.div
@@ -1306,6 +1419,10 @@ const MobileNav = ({ items }: MobileNavProps) => {
                               getSummerIcon(link.icon as string, `h-7 w-7 transition-colors duration-300 leading-none ${
                                 pathname === link.href ? 'text-white' : 'text-white'
                               }`)
+                            ) : isNationalHolidaysIcon ? (
+                              getNationalHolidaysIcon(link.icon as string, `h-7 w-7 transition-colors duration-300 leading-none ${
+                                pathname === link.href ? 'text-white' : 'text-white'
+                              }`)
                             ) : (link as any).isEmoji ? (
                               <span className={`h-7 w-7 transition-colors duration-300 leading-none flex items-center justify-center ${
                                 pathname === link.href ? 'text-white' : 'text-white'
@@ -1389,7 +1506,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     transition={{ delay: 0.25, duration: 0.5 }}
                   >
                     <h3 className={`text-sm font-medium mb-3 flex items-center ${getMobileNavAccentColor()}`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                      <div className={`w-6 h-6 bg-gradient-to-br ${isChristmasMode ? 'from-green-400 to-red-500' : isHalloweenMode ? 'from-purple-400 to-orange-500' : isCarnivalMode ? 'from-teal-400 to-pink-500' : isEasterMode ? 'from-green-400 to-pink-500' : isSummerMode ? 'from-orange-400 to-yellow-500' : 'from-green-400 to-blue-500'} rounded-full flex items-center justify-center mr-2 shadow-lg`}>
+                      <div className={`w-6 h-6 bg-gradient-to-br ${isChristmasMode ? 'from-green-400 to-red-500' : isHalloweenMode ? 'from-purple-400 to-orange-500' : isCarnivalMode ? 'from-teal-400 to-pink-500' : isEasterMode ? 'from-green-400 to-pink-500' : isSummerMode ? 'from-orange-400 to-yellow-500' : isNationalHolidaysMode ? 'from-blue-400 to-blue-600' : 'from-green-400 to-blue-500'} rounded-full flex items-center justify-center mr-2 shadow-lg`}>
                         <Shield className="h-3 w-3 text-white" />
                       </div>
                       {t("navigation.legal") || "Legal & Contact"}
@@ -1453,7 +1570,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     transition={{ delay: 0.45, duration: 0.5 }}
                   >
                     <h3 className={`text-sm font-medium mb-3 flex items-center ${getMobileNavAccentColor()}`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                      <div className={`w-6 h-6 bg-gradient-to-br ${isChristmasMode ? 'from-red-400 to-green-500' : isHalloweenMode ? 'from-orange-400 to-purple-500' : isCarnivalMode ? 'from-pink-400 to-teal-500' : isEasterMode ? 'from-pink-400 to-green-500' : isSummerMode ? 'from-yellow-400 to-orange-500' : 'from-purple-400 to-pink-500'} rounded-full flex items-center justify-center mr-2 shadow-lg`}>
+                      <div className={`w-6 h-6 bg-gradient-to-br ${isChristmasMode ? 'from-red-400 to-green-500' : isHalloweenMode ? 'from-orange-400 to-purple-500' : isCarnivalMode ? 'from-pink-400 to-teal-500' : isEasterMode ? 'from-pink-400 to-green-500' : isSummerMode ? 'from-yellow-400 to-orange-500' : isNationalHolidaysMode ? 'from-blue-400 to-blue-600' : 'from-purple-400 to-pink-500'} rounded-full flex items-center justify-center mr-2 shadow-lg`}>
                         <Globe className="h-3 w-3 text-white" />
                       </div>
                        {t('footer.socialMedia')}
@@ -1550,7 +1667,7 @@ const MobileNav = ({ items }: MobileNavProps) => {
                     transition={{ delay: 0.3, duration: 0.5 }}
                   >
                     <h3 className={`text-sm font-medium mb-3 flex items-center ${getMobileNavAccentColor()}`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                      <div className={`w-6 h-6 bg-gradient-to-br ${isChristmasMode ? 'from-red-400 to-green-500' : isHalloweenMode ? 'from-orange-400 to-purple-500' : isCarnivalMode ? 'from-pink-400 to-teal-500' : isEasterMode ? 'from-pink-400 to-green-500' : isSummerMode ? 'from-yellow-400 to-orange-500' : 'from-red-400 to-orange-500'} rounded-full flex items-center justify-center mr-2 shadow-lg`}>
+                      <div className={`w-6 h-6 bg-gradient-to-br ${isChristmasMode ? 'from-red-400 to-green-500' : isHalloweenMode ? 'from-orange-400 to-purple-500' : isCarnivalMode ? 'from-pink-400 to-teal-500' : isEasterMode ? 'from-pink-400 to-green-500' : isSummerMode ? 'from-yellow-400 to-orange-500' : isNationalHolidaysMode ? 'from-blue-400 to-blue-600' : 'from-red-400 to-orange-500'} rounded-full flex items-center justify-center mr-2 shadow-lg`}>
                         <Mail className="h-3 w-3 text-white" />
                       </div>
                        {t('contact.needHelp')}

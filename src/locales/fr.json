@@ -1,4 +1,8 @@
 {
+  "locale": "fr-FR",
+  "common": {
+    "back": "Retour"
+  },
   "navigation": {
     "home": "Accueil",
     "services": "Services",
@@ -415,19 +419,19 @@
     "slide2": {
       "title": "ANGLAIS ET FRANÇAIS",
       "subtitle": "POUR TOUS",
-      "description": "Anglais et français pour enfants, adolescents et adultes avec des instructeurs certifiés",
+      "description": "Anglais et français pour enfants, adolescents et adultes avec des enseignants certifiés",
       "ctaText": "Apprendre les Langues"
     },
     "slide3": {
-      "title": "ESPAGNOL",
-      "subtitle": "ET ITALIEN",
-      "description": "Langues romanes avec des instructeurs certifiés et du matériel éducatif moderne",
-      "ctaText": "Langues Romanes"
+      "title": "ESPAGNOL ET ITALIEN",
+      "subtitle": "Tous les niveaux",
+      "description": "Langues européennes avec des enseignants certifiés et du matériel éducatif moderne",
+      "ctaText": "Langues européennes"
     },
     "slide4": {
       "title": "ALLEMAND",
-      "subtitle": "POUR TOUS ÂGES",
-      "description": "Allemand pour tous âges avec des instructeurs certifiés",
+      "subtitle": "Tous les niveaux",
+      "description": "allemand pour enfants , adolescents et adultes",
       "ctaText": "Apprendre l'Allemand"
     },
     "slide5": {
@@ -561,7 +565,13 @@
     "articlesFound": "Trouvé {count} articles",
     "articleWithTag": "Articles avec l'Étiquette: #{tag}",
     "noArticlesWithTag": "Aucun article trouvé avec cette étiquette",
-    "noArticlesWithTagDescription": "Il n'y a pas d'articles avec l'étiquette #{tag}"
+    "noArticlesWithTagDescription": "Il n'y a pas d'articles avec l'étiquette #{tag}",
+    "articleTags": "Étiquettes de l'Article",
+    "clickToSeeMore": "Cliquez pour voir plus d'articles",
+    "clickOnTag": "Cliquez sur n'importe quelle étiquette pour voir des articles connexes",
+    "shareArticle": "Partager l'Article",
+    "clickToShare": "Cliquez pour partager avec des amis",
+    "showingArticlesFrom": "Affichage des articles de la catégorie:"
   },
   "tags": {
     "title": "Étiquettes",
@@ -760,7 +770,7 @@
       "subtitle": "Services éducatifs spécialisés",
       "languageCourses": {
         "title": "Cours de Langues",
-        "description": "Anglais, Allemand, Français, Espagnol et autres langues avec des instructeurs certifiés"
+        "description": "Anglais, Allemand, Français, Espagnol et autres langues avec des enseignants certifiés"
       },
       "examPreparation": {
         "title": "Préparation aux Examens",

@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from "@/contexts/LanguageContext";
 import { 
   Calendar, 
   Tag, 
@@ -82,6 +83,7 @@ export default function ArticlePage() {
   const { isEasterMode } = useEasterTheme();
   const { isCarnivalMode } = useCarnivalTheme();
   const { isSummerMode } = useSummerTheme();
+  const { t } = useLanguage();
   const [isMobile, setIsMobile] = useState(false);
 
   // Theme-based styling functions
@@ -639,11 +641,41 @@ export default function ArticlePage() {
 
   const formatDate = (date: Date | string) => {
     const d = typeof date === 'string' ? new Date(date) : date;
-    return d.toLocaleDateString('el-GR', {
+    const locale = t('locale') || 'el-GR';
+    return d.toLocaleDateString(locale, {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
+  };
+
+  // Function to map category values to translation keys
+  const getCategoryTranslationKey = (category: string) => {
+    if (!category) return 'all';
+    
+    const categoryMap: { [key: string]: string } = {
+      // Greek to English mapping
+      'εκπαίδευση': 'education',
+      'νέα': 'news',
+      'δράσεις': 'actions',
+      'αγγλικά': 'english',
+      'γαλλικά': 'french',
+      'γλώσσες': 'languages',
+      // English mapping (already correct)
+      'education': 'education',
+      'news': 'news',
+      'english': 'english',
+      'french': 'french',
+      'languages': 'languages',
+      // French mapping
+      'éducation': 'education',
+      'actualités': 'news',
+      'anglais': 'english',
+      'français': 'french',
+      'langues': 'languages'
+    };
+    
+    return categoryMap[category.toLowerCase()] || 'all';
   };
 
   // Function to get the appropriate icon based on category
@@ -743,7 +775,7 @@ export default function ArticlePage() {
                   className={`flex items-center gap-2 px-6 py-3 bg-gradient-to-r ${themeColors.accent} text-white rounded-xl hover:opacity-80 transition-colors duration-200 shadow-lg font-medium`}
                 >
                   <ArrowLeft className="w-4 h-4" />
-                  Επιστροφή στα Άρθρα
+                  {t('articles.backToArticles')}
                 </button>
               </Link>
               <button 
@@ -751,7 +783,7 @@ export default function ArticlePage() {
                 className={`flex items-center gap-2 px-6 py-3 ${themeColors.cardBg.replace('/95', '/80')} text-slate-700 dark:text-slate-300 rounded-xl hover:${themeColors.cardBg.replace('/95', '')} transition-colors duration-200 shadow-lg border border-${themeColors.accentColor}-200 dark:border-${themeColors.accentColor}-700 font-medium`}
               >
                 <ArrowLeft className="w-4 h-4" />
-                Πίσω
+                {t('common.back')}
               </button>
             </motion.div>
           </motion.div>
@@ -965,7 +997,7 @@ export default function ArticlePage() {
                 
                 <div>
                   <span className="font-bold text-sm" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                    Επιστροφή στα Άρθρα
+                    {t('articles.backToArticles')}
                   </span>
                 </div>
               </div>
@@ -1074,7 +1106,7 @@ export default function ArticlePage() {
                     
                     <div>
                       <span className="text-sm font-bold text-slate-700 dark:text-slate-300" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                        {article.category}
+                        {t(`articles.categories.${getCategoryTranslationKey(article.category)}`) || article.category}
                       </span>
                     </div>
                   </div>
@@ -1762,10 +1794,10 @@ export default function ArticlePage() {
                       
                       <div>
                         <h3 className={`text-2xl font-bold ${themeColors.text} mb-1`} style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                          Ετικέτες Άρθρου
+                          {t('articles.articleTags')}
                         </h3>
                         <p className="text-sm text-slate-600 dark:text-slate-400" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                          Κάντε κλικ για να δείτε περισσότερα άρθρα
+                          {t('articles.clickToSeeMore')}
                         </p>
                       </div>
                     </div>
@@ -1803,7 +1835,7 @@ export default function ArticlePage() {
                           <Tag className="w-2 h-2 text-white" />
                         </div>
                         <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                          Κάντε κλικ σε οποιαδήποτε ετικέτα για να δείτε σχετικά άρθρα
+                          {t('articles.clickOnTag')}
                         </span>
                       </div>
                     </div>

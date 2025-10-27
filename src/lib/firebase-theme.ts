@@ -7,6 +7,7 @@ export interface ThemeSettings {
   isCarnivalMode: boolean
   isEasterMode: boolean
   isSummerMode: boolean
+  isNationalHolidaysMode: boolean
   lastUpdated: number
   updatedBy: string
 }
@@ -31,7 +32,7 @@ export async function getThemeFromFirebase(): Promise<ThemeSettings | null> {
 export async function setThemeInFirebase(
   isThemeMode: boolean, 
   updatedBy: string = 'admin',
-  themeType: 'christmas' | 'halloween' | 'carnival' | 'easter' | 'summer' = 'christmas'
+  themeType: 'christmas' | 'halloween' | 'carnival' | 'easter' | 'summer' | 'nationalHolidays' = 'christmas'
 ): Promise<boolean> {
   try {
     // Get current theme data first
@@ -43,6 +44,7 @@ export async function setThemeInFirebase(
       isCarnivalMode: themeType === 'carnival' ? isThemeMode : (currentTheme?.isCarnivalMode || false),
       isEasterMode: themeType === 'easter' ? isThemeMode : (currentTheme?.isEasterMode || false),
       isSummerMode: themeType === 'summer' ? isThemeMode : (currentTheme?.isSummerMode || false),
+      isNationalHolidaysMode: themeType === 'nationalHolidays' ? isThemeMode : (currentTheme?.isNationalHolidaysMode || false),
       lastUpdated: Date.now(),
       updatedBy
     }
@@ -88,6 +90,7 @@ export async function initializeDefaultTheme(): Promise<void> {
         isCarnivalMode: false,
         isEasterMode: false,
         isSummerMode: false,
+        isNationalHolidaysMode: false,
         lastUpdated: Date.now(),
         updatedBy: 'system'
       }

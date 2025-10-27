@@ -189,10 +189,10 @@ export default function ShareButtons({ title = "", url = "", image = "", classNa
             
             <div>
               <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-1" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                Μοιραστείτε το Άρθρο
+                {t('articles.shareArticle')}
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400" style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                Κάντε κλικ για να μοιραστείτε με φίλους
+                {t('articles.clickToShare')}
               </p>
             </div>
           </div>
@@ -377,7 +377,7 @@ export default function ShareButtons({ title = "", url = "", image = "", classNa
                 </svg>
               </div>
               <span style={{ fontFamily: 'StampatelloFaceto, cursive' }}>
-                {t('share.clickToShare') || 'Κάντε κλικ σε οποιοδήποτε κουμπί για να μοιραστείτε το άρθρο'}
+                {t('articles.clickToShare') || 'Κάντε κλικ σε οποιοδήποτε κουμπί για να μοιραστείτε το άρθρο'}
               </span>
             </div>
           </div>

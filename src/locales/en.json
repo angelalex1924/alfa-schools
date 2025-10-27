@@ -1,4 +1,8 @@
 {
+  "locale": "en-US",
+  "common": {
+    "back": "Back"
+  },
   "navigation": {
     "home": "Home",
     "services": "Services",
@@ -590,10 +594,10 @@
       "ctaText": "Learn Languages"
     },
     "slide3": {
-      "title": "SPANISH",
-      "subtitle": "AND ITALIAN",
-      "description": "Romance languages with certified instructors and modern educational materials",
-      "ctaText": "Romance Languages"
+      "title": "SPANISH AND ITALIAN",
+      "subtitle": "For All!",
+      "description": "European languages with certified instructors and modern educational materials",
+      "ctaText": "European Languages"
     },
     "slide4": {
       "title": "GERMAN",
@@ -741,7 +745,13 @@
     "articlesFound": "Found {count} articles",
     "articleWithTag": "Articles with Tag: #{tag}",
     "noArticlesWithTag": "No articles found with this tag",
-    "noArticlesWithTagDescription": "There are no articles with the tag #{tag}"
+    "noArticlesWithTagDescription": "There are no articles with the tag #{tag}",
+    "articleTags": "Article Tags",
+    "clickToSeeMore": "Click to see more articles",
+    "clickOnTag": "Click on any tag to see related articles",
+    "shareArticle": "Share Article",
+    "clickToShare": "Click to share with friends",
+    "showingArticlesFrom": "Showing articles from category:"
   },
   "tags": {
     "title": "Tags",

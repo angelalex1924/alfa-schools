@@ -1,4 +1,8 @@
 {
+  "locale": "el-GR",
+  "common": {
+    "back": "Πίσω"
+  },
   "navigation": {
     "home": "Αρχική",
     "services": "Υπηρεσίες",
@@ -790,7 +794,13 @@
     "articlesFound": "Βρέθηκαν {count} άρθρα",
     "articleWithTag": "Άρθρα με Tag: #{tag}",
     "noArticlesWithTag": "Δεν βρέθηκαν άρθρα με αυτό το tag",
-    "noArticlesWithTagDescription": "Δεν υπάρχουν άρθρα με το tag #{tag}"
+    "noArticlesWithTagDescription": "Δεν υπάρχουν άρθρα με το tag #{tag}",
+    "articleTags": "Ετικέτες Άρθρου",
+    "clickToSeeMore": "Κάντε κλικ για να δείτε περισσότερα άρθρα",
+    "clickOnTag": "Κάντε κλικ σε οποιαδήποτε ετικέτα για να δείτε σχετικά άρθρα",
+    "shareArticle": "Μοιραστείτε το Άρθρο",
+    "clickToShare": "Κάντε κλικ για να μοιραστείτε με φίλους",
+    "showingArticlesFrom": "Εμφανίζονται άρθρα από την κατηγορία:"
   },
   "tags": {
     "title": "Ετικέτες",
